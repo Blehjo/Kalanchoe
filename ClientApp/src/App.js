@@ -11,10 +11,12 @@ export default class App extends Component {
     return (
       <Layout>
         <Routes>
-          {AppRoutes.map((route, index) => {
-            const { element, ...rest } = route;
-            return <Route key={index} {...rest} element={element} />;
-          })}
+                {/*<Route path='/' element={<><NavBar /><SidebarIndex /><Footer /></>} >*/}
+              {AppRoutes.map((route, index) => {
+                const { element, ...rest } = route;
+                return <Route key={index} {...rest} element={element} />;
+              })}
+                {/*</Route>*/}
         </Routes>
       </Layout>
     );
