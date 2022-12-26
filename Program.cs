@@ -1,8 +1,18 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using KalanchoeAI.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Microsoft.Extensions.DependencyInjection;
+using KalanchoeAI.Models;
+
+
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<KalanchoeAIDatabaseContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("KalanchoeAIDatabaseContext") ?? throw new InvalidOperationException("Connection string 'KalanchoeAIDatabaseContext' not found.")));
 
 var app = builder.Build();
 
@@ -23,6 +33,4 @@ app.MapControllerRoute(
     pattern: "{controller}/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html");
-
 app.Run();
-

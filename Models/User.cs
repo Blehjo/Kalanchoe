@@ -9,7 +9,6 @@ namespace KalanchoeAI.Models
 	{
         public int UserId { get; set; }
 
-        //[Display(Name = "User Name")]
         public string? Username { get; set; }
 
         public string? FirstName { get; set; }
@@ -31,5 +30,17 @@ namespace KalanchoeAI.Models
         public virtual ICollection<Chat>? Chats { get; set; }
 
         public virtual ICollection<Post>? Posts { get; set; }
+
+        public virtual ICollection<Comment>? Comments { get; set; }
+
+        public virtual ICollection<Community>? Communities { get; set; }
+
+        public virtual ICollection<Member>? Members { get; set; }
+
+        public virtual ICollection<Message>? Messages { get; set; }
+
+        public virtual ICollection<Panel>? Panels { get; set; }
+
+        public virtual ICollection<Follower>? Followers { get; set; }
     }
 }
