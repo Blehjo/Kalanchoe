@@ -14,18 +14,17 @@ namespace KalanchoeAI.Data
 		{
         }
 
-		public DbSet<KalanchoeAI.Models.User> User { get; set; } = default;
-		public DbSet<KalanchoeAI.Models.Follower> Follower { get; set; } = default;
-        public DbSet<KalanchoeAI.Models.Chat> Chat { get; set; } = default;
-        public DbSet<KalanchoeAI.Models.ChatComment> ChatComment { get; set; } = default;
-        public DbSet<KalanchoeAI.Models.Post> Post { get; set; } = default;
-        public DbSet<KalanchoeAI.Models.Comment> Comment { get; set; } = default;
-        public DbSet<KalanchoeAI.Models.Community> Community { get; set; } = default;
-        public DbSet<KalanchoeAI.Models.Member> Member { get; set; } = default;
-        public DbSet<KalanchoeAI.Models.Channel> Channel { get; set; } = default;
-        public DbSet<KalanchoeAI.Models.ChannelComment> ChannelComment { get; set; } = default;
-        public DbSet<KalanchoeAI.Models.Message> Message { get; set; } = default;
-        public DbSet<KalanchoeAI.Models.Panel> Panel { get; set; } = default;
-        public DbSet<KalanchoeAI.Models.Note> Note { get; set; } = default;
+		public DbSet<KalanchoeAI.Models.User> Users { get; set; } 
+		public DbSet<KalanchoeAI.Models.Follower> Followers { get; set; }
+        public DbSet<KalanchoeAI.Models.Chat> Chats { get; set; } 
+        public DbSet<KalanchoeAI.Models.ChatComment> ChatComments { get; set; } 
+        public DbSet<KalanchoeAI.Models.Post> Posts { get; set; } 
+        public DbSet<KalanchoeAI.Models.Comment> Comments { get; set; }
+        public DbSet<KalanchoeAI.Models.Community> Communities { get; set; }
+        public DbSet<KalanchoeAI.Models.Member> Members { get; set; } 
+        public DbSet<KalanchoeAI.Models.Channel> Channels { get; set; } 
+        public DbSet<KalanchoeAI.Models.ChannelComment> ChannelComments { get; set; } 
+        public DbSet<KalanchoeAI.Models.Message> Messages { get; set; } 
+        public DbSet<KalanchoeAI.Models.Panel> Panels { get; set; } 
     }
 }

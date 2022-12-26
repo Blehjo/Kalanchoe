@@ -12,55 +12,55 @@ namespace KalanchoeAI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class PostController : ControllerBase
     {
         private readonly KalanchoeAIDatabaseContext _context;
 
-        public UserController(KalanchoeAIDatabaseContext context)
+        public PostController(KalanchoeAIDatabaseContext context)
         {
             _context = context;
         }
 
-        // GET: api/User
+        // GET: api/Post
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<Post>>> GetPosts()
         {
-          if (_context.Users == null)
+          if (_context.Posts == null)
           {
               return NotFound();
           }
-            return await _context.Users.ToListAsync();
+            return await _context.Posts.ToListAsync();
         }
 
-        // GET: api/User/5
+        // GET: api/Post/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<Post>> GetPost(int? id)
         {
-          if (_context.Users == null)
+          if (_context.Posts == null)
           {
               return NotFound();
           }
-            var user = await _context.Users.FindAsync(id);
+            var post = await _context.Posts.FindAsync(id);
 
-            if (user == null)
+            if (post == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return post;
         }
 
-        // PUT: api/User/5
+        // PUT: api/Post/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutPost(int? id, Post post)
         {
-            if (id != user.UserId)
+            if (id != post.PostId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(post).State = EntityState.Modified;
 
             try
             {
@@ -68,7 +68,7 @@ namespace KalanchoeAI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!PostExists(id))
                 {
                     return NotFound();
                 }
@@ -81,44 +81,44 @@ namespace KalanchoeAI.Controllers
             return NoContent();
         }
 
-        // POST: api/User
+        // POST: api/Post
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<Post>> PostPost(Post post)
         {
-          if (_context.Users == null)
+          if (_context.Posts == null)
           {
-              return Problem("Entity set 'KalanchoeAIDatabaseContext.Users'  is null.");
+              return Problem("Entity set 'KalanchoeAIDatabaseContext.Posts'  is null.");
           }
-            _context.Users.Add(user);
+            _context.Posts.Add(post);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.UserId }, user);
+            return CreatedAtAction("GetPost", new { id = post.PostId }, post);
         }
 
-        // DELETE: api/User/5
+        // DELETE: api/Post/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeletePost(int? id)
         {
-            if (_context.Users == null)
+            if (_context.Posts == null)
             {
                 return NotFound();
             }
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
+            var post = await _context.Posts.FindAsync(id);
+            if (post == null)
             {
                 return NotFound();
             }
 
-            _context.Users.Remove(user);
+            _context.Posts.Remove(post);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool UserExists(int id)
+        private bool PostExists(int? id)
         {
-            return (_context.Users?.Any(e => e.UserId == id)).GetValueOrDefault();
+            return (_context.Posts?.Any(e => e.PostId == id)).GetValueOrDefault();
         }
     }
 }
