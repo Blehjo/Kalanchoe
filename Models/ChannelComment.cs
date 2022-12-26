@@ -7,15 +7,20 @@ namespace KalanchoeAI.Models
 {
 	public class ChannelComment
 	{
+        [Key]
         public int ChannelCommentId { get; set; }
 
 		public int? ChannelId { get; set; }
 
 		public int? UserId { get; set; }
 
-		public string? ChannelCommentValue { get; set; }
+        [Column(TypeName = "nvarchar(100)")]
+        public string? ChannelCommentValue { get; set; }
 
-		public virtual Channel? Channel { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime DatePosted { get; set; }
+
+        public virtual Channel? Channel { get; set; }
 	}
 }
 

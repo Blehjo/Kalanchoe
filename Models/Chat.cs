@@ -7,13 +7,16 @@ namespace KalanchoeAI.Models
 {
 	public class Chat
 	{
+        [Key]
         public int ChatId { get; set; }
 
 		public int? UserId { get; set; }
 
-		public string? Title { get; set; }
+        [Column(TypeName = "nvarchar(100)")]
+        public string? Title { get; set; }
 
-		public DateTime DateCreated { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime DateCreated { get; set; }
 
         public virtual User? User { get; set; }
 

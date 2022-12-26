@@ -7,15 +7,18 @@ namespace KalanchoeAI.Models
 {
 	public class Comment
 	{
+        [Key]
         public int CommentId { get; set; }
 
 		public int? UserId { get; set; }
 
 		public int? PostId { get; set; }
 
-		public string? CommentValue { get; set; }
+        [Column(TypeName = "nvarchar(100)")]
+        public string? CommentValue { get; set; }
 
-		public DateTime DatePosted { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime DatePosted { get; set; }
 
 		public virtual User? User { get; set; }
 

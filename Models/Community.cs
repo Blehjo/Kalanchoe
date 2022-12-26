@@ -7,15 +7,19 @@ namespace KalanchoeAI.Models
 {
 	public class Community
 	{
+        [Key]
         public int CommunityId { get; set; }
 
 		public int? UserId { get; set; }
 
-		public string? GroupName { get; set; }
+        [Column(TypeName = "nvarchar(100)")]
+        public string? GroupName { get; set; }
 
-		public string? Description { get; set; }
+        [Column(TypeName = "nvarchar(100)")]
+        public string? Description { get; set; }
 
-		public DateTime DateCreated { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime DateCreated { get; set; }
 
 		public virtual User? User { get; set; }
 

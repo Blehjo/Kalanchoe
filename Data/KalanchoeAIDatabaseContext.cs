@@ -7,7 +7,6 @@ using KalanchoeAI.Models;
 
 namespace KalanchoeAI.Data
 {
-    [Keyless]
 	public class KalanchoeAIDatabaseContext : DbContext
 	{
 		public KalanchoeAIDatabaseContext(DbContextOptions<KalanchoeAIDatabaseContext> options)
@@ -16,7 +15,7 @@ namespace KalanchoeAI.Data
         }
 
 		public DbSet<KalanchoeAI.Models.User> User { get; set; } = default;
-		//public DbSet<KalanchoeAI.Models.Follower> Follower { get; set; } = default;
+		public DbSet<KalanchoeAI.Models.Follower> Follower { get; set; } = default;
         public DbSet<KalanchoeAI.Models.Chat> Chat { get; set; } = default;
         public DbSet<KalanchoeAI.Models.ChatComment> ChatComment { get; set; } = default;
         public DbSet<KalanchoeAI.Models.Post> Post { get; set; } = default;

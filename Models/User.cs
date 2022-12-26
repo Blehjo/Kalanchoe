@@ -7,24 +7,34 @@ namespace KalanchoeAI.Models
 {
 	public class User
 	{
+        [Key]
         public int UserId { get; set; }
 
+        [Column(TypeName = "nvarchar(100)")]
         public string? Username { get; set; }
 
+        [Column(TypeName = "nvarchar(100)")]
         public string? FirstName { get; set; }
 
+        [Column(TypeName = "nvarchar(100)")]
         private string? LastName { get; set; }
 
+        [DataType(DataType.Date)]
         private DateTime DateOfBirth { get; set; }
 
-        public EmailAddressAttribute? EmailAddress { get; set; }
+        [Column(TypeName = "nvarchar(100)")]
+        public string? EmailAddress { get; set; }
 
+        [Column(TypeName = "nvarchar(100)")]
         public string? Password { get; set; }
 
+        [Column(TypeName = "nvarchar(100)")]
         public string? About { get; set; }
 
+        [Column(TypeName = "nvarchar(100)")]
         public string? ProfileImage { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime Joined { get; set; }
 
         public virtual ICollection<Chat>? Chats { get; set; }

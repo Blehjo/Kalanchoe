@@ -13,7 +13,8 @@ namespace KalanchoeAI.Models
 
 		public string? PostValue { get; set; }
 
-		public DateTime DatePosted { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime DatePosted { get; set; }
 
 		public virtual User? User { get; set; }
 
