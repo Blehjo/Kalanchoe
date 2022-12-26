@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,5 +26,6 @@ namespace KalanchoeAI.Data
         public DbSet<KalanchoeAI.Models.ChannelComment> ChannelComments { get; set; } 
         public DbSet<KalanchoeAI.Models.Message> Messages { get; set; } 
         public DbSet<KalanchoeAI.Models.Panel> Panels { get; set; } 
+        public DbSet<KalanchoeAI.Models.Note>? Note { get; set; }
     }
 }
