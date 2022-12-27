@@ -24,9 +24,6 @@ const House = () => {
                             transform: `translateX(${translate.x}px) translateY(${translate.y}px)`
                         }}
                     >
-                        <div>
-                            <header>Hello</header>
-                        </div>
                     </div>
                 </DragMove>
             </header>

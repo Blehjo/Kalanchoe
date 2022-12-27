@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import AppRoutes from './AppRoutes';
 import { Layout } from './components/Layout';
@@ -11,7 +11,7 @@ export default class App extends Component {
     return (
       <Layout>
         <Routes>
-                {/*<Route path='/' element={<><NavBar /><SidebarIndex /><Footer /></>} >*/}
+                {/*<Route path='/' element={<Fragment><SidebarIndex /></Fragment>} >*/}
               {AppRoutes.map((route, index) => {
                 const { element, ...rest } = route;
                 return <Route key={index} {...rest} element={element} />;
