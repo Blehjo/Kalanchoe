@@ -1,4 +1,6 @@
-﻿const Community = () = {
+﻿import { Fragment } from "react";
+
+const Community = () => {
     return(
         <Fragment>
         </Fragment >

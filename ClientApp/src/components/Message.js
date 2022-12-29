@@ -1,4 +1,6 @@
-﻿const Message = () = {
+﻿import { Fragment } from "react";
+
+const Message = () => {
     return(
         <Fragment>
         </Fragment >

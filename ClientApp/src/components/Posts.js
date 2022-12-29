@@ -1,4 +1,6 @@
-﻿const Posts = () = {
+﻿import { Fragment } from "react";
+
+const Posts = () => {
     return(
         <Fragment>
         </Fragment >

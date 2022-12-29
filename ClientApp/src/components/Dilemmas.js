@@ -1,4 +1,6 @@
-﻿const Dilemmas = () = {
+﻿import { Fragment } from "react";
+
+const Dilemmas = () => {
     return(
         <Fragment>
         </Fragment >

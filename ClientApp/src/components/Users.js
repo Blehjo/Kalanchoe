@@ -1,7 +1,10 @@
-﻿const Users = () = {
-    return(
+﻿import { Fragment } from "react";
+
+const Users = () => {
+    return (
         <Fragment>
-        </Fragment >
+            
+        </Fragment>
     );
 }
 

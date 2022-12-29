@@ -1,4 +1,6 @@
-﻿const Explore = () = {
+﻿import { Fragment } from "react";
+
+const Explore = () => {
     return(
         <Fragment>
         </Fragment >

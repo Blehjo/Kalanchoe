@@ -1,4 +1,6 @@
-﻿const Chats = () = {
+﻿import { Fragment } from "react";
+
+const Chats = () => {
     return(
         <Fragment>
         </Fragment >
