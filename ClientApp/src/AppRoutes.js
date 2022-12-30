@@ -1,5 +1,6 @@
 import Authentication from "./components/Authentication";
 import Chats from "./components/Chats";
+import ChatPage from "./components/ChatPage";
 import Communities from "./components/Communities";
 import Community from "./components/Community";
 import Dashboard from "./components/Dashboard";
@@ -8,8 +9,10 @@ import Explore from "./components/Explore";
 import LandingPage from "./components/LandingPage";
 import Message from "./components/Message";
 import Messages from "./components/Messages";
+import News from "./components/News";
 import Posts from "./components/Posts";
 import Profile from "./components/Profile";
+import Profiles from "./components/Profiles";
 import SinglePost from "./components/SinglePost";
 import Users from "./components/Users";
 
@@ -26,6 +29,10 @@ const AppRoutes = [
   {
     path: '/chats',
     element: <Chats />
+    },
+  {
+    path: '/chatpage',
+    element: <ChatPage />
   },
   {
     path: '/communities',
@@ -57,6 +64,10 @@ const AppRoutes = [
   {
     path: '/messages',
     element: <Messages />
+    },
+  {
+    path: '/news',
+    element: <News />
   },
   {
     path: '/posts',
@@ -65,6 +76,10 @@ const AppRoutes = [
   {
     path: '/profile',
     element: <Profile />
+  },
+  {
+    path: '/profiles',
+    element: <Profiles />
   },
   {
     path: '/posts/:id',

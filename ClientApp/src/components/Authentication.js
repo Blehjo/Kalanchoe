@@ -1,11 +1,35 @@
-﻿import { Fragment } from "react";
+﻿import { UserContext } from '../contexts/user.context';
+import { Fragment, useContext } from 'react';
+import { useNavigate } from 'react-router';
+import { Row, Col } from 'react-bootstrap';
+
+import SignUpForm from './SignUpForm';
+import SignInForm from './SignInForm';
 
 const Authentication = () => {
-    return(
+    const { currentUser } = useContext(UserContext);
+    const navigate = useNavigate();
+
+    return (
         <Fragment>
-            <h1>Authentication</h1>
-        </Fragment >
-    );
+            {
+                currentUser ? (
+                    navigate('/dashboard')
+                ) : (
+                        <Fragment>
+                            <Row style={{ justifyContent: 'space-evenly' }} xs={2}>
+                                <Col xs={5}>
+                                    <SignInForm />
+                                </Col>
+                                <Col xs={5}>
+                                    <SignUpForm />
+                                </Col>
+                            </Row>
+                        </Fragment>
+                    )
+            }
+        </Fragment>
+    )
 }
 
 export default Authentication;

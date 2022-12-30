@@ -26,7 +26,7 @@ export class NavMenu extends Component {
   render() {
     return (
         <header className="fixed-top" >
-            <Navbar className="navbar-expand-sm navbar-toggleable-sm bg-light border-bottom box-shadow mb-3" style={{ zIndex: 5 }} container light>
+            <Navbar className="navbar-expand-sm navbar-toggleable-sm bg-light border-bottom box-shadow mb-3" style={{ zIndex: 5, marginLeft: '-7rem' }} container light>
             <ListIcon key='listicon' />
             <NavbarBrand tag={Link} to="/profile">KalanchoeAI</NavbarBrand>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />

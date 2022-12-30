@@ -6,6 +6,7 @@ import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import { ListProvider } from './contexts/list.context';
+import { UserProvider } from './contexts/user.context';
 
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const rootElement = document.getElementById('root');
@@ -13,9 +14,11 @@ const root = createRoot(rootElement);
 
 root.render(
     <BrowserRouter basename={baseUrl}>
-        <ListProvider>
-            <App />
-        </ListProvider>
+        <UserProvider>
+            <ListProvider>
+                <App />
+            </ListProvider>
+        </UserProvider>
     </BrowserRouter>);
 
 // If you want your app to work offline and load faster, you can change
