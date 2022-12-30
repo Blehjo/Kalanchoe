@@ -3,6 +3,7 @@
 const Posts = () => {
     return(
         <Fragment>
+            <h1>Posts</h1>
         </Fragment >
     );
 }

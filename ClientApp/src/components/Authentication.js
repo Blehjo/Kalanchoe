@@ -3,6 +3,7 @@
 const Authentication = () => {
     return(
         <Fragment>
+            <h1>Authentication</h1>
         </Fragment >
     );
 }

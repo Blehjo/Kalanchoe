@@ -3,12 +3,12 @@ import Saved from './Saved'
 
 const SidebarMenu = () => {
     return (
-        <div id="newSidebar" className='sticky-top bg-dark hidden' style={{ width: 100 }}>
-            <nav
+        <div className='fixed-top bg-light hidden' style={{ width: 100, height: '100vh', overflowY: 'auto', marginTop: '3rem' }}>
+            <Nav
                 className='justify-content-center'
             >
                 <Saved />
-            </nav>
+            </Nav>
         </div>
     )
 }

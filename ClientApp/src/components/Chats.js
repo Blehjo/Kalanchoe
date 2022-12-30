@@ -3,6 +3,7 @@
 const Chats = () => {
     return(
         <Fragment>
+            <h1>Artoo</h1>
         </Fragment >
     );
 }

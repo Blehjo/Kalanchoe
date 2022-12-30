@@ -3,6 +3,7 @@
 const Message = () => {
     return(
         <Fragment>
+            <h1>Message</h1>
         </Fragment >
     );
 }

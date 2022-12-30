@@ -3,6 +3,7 @@
 const Communities = () => {
     return(
         <Fragment>
+            <h1>Communities</h1>
         </Fragment >
     );
 }

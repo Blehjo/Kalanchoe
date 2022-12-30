@@ -3,7 +3,8 @@
 const Explore = () => {
     return(
         <Fragment>
-        </Fragment >
+            <h1>Explore</h1>
+        </Fragment>
     );
 }
 

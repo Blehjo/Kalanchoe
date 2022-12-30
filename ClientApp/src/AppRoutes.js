@@ -17,7 +17,7 @@ import Users from "./components/Users";
 const AppRoutes = [
   {
     index: true,
-    element: <Dashboard />
+    element: <Profile />
   },
   {
     path: '/authentication',
@@ -28,12 +28,15 @@ const AppRoutes = [
     element: <Chats />
   },
   {
-    path: '/communites',
+    path: '/communities',
     element: <Communities />
   },
   {
     path: '/community/:id',
     element: <Community />
+  },{
+    path: '/dashboard',
+    element: <Dashboard />
   },
   {
     path: '/projects',
@@ -68,7 +71,7 @@ const AppRoutes = [
     element: <SinglePost />
   },
   {
-    path: '/users',
+    path: '/profile/:id',
     element: <Users />
   }
 ];

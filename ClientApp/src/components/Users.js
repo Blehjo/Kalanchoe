@@ -3,7 +3,7 @@
 const Users = () => {
     return (
         <Fragment>
-            
+            <h1>Single User</h1>
         </Fragment>
     );
 }
