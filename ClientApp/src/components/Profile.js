@@ -25,7 +25,7 @@ const Profile = () => {
     return(
         <Fragment>
             <Row style={{ width: '100vw', justifyContent: 'center' }} className="sticky-top">
-                <Navbar style={{ width: '50%', justifyContent: 'space-evenly' }}>
+                <Navbar style={{ width: '50%', justifyContent: 'space-between' }}>
                     <Toolbar />
                 </Navbar>
             </Row>
