@@ -24,10 +24,12 @@ const Profile = () => {
 
     return(
         <Fragment>
-            <Row style={{ width: '100vw', justifyContent: 'center' }} className="sticky-top">
-                <Navbar style={{ width: '50%', justifyContent: 'space-between' }}>
+            <Row style={{ width: '100%', justifyContent: 'center' }} className="sticky-top">
+                <Col xs={6} sm={10}>
+                <Navbar style={{ justifyContent: 'space-evenly' }}>
                     <Toolbar />
                 </Navbar>
+                </Col>
             </Row>
             <Row>
             <h1>Studio</h1>

@@ -1,6 +1,6 @@
 ﻿import { useState, useEffect } from "react";
 import { Card, Nav, Row, Col } from "react-bootstrap";
-import { Collection, Router, Globe, House, Database, Eye, Clipboard, Bookmark, Speedometer2, ArrowRepeat, ChatDots, Person, Messenger, PersonWorkspace } from 'react-bootstrap-icons';
+import { Collection, Router, Globe, House, Database, Eye, Clipboard, Bookmark, Speedometer2, ArrowRepeat, ChatDots, Person, Messenger, PersonWorkspace, Newspaper, Robot } from 'react-bootstrap-icons';
 
 const SidebarOverlay = () => {
 
@@ -17,9 +17,15 @@ const SidebarOverlay = () => {
                     </Nav.Link>
                 </Nav.Item>
                 <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
-                    <ChatDots className='' color="black" size={20} />
+                    <Robot className='' color="black" size={20} />
                     <Nav.Link href="/chats" className="ms-4">
                         Artoo
+                    </Nav.Link>
+                </Nav.Item>
+                <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
+                    <ChatDots className='' color="black" size={20} />
+                    <Nav.Link href="/chats" className="ms-4">
+                        ChatAI
                     </Nav.Link>
                 </Nav.Item>
                 <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
@@ -68,6 +74,12 @@ const SidebarOverlay = () => {
                     <Globe className='' color="black" size={20}/>
                     <Nav.Link href="/search" className="ms-4">
                         Search
+                    </Nav.Link>
+                </Nav.Item >
+                <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
+                    <Newspaper className='' color="black" size={20}/>
+                    <Nav.Link href="/news" className="ms-4">
+                        News
                     </Nav.Link>
                 </Nav.Item >
             </Row>

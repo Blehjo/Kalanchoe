@@ -1,5 +1,5 @@
 ﻿import { Col } from 'react-bootstrap';
-import { Collection, Router, Globe, House, Database, Eye, Clipboard, Bookmark, Speedometer2, ArrowRepeat, ChatDots, Person, Messenger, PersonWorkspace } from 'react-bootstrap-icons';
+import { Collection, Robot, Globe, Paperclip, Database, Eye, Clipboard, Bookmark, Speedometer2, ArrowRepeat, ChatDots, Person, Messenger, PersonWorkspace, FileCode, AspectRatio, Search, Newspaper } from 'react-bootstrap-icons';
 import { Fragment} from 'react';
 
 
@@ -7,85 +7,95 @@ import { Fragment} from 'react';
 const Toolbar = () => {
     // Function that creates a new panel
     const handlePanelClick = () => {
+        console.log('handlePanelClick');
 
     }
     
     // Function that creates a new note
     const handleNoteClick = () => {
+        console.log('handleNoteClick');
         
     }
 
     // Function that calls Artoo
     const handleArtooClick = () => {
+        console.log('handleArtooClick');
         
     }
 
     // Function that calls Chatbot
     const handleChatBotClick = () => {
+        console.log('handleChatBotClick');
         
     }
 
     // Function that calls search bar for art
     const handleSearchBarClick = () => {
+        console.log('handleSearchBarClick');
         
     }
 
     // Function that calls search bar for poetry
     const handlePoetryClick = () => {
+        console.log('handlePoetryClick');
         
     }
 
     // Function that shows tasks
     const handleTasksClick = () => {
+        console.log('handleTasksClick');
         
     }
 
     // Function that resets panel
     const handleReset = () => {
+        console.log('handleReset');
 
     }
 
     // Function that shows messages
     const showMessages = () => {
+        console.log('showMessages');
 
     }
 
     // Function that shows communities
     const showCommunities = () => {
+        console.log('showCommunities');
 
     }
 
     return (
         <Fragment> 
-            <Col onClick={handlePanelClick}>
-                <Person className='mx-2' color="black" size={40} />
+            <Col style={{ cursor: 'pointer' }} onClick={handlePanelClick}>
+                <Paperclip className='mx-2' color="black" size={40} />
             </Col>
-            <Col onClick={handleNoteClick}>
-                <ChatDots className='mx-2' color="black" size={40} />
+            <Col style={{ cursor: 'pointer' }} onClick={handleNoteClick}>
+                <FileCode className='mx-2' color="black" size={40} />
             </Col>
-            <Col onClick={handleArtooClick}>
-                <PersonWorkspace className='mx-2' color="black" size={40} />
+            <Col style={{ cursor: 'pointer' }} onClick={handleArtooClick}>
+                <Robot className='mx-2' color="black" size={40} />
             </Col>
-            <Col onClick={handleChatBotClick}>
-                <Messenger className='mx-2' action='true' color="black" size={40} />
+            <Col style={{ cursor: 'pointer' }} onClick={handleChatBotClick}>
+                <ChatDots className='mx-2' action='true' color="black" size={40} />
             </Col>
-            <Col onClick={handleSearchBarClick}>
-                <Clipboard className='mx-2' color="black" size={40} />
+            <Col style={{ cursor: 'pointer' }} onClick={handleSearchBarClick}>
+                <Search className='mx-2' color="black" size={40} />
             </Col>
-            <Col onClick={handlePoetryClick}>
-                <Eye className='mx-2' color="black" size={40} />
+            <Col style={{ cursor: 'pointer' }} onClick={handlePoetryClick}>
+                <Newspaper className='mx-2' color="black" size={40} />
             </Col>
-            <Col onClick={handleTasksClick}>
-                <Database className='mx-2' action='true' color="black" size={40} />
+            <Col style={{ cursor: 'pointer' }} onClick={handleTasksClick}>
+                <Clipboard className='mx-2' action='true' color="black" size={40} />
             </Col>
-            <Col onClick={handleReset}>
-                <Collection className='mx-2' color="black" size={40} />
+            <Col style={{ cursor: 'pointer' }} onClick={handleReset}>
+                <AspectRatio style={{ cursor: 'pointer' }} className='mx-2' color="black" size={40} />
             </Col>
-            <Col onClick={showMessages}>
-                <Bookmark className='mx-2' color="black" size={40} />
+            <Col style={{ cursor: 'pointer' }} onClick={showMessages}>
+                <Messenger className='mx-2' color="black" size={40} />
             </Col>
             {/* If user is in communities, show this icon */}
-            <Col onClick={showCommunities}>
+            <Col style={{ cursor: 'pointer' }} onClick={showCommunities}>
                 <Globe className='mx-2' color="black" size={40} />
             </Col>
         </Fragment>

@@ -1,5 +1,5 @@
 ﻿import { Nav } from 'react-bootstrap';
-import { Collection, Router, Globe, House, Database, Eye, Clipboard, Bookmark, Speedometer2, ArrowRepeat, ChatDots, Person, Messenger, PersonWorkspace } from 'react-bootstrap-icons';
+import { Collection, Router, Globe, House, Database, Eye, Clipboard, Bookmark, Speedometer2, ArrowRepeat, ChatDots, Person, Messenger, PersonWorkspace, Newspaper, Robot } from 'react-bootstrap-icons';
 import { Fragment } from 'react';
 
 
@@ -8,6 +8,9 @@ const Saved = () => {
         <Fragment>
             <Nav.Link href="/profile">
                 <Person className='mt-4' color="black" size={40} />
+            </Nav.Link>
+            <Nav.Link href="/chats">
+                <Robot className='mt-4' color="black" size={40} />
             </Nav.Link>
             <Nav.Link href="/chats">
                 <ChatDots className='mt-4' color="black" size={40} />
@@ -32,6 +35,9 @@ const Saved = () => {
             </Nav.Link>
             <Nav.Link href="/saved">
                 <Bookmark className='mt-4' color="black" size={40} />
+            </Nav.Link>
+            <Nav.Link href="/news">
+                <Newspaper className='mt-4' color="black" size={40} />
             </Nav.Link>
             <Nav.Link href="/search">
                 <Globe className='mt-4' color="black" size={40} />
