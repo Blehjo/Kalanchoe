@@ -11,7 +11,7 @@ import Message from "./components/Message";
 import Messages from "./components/Messages";
 import News from "./components/News";
 import Posts from "./components/Posts";
-import {Profile} from "./components/Profile";
+import Profile from "./components/Profile";
 import Profiles from "./components/Profiles";
 import SinglePost from "./components/SinglePost";
 import Users from "./components/Users";

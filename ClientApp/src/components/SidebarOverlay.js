@@ -5,7 +5,7 @@ import { Collection, Router, Globe, House, Database, Eye, Clipboard, Bookmark, S
 const SidebarOverlay = () => {
 
     return (
-        <div style={{ color: "black", width: 200, height: '100vh', overflowY: 'auto' }} className='fixed-top pt-5 bg-light'>
+        <div style={{ color: "black", width: 200, height: '100vh', overflowY: 'auto', marginTop: '3rem' }} className='fixed-top bg-light'>
             <Row 
             className="mw-100 pt-3"  
             xs={1} 

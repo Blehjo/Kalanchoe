@@ -1,9 +1,11 @@
-﻿import React, { Fragment } from "react";
+﻿import React, { Fragment, useCallback } from "react";
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import { Col } from 'react-bootstrap';
+import { Col, Row, Navbar } from 'react-bootstrap';
+
+import Toolbar from './Toolbar';
 
 const Profile = () => {
-     // using useCallback is optional
+      //using useCallback is optional
     const onBeforeCapture = useCallback(() => {
         /*...*/
     }, []);
@@ -22,6 +24,12 @@ const Profile = () => {
 
     return(
         <Fragment>
+            <Row style={{ width: '100vw', justifyContent: 'center' }} className="sticky-top">
+                <Navbar style={{ width: '50%', justifyContent: 'space-evenly' }}>
+                    <Toolbar />
+                </Navbar>
+            </Row>
+            <Row>
             <h1>Studio</h1>
             <DragDropContext
                 onBeforeCapture={onBeforeCapture}
@@ -31,10 +39,13 @@ const Profile = () => {
                 onDragEnd={onDragEnd}
             >
                 
-            </DragDropContext>
+                </DragDropContext>
+            </Row>
         </Fragment>
     );
 }
+
+export default Profile;
 
 {/* export default Profile;
 

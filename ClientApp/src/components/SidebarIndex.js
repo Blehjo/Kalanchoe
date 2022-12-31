@@ -11,9 +11,9 @@ function SidebarIndex() {
     const { isNavOpen } = useContext(ListContext);
 
     return (
-        <Row style={{ marginTop: '2rem', zIndex: 2 }}>
-            <Col xs={1} >
-                <div className="mt-5 sticky-top">
+        <Row style={{ zIndex: 2 }}>
+            <Col xs={2} >
+                <div className="sticky-top">
                     <SidebarMenu />
                     {isNavOpen && <SidebarOverlay />}
                 </div>
