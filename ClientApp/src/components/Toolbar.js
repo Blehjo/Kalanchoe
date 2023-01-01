@@ -1,10 +1,14 @@
-﻿import { Col } from 'react-bootstrap';
-import { Collection, Robot, Globe, Paperclip, Database, Eye, Clipboard, Bookmark, Speedometer2, ArrowRepeat, ChatDots, Person, Messenger, PersonWorkspace, FileCode, AspectRatio, Search, Newspaper } from 'react-bootstrap-icons';
-import { Fragment} from 'react';
+﻿import { Fragment, useContext } from 'react';
+import { Col } from 'react-bootstrap';
+import { X, XSquare, Collection, Robot, Globe, Paperclip, Database, Eye, Clipboard, Bookmark, Speedometer2, ArrowRepeat, ChatDots, Person, Messenger, PersonWorkspace, FileCode, AspectRatio, Search, Newspaper, Journal, JournalCode } from 'react-bootstrap-icons';
 
-
+import { ToolContext } from '../contexts/tool.context';
 
 const Toolbar = () => {
+    const { isToolOpen, setIsToolOpen } = useContext(ToolContext);
+
+    const toggleIsToolOpen = () => setIsToolOpen(!isToolOpen);
+
     // Function that creates a new panel
     const handlePanelClick = () => {
         console.log('handlePanelClick');
@@ -80,7 +84,7 @@ const Toolbar = () => {
                 <ChatDots className='mx-2' action='true' color="black" size={40} />
             </Col>
             <Col style={{ cursor: 'pointer' }} onClick={handleSearchBarClick}>
-                <Search className='mx-2' color="black" size={40} />
+                <JournalCode className='mx-2' color="black" size={40} />
             </Col>
             <Col style={{ cursor: 'pointer' }} onClick={handlePoetryClick}>
                 <Newspaper className='mx-2' color="black" size={40} />
@@ -97,6 +101,9 @@ const Toolbar = () => {
             {/* If user is in communities, show this icon */}
             <Col style={{ cursor: 'pointer' }} onClick={showCommunities}>
                 <Globe className='mx-2' color="black" size={40} />
+            </Col>
+            <Col style={{ cursor: 'pointer' }} onClick={toggleIsToolOpen}>
+                <XSquare className='mx-2' color="black" size={40} />
             </Col>
         </Fragment>
     )

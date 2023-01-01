@@ -7,6 +7,7 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import { ListProvider } from './contexts/list.context';
 import { UserProvider } from './contexts/user.context';
+import { ToolProvider } from './contexts/tool.context';
 
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const rootElement = document.getElementById('root');
@@ -16,7 +17,9 @@ root.render(
     <BrowserRouter basename={baseUrl}>
         <UserProvider>
             <ListProvider>
-                <App />
+                <ToolProvider>
+                    <App />
+                </ToolProvider>
             </ListProvider>
         </UserProvider>
     </BrowserRouter>);
