@@ -1,12 +1,13 @@
 ﻿using KalanchoeAI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using KalanchoeAI.Models;
 
 
 var builder = WebApplication.CreateBuilder(args);
-
+    
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
@@ -22,6 +23,15 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+var newbuilder = new ConfigurationBuilder()
+    .AddJsonFile("ApiSettings.json")
+    .AddUserSecrets<Program>();
+
+IConfiguration configuration = newbuilder.Build();
+var serviceCollection = new ServiceCollection();
+serviceCollection.AddScoped(_ => configuration);
+//serviceCollection.AddOpenAIService();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

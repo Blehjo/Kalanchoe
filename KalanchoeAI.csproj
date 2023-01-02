@@ -28,6 +28,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Betalgo.OpenAI.GPT3" Version="6.6.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,12 +44,15 @@
     <None Remove="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
     <None Remove="Microsoft.EntityFrameworkCore.Tools" />
     <None Remove="ClientApp\src\contexts\" />
+    <None Remove="Betalgo.OpenAI.GPT3" />
+    <None Remove="ClientApp\src\utils\" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Data\" />
     <Folder Include="ClientApp\src\contexts\" />
+    <Folder Include="ClientApp\src\utils\" />
   </ItemGroup>
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->
