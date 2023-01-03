@@ -2,6 +2,7 @@
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { Col, Row, Navbar } from 'react-bootstrap';
 import { ArrowDownShort } from 'react-bootstrap-icons';
+import * as Quill from 'quill';
 
 import Toolbar from './Toolbar';
 
@@ -31,7 +32,27 @@ const Profile = () => {
 
     // API
     // dhttps://collectionapi.metmuseum.org/public/collection/v1/search?q=klee
+    var editorId = "editor-container";
 
+    
+
+    setTimeout(() => {
+
+        var container = document.getElementById(editorId);
+        var editor = new Quill('#editor-container', {
+            debug: 'info',
+            modules: {
+                toolbar: [
+                    [{ header: [1, 2, false] }],
+                    ['bold', 'italic', 'underline'],
+                    ['image', 'code-block']
+                ]
+            },
+            placeholder: 'Compose an epic...',
+            readOnly: false,
+            theme: 'snow'
+        });
+    }, 1000);
 
     return(
         <Fragment>
@@ -49,16 +70,22 @@ const Profile = () => {
                 }
             </Row>
             <Row>
-            <h1>Studio</h1>
-            <DragDropContext
-                onBeforeCapture={onBeforeCapture}
-                onBeforeDragStart={onBeforeDragStart}
-                onDragStart={onDragStart}
-                onDragUpdate={onDragUpdate}
-                onDragEnd={onDragEnd}
-            >
+                <h1>Studio</h1>
+               
+                {/*<DragDropContext
+                    onBeforeCapture={onBeforeCapture}
+                    onBeforeDragStart={onBeforeDragStart}
+                    onDragStart={onDragStart}
+                    onDragUpdate={onDragUpdate}
+                    onDragEnd={onDragEnd}
+                >
                 
-                </DragDropContext>
+                </DragDropContext>*/}
+            </Row>
+            <Row>
+                <Col>
+                    <div id="editor-container" style={{ width: 'auto', height: '75px' }}></div>
+                </Col>
             </Row>
         </Fragment>
     );
