@@ -9,7 +9,7 @@ const Toolbar = () => {
 
     const toggleIsToolOpen = () => setIsToolOpen(!isToolOpen);
 
-    // Function that creates a new panel
+     //Function that creates a new panel
     const handlePanelClick = () => {
         console.log('handlePanelClick');
 

@@ -8,6 +8,7 @@ import reportWebVitals from './reportWebVitals';
 import { ListProvider } from './contexts/list.context';
 import { UserProvider } from './contexts/user.context';
 import { ToolProvider } from './contexts/tool.context';
+import { ToolbarProvider } from './contexts/toolbar.context';
 
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const rootElement = document.getElementById('root');
@@ -18,7 +19,9 @@ root.render(
         <UserProvider>
             <ListProvider>
                 <ToolProvider>
-                    <App />
+                    <ToolbarProvider>
+                        <App />
+                    </ToolbarProvider>
                 </ToolProvider>
             </ListProvider>
         </UserProvider>
