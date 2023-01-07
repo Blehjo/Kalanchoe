@@ -12,8 +12,10 @@
     <SpaProxyLaunchCommand>npm start</SpaProxyLaunchCommand>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>d5adb42a-6861-4213-8ba3-7c040ef91f19</UserSecretsId>
+    <AssemblyName>KalanchoeAI</AssemblyName>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'KalanchoeAI' " />
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="6.0.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.1" />
@@ -35,12 +37,10 @@
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
     <Content Remove="$(SpaRoot)**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
-    <None Remove="Models\" />
     <None Remove="Microsoft.EntityFrameworkCore" />
     <None Remove="Microsoft.EntityFrameworkCore.Sqlite" />
     <None Remove="Microsoft.EntityFrameworkCore.SqlServer" />
     <None Remove="Microsoft.EntityFrameworkCore.Design" />
-    <None Remove="Data\" />
     <None Remove="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
     <None Remove="Microsoft.EntityFrameworkCore.Tools" />
     <None Remove="ClientApp\src\contexts\" />
@@ -49,8 +49,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="Data\" />
     <Folder Include="ClientApp\src\contexts\" />
     <Folder Include="ClientApp\src\utils\" />
   </ItemGroup>

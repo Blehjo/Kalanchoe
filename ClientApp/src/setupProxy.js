@@ -23,7 +23,7 @@ module.exports = function (app) {
     //ws: true, 
     headers: {
       Connection: 'Keep-Alive'
-    }
+    },
   });
 
   app.use(appProxy);

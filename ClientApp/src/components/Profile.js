@@ -13,7 +13,7 @@ const Profile = () => {
 
     const toggleIsToolOpen = () => setIsToolOpen(!isToolOpen);
 
-      //using useCallback is optional
+    // using useCallback is optional
     const onBeforeCapture = useCallback(() => {
         /*...*/
     }, []);
@@ -29,30 +29,6 @@ const Profile = () => {
     const onDragEnd = useCallback(() => {
         // the only one that is required
     }, []);
-
-    // API
-    // dhttps://collectionapi.metmuseum.org/public/collection/v1/search?q=klee
-    var editorId = "editor-container";
-
-    
-
-    setTimeout(() => {
-
-        var container = document.getElementById(editorId);
-        var editor = new Quill('#editor-container', {
-            debug: 'info',
-            modules: {
-                toolbar: [
-                    [{ header: [1, 2, false] }],
-                    ['bold', 'italic', 'underline'],
-                    ['image', 'code-block']
-                ]
-            },
-            placeholder: 'Compose an epic...',
-            readOnly: false,
-            theme: 'snow'
-        });
-    }, 1000);
 
     return(
         <Fragment>
@@ -71,7 +47,7 @@ const Profile = () => {
             </Row>
             <Row>
                 <h1>Studio</h1>
-               
+                
                 {/*<DragDropContext
                     onBeforeCapture={onBeforeCapture}
                     onBeforeDragStart={onBeforeDragStart}
@@ -84,7 +60,7 @@ const Profile = () => {
             </Row>
             <Row>
                 <Col>
-                    <div id="editor-container" style={{ width: 'auto', height: '75px' }}></div>
+                    
                 </Col>
             </Row>
         </Fragment>
