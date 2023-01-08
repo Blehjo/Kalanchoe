@@ -1,7 +1,7 @@
 ﻿import { Fragment, useCallback, useState, useContext } from "react";
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { Col, Row, Navbar } from 'react-bootstrap';
-import { ArrowDownShort } from 'react-bootstrap-icons';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import DragMove from './DragMove';
 import DragList from "./DragList";
@@ -14,17 +14,17 @@ const Profile = () => {
 
     const toggleIsToolOpen = () => setIsToolOpen(!isToolOpen);
 
-    //const [translate, setTranslate] = useState({
-    //    x: 0,
-    //    y: 0
-    //});
+    const [translate, setTranslate] = useState({
+        x: 0,
+        y: 0
+    });
 
-    //const handleDragMove = (e) => {
-    //    setTranslate({
-    //        x: translate.x + e.movementX,
-    //        y: translate.y + e.movementY
-    //    });
-    //};
+    const handleDragMove = (e) => {
+        setTranslate({
+            x: translate.x + e.movementX,
+            y: translate.y + e.movementY
+        });
+    };
 
     return(
         <Fragment>
@@ -37,7 +37,7 @@ const Profile = () => {
                     </Col>
                     :
                     <Col xs={6} sm={10} style={{ cursor: 'pointer', textAlign: 'center' }} onClick={toggleIsToolOpen}>
-                        <ArrowDownShort className='mx-2' color="black" size={15} />
+                        <ExpandMoreIcon className='mx-2' color="black" size={15} />
                     </Col>
                 }
             </Row>
