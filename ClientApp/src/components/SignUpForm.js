@@ -5,7 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const defaultFormFields = {
-    displayName: '',
+    userName: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -14,7 +14,7 @@ const defaultFormFields = {
 const SignUpForm = () => {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const [country, setCountry] = useState(null);
-    const { displayName, email, password, confirmPassword, dateOfBirth, firstName, lastName } = formFields;
+    const { username, profileImage, email, password, confirmPassword, dateOfBirth, firstName, lastName } = formFields;
     const navigate = useNavigate();
 
     //const resetForm = () => {
@@ -22,15 +22,15 @@ const SignUpForm = () => {
     //}
 
     const signInWithReact = async () => {
-        await axios.post(`/api/users/`,
+        await axios.post(`/api/User`,
             {
-                username: displayName,
-                email: email,
-                password: password,
-                country: country.name,
-                date_of_birth: dateOfBirth,
-                first_name: firstName,
-                last_name: lastName
+                Username: username,
+                EmailAddress: email,
+                Password: password,
+                ProfileImage: profileImage,
+                DateOfBirth: dateOfBirth,
+                FirstName: firstName,
+                LastName: lastName
             })
     }
 
@@ -70,8 +70,8 @@ const SignUpForm = () => {
                         <input
                             required
                             onChange={handleChange}
-                            name="displayName"
-                            value={displayName}
+                            name="username"
+                            value={username}
                             type="text"
                             class="form-control"
                             id="inputDisplayName"

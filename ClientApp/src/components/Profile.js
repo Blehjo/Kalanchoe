@@ -1,9 +1,9 @@
-﻿import React, { Fragment, useCallback, useState, useContext } from "react";
+﻿import { Fragment, useCallback, useState, useContext } from "react";
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { Col, Row, Navbar } from 'react-bootstrap';
 import { ArrowDownShort } from 'react-bootstrap-icons';
 import * as Quill from 'quill';
-
+ 
 import Toolbar from './Toolbar';
 
 import { ToolContext } from '../contexts/tool.context';
