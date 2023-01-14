@@ -49,11 +49,15 @@
     <None Remove="ClientApp\src\contexts\" />
     <None Remove="Betalgo.OpenAI.GPT3" />
     <None Remove="ClientApp\src\utils\" />
+    <None Remove="ClientApp\src\store\" />
+    <None Remove="ClientApp\src\store\user\" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="ClientApp\src\contexts\" />
     <Folder Include="ClientApp\src\utils\" />
+    <Folder Include="ClientApp\src\store\" />
+    <Folder Include="ClientApp\src\store\user\" />
   </ItemGroup>
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->
