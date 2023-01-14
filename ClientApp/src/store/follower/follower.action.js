@@ -18,3 +18,12 @@ export const followerDeleteSuccess = () =>
 
 export const followerDeleteFailed = (error) => 
     createAction(FOLLOWER_ACTION_TYPES.DELETE_START, error);
+
+export const followerFetchAllStart = (userId) => 
+    createAction(FOLLOWER_ACTION_TYPES.FETCH_ALL_START, { userId });
+
+export const followerFetchAllSuccess = (follower) => 
+    createAction(FOLLOWER_ACTION_TYPES.FETCH_ALL_SUCCESS, follower);
+
+export const followerFetchAllFailed = (error) => 
+    createAction(FOLLOWER_ACTION_TYPES.FETCH_ALL_START, error);

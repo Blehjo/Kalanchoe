@@ -27,3 +27,12 @@ export const aicompletionDeleteSuccess = () =>
 
 export const aicompletionDeleteFailed = (error) => 
     createAction(AICOMPLETION_ACTION_TYPES.DELETE_START, error);
+
+export const aicompletionFetchAllStart = (userId) => 
+    createAction(AICOMPLETION_ACTION_TYPES.FETCH_ALL_START, { userId });
+
+export const aicompletionFetchAllSuccess = (aicompletion) => 
+    createAction(AICOMPLETION_ACTION_TYPES.FETCH_ALL_SUCCESS, aicompletion);
+
+export const aicompletionFetchAllFailed = (error) => 
+    createAction(AICOMPLETION_ACTION_TYPES.FETCH_ALL_START, error);

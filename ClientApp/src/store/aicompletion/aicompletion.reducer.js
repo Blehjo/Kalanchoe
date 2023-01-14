@@ -1,7 +1,7 @@
-import { USER_ACTION_TYPES } from './user.types';
+import { AICOMPLETION_ACTION_TYPES } from './aicompletion.types';
 
 const INITIAL_STATE = {
-    currentUser: null,
+    aicompletions: [],
     isLoading: false,
     error: null,
 };
@@ -10,14 +10,21 @@ export const aicompletionReducer = (state = INITIAL_STATE, action) => {
     const { type, payload } = action;
 
     switch (type) {
-        case USER_ACTION_TYPES.SIGN_IN_SUCCESS:
-            return { ...state, currentUser: payload };
-        case USER_ACTION_TYPES.SIGN_OUT_SUCCESS:
-            return { ...state, currentUser: null };
-        case USER_ACTION_TYPES.SIGN_OUT_FAILED:
-        case USER_ACTION_TYPES.SIGN_IN_FAILED:
-        case USER_ACTION_TYPES.SIGN_UP_FAILED:
-            return { ...state, error: payload };
+        case AICOMPLETION_ACTION_TYPES.CREATE_START:
+        case AICOMPLETION_ACTION_TYPES.UPDATE_START:
+        case AICOMPLETION_ACTION_TYPES.DELETE_START:
+        case AICOMPLETION_ACTION_TYPES.FETCH_ALL_START:
+            return { ...state, isLoading: true };
+        case AICOMPLETION_ACTION_TYPES.CREATE_SUCCESS:
+        case AICOMPLETION_ACTION_TYPES.UPDATE_SUCCESS:
+        case AICOMPLETION_ACTION_TYPES.DELETE_SUCCESS:
+        case AICOMPLETION_ACTION_TYPES.FETCH_ALL_SUCCESS:
+            return { ...state, aicompletions: payload, isLoading: false };
+        case AICOMPLETION_ACTION_TYPES.CREATE_FAILED:
+        case AICOMPLETION_ACTION_TYPES.UPDATE_FAILED:
+        case AICOMPLETION_ACTION_TYPES.DELETE_FAILED:
+        case AICOMPLETION_ACTION_TYPES.FETCH_ALL_FAILED:
+            return { ...state, error: payload, isLoading: false };
         default:
             return state;
     }

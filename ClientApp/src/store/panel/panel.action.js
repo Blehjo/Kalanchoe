@@ -27,3 +27,12 @@ export const panelDeleteSuccess = () =>
 
 export const panelDeleteFailed = (error) => 
     createAction(PANEL_ACTION_TYPES.DELETE_START, error);
+
+export const panelFetchAllStart = (userId) => 
+    createAction(PANEL_ACTION_TYPES.FETCH_ALL_START, { userId });
+
+export const panelFetchAllSuccess = (panel) => 
+    createAction(PANEL_ACTION_TYPES.FETCH_ALL_SUCCESS, panel);
+
+export const panelFetchAllFailed = (error) => 
+    createAction(PANEL_ACTION_TYPES.FETCH_ALL_START, error);

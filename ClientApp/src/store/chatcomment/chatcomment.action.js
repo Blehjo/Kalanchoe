@@ -18,3 +18,12 @@ export const chatcommentDeleteSuccess = () =>
 
 export const chatcommentDeleteFailed = (error) => 
     createAction(CHATCOMMENT_ACTION_TYPES.DELETE_START, error);
+
+export const chatcommentFetchAllStart = (userId) => 
+    createAction(CHATCOMMENT_ACTION_TYPES.FETCH_ALL_START, { userId });
+
+export const chatcommentFetchAllSuccess = (chatcomment) => 
+    createAction(CHATCOMMENT_ACTION_TYPES.FETCH_ALL_SUCCESS, chatcomment);
+
+export const chatcommentFetchAllFailed = (error) => 
+    createAction(CHATCOMMENT_ACTION_TYPES.FETCH_ALL_START, error);

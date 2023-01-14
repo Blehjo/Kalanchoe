@@ -27,3 +27,12 @@ export const postDeleteSuccess = () =>
 
 export const postDeleteFailed = (error) => 
     createAction(POST_ACTION_TYPES.DELETE_START, error);
+
+export const postFetchAllStart = (userId) => 
+    createAction(POST_ACTION_TYPES.FETCH_ALL_START, { userId });
+
+export const postFetchAllSuccess = (post) => 
+    createAction(POST_ACTION_TYPES.FETCH_ALL_SUCCESS, post);
+
+export const postFetchAllFailed = (error) => 
+    createAction(POST_ACTION_TYPES.FETCH_ALL_FAILED, error);

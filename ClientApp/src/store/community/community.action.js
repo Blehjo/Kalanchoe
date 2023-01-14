@@ -27,3 +27,12 @@ export const communityDeleteSuccess = () =>
 
 export const communityDeleteFailed = (error) => 
     createAction(COMMUNITY_ACTION_TYPES.DELETE_START, error);
+
+export const communityFetchAllStart = (userId) => 
+    createAction(COMMUNITY_ACTION_TYPES.FETCH_ALL_START, { userId });
+
+export const communityFetchAllSuccess = (community) => 
+    createAction(COMMUNITY_ACTION_TYPES.FETCH_ALL_SUCCESS, community);
+
+export const communityFetchAllFailed = (error) => 
+    createAction(COMMUNITY_ACTION_TYPES.FETCH_ALL_START, error);

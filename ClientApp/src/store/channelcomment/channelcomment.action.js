@@ -27,3 +27,12 @@ export const channelcommentDeleteSuccess = () =>
 
 export const channelcommentDeleteFailed = (error) => 
     createAction(CHANNELCOMMENT_ACTION_TYPES.DELETE_START, error);
+
+export const channelcommentFetchAllStart = (userId) => 
+    createAction(CHANNELCOMMENT_ACTION_TYPES.FETCH_ALL_START, { userId });
+
+export const channelcommentFetchAllSuccess = (channelcomment) => 
+    createAction(CHANNELCOMMENT_ACTION_TYPES.FETCH_ALL_SUCCESS, channelcomment);
+
+export const channelcommentFetchAllFailed = (error) => 
+    createAction(CHANNELCOMMENT_ACTION_TYPES.FETCH_ALL_START, error);

@@ -4,6 +4,7 @@ import { channelReducer } from './channel/channel.reducer';
 import { channelcommentReducer } from './channelcomment/channelcomment.reducer';
 import { chatReducer } from './chat/chat.reducer';
 import { chatcommentReducer } from './chatcomment/chatcomment.reducer';
+import { commentReducer } from './comment/comment.reducer';
 import { communityReducer } from './community/community.reducer';
 import { followerReducer } from './follower/follower.reducer';
 import { memberReducer } from './member/member.reducer';
@@ -16,6 +17,7 @@ import { userReducer } from './user/user.reducer';
 export const rootReducer = combineReducers({
     user: userReducer,
     post: postReducer,
+    comment: commentReducer,
     panel: panelReducer,
     note: noteReducer,
     messaage: messageReducer,

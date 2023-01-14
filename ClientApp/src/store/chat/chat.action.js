@@ -27,3 +27,12 @@ export const chatDeleteSuccess = () =>
 
 export const chatDeleteFailed = (error) => 
     createAction(CHAT_ACTION_TYPES.DELETE_START, error);
+
+export const chatFetchAllStart = (userId) => 
+    createAction(CHAT_ACTION_TYPES.FETCH_ALL_START, { userId });
+
+export const chatFetchAllSuccess = (chat) => 
+    createAction(CHAT_ACTION_TYPES.FETCH_ALL_SUCCESS, chat);
+
+export const chatFetchAllFailed = (error) => 
+    createAction(CHAT_ACTION_TYPES.FETCH_ALL_START, error);

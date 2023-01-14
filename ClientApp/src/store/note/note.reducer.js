@@ -1,7 +1,7 @@
-import { USER_ACTION_TYPES } from './user.types';
+import { NOTE_ACTION_TYPES } from './note.types';
 
 const INITIAL_STATE = {
-    currentUser: null,
+    notes: [],
     isLoading: false,
     error: null,
 };
@@ -10,14 +10,21 @@ export const noteReducer = (state = INITIAL_STATE, action) => {
     const { type, payload } = action;
 
     switch (type) {
-        case USER_ACTION_TYPES.SIGN_IN_SUCCESS:
-            return { ...state, currentUser: payload };
-        case USER_ACTION_TYPES.SIGN_OUT_SUCCESS:
-            return { ...state, currentUser: null };
-        case USER_ACTION_TYPES.SIGN_OUT_FAILED:
-        case USER_ACTION_TYPES.SIGN_IN_FAILED:
-        case USER_ACTION_TYPES.SIGN_UP_FAILED:
-            return { ...state, error: payload };
+        case NOTE_ACTION_TYPES.CREATE_START:
+        case NOTE_ACTION_TYPES.UPDATE_START:
+        case NOTE_ACTION_TYPES.DELETE_START:
+        case NOTE_ACTION_TYPES.FETCH_ALL_START:
+            return { ...state, isLoading: true };
+        case NOTE_ACTION_TYPES.CREATE_SUCCESS:
+        case NOTE_ACTION_TYPES.UPDATE_SUCCESS:
+        case NOTE_ACTION_TYPES.DELETE_SUCCESS:
+        case NOTE_ACTION_TYPES.FETCH_ALL_SUCCESS:
+            return { ...state, notes: payload, isLoading: false };
+        case NOTE_ACTION_TYPES.CREATE_FAILED:
+        case NOTE_ACTION_TYPES.UPDATE_FAILED:
+        case NOTE_ACTION_TYPES.DELETE_FAILED:
+        case NOTE_ACTION_TYPES.FETCH_ALL_FAILED:
+            return { ...state, error: payload, isLoading: false };
         default:
             return state;
     }

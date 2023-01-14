@@ -1,7 +1,7 @@
-import { USER_ACTION_TYPES } from './user.types';
+import { MESSAGE_ACTION_TYPES } from './message.types';
 
 const INITIAL_STATE = {
-    currentUser: null,
+    messages: [],
     isLoading: false,
     error: null,
 };
@@ -10,14 +10,21 @@ export const messageReducer = (state = INITIAL_STATE, action) => {
     const { type, payload } = action;
 
     switch (type) {
-        case USER_ACTION_TYPES.SIGN_IN_SUCCESS:
-            return { ...state, currentUser: payload };
-        case USER_ACTION_TYPES.SIGN_OUT_SUCCESS:
-            return { ...state, currentUser: null };
-        case USER_ACTION_TYPES.SIGN_OUT_FAILED:
-        case USER_ACTION_TYPES.SIGN_IN_FAILED:
-        case USER_ACTION_TYPES.SIGN_UP_FAILED:
-            return { ...state, error: payload };
+        case MESSAGE_ACTION_TYPES.CREATE_START:
+        case MESSAGE_ACTION_TYPES.UPDATE_START:
+        case MESSAGE_ACTION_TYPES.DELETE_START:
+        case MESSAGE_ACTION_TYPES.FETCH_ALL_START:
+            return { ...state, isLoading: true };
+        case MESSAGE_ACTION_TYPES.CREATE_SUCCESS:
+        case MESSAGE_ACTION_TYPES.UPDATE_SUCCESS:
+        case MESSAGE_ACTION_TYPES.DELETE_SUCCESS:
+        case MESSAGE_ACTION_TYPES.FETCH_ALL_SUCCESS:
+            return { ...state, messages: payload, isLoading: false };
+        case MESSAGE_ACTION_TYPES.CREATE_FAILED:
+        case MESSAGE_ACTION_TYPES.UPDATE_FAILED:
+        case MESSAGE_ACTION_TYPES.DELETE_FAILED:
+        case MESSAGE_ACTION_TYPES.FETCH_ALL_FAILED:
+            return { ...state, error: payload, isLoading: false };
         default:
             return state;
     }

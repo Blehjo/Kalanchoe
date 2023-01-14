@@ -27,3 +27,12 @@ export const memberDeleteSuccess = () =>
 
 export const memberDeleteFailed = (error) => 
     createAction(MEMBER_ACTION_TYPES.DELETE_START, error);
+
+export const memberFetchAllStart = (userId) => 
+    createAction(MEMBER_ACTION_TYPES.FETCH_ALL_START, { userId });
+
+export const memberFetchAllSuccess = (member) => 
+    createAction(MEMBER_ACTION_TYPES.FETCH_ALL_SUCCESS, member);
+
+export const memberFetchAllFailed = (error) => 
+    createAction(MEMBER_ACTION_TYPES.FETCH_ALL_START, error);
