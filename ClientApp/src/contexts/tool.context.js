@@ -3,7 +3,6 @@
 export const ToolContext = createContext({
     isNavOpen: false,
     setIsNavOpen: () => {
-
     }
 });
 

@@ -51,6 +51,8 @@
     <None Remove="ClientApp\src\utils\" />
     <None Remove="ClientApp\src\store\" />
     <None Remove="ClientApp\src\store\user\" />
+    <None Remove="ClientApp\src\store\tool\" />
+    <None Remove="ClientApp\src\store\list\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -58,6 +60,8 @@
     <Folder Include="ClientApp\src\utils\" />
     <Folder Include="ClientApp\src\store\" />
     <Folder Include="ClientApp\src\store\user\" />
+    <Folder Include="ClientApp\src\store\tool\" />
+    <Folder Include="ClientApp\src\store\list\" />
   </ItemGroup>
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->
