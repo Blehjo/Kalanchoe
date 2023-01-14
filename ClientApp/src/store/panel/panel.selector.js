@@ -1,1 +1,1 @@
-export const selectCurrentUser = (state) => state.panel;
+export const selectPanelReducer = (state) => state.panel;

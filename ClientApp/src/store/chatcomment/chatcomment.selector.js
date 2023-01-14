@@ -1,1 +1,1 @@
-export const selectCurrentUser = (state) => state.chatcomment;
+export const selectChatcommentReducer = (state) => state.chatcomment;

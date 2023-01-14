@@ -1,42 +1,29 @@
-import { USER_ACTION_TYPES } from './user.types';
-import { createAction } from '../../utils/reducer/reducer.utils';
+import { POST_ACTION_TYPES } from './post.types';
+import { createAction } from '../../utils/reducer';
 
-export const setCurrentUser = (user) =>
-    createAction(USER_ACTION_TYPES.SET_CURRENT_USER, user);
+export const postCreateStart = (userId, postValue) => 
+    createAction(POST_ACTION_TYPES.CREATE_START, { userId, postValue });
 
-export const checkUserSession = () =>
-    createAction(USER_ACTION_TYPES.CHECK_USER_SESSION);
+export const postCreateSuccess = (post) => 
+    createAction(POST_ACTION_TYPES.CREATE_SUCCESS, post);
 
-export const googleSignInStart = () =>
-    createAction(USER_ACTION_TYPES.GOOGLE_SIGN_IN_START);
+export const postCreateFailed = (error) => 
+    createAction(POST_ACTION_TYPES.CREATE_START, error);
+    
+export const postUpdateStart = (userId, postId, postValue) => 
+    createAction(POST_ACTION_TYPES.UPDATE_START, { userId, postId, postValue });
 
-export const emailSignInStart = (email, password) =>
-    createAction(USER_ACTION_TYPES.EMAIL_SIGN_IN_START, { email, password });
+export const postUpdateSuccess = (post) => 
+    createAction(POST_ACTION_TYPES.UPDATE_SUCCESS, post);
 
-export const signInSuccess = (user) =>
-    createAction(USER_ACTION_TYPES.SIGN_IN_SUCCESS, user);
+export const postUpdateFailed = (error) => 
+    createAction(POST_ACTION_TYPES.UPDATE_START, error);
 
-export const signInFailed = (error) =>
-    createAction(USER_ACTION_TYPES.SIGN_IN_FAILED, error);
+export const postDeleteStart = (userId, postId, postValue) => 
+    createAction(POST_ACTION_TYPES.DELETE_START, { userId, postId, postValue });
 
-export const signUpStart = (email, password, displayName) =>
-    createAction(USER_ACTION_TYPES.SIGN_UP_START, {
-        email,
-        password,
-        displayName,
-    });
+export const postDeleteSuccess = () => 
+    createAction(POST_ACTION_TYPES.DELETE_SUCCESS, 'Post Deleted');
 
-export const signUpSuccess = (user, additionalDetails) =>
-    createAction(USER_ACTION_TYPES.SIGN_UP_SUCCESS, { user, additionalDetails });
-
-export const signUpFailed = (error) =>
-    createAction(USER_ACTION_TYPES.SIGN_UP_FAILED, error);
-
-export const signOutStart = () =>
-    createAction(USER_ACTION_TYPES.SIGN_OUT_START);
-
-export const signOutSuccess = () =>
-    createAction(USER_ACTION_TYPES.SIGN_OUT_SUCCESS);
-
-export const signOutFailed = (error) =>
-    createAction(USER_ACTION_TYPES.SIGN_OUT_FAILED, error);
+export const postDeleteFailed = (error) => 
+    createAction(POST_ACTION_TYPES.DELETE_START, error);

@@ -1,42 +1,29 @@
-import { USER_ACTION_TYPES } from './user.types';
-import { createAction } from '../../utils/reducer/reducer.utils';
+import { CHANNELCOMMENT_ACTION_TYPES } from './channelcomment.types';
+import { createAction } from '../../utils/reducer';
 
-export const setCurrentUser = (user) =>
-    createAction(USER_ACTION_TYPES.SET_CURRENT_USER, user);
+export const channelcommentCreateStart = (channelId, userId, channelcommentValue) => 
+    createAction(CHANNELCOMMENT_ACTION_TYPES.CREATE_START, { channelId, userId, channelcommentValue });
 
-export const checkUserSession = () =>
-    createAction(USER_ACTION_TYPES.CHECK_USER_SESSION);
+export const channelcommentCreateSuccess = (channelcomment) => 
+    createAction(CHANNELCOMMENT_ACTION_TYPES.CREATE_SUCCESS, channelcomment);
 
-export const googleSignInStart = () =>
-    createAction(USER_ACTION_TYPES.GOOGLE_SIGN_IN_START);
+export const channelcommentCreateFailed = (error) => 
+    createAction(CHANNELCOMMENT_ACTION_TYPES.CREATE_START, error);
+    
+export const channelcommentUpdateStart = (channelcommentId, channelId, userId, channelcommentValue) => 
+    createAction(CHANNELCOMMENT_ACTION_TYPES.UPDATE_START, { channelcommentId, channelId, userId, channelcommentValue });
 
-export const emailSignInStart = (email, password) =>
-    createAction(USER_ACTION_TYPES.EMAIL_SIGN_IN_START, { email, password });
+export const channelcommentUpdateSuccess = (channelcomment) => 
+    createAction(CHANNELCOMMENT_ACTION_TYPES.UPDATE_SUCCESS, channelcomment);
 
-export const signInSuccess = (user) =>
-    createAction(USER_ACTION_TYPES.SIGN_IN_SUCCESS, user);
+export const channelcommentUpdateFailed = (error) => 
+    createAction(CHANNELCOMMENT_ACTION_TYPES.UPDATE_START, error);
 
-export const signInFailed = (error) =>
-    createAction(USER_ACTION_TYPES.SIGN_IN_FAILED, error);
+export const channelcommentDeleteStart = (channelcommentId, channelId, userId) => 
+    createAction(CHANNELCOMMENT_ACTION_TYPES.DELETE_START, { channelcommentId, channelId, userId });
 
-export const signUpStart = (email, password, displayName) =>
-    createAction(USER_ACTION_TYPES.SIGN_UP_START, {
-        email,
-        password,
-        displayName,
-    });
+export const channelcommentDeleteSuccess = () => 
+    createAction(CHANNELCOMMENT_ACTION_TYPES.DELETE_SUCCESS, 'Channel Comment Deleted');
 
-export const signUpSuccess = (user, additionalDetails) =>
-    createAction(USER_ACTION_TYPES.SIGN_UP_SUCCESS, { user, additionalDetails });
-
-export const signUpFailed = (error) =>
-    createAction(USER_ACTION_TYPES.SIGN_UP_FAILED, error);
-
-export const signOutStart = () =>
-    createAction(USER_ACTION_TYPES.SIGN_OUT_START);
-
-export const signOutSuccess = () =>
-    createAction(USER_ACTION_TYPES.SIGN_OUT_SUCCESS);
-
-export const signOutFailed = (error) =>
-    createAction(USER_ACTION_TYPES.SIGN_OUT_FAILED, error);
+export const channelcommentDeleteFailed = (error) => 
+    createAction(CHANNELCOMMENT_ACTION_TYPES.DELETE_START, error);

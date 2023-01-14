@@ -1,1 +1,1 @@
-export const selectCurrentUser = (state) => state.channel;
+export const selectChannelReducer = (state) => state.channel;

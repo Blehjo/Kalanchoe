@@ -1,0 +1,1 @@
+export const selectCommentReducer = (state) => state.Comment;

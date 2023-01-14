@@ -1,1 +1,1 @@
-export const selectCurrentUser = (state) => state.message;
+export const selectMessageReducer = (state) => state.message;

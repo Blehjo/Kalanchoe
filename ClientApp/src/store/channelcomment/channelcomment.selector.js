@@ -1,1 +1,1 @@
-export const selectCurrentUser = (state) => state.channelcomment;
+export const selectChannelcommentReducer = (state) => state.channelcomment;

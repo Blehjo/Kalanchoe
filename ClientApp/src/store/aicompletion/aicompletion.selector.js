@@ -1,1 +1,1 @@
-export const selectCurrentUser = (state) => state.aicompletion;
+export const selectAicompletionReducer = (state) => state.aicompletion;

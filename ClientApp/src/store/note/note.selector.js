@@ -1,1 +1,1 @@
-export const selectCurrentUser = (state) => state.note;
+export const selectNoteReducer = (state) => state.note;

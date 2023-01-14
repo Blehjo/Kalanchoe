@@ -1,42 +1,29 @@
-import { USER_ACTION_TYPES } from './user.types';
-import { createAction } from '../../utils/reducer/reducer.utils';
+import { NOTE_ACTION_TYPES } from './note.types';
+import { createAction } from '../../utils/reducer';
 
-export const setCurrentUser = (user) =>
-    createAction(USER_ACTION_TYPES.SET_CURRENT_USER, user);
+export const noteCreateStart = (panelId, title) => 
+    createAction(NOTE_ACTION_TYPES.CREATE_START, { panelId, title });
 
-export const checkUserSession = () =>
-    createAction(USER_ACTION_TYPES.CHECK_USER_SESSION);
+export const noteCreateSuccess = (note) => 
+    createAction(NOTE_ACTION_TYPES.CREATE_SUCCESS, note);
 
-export const googleSignInStart = () =>
-    createAction(USER_ACTION_TYPES.GOOGLE_SIGN_IN_START);
+export const noteCreateFailed = (error) => 
+    createAction(NOTE_ACTION_TYPES.CREATE_START, error);
+    
+export const noteUpdateStart = (noteId, panelId, noteValue) => 
+    createAction(NOTE_ACTION_TYPES.UPDATE_START, { noteId, panelId, noteValue });
 
-export const emailSignInStart = (email, password) =>
-    createAction(USER_ACTION_TYPES.EMAIL_SIGN_IN_START, { email, password });
+export const noteUpdateSuccess = (note) => 
+    createAction(NOTE_ACTION_TYPES.UPDATE_SUCCESS, note);
 
-export const signInSuccess = (user) =>
-    createAction(USER_ACTION_TYPES.SIGN_IN_SUCCESS, user);
+export const noteUpdateFailed = (error) => 
+    createAction(NOTE_ACTION_TYPES.UPDATE_START, error);
 
-export const signInFailed = (error) =>
-    createAction(USER_ACTION_TYPES.SIGN_IN_FAILED, error);
+export const noteDeleteStart = (noteId, panelId) => 
+    createAction(NOTE_ACTION_TYPES.DELETE_START, { noteId, panelId });
 
-export const signUpStart = (email, password, displayName) =>
-    createAction(USER_ACTION_TYPES.SIGN_UP_START, {
-        email,
-        password,
-        displayName,
-    });
+export const noteDeleteSuccess = () => 
+    createAction(NOTE_ACTION_TYPES.DELETE_SUCCESS, 'Note Deleted');
 
-export const signUpSuccess = (user, additionalDetails) =>
-    createAction(USER_ACTION_TYPES.SIGN_UP_SUCCESS, { user, additionalDetails });
-
-export const signUpFailed = (error) =>
-    createAction(USER_ACTION_TYPES.SIGN_UP_FAILED, error);
-
-export const signOutStart = () =>
-    createAction(USER_ACTION_TYPES.SIGN_OUT_START);
-
-export const signOutSuccess = () =>
-    createAction(USER_ACTION_TYPES.SIGN_OUT_SUCCESS);
-
-export const signOutFailed = (error) =>
-    createAction(USER_ACTION_TYPES.SIGN_OUT_FAILED, error);
+export const noteDeleteFailed = (error) => 
+    createAction(NOTE_ACTION_TYPES.DELETE_START, error);

@@ -1,1 +1,1 @@
-export const selectCurrentUser = (state) => state.community;
+export const selectCommunityReducer = (state) => state.community;

@@ -1,42 +1,29 @@
-import { USER_ACTION_TYPES } from './user.types';
-import { createAction } from '../../utils/reducer/reducer.utils';
+import { AICOMPLETION_ACTION_TYPES } from './aicompletion.types';
+import { createAction } from '../../utils/reducer';
 
-export const setCurrentUser = (user) =>
-    createAction(USER_ACTION_TYPES.SET_CURRENT_USER, user);
+export const aicompletionCreateStart = (communityId, description) => 
+    createAction(AICOMPLETION_ACTION_TYPES.CREATE_START, { communityId, description });
 
-export const checkUserSession = () =>
-    createAction(USER_ACTION_TYPES.CHECK_USER_SESSION);
+export const aicompletionCreateSuccess = (aicompletion) => 
+    createAction(AICOMPLETION_ACTION_TYPES.CREATE_SUCCESS, aicompletion);
 
-export const googleSignInStart = () =>
-    createAction(USER_ACTION_TYPES.GOOGLE_SIGN_IN_START);
+export const aicompletionCreateFailed = (error) => 
+    createAction(AICOMPLETION_ACTION_TYPES.CREATE_START, error);
+    
+export const aicompletionUpdateStart = (aicompletionId, communityId, description) => 
+    createAction(AICOMPLETION_ACTION_TYPES.UPDATE_START, { aicompletionId, communityId, description });
 
-export const emailSignInStart = (email, password) =>
-    createAction(USER_ACTION_TYPES.EMAIL_SIGN_IN_START, { email, password });
+export const aicompletionUpdateSuccess = (aicompletion) => 
+    createAction(AICOMPLETION_ACTION_TYPES.UPDATE_SUCCESS, aicompletion);
 
-export const signInSuccess = (user) =>
-    createAction(USER_ACTION_TYPES.SIGN_IN_SUCCESS, user);
+export const aicompletionUpdateFailed = (error) => 
+    createAction(AICOMPLETION_ACTION_TYPES.UPDATE_START, error);
 
-export const signInFailed = (error) =>
-    createAction(USER_ACTION_TYPES.SIGN_IN_FAILED, error);
+export const aicompletionDeleteStart = (aicompletionId, communityId) => 
+    createAction(AICOMPLETION_ACTION_TYPES.DELETE_START, { aicompletionId, communityId });
 
-export const signUpStart = (email, password, displayName) =>
-    createAction(USER_ACTION_TYPES.SIGN_UP_START, {
-        email,
-        password,
-        displayName,
-    });
+export const aicompletionDeleteSuccess = () => 
+    createAction(AICOMPLETION_ACTION_TYPES.DELETE_SUCCESS, 'aicompletion Deleted');
 
-export const signUpSuccess = (user, additionalDetails) =>
-    createAction(USER_ACTION_TYPES.SIGN_UP_SUCCESS, { user, additionalDetails });
-
-export const signUpFailed = (error) =>
-    createAction(USER_ACTION_TYPES.SIGN_UP_FAILED, error);
-
-export const signOutStart = () =>
-    createAction(USER_ACTION_TYPES.SIGN_OUT_START);
-
-export const signOutSuccess = () =>
-    createAction(USER_ACTION_TYPES.SIGN_OUT_SUCCESS);
-
-export const signOutFailed = (error) =>
-    createAction(USER_ACTION_TYPES.SIGN_OUT_FAILED, error);
+export const aicompletionDeleteFailed = (error) => 
+    createAction(AICOMPLETION_ACTION_TYPES.DELETE_START, error);

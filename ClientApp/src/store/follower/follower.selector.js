@@ -1,1 +1,1 @@
-export const selectCurrentUser = (state) => state.follower;
+export const selectFollowerReducer = (state) => state.follower;
