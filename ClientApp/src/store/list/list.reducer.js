@@ -8,7 +8,7 @@ export const listReducer = (state = INITIAL_STATE, action = {}) => {
     const { type, payload } = action;
 
     switch (type) {
-        case: LIST_ACTION_TYPES.SET_IS_LIST_OPEN:
+        case LIST_ACTION_TYPES.SET_IS_LIST_OPEN:
             return {
                 ...state,
                 isListOpen: payload
@@ -16,4 +16,4 @@ export const listReducer = (state = INITIAL_STATE, action = {}) => {
         default:
             return state;
     }
-} 
+}; 

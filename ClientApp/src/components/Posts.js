@@ -9,12 +9,13 @@ const Posts = () => {
     const dispatch = useDispatch();
     const currentUser = useSelector(selectCurrentUser);
     const [isShowing, setIsShowing] = useState(false);
-    const [posts, setPosts] = useState(useSelector(selectPostReducer.posts));
+    const [posts, setPosts] = useState([]);
 
     const showPostForm = () =>
         setIsShowing(!isShowing);
 
-    const getPosts = dispatch(postFetchAllStart(currentUser));
+    const getPosts = () =>
+        dispatch(postFetchAllStart(currentUser));
 
     useEffect(() => {
         const retrievedPosts = getPosts();

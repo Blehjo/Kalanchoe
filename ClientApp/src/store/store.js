@@ -20,7 +20,7 @@ const sagaMiddleware = createSagaMiddleware();
 
 const middleWares = [
     process.env.NODE_ENV !== 'production' && logger,
-    sagaMiddleware,
+    //sagaMiddleware,
 ].filter(Boolean);
 
 const composeEnhancer =
@@ -33,10 +33,11 @@ const composedEnhancers = composeEnhancer(applyMiddleware(...middleWares));
 
 export const store = createStore(
     //persistedReducer,
+    rootReducer,
     undefined,
     composedEnhancers
 );
 
-sagaMiddleware.run(rootSaga);
+//sagaMiddleware.run(rootSaga);
 
 //export const persistor = persistStore(store);

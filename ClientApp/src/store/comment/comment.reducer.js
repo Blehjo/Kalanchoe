@@ -1,4 +1,4 @@
-import { COMMENT_ACTION_TYPES } from './user.types';
+import { COMMENT_ACTION_TYPES } from './comment.types';
 
 const INITIAL_STATE = {
     comments: [],

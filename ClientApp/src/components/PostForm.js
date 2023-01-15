@@ -12,7 +12,7 @@ const defaultFormFields = {
 export const PostForm = () => {
     const dispatch = useDispatch();
     const currentUser = useSelector(selectCurrentUser);
-    const userId = currentUser.id;
+    const userId = currentUser;
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { postValue, mediaLink } = formFields;
 
@@ -38,11 +38,12 @@ export const PostForm = () => {
     }
 
     return (
-        <Fragment>
+        <Col xs={6}>
             <Form onSubmit={handleSubmit} style={{ color: 'black', marginTop: '1rem' }}>
                 <Form.Group className="mb-3" controlId="formPostValue">
                     <Form.Label>Post</Form.Label>
-                    <Form.Control
+                        <Form.Control
+                            as='textarea'
                         placeholder="Make a post"
                         label="PostValue"
                         type="postValue"
@@ -67,12 +68,8 @@ export const PostForm = () => {
                         value={mediaLink}
                     />
                 </Form.Group>
-                <Row>
-                    <Col>
-                        <Button type="submit" value="Submit" />
-                    </Col>
-                </Row>
+                <Button as="input" type="submit" value="Submit" />
             </Form>
-        </Fragment>
+        </Col>
     );
 }

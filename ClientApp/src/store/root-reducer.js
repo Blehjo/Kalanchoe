@@ -13,6 +13,8 @@ import { noteReducer } from './note/note.reducer';
 import { panelReducer } from './panel/panel.reducer';
 import { postReducer } from './post/post.reducer';
 import { userReducer } from './user/user.reducer';
+import { toolReducer } from './tool/tool.reducer';
+import { listReducer } from './list/list.reducer';
 
 export const rootReducer = combineReducers({
     user: userReducer,
@@ -28,5 +30,7 @@ export const rootReducer = combineReducers({
     chat: chatReducer,
     channelcomment: channelcommentReducer,
     channel: channelReducer,
-    aicompletion: aicompletionReducer
+    aicompletion: aicompletionReducer,
+    tool: toolReducer,
+    list: listReducer,
 });

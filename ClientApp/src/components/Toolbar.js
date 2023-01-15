@@ -1,13 +1,17 @@
 ﻿import { Fragment, useContext } from 'react';
 import { Col } from 'react-bootstrap';
 import { X, XSquare, Collection, Robot, Globe, Paperclip, Database, Eye, Clipboard, Bookmark, Speedometer2, ArrowRepeat, ChatDots, Person, Messenger, PersonWorkspace, FileCode, AspectRatio, Search, Newspaper, Journal, JournalCode } from 'react-bootstrap-icons';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { ToolContext } from '../contexts/tool.context';
+import { setIsToolOpen } from '../store/tool/tool.action';
+import { selectIsToolOpen } from '../store/tool/tool.selector';
 
 const Toolbar = () => {
-    const { isToolOpen, setIsToolOpen } = useContext(ToolContext);
+    const dispatch = useDispatch();
+    const isToolOpen = useSelector(selectIsToolOpen);
 
-    const toggleIsToolOpen = () => setIsToolOpen(!isToolOpen);
+    const toggleIsToolOpen = () => dispatch(setIsToolOpen(!isToolOpen));
 
     // Function that creates a new panel
     const handlePanelClick = () => {

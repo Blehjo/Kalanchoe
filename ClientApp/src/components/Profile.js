@@ -1,4 +1,4 @@
-﻿import { Fragment, useCallback, useState, useContext } from "react";
+﻿import { Fragment, useCallback, useState } from "react";
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { Col, Row, Navbar } from 'react-bootstrap';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -7,12 +7,15 @@ import DragMove from './DragMove';
 import DragList from "./DragList";
 import Toolbar from './Toolbar';
 
-import { ToolContext } from '../contexts/tool.context';
+import { useDispatch, useSelector } from "react-redux";
+import { selectIsToolOpen } from "../store/tool/tool.selector";
+import { setIsToolOpen } from '../store/tool/tool.action';
 
 const Profile = () => {
-    const { isToolOpen, setIsToolOpen } = useContext(ToolContext);
+    const dispatch = useDispatch();
+    const isToolOpen = useSelector(selectIsToolOpen);
 
-    const toggleIsToolOpen = () => setIsToolOpen(!isToolOpen);
+    const toggleIsToolOpen = () => dispatch(setIsToolOpen(!isToolOpen));
 
     const [translate, setTranslate] = useState({
         x: 0,
