@@ -1,1 +1,4 @@
-export const selectPostReducer = (state) => state.post;
+import { createSelector } from 'reselect';
+
+const selectPostReducer = (state) => state.post;
+
