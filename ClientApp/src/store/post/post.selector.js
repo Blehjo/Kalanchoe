@@ -1,1 +1,1 @@
-export const selectPostReducer= (state) => state.post;
+export const selectPostReducer = (state) => state.post;

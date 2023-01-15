@@ -1,8 +1,8 @@
 import { POST_ACTION_TYPES } from './post.types';
 import { createAction } from '../../utils/reducer';
 
-export const postCreateStart = (userId, postValue) => 
-    createAction(POST_ACTION_TYPES.CREATE_START, { userId, postValue });
+export const postCreateStart = (userId, postValue, mediaLink) => 
+    createAction(POST_ACTION_TYPES.CREATE_START, { userId, postValue, mediaLink });
 
 export const postCreateSuccess = (post) => 
     createAction(POST_ACTION_TYPES.CREATE_SUCCESS, post);
@@ -10,8 +10,8 @@ export const postCreateSuccess = (post) =>
 export const postCreateFailed = (error) => 
     createAction(POST_ACTION_TYPES.CREATE_START, error);
     
-export const postUpdateStart = (userId, postId, postValue) => 
-    createAction(POST_ACTION_TYPES.UPDATE_START, { userId, postId, postValue });
+export const postUpdateStart = (userId, postId, postValue, mediaLink) => 
+    createAction(POST_ACTION_TYPES.UPDATE_START, { userId, postId, postValue, mediaLink });
 
 export const postUpdateSuccess = (post) => 
     createAction(POST_ACTION_TYPES.UPDATE_SUCCESS, post);
@@ -19,8 +19,8 @@ export const postUpdateSuccess = (post) =>
 export const postUpdateFailed = (error) => 
     createAction(POST_ACTION_TYPES.UPDATE_START, error);
 
-export const postDeleteStart = (userId, postId, postValue) => 
-    createAction(POST_ACTION_TYPES.DELETE_START, { userId, postId, postValue });
+export const postDeleteStart = (userId, postId, postValue, mediaLink) => 
+    createAction(POST_ACTION_TYPES.DELETE_START, { userId, postId, postValue, mediaLink });
 
 export const postDeleteSuccess = () => 
     createAction(POST_ACTION_TYPES.DELETE_SUCCESS, 'Post Deleted');
