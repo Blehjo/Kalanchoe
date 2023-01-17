@@ -6,7 +6,7 @@ const INITIAL_STATE = {
     error: null,
 };
 
-export const postReducer = (state = INITIAL_STATE, action) => {
+export const postReducer = (state = INITIAL_STATE, action = {}) => {
     const { type, payload } = action;
 
     switch (type) {

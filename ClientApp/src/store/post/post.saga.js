@@ -23,7 +23,7 @@ import {
     deletePost
 } from '../../utils/api/post';
 
-export function* createPost({ payload: { userId, postValue, mediaLink } }) {
+export function* createPost({ userId, postValue, mediaLink }) {
     try {
         const post = call(addPost({ userId, postValue, mediaLink }));
         yield put(postCreateSuccess(post));
@@ -56,7 +56,7 @@ export function* deleteItem(userId, postId) {
     }
 }
 
-export function* fetchSinglePost(postId) {
+export function* fetchSinglePost(userId, postId) {
     try {
         const { post } = yield call(getSinglePost, userId, postId);
         yield put(postFetchSingleSuccess(post));

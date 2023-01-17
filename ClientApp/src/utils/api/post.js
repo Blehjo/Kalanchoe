@@ -9,7 +9,7 @@ export async function getPosts() {
 }
 
 export async function addPost(post) {
-  return await axios.post('https://localhost:7028/api/Post', post)
+  return await axios.post('https://192.168.0.109:7028/api/Post', post)
 }
 
 export async function editPost(post) {
