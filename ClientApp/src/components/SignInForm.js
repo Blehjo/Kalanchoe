@@ -3,8 +3,10 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 
 const SignInForm = () => {
+    const dispatch = useDispatch();
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const navigate = useNavigate();
@@ -36,8 +38,8 @@ const SignInForm = () => {
 
         try {
             signInWithReact();
-            navigate('/profile')
-
+            resetFormFields();
+            navigate('/profile');
         } catch (error) {
             switch (error.code) {
                 case 'auth/wrong-password':

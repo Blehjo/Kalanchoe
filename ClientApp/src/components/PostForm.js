@@ -29,7 +29,7 @@ export const PostForm = () => {
         event.preventDefault();
 
         try {
-            dispatch(postCreateStart(userId, postValue, mediaLink));
+            dispatch(postCreateStart(1, postValue, mediaLink));
             resetFormFields();
         } catch (error) {
             console.log(error);

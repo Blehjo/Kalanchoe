@@ -64,7 +64,7 @@ export function* fetchSinglePanel(panelId) {
 
 export function* fetchAllPanel(userId) {
     try {
-        const { panel } = yield call(getpanels, userId);
+        const { panel } = yield call(getPanels, userId);
         yield put(panelFetchAllSuccess(panel));
     } catch (error) {
         yield put(panelFetchAllFailed(error));
@@ -72,23 +72,23 @@ export function* fetchAllPanel(userId) {
 }
 
 export function* onpanelCreateStart() {
-    yield takeLatest(panel_ACTION_TYPES.CREATE_START, createpanel);
+    yield takeLatest(PANEL_ACTION_TYPES.CREATE_START, createPanel);
 }
 
 export function* onpanelUpdateStart() {
-    yield takeLatest(panel_ACTION_TYPES.UPDATE_START, updatepanel);
+    yield takeLatest(PANEL_ACTION_TYPES.UPDATE_START, updatePanel);
 }
 
 export function* onpanelDeleteStart() {
-    yield takeLatest(panel_ACTION_TYPES.DELETE_START, deleteItem);
+    yield takeLatest(PANEL_ACTION_TYPES.DELETE_START, deleteItem);
 }
 
 export function* onpanelFetchSingleStart() {
-    yield takeLatest(panel_ACTION_TYPES.FETCH_SINGLE_START, fetchSinglepanel); 
+    yield takeLatest(PANEL_ACTION_TYPES.FETCH_SINGLE_START, fetchSinglePanel); 
 }
 
 export function* onpanelFetchAllStart() {
-    yield takeLatest(panel_ACTION_TYPES.FETCH_ALL_START, fetchAllpanel);
+    yield takeLatest(PANEL_ACTION_TYPES.FETCH_ALL_START, fetchAllPanel);
 }
 
 export function* panelSagas() {

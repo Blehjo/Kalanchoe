@@ -5,11 +5,11 @@ export async function getSinglePost(postId) {
 }
 
 export async function getPosts() {
-  return await axios.get('/posts')
+  return await axios.get('https://localhost:7028/api/Post')
 }
 
 export async function addPost(post) {
-  return await axios.post('/posts', post)
+  return await axios.post('https://localhost:7028/api/Post', post)
 }
 
 export async function editPost(post) {

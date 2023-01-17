@@ -9,6 +9,8 @@ import {
     postUpdateFailed,
     postDeleteSuccess,
     postDeleteFailed,
+    postFetchSingleSuccess,
+    postFetchSingleFailed,
     postFetchAllSuccess,
     postFetchAllFailed,
 } from './post.action';
@@ -23,7 +25,7 @@ import {
 
 export function* createPost({ payload: { userId, postValue, mediaLink } }) {
     try {
-        const { post } = call(addPost({ userId, postValue, mediaLink }));
+        const post = call(addPost({ userId, postValue, mediaLink }));
         yield put(postCreateSuccess(post));
     } catch (error) {
         yield put(postCreateFailed(error));
