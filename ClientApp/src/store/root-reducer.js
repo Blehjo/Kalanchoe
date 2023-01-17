@@ -15,6 +15,7 @@ import { postReducer } from './post/post.reducer';
 import { userReducer } from './user/user.reducer';
 import { toolReducer } from './tool/tool.reducer';
 import { listReducer } from './list/list.reducer';
+import { toolboxReducer } from './toolbox/toolbox.reducer';
 
 export const rootReducer = combineReducers({
     user: userReducer,
@@ -33,4 +34,5 @@ export const rootReducer = combineReducers({
     aicompletion: aicompletionReducer,
     tool: toolReducer,
     list: listReducer,
+    toolbox: toolboxReducer
 });

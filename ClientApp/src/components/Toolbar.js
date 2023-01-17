@@ -1,9 +1,8 @@
-﻿import { Fragment, useContext } from 'react';
+﻿import { Fragment } from 'react';
 import { Col } from 'react-bootstrap';
-import { X, XSquare, Collection, Robot, Globe, Paperclip, Database, Eye, Clipboard, Bookmark, Speedometer2, ArrowRepeat, ChatDots, Person, Messenger, PersonWorkspace, FileCode, AspectRatio, Search, Newspaper, Journal, JournalCode } from 'react-bootstrap-icons';
+import { XSquare, Robot, Globe, Paperclip, Clipboard, ChatDots, Messenger, FileCode, AspectRatio, Newspaper, JournalCode } from 'react-bootstrap-icons';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { ToolContext } from '../contexts/tool.context';
 import { setIsToolOpen } from '../store/tool/tool.action';
 import { selectIsToolOpen } from '../store/tool/tool.selector';
 
@@ -44,8 +43,8 @@ const Toolbar = () => {
     }
 
     // Function that calls search bar for poetry
-    const handlePoetryClick = () => {
-        console.log('handlePoetryClick');
+    const handleEditorClick = () => {
+        console.log('handleEditorlick');
         
     }
 
@@ -90,7 +89,7 @@ const Toolbar = () => {
             <Col style={{ cursor: 'pointer' }} onClick={handleSearchBarClick}>
                 <JournalCode className='mx-2' color="black" size={40} />
             </Col>
-            <Col style={{ cursor: 'pointer' }} onClick={handlePoetryClick}>
+            <Col style={{ cursor: 'pointer' }} onClick={handleEditorClick}>
                 <Newspaper className='mx-2' color="black" size={40} />
             </Col>
             <Col style={{ cursor: 'pointer' }} onClick={handleTasksClick}>

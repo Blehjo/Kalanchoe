@@ -1,7 +1,6 @@
 ﻿import { List } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
 
-import { ListContext } from "../contexts/list.context";
 import { setIsListOpen } from "../store/list/list.action";
 import { selectIsListOpen } from "../store/list/list.selector";
 
