@@ -1,127 +1,102 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
 
-import { USER_ACTION_TYPES } from './user.types';
+import { PANEL_ACTION_TYPES } from './panel.types';
 
 import {
-    signInSuccess,
-    signInFailed,
-    signUpSuccess,
-    signUpFailed,
-    signOutSuccess,
-    signOutFailed,
-} from './user.action';
+    panelCreateSuccess,
+    panelCreateFailed,
+    panelUpdateSuccess,
+    panelUpdateFailed,
+    panelDeleteSuccess,
+    panelDeleteFailed,
+    panelFetchAllSuccess,
+    panelFetchAllFailed,
+} from './panel.action';
 
-import {
-    getCurrentUser,
-    createUserDocumentFromAuth,
-    signInWithGooglePopup,
-    signInAuthUserWithEmailAndPassword,
-    createAuthUserWithEmailAndPassword,
-    signOutUser,
-} from '../../utils/firebase/firebase.utils';
+import { 
+    getSinglePanel,
+    getPanels,
+    addPanel,
+    editPanel,
+    deletePanel
+} from '../../utils/api/panel';
 
-export function* getSnapshotFromUserAuth(userAuth, additionalDetails) {
+export function* createPanel({ payload: { userId, title } }) {
     try {
-        const userSnapshot = yield call(
-            createUserDocumentFromAuth,
-            userAuth,
-            additionalDetails
+        const { panel } = call(addPanel({ userId, title }));
+        yield put(panelCreateSuccess(panel));
+    } catch (error) {
+        yield put(panelCreateFailed(error));
+    }
+}
+
+export function* updatePanel({ payload: { userId, panelId, title }}) {
+    try {
+        const { panel } = yield call(
+            editPanel,
+            userId,
+            panelId,
+            title,
         );
-        yield put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }));
+        yield put(panelUpdateSuccess(panel));
     } catch (error) {
-        yield put(signInFailed(error));
+        yield put(panelUpdateFailed(error));
     }
 }
 
-export function* signInWithGoogle() {
+export function* deleteItem(userId, panelId) {
     try {
-        const { user } = yield call(signInWithGooglePopup);
-        yield call(getSnapshotFromUserAuth, user);
+        const { panel } = yield call(deletePanel, userId, panelId);
+        yield put(panelDeleteSuccess(panel));
     } catch (error) {
-        yield put(signInFailed(error));
+        yield put(panelDeleteFailed(error));
     }
 }
 
-export function* signInWithEmail({ payload: { email, password } }) {
+export function* fetchSinglePanel(panelId) {
     try {
-        const { user } = yield call(
-            signInAuthUserWithEmailAndPassword,
-            email,
-            password
-        );
-        yield call(getSnapshotFromUserAuth, user);
+        const { panel } = yield call(getSinglePanel, userId, panelId);
+        yield put(panelFetchSingleSuccess(panel));
     } catch (error) {
-        yield put(signInFailed(error));
+        yield put(panelFetchSingleFailed(error));
     }
 }
 
-export function* isUserAuthenticated() {
+export function* fetchAllPanel(userId) {
     try {
-        const userAuth = yield call(getCurrentUser);
-        if (!userAuth) return;
-        yield call(getSnapshotFromUserAuth, userAuth);
+        const { panel } = yield call(getpanels, userId);
+        yield put(panelFetchAllSuccess(panel));
     } catch (error) {
-        yield put(signInFailed(error));
+        yield put(panelFetchAllFailed(error));
     }
 }
 
-export function* signUp({ payload: { email, password, displayName } }) {
-    try {
-        const { user } = yield call(
-            createAuthUserWithEmailAndPassword,
-            email,
-            password
-        );
-        yield put(signUpSuccess(user, { displayName }));
-    } catch (error) {
-        yield put(signUpFailed(error));
-    }
+export function* onpanelCreateStart() {
+    yield takeLatest(panel_ACTION_TYPES.CREATE_START, createpanel);
 }
 
-export function* signOut() {
-    try {
-        yield call(signOutUser);
-        yield put(signOutSuccess());
-    } catch (error) {
-        yield put(signOutFailed(error));
-    }
+export function* onpanelUpdateStart() {
+    yield takeLatest(panel_ACTION_TYPES.UPDATE_START, updatepanel);
 }
 
-export function* signInAfterSignUp({ payload: { user, additionalDetails } }) {
-    yield call(getSnapshotFromUserAuth, user, additionalDetails);
+export function* onpanelDeleteStart() {
+    yield takeLatest(panel_ACTION_TYPES.DELETE_START, deleteItem);
 }
 
-export function* onGoogleSignInStart() {
-    yield takeLatest(USER_ACTION_TYPES.GOOGLE_SIGN_IN_START, signInWithGoogle);
+export function* onpanelFetchSingleStart() {
+    yield takeLatest(panel_ACTION_TYPES.FETCH_SINGLE_START, fetchSinglepanel); 
 }
 
-export function* onCheckUserSession() {
-    yield takeLatest(USER_ACTION_TYPES.CHECK_USER_SESSION, isUserAuthenticated);
+export function* onpanelFetchAllStart() {
+    yield takeLatest(panel_ACTION_TYPES.FETCH_ALL_START, fetchAllpanel);
 }
 
-export function* onEmailSignInStart() {
-    yield takeLatest(USER_ACTION_TYPES.EMAIL_SIGN_IN_START, signInWithEmail);
-}
-
-export function* onSignUpStart() {
-    yield takeLatest(USER_ACTION_TYPES.SIGN_UP_START, signUp);
-}
-
-export function* onSignUpSuccess() {
-    yield takeLatest(USER_ACTION_TYPES.SIGN_UP_SUCCESS, signInAfterSignUp);
-}
-
-export function* onSignOutStart() {
-    yield takeLatest(USER_ACTION_TYPES.SIGN_OUT_START, signOut);
-}
-
-export function* userSagas() {
+export function* panelSagas() {
     yield all([
-        call(onCheckUserSession),
-        call(onGoogleSignInStart),
-        call(onEmailSignInStart),
-        call(onSignUpStart),
-        call(onSignUpSuccess),
-        call(onSignOutStart),
+        call(onpanelCreateStart),
+        call(onpanelUpdateStart),
+        call(onpanelDeleteStart),
+        call(onpanelFetchAllStart),
+        call(onpanelFetchSingleStart)
     ]);
 }
