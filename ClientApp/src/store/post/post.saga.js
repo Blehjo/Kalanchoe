@@ -13,42 +13,60 @@ import {
     postFetchAllFailed,
 } from './post.action';
 
+import { 
+    getSinglePost,
+    getPosts,
+    addPost,
+    editPost,
+    deletePost
+} from '../../utils/api/post';
+
 export function* createPost({ payload: { userId, postValue, mediaLink } }) {
     try {
-        yield put(postCreateSuccess({ userId, postValue, mediaLink }));
+        const { post } = call(addPost({ userId, postValue, mediaLink }));
+        yield put(postCreateSuccess(post));
     } catch (error) {
         yield put(postCreateFailed(error));
     }
 }
 
-export function* updatePost(userId, postId, postValue, mediaLink) {
+export function* updatePost({ payload: { userId, postId, postValue, mediaLink }}) {
     try {
-        const postSnapshot = yield call(
-            postUpdateStart,
+        const { post } = yield call(
+            editPost,
             userId,
             postId,
             postValue,
             mediaLink
         );
-        yield put(postUpdateSuccess(postSnapshot));
+        yield put(postUpdateSuccess(post));
     } catch (error) {
         yield put(postUpdateFailed(error));
     }
 }
 
-export function* deletePost(userId, postId) {
+export function* deleteItem(userId, postId) {
     try {
-        const postSnapshot = yield call(postDeleteStart, userId, postId);
-        yield put(postDeleteSuccess(postSnapshot));
+        const { post } = yield call(deletePost, userId, postId);
+        yield put(postDeleteSuccess(post));
     } catch (error) {
         yield put(postDeleteFailed(error));
     }
 }
 
+export function* fetchSinglePost(postId) {
+    try {
+        const { post } = yield call(getSinglePost, userId, postId);
+        yield put(postFetchSingleSuccess(post));
+    } catch (error) {
+        yield put(postFetchSingleFailed(error));
+    }
+}
+
 export function* fetchAllPost(userId) {
     try {
-        const postSnapshot = yield call(postFetchAll, userId);
-        yield put(postFetchAllSuccess(postSnapshot));
+        const { post } = yield call(getPosts, userId);
+        yield put(postFetchAllSuccess(post));
     } catch (error) {
         yield put(postFetchAllFailed(error));
     }
@@ -63,7 +81,11 @@ export function* onPostUpdateStart() {
 }
 
 export function* onPostDeleteStart() {
-    yield takeLatest(POST_ACTION_TYPES.DELETE_START, deletePost);
+    yield takeLatest(POST_ACTION_TYPES.DELETE_START, deleteItem);
+}
+
+export function* onPostFetchSingleStart() {
+    yield takeLatest(POST_ACTION_TYPES.FETCH_SINGLE_START, fetchSinglePost); 
 }
 
 export function* onPostFetchAllStart() {
@@ -72,11 +94,10 @@ export function* onPostFetchAllStart() {
 
 export function* postSagas() {
     yield all([
-        call(onCheckUserSession),
-        call(onGoogleSignInStart),
-        call(onEmailSignInStart),
-        call(onSignUpStart),
-        call(onSignUpSuccess),
-        call(onSignOutStart),
+        call(onPostCreateStart),
+        call(onPostUpdateStart),
+        call(onPostDeleteStart),
+        call(onPostFetchAllStart),
+        call(onPostFetchSingleStart)
     ]);
 }
