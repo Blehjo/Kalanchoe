@@ -3,29 +3,19 @@ import { takeLatest, put, all, call } from 'redux-saga/effects';
 import { POST_ACTION_TYPES } from './post.types';
 
 import {
-    postCreateStart,
     postCreateSuccess,
     postCreateFailed,
-    postUpdateStart,
     postUpdateSuccess,
     postUpdateFailed,
-    postDeleteStart,
     postDeleteSuccess,
     postDeleteFailed,
-    postFetchAllStart,
     postFetchAllSuccess,
     postFetchAllFailed,
 } from './post.action';
 
-export function* createPost(userId, postValue, mediaLink) {
+export function* createPost({ payload: { userId, postValue, mediaLink } }) {
     try {
-        const postSnapshot = yield call(
-            postCreateStart,
-            userId,
-            postValue,
-            mediaLink
-        );
-        yield put(postCreateSuccess(postSnapshot));
+        yield put(postCreateSuccess({ userId, postValue, mediaLink }));
     } catch (error) {
         yield put(postCreateFailed(error));
     }
@@ -40,7 +30,7 @@ export function* updatePost(userId, postId, postValue, mediaLink) {
             postValue,
             mediaLink
         );
-        yield put(signInSuccess(postSnapshot));
+        yield put(postUpdateSuccess(postSnapshot));
     } catch (error) {
         yield put(postUpdateFailed(error));
     }
@@ -49,7 +39,7 @@ export function* updatePost(userId, postId, postValue, mediaLink) {
 export function* deletePost(userId, postId) {
     try {
         const postSnapshot = yield call(postDeleteStart, userId, postId);
-        yield put(signInSuccess());
+        yield put(postDeleteSuccess(postSnapshot));
     } catch (error) {
         yield put(postDeleteFailed(error));
     }
@@ -57,8 +47,8 @@ export function* deletePost(userId, postId) {
 
 export function* fetchAllPost(userId) {
     try {
-        const postSnapshot = yield call();
-        yield put(signInSuccess());
+        const postSnapshot = yield call(postFetchAll, userId);
+        yield put(postFetchAllSuccess(postSnapshot));
     } catch (error) {
         yield put(postFetchAllFailed(error));
     }
