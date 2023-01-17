@@ -19,8 +19,8 @@ export const postUpdateSuccess = (post) =>
 export const postUpdateFailed = (error) => 
     createAction(POST_ACTION_TYPES.UPDATE_START, error);
 
-export const postDeleteStart = (userId, postId, postValue, mediaLink) => 
-    createAction(POST_ACTION_TYPES.DELETE_START, { userId, postId, postValue, mediaLink });
+export const postDeleteStart = (userId, postId) => 
+    createAction(POST_ACTION_TYPES.DELETE_START, { userId, postId });
 
 export const postDeleteSuccess = () => 
     createAction(POST_ACTION_TYPES.DELETE_SUCCESS, 'Post Deleted');
