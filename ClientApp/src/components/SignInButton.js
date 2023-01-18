@@ -2,10 +2,6 @@
 import { loginRequest } from "../authConfig";
 import Button from "react-bootstrap/Button";
 
-
-/**
- * Renders a button which, when selected, will open a popup for login
- */
 export const SignInButton = () => {
     const { instance } = useMsal();
 
@@ -27,6 +23,6 @@ export const SignInButton = () => {
 
     return (
         <Button variant="secondary" className="ml-auto" onClick={() => handlePopupLogin("popup")}>Sign in using Popup</Button>
-        <Button variant="secondary" className="ml-auto" onClick={() => handleRedirectLogin("redirect")}>Sign in using Redirect</Button>
+        //<Button variant="secondary" className="ml-auto" onClick={() => handleRedirectLogin("redirect")}>Sign in using Redirect</Button>
     );
 }

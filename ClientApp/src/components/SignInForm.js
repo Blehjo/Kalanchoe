@@ -1,15 +1,19 @@
 ﻿import { useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+
+import { SignInButton } from './SignInButton';
+import { SignOutButton } from './SignOutButton';
+import { useIsAuthenticated } from "@azure/msal-react";
 
 const SignInForm = () => {
     const dispatch = useDispatch();
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const navigate = useNavigate();
+    const isAuthenticated = useIsAuthenticated();
 
     const resetFormFields = () => {
         setEmail('');
@@ -88,6 +92,8 @@ const SignInForm = () => {
                     <Row xs={1}>
                         <Col>
                             <Button variant="light" type="submit">Sign in</Button>
+                            <SignInButton />
+                            {/*<SignOutButton />*/}
                         </Col>
                     </Row>
                 </Form>
