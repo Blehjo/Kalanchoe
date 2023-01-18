@@ -7,15 +7,22 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
+import "bootstrap/dist/css/bootstrap.min.css";
+import { PublicClientApplication } from "@azure/msal-browser";
+import { MsalProvider } from "@azure/msal-react";
+import { msalConfig } from "./authConfig";
 
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
+const msalInstance = new PublicClientApplication(msalConfig);
 
 root.render(
     <Provider store={store}>
         <BrowserRouter basename={baseUrl}>
-            <App />
+            <MsalProvider instance={msalInstance}>
+                <App />
+            </MsalProvider>
         </BrowserRouter>
     </Provider>
 );
