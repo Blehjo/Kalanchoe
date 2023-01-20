@@ -1,11 +1,11 @@
-﻿import React, { useEffect } from "react";
+﻿import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { DragDropContext } from "react-beautiful-dnd";
 import DraggableElement from "./DraggableElement";
+import { getPanels } from "../utils/api/panel";
 
 const DragDropContextContainer = styled.div`
   padding: 20px;
-  
   border-radius: 6px;
 `;
 
@@ -40,17 +40,21 @@ const addToList = (list, index, element) => {
 
 const lists = ["todo", "inProgress", "done"];
 
-const generateLists = () =>
-    lists.reduce(
-        (acc, listKey) => ({ ...acc, [listKey]: getItems(10, listKey) }),
-        {}
-    );
-
 function DragList() {
-    const [elements, setElements] = React.useState(generateLists());
+    const [panels, setPanels] = useState([]);
+    
+    const generateLists = () =>
+        lists.reduce(
+            (acc, listKey) => ({ ...acc, [listKey]: getItems(10, listKey) }),
+            {}
+        );
+        
+    const [elements, setElements] = useState(generateLists());
 
     useEffect(() => {
         setElements(generateLists());
+        getPanels()
+        .then((response) => setPanels(response.data));
     }, []);
 
     const onDragEnd = (result) => {
@@ -75,16 +79,20 @@ function DragList() {
         setElements(listCopy);
     };
 
+    console.log(elements)
+    
     return (
         <DragDropContextContainer>
             <DragDropContext onDragEnd={onDragEnd}>
                 <ListGrid>
                     {lists.map((listKey) => (
-                        <DraggableElement
-                            elements={elements[listKey]}
-                            key={listKey}
-                            prefix={listKey}
-                        />
+                        <>
+                            <DraggableElement
+                                elements={elements[listKey]}
+                                key={listKey}
+                                prefix={listKey}
+                            />
+                        </>
                     ))}
                 </ListGrid>
             </DragDropContext>
