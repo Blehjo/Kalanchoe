@@ -1,10 +1,9 @@
-﻿import { Fragment, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { postCreateStart, postFetchAllStart } from "../store/post/post.action";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from '../store/user/user.selector';
-import { Button, Col, Form, Row } from "react-bootstrap";
-import { getPosts } from "../utils/api/post";
-// import { getPosts } from "../store/post/post.reducer";
+import { Button, Col, Form } from "react-bootstrap";
+import { getPosts, addPost } from "../utils/api/post";
 
 const defaultFormFields = {
     postValue: '',
@@ -17,11 +16,6 @@ export const PostForm = () => {
     const userId = currentUser;
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { postValue, mediaLink } = formFields;
-    // getPosts();
-    // const getPosts = () => {
-    //     console.log(dispatch(postFetchAllStart(0)));
-    
-    // }
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -36,7 +30,8 @@ export const PostForm = () => {
         event.preventDefault();
 
         try {
-            dispatch(postCreateStart(1, postValue, mediaLink));
+            // dispatch(postCreateStart(1, postValue, mediaLink));
+            addPost({ userId: 1, postValue: postValue, mediaLink: mediaLink });
             getPosts();
             resetFormFields();
         } catch (error) {
@@ -51,7 +46,7 @@ export const PostForm = () => {
                 <Form.Group className="mb-3" controlId="formPostValue">
                     <Form.Label>Post</Form.Label>
                         <Form.Control
-                            as='textarea'
+                        as='textarea'
                         placeholder="Make a post"
                         label="PostValue"
                         type="postValue"
@@ -67,8 +62,9 @@ export const PostForm = () => {
                 <Form.Group className="mb-3" controlId="formMediaLink">
                     <Form.Label>Media</Form.Label>
                     <Form.Control
+                        as="input"
                         label="MediaLink"
-                        type="mediaLink"
+                        type="text"
                         placeholder="Place Media Here"
                         required
                         onChange={handleChange}

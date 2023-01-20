@@ -18,7 +18,7 @@
 //    signInAuthUserWithEmailAndPassword,
 //    createAuthUserWithEmailAndPassword,
 //    signOutUser,
-// } from '../../utils/firebase/firebase.utils';
+// } from '../../utils/firebase';
 
 // export function* getSnapshotFromUserAuth(userAuth, additionalDetails) {
 //    try {

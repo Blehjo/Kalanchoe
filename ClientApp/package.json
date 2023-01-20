@@ -11,6 +11,7 @@
     "@mui/material": "^5.11.3",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
+    "firebase": "^9.16.0",
     "generate-avatar": "^1.4.10",
     "http-proxy-middleware": "^2.0.6",
     "jquery": "^3.6.0",
