@@ -1,34 +1,36 @@
 import axios from "axios";
 
+const headers = {
+  'Accept': 'application/json',
+  'Content-Type': 'application/json' 
+}
+
 export async function getSinglePost(postId) {
-  return await axios.get(`/posts/${postId}`)
+  return await axios.get(`https://localhost:7028/api/Post/${postId}`)
 }
 
 export async function getPosts() {
-  return await axios.get('https://localhost:7028/api/Post')
-  .then((response) => console.log("getPosts(): ", response.data));
+  return await axios.get('https://localhost:7028/api/Post');
 }
 
 export async function addPost(post) {
   const { postValue, mediaLink } = post;
-  console.log("utils.addPost(): ", postValue);
-  return await axios.post('https://localhost:7028/api/Post', {
-    body: {
-      postValue: postValue,
-      mediaLink: mediaLink
-    },
-    config: { headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json' 
-    }}
-  })
-  .then((response) => console.log("addPost(): ", response));
+  const data = {
+    userId: 1,
+    postValue: postValue,
+    mediaLink: mediaLink
+  }
+  return await axios.post('https://localhost:7028/api/Post', data, {
+    config: headers,
+  });
 }
 
 export async function editPost(post) {
-  return await axios.put(`/posts/${post.id}`, post)
+  return await axios.put(`https://localhost:7028/api/Post/${post.id}`, ...post, {
+    config: headers,
+  })
 }
 
 export async function deletePost(postId) {
-  return await axios.delete(`/posts/${postId}`)
+  return await axios.delete(`https://localhost:7028/api/Post/${postId}`)
 }

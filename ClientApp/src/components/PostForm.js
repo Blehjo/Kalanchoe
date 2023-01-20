@@ -3,11 +3,11 @@ import { postCreateStart, postFetchAllStart } from "../store/post/post.action";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from '../store/user/user.selector';
 import { Button, Col, Form } from "react-bootstrap";
-import { getPosts, addPost } from "../utils/api/post";
+import { addPost } from "../utils/api/post";
 
 const defaultFormFields = {
     postValue: '',
-    mediaLink: ''
+    mediaLink: '',
 }
 
 export const PostForm = () => {
@@ -31,8 +31,7 @@ export const PostForm = () => {
 
         try {
             // dispatch(postCreateStart(1, postValue, mediaLink));
-            addPost({ userId: 1, postValue: postValue, mediaLink: mediaLink });
-            getPosts();
+            addPost(formFields);
             resetFormFields();
         } catch (error) {
             console.log(error);
@@ -66,7 +65,6 @@ export const PostForm = () => {
                         label="MediaLink"
                         type="text"
                         placeholder="Place Media Here"
-                        required
                         onChange={handleChange}
                         name="mediaLink"
                         value={mediaLink}
