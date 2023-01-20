@@ -1,4 +1,4 @@
-﻿import { Fragment, useEffect, useState } from "react";
+﻿import { Fragment, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { postFetchAllStart } from "../store/post/post.action";
@@ -10,21 +10,10 @@ const Posts = () => {
     const dispatch = useDispatch();
     const currentUser = useSelector(selectCurrentUser);
     const [isShowing, setIsShowing] = useState(false);
-    const fetched = useSelector(selectPostReducer);
-    const [posts, setPosts] = useState(fetched);
+    const posts = useSelector(selectPostReducer);
 
     const showPostForm = () =>
         setIsShowing(!isShowing);
-
-    // const getPosts = () =>
-        
-        // dispatch(postFetchAllStart(currentUser));
-
-    useEffect(() => {
-        // const retrievedPosts = getPosts();
-        // setPosts(retrievedPosts);
-        setPosts(fetched.posts);
-    }, []);
 
     console.log('posts: ', posts);
 

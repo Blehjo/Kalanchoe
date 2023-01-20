@@ -4,9 +4,6 @@ import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from "@azure/
 import AppRoutes from './AppRoutes';
 import { Layout } from './components/Layout';
 import './custom.css';
-import { loginRequest } from './authConfig';
-import { ProfileData } from "./utils/profileData";
-import { callMsGraph } from "./utils/graph";
 
 export default class App extends Component {
     static displayName = App.name;

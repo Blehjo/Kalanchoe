@@ -1,4 +1,8 @@
-﻿function ProfileContent() {
+﻿import { loginRequest } from './authConfig';
+import { ProfileData } from "./utils/profileData";
+import { callMsGraph } from "./utils/graph";
+
+function ProfileContent() {
     const { instance, accounts } = useMsal();
     const [graphData, setGraphData] = useState(null);
 
@@ -31,3 +35,5 @@
         </>
     );
 };
+
+export default ProfileContent;

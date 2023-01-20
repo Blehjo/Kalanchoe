@@ -1,8 +1,10 @@
 ﻿import { Fragment, useState } from "react";
-import { postCreateStart } from "../store/post/post.action";
+import { postCreateStart, postFetchAllStart } from "../store/post/post.action";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from '../store/user/user.selector';
 import { Button, Col, Form, Row } from "react-bootstrap";
+import { getPosts } from "../utils/api/post";
+// import { getPosts } from "../store/post/post.reducer";
 
 const defaultFormFields = {
     postValue: '',
@@ -15,6 +17,11 @@ export const PostForm = () => {
     const userId = currentUser;
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { postValue, mediaLink } = formFields;
+    // getPosts();
+    // const getPosts = () => {
+    //     console.log(dispatch(postFetchAllStart(0)));
+    
+    // }
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -30,6 +37,7 @@ export const PostForm = () => {
 
         try {
             dispatch(postCreateStart(1, postValue, mediaLink));
+            getPosts();
             resetFormFields();
         } catch (error) {
             console.log(error);
