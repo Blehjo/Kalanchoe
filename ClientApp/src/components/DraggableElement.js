@@ -1,7 +1,8 @@
 ﻿import { Droppable } from "react-beautiful-dnd";
+import { useEffect, useState } from "react";
 import ListItem from "./ListItem";
-import React from "react";
 import styled from "styled-components";
+import { getNotes } from "../utils/api/note";
 
 const ColumnHeader = styled.div`
   text-transform: uppercase;
@@ -14,20 +15,30 @@ const DroppableStyles = styled.div`
   background: #d4d4d4;
 `;
 
-const DraggableElement = ({ prefix, elements }) => (
-    <DroppableStyles>
-        <ColumnHeader>{prefix}</ColumnHeader>
-        <Droppable droppableId={`${prefix}`}>
-            {(provided) => (
-                <div {...provided.droppableProps} ref={provided.innerRef}>
-                    {elements.map((item, index) => (
-                        <ListItem key={item.id} item={item} index={index} />
-                    ))}
-                    {provided.placeholder}
-                </div>
-            )}
-        </Droppable>
-    </DroppableStyles>
-);
+
+const DraggableElement = ({ prefix }) => {
+    const [notes, setNotes] = useState([]);
+
+    useEffect(() => {
+        getNotes()
+        .then((response) => setNotes(response.data));
+    }, []);
+
+    return (
+        <DroppableStyles>
+            <ColumnHeader>{prefix}</ColumnHeader>
+            <Droppable droppableId={`${prefix}`}>
+                {(provided) => (
+                    <div {...provided.droppableProps} ref={provided.innerRef}>
+                        {/* {notes?.map((note, index) => (
+                            <ListItem key={note.id} item={note} index={index} />
+                        ))} */}
+                        {provided.placeholder}
+                    </div>
+                )}
+            </Droppable>
+        </DroppableStyles>
+    )
+};
 
 export default DraggableElement;

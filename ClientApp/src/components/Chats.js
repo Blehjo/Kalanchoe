@@ -1,10 +1,14 @@
 ﻿import { Fragment } from "react";
+import Pubnub from "./Pubnub";
 
 const Chats = () => {
     return(
-        <Fragment>
+        <div style={{ position: 'relative', height: '90vh' }}>
             <h1>Artoo</h1>
-        </Fragment >
+            <div style={{ background: 'black',position: 'absolute', width: '90vw', bottom: '0px' }}>
+            <Pubnub/>
+            </div>
+        </div >
     );
 }
 

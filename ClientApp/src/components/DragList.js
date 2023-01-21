@@ -1,8 +1,9 @@
-﻿import React, { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { DragDropContext } from "react-beautiful-dnd";
 import DraggableElement from "./DraggableElement";
 import { getPanels } from "../utils/api/panel";
+import { getNotes } from "../utils/api/note";
 
 const DragDropContextContainer = styled.div`
   padding: 20px;
@@ -42,6 +43,7 @@ const lists = ["todo", "inProgress", "done"];
 
 function DragList() {
     const [panels, setPanels] = useState([]);
+    const [notes, setNotes] = useState([]);
     
     const generateLists = () =>
         lists.reduce(
@@ -55,6 +57,8 @@ function DragList() {
         setElements(generateLists());
         getPanels()
         .then((response) => setPanels(response.data));
+        getNotes()
+        .then((response) => setNotes(response.data));
     }, []);
 
     const onDragEnd = (result) => {
@@ -78,19 +82,18 @@ function DragList() {
 
         setElements(listCopy);
     };
-
-    console.log(elements)
     
     return (
         <DragDropContextContainer>
             <DragDropContext onDragEnd={onDragEnd}>
                 <ListGrid>
-                    {lists.map((listKey) => (
+                    {panels?.map(({panelId, title}) => (
                         <>
                             <DraggableElement
-                                elements={elements[listKey]}
-                                key={listKey}
-                                prefix={listKey}
+                                title={title}
+                                key={panelId}
+                                notes={panels}
+                                prefix={title}
                             />
                         </>
                     ))}

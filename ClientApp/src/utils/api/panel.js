@@ -1,28 +1,32 @@
 import axios from "axios";
 
+const api = "https://localhost:7028/api";
+
 const headers = {
   'Accept': 'application/json',
   'Content-Type': 'application/json' 
 }
 
 export async function getSinglePanel(panelId) {
-  return await axios.get(`https://localhost:7028/api/Panel/${panelId}`)
+  return await axios.get(`${api}/Panel/${panelId}`)
 }
 
 export async function getPanels() {
-  return await axios.get('https://localhost:7028/api/Panel')
+  return await axios.get(`${api}/Panel`)
 }
 
 export async function addPanel(panel) {
-  return await axios.post('https://localhost:7028/api/Panel', panel, {
+  return await axios.post(`${api}/Panel`, panel, {
     config: headers
   });
 }
 
 export async function editPanel(panel) {
-  return await axios.put(`https://localhost:7028/api/Panel/${panel.id}`, panel)
+  return await axios.put(`${api}/Panel/${panel.id}`, panel, {
+    config: headers
+  })
 }
 
 export async function deletePanel(panelId) {
-  return await axios.delete(`https://localhost:7028/api/Panel/${panelId}`)
+  return await axios.delete(`${api}/Panel/${panelId}`)
 }

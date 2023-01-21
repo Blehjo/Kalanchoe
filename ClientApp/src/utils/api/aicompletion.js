@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export async function getSingleAicompletion(aicompletionId) {
-  return await axios.get(`/aicompletions/${aicompletionId}`)
+  return await axios.get(`/Chatgpt/${aicompletionId}`)
 }
 
 export async function getAicompletions() {
