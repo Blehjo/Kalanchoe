@@ -1,15 +1,10 @@
 ﻿import { Draggable } from "react-beautiful-dnd";
-import { LoremIpsum } from "lorem-ipsum";
-import { generateFromString } from "generate-avatar";
-import React, { useMemo } from "react";
 import styled, { css } from "styled-components";
-
-const Avatar = styled.img`
-  height: 30px;
-  width: 30px;
-  border: 3px solid white;
-  border-radius: 50%;
-`;
+import { Button, Col, Row } from "react-bootstrap";
+import { XCircle } from 'react-bootstrap-icons';
+import ModalDelete from "./ModalDelete";
+import { deleteNote } from "../utils/api/note";
+import { useState } from "react";
 
 const CardHeader = styled.div`
   font-weight: 500;
@@ -17,16 +12,16 @@ const CardHeader = styled.div`
 
 const Author = styled.div`
   display: flex;
-  align-items: center;
+  align-notes: center;
 `;
 const CardFooter = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-notes: center;
 `;
 
-const DragItem = styled.div`
+const DragNote = styled.div`
   padding: 10px;
   border-radius: 6px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
@@ -37,37 +32,45 @@ const DragItem = styled.div`
   flex-direction: column;
 `;
 
-const lorem = new LoremIpsum();
+const Listnote = ({ note, index }) => {
+  const [show, setShow] = useState(false);
+  
+  const handleClose = () => 
+    setShow(!show);
 
-const ListItem = ({ item, index }) => {
-    const randomHeader = useMemo(() => lorem.generateWords(5), []);
-
-    return (
-        <Draggable draggableId={item.id} index={index}>
-            {(provided, snapshot) => {
-                return (
-                    <DragItem
-                        ref={provided.innerRef}
-                        snapshot={snapshot}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                    >
-                        <CardHeader>{randomHeader}</CardHeader>
-                        <span>Content</span>
-                        <CardFooter>
-                            <span>{item.content}</span>
-                            <Author>
-                                {item.id}
-                                <Avatar
-                                    src={`data:image/svg+xml;utf8,${generateFromString(item.id)}`}
-                                />
-                            </Author>
-                        </CardFooter>
-                    </DragItem>
-                );
-            }}
-        </Draggable>
-    );
+  return (
+    <Draggable draggableId={note.noteValue} index={index}>
+      {(provided, snapshot) => {
+          return (
+              <DragNote
+                  ref={provided.innerRef}
+                  snapshot={snapshot}
+                  {...provided.draggableProps}
+                  {...provided.dragHandleProps}
+              >
+                <Row xs={2}>
+                  <Col>
+                    <CardHeader>{note.noteValue}</CardHeader>
+                  </Col>
+                  <Col>
+                    <Button variant="light" onClick={handleClose}><XCircle/></Button>
+                  </Col>
+                </Row>
+                  <CardFooter>
+                      <span>{note.dateAdded}</span>
+                      <Author>
+                        {note.noteId}
+                      </Author>
+                  </CardFooter>
+                  {show && <ModalDelete 
+                    functionHandler={deleteNote}
+                    id={note.noteId}
+                  />}
+              </DragNote>
+          );
+      }}
+    </Draggable>
+  );
 };
 
-export default ListItem;
+export default Listnote;

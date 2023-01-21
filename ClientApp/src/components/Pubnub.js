@@ -1,5 +1,7 @@
-import { MessageList, MessageInput } from "@pubnub/react-chat-components";
-import { Chat } from "@pubnub/react-chat-components";
+import { MessageList, MessageInput, Chat } from "@pubnub/react-chat-components";
+import { Col, Row } from 'react-bootstrap';
+import Channels from "./Channels";
+import Members from "./Members";
 
 const currentChannel = "Default";
 const theme = "light";
@@ -7,8 +9,18 @@ const theme = "light";
 const Pubnub = () => {
   return (
       <Chat {...{ currentChannel, theme }}>
-        <MessageList />
-        <MessageInput />
+        <Row xs={3}>
+          <Col xs={2}>
+            <Channels/>
+          </Col>
+          <Col xs={8}>
+            <MessageList />
+            <MessageInput />
+          </Col>
+          <Col xs={2}>
+            <Members/>
+          </Col>
+        </Row>
       </Chat>
   );
 }

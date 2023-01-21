@@ -15,6 +15,7 @@ import Profile from "./components/Profile";
 import Profiles from "./components/Profiles";
 import SinglePost from "./components/SinglePost";
 import Users from "./components/Users";
+import Artoo from "./components/Artoo";
 
 
 const AppRoutes = [
@@ -25,6 +26,10 @@ const AppRoutes = [
   {
     path: '/authentication',
     element: <Authentication />
+  },
+  {
+    path: '/artoo',
+    element: <Artoo />
   },
   {
     path: '/chats',

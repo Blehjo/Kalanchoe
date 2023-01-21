@@ -9,7 +9,7 @@ const Saved = () => {
             <Nav.Link href="/profile">
                 <Person className='mt-4' color="black" size={40} />
             </Nav.Link>
-            <Nav.Link href="/chats">
+            <Nav.Link href="/artoo">
                 <Robot className='mt-4' color="black" size={40} />
             </Nav.Link>
             <Nav.Link href="/chats">

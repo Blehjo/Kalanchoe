@@ -2,7 +2,10 @@
 import { useEffect, useState } from "react";
 import ListItem from "./ListItem";
 import styled from "styled-components";
-import { getNotes } from "../utils/api/note";
+import { addNote, getNotes } from "../utils/api/note";
+import ModalSubmit from "./ModalSubmit";
+import { Button, Col, Row } from "react-bootstrap";
+import { Plus } from 'react-bootstrap-icons';
 
 const ColumnHeader = styled.div`
   text-transform: uppercase;
@@ -15,24 +18,44 @@ const DroppableStyles = styled.div`
   background: #d4d4d4;
 `;
 
-
-const DraggableElement = ({ prefix }) => {
+const DraggableElement = ({ prefix, panelId }) => {
     const [notes, setNotes] = useState([]);
+    const [show, setShow] = useState(false);
+
+    const handleAddNoteClick = () => 
+        setShow(!show);
 
     useEffect(() => {
         getNotes()
         .then((response) => setNotes(response.data));
     }, []);
 
+    console.log("prefix: ", prefix)
     return (
         <DroppableStyles>
-            <ColumnHeader>{prefix}</ColumnHeader>
+            <Row xs={2}>
+                <Col>
+                    <ColumnHeader>{prefix}</ColumnHeader>
+                </Col>
+                <Col>
+                <Button variant="light" onClick={handleAddNoteClick} ><Plus/></Button>
+                </Col>
+            </Row>
+            {
+                show && <ModalSubmit 
+                    title={"New Note"} 
+                    functionHandler={addNote}
+                    id={panelId}
+                    type={"note"}
+                    placeholder={"Write note here"}
+                />
+            }
             <Droppable droppableId={`${prefix}`}>
                 {(provided) => (
                     <div {...provided.droppableProps} ref={provided.innerRef}>
-                        {/* {notes?.map((note, index) => (
-                            <ListItem key={note.id} item={note} index={index} />
-                        ))} */}
+                        {notes?.map((note, index) => (
+                            panelId == note.panelId && <ListItem key={note.noteId} note={note} index={index} />
+                        ))}
                         {provided.placeholder}
                     </div>
                 )}

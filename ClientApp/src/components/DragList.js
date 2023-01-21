@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { DragDropContext } from "react-beautiful-dnd";
 import DraggableElement from "./DraggableElement";
 import { getPanels } from "../utils/api/panel";
-import { getNotes } from "../utils/api/note";
 
 const DragDropContextContainer = styled.div`
   padding: 20px;
@@ -15,17 +14,6 @@ const ListGrid = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 8px;
 `;
-
-// fake data generator
-const getItems = (count, prefix) =>
-    Array.from({ length: count }, (v, k) => k).map((k) => {
-        const randomId = Math.floor(Math.random() * 1000);
-        return {
-            id: `item-${randomId}`,
-            prefix,
-            content: `item ${randomId}`
-        };
-    });
 
 const removeFromList = (list, index) => {
     const result = Array.from(list);
@@ -39,48 +27,41 @@ const addToList = (list, index, element) => {
     return result;
 };
 
-const lists = ["todo", "inProgress", "done"];
-
 function DragList() {
     const [panels, setPanels] = useState([]);
-    const [notes, setNotes] = useState([]);
-    
-    const generateLists = () =>
-        lists.reduce(
-            (acc, listKey) => ({ ...acc, [listKey]: getItems(10, listKey) }),
-            {}
-        );
-        
-    const [elements, setElements] = useState(generateLists());
 
     useEffect(() => {
-        setElements(generateLists());
         getPanels()
         .then((response) => setPanels(response.data));
-        getNotes()
-        .then((response) => setNotes(response.data));
     }, []);
 
     const onDragEnd = (result) => {
+        console.log("result: ", result)
         if (!result.destination) {
             return;
         }
-        const listCopy = { ...elements };
-
+        const listCopy = { ...panels };
+        console.log("listCopy 1: ", listCopy[0]);
+        console.log("listCopy 2: ", listCopy);
+        
         const sourceList = listCopy[result.source.droppableId];
+        console.log("sourceList: ", sourceList)
         const [removedElement, newSourceList] = removeFromList(
             sourceList,
             result.source.index
         );
         listCopy[result.source.droppableId] = newSourceList;
         const destinationList = listCopy[result.destination.droppableId];
+            console.log("destinationList: ", destinationList);
         listCopy[result.destination.droppableId] = addToList(
             destinationList,
             result.destination.index,
             removedElement
         );
-
-        setElements(listCopy);
+            console.log("listCopy 3: ", listCopy[result.destination.droppableId]);
+        
+        setPanels(listCopy);
+        console.log("panels Final step: ", panels);
     };
     
     return (
@@ -88,14 +69,12 @@ function DragList() {
             <DragDropContext onDragEnd={onDragEnd}>
                 <ListGrid>
                     {panels?.map(({panelId, title}) => (
-                        <>
-                            <DraggableElement
-                                title={title}
-                                key={panelId}
-                                notes={panels}
-                                prefix={title}
-                            />
-                        </>
+                        <DraggableElement
+                            title={title}
+                            key={panelId}
+                            panelId={panelId}
+                            prefix={title}
+                        />
                     ))}
                 </ListGrid>
             </DragDropContext>
