@@ -1,7 +1,7 @@
 import { Modal, Form, Button } from 'react-bootstrap';
 import { useState } from "react";
 
-const ModalDelete = ({ title, functionHandler, id }) => {
+const ModalDelete = ({ functionHandler, id }) => {
     const [show, setShow] = useState(true);
 
     const handleClose = () =>

@@ -5,7 +5,6 @@ import { Button, Row, Col, Card } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../store/user/user.selector";
 
-
 const FetchedPosts = () => {
     const currentUser = useSelector(selectCurrentUser);
     const [posts, setPosts] = useState([]);
@@ -18,7 +17,6 @@ const FetchedPosts = () => {
 
     const updatePost = async (event) => {
         const id = event.target.id;
-
         editPost();
     }
 
@@ -26,6 +24,7 @@ const FetchedPosts = () => {
         const id = event.target.id;
         navigate(`/posts/${id}`);
     }
+
     useEffect(() => {
         getPosts()
         .then((response) => setPosts(response.data));

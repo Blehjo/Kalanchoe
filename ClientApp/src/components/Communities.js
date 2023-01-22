@@ -1,17 +1,24 @@
 ﻿import { Fragment, useEffect, useState } from "react";
-import { Modal, Form, Button } from 'react-bootstrap';
-import { addCommunity, getCommunity } from "../utils/api/community";
-import { Plus } from 'react-bootstrap-icons';
+import { useNavigate } from "react-router-dom";
+import { XCircle, Plus, ArrowRight } from 'react-bootstrap-icons';
+import { Modal, Form, Button, Col, Row, Card } from 'react-bootstrap';
+import { addCommunity, getCommunity, deleteCommunity } from "../utils/api/community";
+import ModalDelete from "./ModalDelete";
 
 const Communities = () => {
     const [communities, setCommunities] = useState([]);
-    const [show, setShow] = useState(false);
+    const [createModal, setCreateModal] = useState(false);
+    const [deleteModal, setDeleteModal] = useState(false);
     const [groupName, setGroupName] = useState('');
     const [description, setDescription] = useState('');
     const [mediaLink, setMediaLink] = useState('');
+    const navigate = useNavigate();
 
     const handleShow = () => 
-        setShow(!show);
+        setCreateModal(!createModal);
+    
+    const handleClose = () => 
+        setDeleteModal(!deleteModal);
 
     const groupNameHandler = (event) => {
         setGroupName(event.target.value);
@@ -31,6 +38,11 @@ const Communities = () => {
         handleShow();
     }
 
+    const goToCommunity = async (event) => {
+        const id = event.target.id;
+        navigate(`/community/${id}`);
+    }
+
     useEffect(() => {
         getCommunity()
         .then((response) => setCommunities(response.data));
@@ -38,16 +50,43 @@ const Communities = () => {
 
     return(
         <Fragment>
-            <h1>Communities</h1>
-            <Button variant="light" type="submit" onClick={handleShow}><Plus/></Button>
+            <Row xs={2}>
+                <Col xs={11}>
+                    <h1>Communities</h1>
+                </Col>
+                <Col xs={1}>
+                    <Button variant="light" type="submit" onClick={handleShow}><Plus/></Button>
+                </Col>
+            </Row>
             {
-                communities.length > 0 && communities.map(({ groupName, description, communityId, userId, dateCreated }) => (
-                    <h1>{groupName}</h1>
+                communities.length > 0 && communities.map(({ groupName, description, communityId, userId, dateCreated, mediaLink }) => (
+                    <Row xs={1} lg={3}>
+                        <Col key={communityId}>
+                            {mediaLink?.length > 0 ? <Card.Img height='200' style={{ objectFit:'cover'}} src={mediaLink}/> : ''}
+                            <Row xs={2}>
+                                <Col xs={10}>
+                                    <Card.Title style={{ margin: 'auto' }}>{groupName}</Card.Title>
+                                </Col>
+                                <Col xs={2}>
+                                    <Button variant="light" type="button" ><ArrowRight onClick={goToCommunity} id={communityId}/></Button>
+                                </Col>
+                                <Card.Subtitle style={{ margin: 'auto' }}>{description}</Card.Subtitle>
+                            <Button variant="light" onClick={handleClose}><XCircle/></Button>
+                            </Row>
+                        </Col>
+                    {
+                        deleteModal && 
+                        <ModalDelete
+                            functionHandler={deleteCommunity}
+                            id={communityId}
+                        />
+                    }
+                    </Row>
                 ))
             }
             {
-                show && 
-                <Modal show={show} onHide={handleShow}>
+                createModal && 
+                <Modal show={createModal} onHide={handleShow}>
                     <Form onSubmit={handleSubmit}>
                         <Modal.Header closeButton>
                             <Modal.Title>Create a community</Modal.Title>

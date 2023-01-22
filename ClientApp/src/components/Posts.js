@@ -1,5 +1,5 @@
 ﻿import { Fragment, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { postFetchAllStart } from "../store/post/post.action";
 import { selectPostReducer } from "../store/post/post.selector";
@@ -20,8 +20,14 @@ const Posts = () => {
 
     return(
         <Fragment>
-            <h1>Posts</h1>
-            <Button variant="light" onClick={showPostForm}>{!isShowing ? 'Create a post' : 'Nevermind'}</Button>
+            <Row xs={2}>
+                <Col xs={10}>
+                    <h1>Posts</h1>
+                </Col>
+                <Col xs={2}>
+                    <Button variant="light" onClick={showPostForm}>{!isShowing ? 'Create a post' : 'Nevermind'}</Button>
+                </Col>
+            </Row>
             {
                 isShowing && <PostForm/> 
             }
