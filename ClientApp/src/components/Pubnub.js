@@ -14,7 +14,9 @@ const Pubnub = () => {
             <Channels/>
           </Col>
           <Col xs={8}>
-            <MessageList />
+            <div style={{ height: '80vh', overflowY: 'auto' }}>
+              <MessageList />
+            </div>
             <MessageInput />
           </Col>
           <Col xs={2}>

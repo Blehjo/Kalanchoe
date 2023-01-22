@@ -36,32 +36,25 @@ function DragList() {
     }, []);
 
     const onDragEnd = (result) => {
-        console.log("result: ", result)
         if (!result.destination) {
             return;
         }
         const listCopy = { ...panels };
-        console.log("listCopy 1: ", listCopy[0]);
-        console.log("listCopy 2: ", listCopy);
         
         const sourceList = listCopy[result.source.droppableId];
-        console.log("sourceList: ", sourceList)
         const [removedElement, newSourceList] = removeFromList(
             sourceList,
             result.source.index
         );
         listCopy[result.source.droppableId] = newSourceList;
         const destinationList = listCopy[result.destination.droppableId];
-            console.log("destinationList: ", destinationList);
         listCopy[result.destination.droppableId] = addToList(
             destinationList,
             result.destination.index,
             removedElement
         );
-            console.log("listCopy 3: ", listCopy[result.destination.droppableId]);
         
         setPanels(listCopy);
-        console.log("panels Final step: ", panels);
     };
     
     return (

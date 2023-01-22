@@ -9,9 +9,11 @@ const Artoo = () => {
   return (
       <Chat {...{ currentChannel, theme }}>
         <Row>
-            <Col style={{ height: '70vh', overflowY: 'auto' }}>
+            <Col style={{ height: '70vh' }}>
                 <h1>Artoo</h1>
-                <MessageList />
+                <div style={{ height: '70vh', overflowY: 'auto' }}>
+                  <MessageList />
+                </div>
                 <MessageInput />
             </Col>
         </Row>

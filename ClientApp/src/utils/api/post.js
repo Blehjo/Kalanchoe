@@ -1,16 +1,18 @@
 import axios from "axios";
 
+const api = "https://localhost:7028/api";
+
 const headers = {
   'Accept': 'application/json',
   'Content-Type': 'application/json' 
 }
 
 export async function getSinglePost(postId) {
-  return await axios.get(`https://localhost:7028/api/Post/${postId}`)
+  return await axios.get(`${api}/Post/${postId}`)
 }
 
 export async function getPosts() {
-  return await axios.get('https://localhost:7028/api/Post');
+  return await axios.get(`${api}/Post`);
 }
 
 export async function addPost(post) {
@@ -20,17 +22,17 @@ export async function addPost(post) {
     postValue: postValue,
     mediaLink: mediaLink
   }
-  return await axios.post('https://localhost:7028/api/Post', data, {
+  return await axios.post(`${api}Post`, data, {
     config: headers,
   });
 }
 
 export async function editPost(post) {
-  return await axios.put(`https://localhost:7028/api/Post/${post.id}`, ...post, {
+  return await axios.put(`${api}/Post/${post.id}`, ...post, {
     config: headers,
   })
 }
 
 export async function deletePost(postId) {
-  return await axios.delete(`https://localhost:7028/api/Post/${postId}`)
+  return await axios.delete(`${api}/Post/${postId}`)
 }

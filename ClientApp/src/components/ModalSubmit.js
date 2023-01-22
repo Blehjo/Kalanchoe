@@ -25,9 +25,9 @@ const ModalSubmit = ({ title, functionHandler, id, type, placeholder }) => {
                     <Modal.Title>{title}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Control onChange={handleValueChange} value={value} type={type} placeholder={placeholder} />
-                        </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Control onChange={handleValueChange} value={value} type={type} placeholder={placeholder} />
+                    </Form.Group>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" as="input" type="submit" value="Close" onClick={handleClose}/>
