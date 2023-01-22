@@ -5,14 +5,27 @@ import { Modal, Form, Button, Col, Row, Card } from 'react-bootstrap';
 import { addCommunity, getCommunity, deleteCommunity } from "../utils/api/community";
 import ModalDelete from "./ModalDelete";
 
+const defaultFormFields = {
+    groupName: '',
+    description: '',
+    mediaLink: ''
+}
+
 const Communities = () => {
     const [communities, setCommunities] = useState([]);
     const [createModal, setCreateModal] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
-    const [groupName, setGroupName] = useState('');
-    const [description, setDescription] = useState('');
-    const [mediaLink, setMediaLink] = useState('');
+    const [formFields, setFormFields] = useState(defaultFormFields);
+    const { groupName, description, mediaLink } = formFields;
     const navigate = useNavigate();
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormFields({ ...formFields, [name]: value })
+    }
+
+    const resetFormFields = () =>
+        setFormFields(defaultFormFields);
 
     const handleShow = () => 
         setCreateModal(!createModal);
@@ -20,21 +33,10 @@ const Communities = () => {
     const handleClose = () => 
         setDeleteModal(!deleteModal);
 
-    const groupNameHandler = (event) => {
-        setGroupName(event.target.value);
-    }
-
-    const descriptionHandler = (event) => {
-        setDescription(event.target.value);
-    }
-    
-    const mediaLinkHandler = (event) => {
-        setMediaLink(event.target.value);
-    }
-
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        addCommunity({ userId: 1, groupName: groupName, description: description, mediaLink: mediaLink });
+        await addCommunity({ groupName: groupName, description: description, mediaLink: mediaLink });
+        resetFormFields();
         handleShow();
     }
 
@@ -93,13 +95,13 @@ const Communities = () => {
                         </Modal.Header>
                         <Modal.Body>
                             <Form.Group className="mb-3" controlId="formName">
-                                <Form.Control onChange={groupNameHandler} value={groupName} type="groupname" placeholder="Community name" />
+                                <Form.Control onChange={handleChange} name="groupName" value={groupName} type="groupname" placeholder="Community name" />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formDescription">
-                                <Form.Control onChange={descriptionHandler} value={description} as="textarea" type="description" placeholder="Description" />
+                                <Form.Control onChange={handleChange} name="description" value={description} as="textarea" type="description" placeholder="Description" />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formMedia">
-                                <Form.Control onChange={mediaLinkHandler} value={mediaLink} type="mediaLink" placeholder="Media" />
+                                <Form.Control onChange={handleChange} name="mediaLink" value={mediaLink} type="mediaLink" placeholder="Media" />
                             </Form.Group>
                         </Modal.Body>
                         <Modal.Footer>

@@ -10,9 +10,9 @@ const Pubnub = () => {
   return (
       <Chat {...{ currentChannel, theme }}>
         <Row xs={3}>
-          <Col xs={2}>
+          {/* <Col xs={2}>
             <Channels/>
-          </Col>
+          </Col> */}
           <Col xs={8}>
             <div style={{ height: '80vh', overflowY: 'auto' }}>
               <MessageList />

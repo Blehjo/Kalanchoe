@@ -1,21 +1,32 @@
 import axios from "axios";
 
-export async function getSingleChannels(channelId) {
-  return await axios.get(`/channels/${channelId}`)
+const api = "https://localhost:7028/api";
+
+const headers = {
+  'Accept': 'application/json',
+  'Content-Type': 'application/json' 
+}
+
+export async function getSingleChannel(channelId) {
+  return await axios.get(`${api}/Channel/${channelId}`)
 }
 
 export async function getChannels() {
-  return await axios.get('/channels')
+  return await axios.get(`${api}/Channel`)
 }
 
-export async function addChannels(channels) {
-  return await axios.post('/channels', channels)
+export async function addChannel(channel) {
+  return await axios.post(`${api}/Channel`, channel, {
+    config: headers
+  })
 }
 
-export async function editChannels(channels) {
-  return await axios.put(`/channels/${channels.id}`, channels)
+export async function editChannel(channel) {
+  return await axios.put(`${api}/Channel/${channel.id}`, channel, {
+    config: headers
+  })
 }
 
-export async function deleteChannels(channelId) {
-  return await axios.delete(`/channels/${channelId}`)
+export async function deleteChannel(channelId) {
+  return await axios.delete(`${api}/Channel/${channelId}`)
 }
