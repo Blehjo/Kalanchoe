@@ -16,7 +16,6 @@ export async function getCommunity() {
 }
 
 export async function addCommunity(community) {
-    const { userId, groupName, description } = community;
     return await axios.post(`${api}/Community`, community, {
         config: headers
     })

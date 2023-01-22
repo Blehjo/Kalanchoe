@@ -8,6 +8,7 @@ const Communities = () => {
     const [show, setShow] = useState(false);
     const [groupName, setGroupName] = useState('');
     const [description, setDescription] = useState('');
+    const [mediaLink, setMediaLink] = useState('');
 
     const handleShow = () => 
         setShow(!show);
@@ -19,17 +20,21 @@ const Communities = () => {
     const descriptionHandler = (event) => {
         setDescription(event.target.value);
     }
+    
+    const mediaLinkHandler = (event) => {
+        setMediaLink(event.target.value);
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        addCommunity({ userId: 1, groupName: groupName, description: description });
+        addCommunity({ userId: 1, groupName: groupName, description: description, mediaLink: mediaLink });
         handleShow();
     }
 
     useEffect(() => {
         getCommunity()
         .then((response) => setCommunities(response.data));
-    }, []);
+    }, [handleShow]);
 
     return(
         <Fragment>
@@ -48,11 +53,14 @@ const Communities = () => {
                             <Modal.Title>Create a community</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Group className="mb-3" controlId="formName">
                                 <Form.Control onChange={groupNameHandler} value={groupName} type="groupname" placeholder="Community name" />
                             </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Group className="mb-3" controlId="formDescription">
                                 <Form.Control onChange={descriptionHandler} value={description} as="textarea" type="description" placeholder="Description" />
+                            </Form.Group>
+                            <Form.Group className="mb-3" controlId="formMedia">
+                                <Form.Control onChange={mediaLinkHandler} value={mediaLink} type="mediaLink" placeholder="Media" />
                             </Form.Group>
                         </Modal.Body>
                         <Modal.Footer>
