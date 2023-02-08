@@ -29,9 +29,7 @@ root.render(
     <Provider store={store}>
         <BrowserRouter basename={baseUrl}>
             <PubNubProvider client={pubnub}>
-                <MsalProvider instance={msalInstance}>
-                    <App />
-                </MsalProvider>
+                <App />
             </PubNubProvider>
         </BrowserRouter>
     </Provider>
