@@ -4,15 +4,19 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const defaultFormFields = {
-    userName: '',
+    username: '',
     email: '',
     password: '',
     confirmPassword: '',
+    dateOfBirth: '',
+    firstName: '',
+    lastName: '',
+    profileImage: ''
 }
 
 const SignUpForm = () => {
     const [formFields, setFormFields] = useState(defaultFormFields);
-    const { username, profileImage, email, password, confirmPassword, dateOfBirth, firstName, lastName } = formFields;
+    const { username, profileImage, about, email, password, confirmPassword, dateOfBirth, firstName, lastName } = formFields;
     const navigate = useNavigate();
 
     const resetForm = () => {
@@ -20,21 +24,21 @@ const SignUpForm = () => {
     }
 
     const signInWithReact = async () => {
-        await axios.post(`/api/users`,
-            {
-                Username: username,
-                EmailAddress: email,
-                Password: password,
-                ProfileImage: profileImage,
-                DateOfBirth: dateOfBirth,
-                FirstName: firstName,
-                LastName: lastName
-            })
+        await axios.post(`https://localhost:7028/api/users/register`,
+        {
+            Username: username,
+            EmailAddress: email,
+            Password: password,
+            ProfileImage: profileImage,
+            DateOfBirth: dateOfBirth,
+            FirstName: firstName,
+            LastName: lastName,
+            About: about
+        });
     }
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-
         setFormFields({ ...formFields, [name]: value })
     };
 
@@ -65,7 +69,7 @@ const SignUpForm = () => {
                 <span>Sign up with your email and password</span>
                 <form style={{ color: 'black', marginTop: '1rem' }} onSubmit={handleSubmit} className="row">
                     <div className="col-md-6">
-                        <label htmlFor="inputDisplayName" className="form-label">Display Name</label>
+                        <label htmlFor="inputUsername" className="form-label">Username</label>
                         <input
                             required
                             onChange={handleChange}
@@ -73,7 +77,7 @@ const SignUpForm = () => {
                             value={username}
                             type="text"
                             className="form-control"
-                            id="inputDisplayName"
+                            id="inputUsername"
                             placeholder="User123"
                         />
                     </div>
@@ -163,6 +167,30 @@ const SignUpForm = () => {
                             className="form-control"
                         />
                     </div>
+                    <div className="col-md-6">
+                        <label htmlFor="" className="form-label">About</label>
+                        <input
+                            required
+                            onChange={handleChange}
+                            type="about"
+                            name="about"
+                            value={about}
+                            id="selectAbout"
+                            className="form-control"
+                        />
+                    </div>
+                    <div className="col-md-6">
+                        <label htmlFor="" className="form-label">Profile Image</label>
+                        <input
+                            required
+                            onChange={handleChange}
+                            type="profileImage"
+                            name="profileImage"
+                            value={profileImage}
+                            id="selectProfileImage"
+                            className="form-control"
+                        />
+                    </div>
                     <div className="col-12">
                         <button type="submit" className="mt-3 btn btn-light">Join</button>
                     </div>
@@ -173,3 +201,5 @@ const SignUpForm = () => {
 }
 
 export default SignUpForm;
+
+// {"Username":"mapel","EmailAddress":"mapel@kala.com","Password":"Password1","ProfileImage":"","DateOfBirth":"2023-02-09","FirstName":"Mapelese","LastName":"Major"}
