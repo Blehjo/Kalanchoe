@@ -1,11 +1,13 @@
 ﻿import { useState } from "react";
 import { Row, Col } from "react-bootstrap";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { emailSignInStart, signUpStart } from "../store/user/user.action";
 
 const defaultFormFields = {
     username: '',
-    email: '',
+    about: '',
+    emailAddress: '',
     password: '',
     confirmPassword: '',
     dateOfBirth: '',
@@ -15,39 +17,13 @@ const defaultFormFields = {
 }
 
 const SignUpForm = () => {
+    const dispatch = useDispatch();
     const [formFields, setFormFields] = useState(defaultFormFields);
-    const { username, profileImage, about, email, password, confirmPassword, dateOfBirth, firstName, lastName } = formFields;
+    const { username, profileImage, about, emailAddress, password, confirmPassword, dateOfBirth, firstName, lastName } = formFields;
     const navigate = useNavigate();
 
     const resetForm = () => {
        setFormFields(defaultFormFields);
-    }
-
-    const signInWithReact = async () => {
-        await axios.post(`https://localhost:7028/api/users/register`,
-        {
-            Username: username,
-            EmailAddress: email,
-            Password: password,
-            ProfileImage: profileImage,
-            DateOfBirth: dateOfBirth,
-            FirstName: firstName,
-            LastName: lastName,
-            About: about
-        });
-
-        await axios({
-            method: 'post',
-            url: "https://localhost:7028/api/users/authenticate",
-            data: {
-                Username: username,
-                Password: password
-            },
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            withCredentials: true
-        });
     }
 
     const handleChange = (event) => {
@@ -61,18 +37,10 @@ const SignUpForm = () => {
             alert('error message');
             return;
         }
-
-        try {
-            await signInWithReact();
-            resetForm();
-            navigate('/profile');
-        } catch (error) {
-            if (error.code === 'auth/email-already-in-use') {
-                alert('Cannot create user, email already in use');
-            } else {
-                console.log('user creation encountered an error', error);
-            }
-        }
+        dispatch(signUpStart(username, emailAddress, password, profileImage, dateOfBirth, firstName, lastName, about));
+        dispatch(emailSignInStart(username, password));
+        resetForm();
+        navigate('/profile');
     }
 
     return (
@@ -95,15 +63,15 @@ const SignUpForm = () => {
                         />
                     </div>
                     <div className="col-md-6">
-                        <label htmlFor="inputEmail" className="form-label">Email</label>
+                        <label htmlFor="inputEmailAddress" className="form-label">Email</label>
                         <input
-                            type="email"
+                            type="emailAddress"
                             required
                             onChange={handleChange}
-                            name="email"
-                            value={email}
+                            name="emailAddress"
+                            value={emailAddress}
                             className="form-control"
-                            id="inputEmail"
+                            id="inputEmailAddress"
                             placeholder="Kusanagi@shellgeist.com"
                         />
                     </div>
