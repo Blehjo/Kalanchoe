@@ -1,8 +1,7 @@
 ﻿import { useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { emailSignInStart } from "../store/user/user.action";
 
 const SignInForm = () => {
@@ -16,26 +15,6 @@ const SignInForm = () => {
         setPassword('');
     }
 
-    const signInWithReact = () => {
-        dispatch(emailSignInStart)(username, password);
-        // await axios({
-        //     method: 'post',
-        //     url: "https://localhost:7028/api/users/authenticate",
-        //     data: {
-        //         Username: username,
-        //         Password: password
-        //     },
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     withCredentials: true
-        // })
-        // .then((response) => {
-        //     console.log(response);
-        //     return response.data;
-        // });
-    }
-
     const handleUsernameChange = (event) => {
         event.preventDefault();
         setUsername(event.target.value);
@@ -47,25 +26,11 @@ const SignInForm = () => {
     }
 
     const handleSubmit = (event) => {
-         event.preventDefault();
+        event.preventDefault();
 
-        // try {
-            // signInWithReact();
-            dispatch(emailSignInStart(username, password));
-            resetFormFields();
-            navigate('/profile');
-        // } catch (error) {
-        //     switch (error.code) {
-        //         case 'auth/wrong-password':
-        //             alert('incorrect password for email');
-        //             break;
-        //         case 'auth/user-not-found':
-        //             alert('no user associated with this email');
-        //             break;
-        //         default:
-        //             console.log(error);
-        //     }
-        // }
+        dispatch(emailSignInStart(username, password));
+        resetFormFields();
+        navigate('/profile');
     }
 
     return (
