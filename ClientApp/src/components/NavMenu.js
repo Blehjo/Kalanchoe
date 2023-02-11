@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { useIsAuthenticated } from "@azure/msal-react";
 import './NavMenu.css';
 
 import ListIcon from './ListIcon';
-import { SignInButton } from './SignInButton';
-import { SignOutButton } from './SignOutButton';
+import SignInButton from './SignInButton';
 
 export class NavMenu extends Component {
     
@@ -44,6 +42,9 @@ export class NavMenu extends Component {
                     </NavItem>
                     <NavItem>
                     <NavLink tag={Link} className="text-dark" to="/projects">Dilemmas</NavLink>
+                    </NavItem>
+                    <NavItem>
+                    <SignInButton/>
                     </NavItem>
                 </ul>
                 </Collapse>

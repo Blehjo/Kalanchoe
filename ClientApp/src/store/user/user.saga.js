@@ -31,11 +31,11 @@ export function* getSnapshotFromUserAuth(userAuth, additionalDetails) {
     }
 }
 
-export function* signInWithEmail({ payload: { email, password } }) {
+export function* signInWithEmail({ payload: { username, password } }) {
     try {
         const user = yield call(
             login,
-            email,
+            username,
             password
         );
         yield call(getSnapshotFromUserAuth, user);

@@ -35,6 +35,19 @@ const SignUpForm = () => {
             LastName: lastName,
             About: about
         });
+
+        await axios({
+            method: 'post',
+            url: "https://localhost:7028/api/users/authenticate",
+            data: {
+                Username: username,
+                Password: password
+            },
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            withCredentials: true
+        });
     }
 
     const handleChange = (event) => {
@@ -201,5 +214,3 @@ const SignUpForm = () => {
 }
 
 export default SignUpForm;
-
-// {"Username":"mapel","EmailAddress":"mapel@kala.com","Password":"Password1","ProfileImage":"","DateOfBirth":"2023-02-09","FirstName":"Mapelese","LastName":"Major"}

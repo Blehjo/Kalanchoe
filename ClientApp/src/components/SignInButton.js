@@ -1,28 +1,21 @@
-﻿import { useMsal } from "@azure/msal-react";
-import { loginRequest } from "../authConfig";
-import Button from "react-bootstrap/Button";
+import { Fragment } from "react";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../store/user/user.selector";
+import { useNavigate } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
-export const SignInButton = () => {
-    const { instance } = useMsal();
+const SignInButton = () => {
+    const navigate = useNavigate();
+    const currentUser = useSelector(selectCurrentUser);
+    console.log(currentUser);
 
-    const handlePopupLogin = (loginType) => {
-        if (loginType === "popup") {
-            instance.loginPopup(loginRequest).catch(e => {
-                console.log(e);
-            });
-        }
-    }
-
-    const handleRedirectLogin = (loginType) => {
-        if (loginType === "redirect") {
-            instance.loginRedirect(loginRequest).catch(e => {
-                console.log(e);
-            });
-        }
+    const goToSignIn = () => {
+        navigate('/authentication');
     }
 
     return (
-        <Button variant="secondary" className="ml-auto" onClick={() => handlePopupLogin("popup")}>Sign in using Popup</Button>
-        //<Button variant="secondary" className="ml-auto" onClick={() => handleRedirectLogin("redirect")}>Sign in using Redirect</Button>
+        <Button variant="light" onClick={goToSignIn}>Sign In</Button>
     );
 }
+
+export default SignInButton;

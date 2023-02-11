@@ -3,33 +3,42 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-
-import { SignInButton } from './SignInButton';
-import { SignOutButton } from './SignOutButton';
-import { useIsAuthenticated } from "@azure/msal-react";
+import { emailSignInStart } from "../store/user/user.action";
 
 const SignInForm = () => {
     const dispatch = useDispatch();
     const [password, setPassword] = useState('');
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const navigate = useNavigate();
-    const isAuthenticated = useIsAuthenticated();
 
     const resetFormFields = () => {
-        setEmail('');
+        setUsername('');
         setPassword('');
     }
 
-    const signInWithReact = async () => {
-        await axios.post(`/api/users/login`, {
-            email: email,
-            password: password,
-        });
+    const signInWithReact = () => {
+        dispatch(emailSignInStart)(username, password);
+        // await axios({
+        //     method: 'post',
+        //     url: "https://localhost:7028/api/users/authenticate",
+        //     data: {
+        //         Username: username,
+        //         Password: password
+        //     },
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     withCredentials: true
+        // })
+        // .then((response) => {
+        //     console.log(response);
+        //     return response.data;
+        // });
     }
 
-    const handleEmailChange = (event) => {
+    const handleUsernameChange = (event) => {
         event.preventDefault();
-        setEmail(event.target.value);
+        setUsername(event.target.value);
     }
 
     const handlePasswordChange = (event) => {
@@ -37,25 +46,26 @@ const SignInForm = () => {
         setPassword(event.target.value);
     }
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = (event) => {
          event.preventDefault();
 
-        try {
-            signInWithReact();
+        // try {
+            // signInWithReact();
+            dispatch(emailSignInStart(username, password));
             resetFormFields();
             navigate('/profile');
-        } catch (error) {
-            switch (error.code) {
-                case 'auth/wrong-password':
-                    alert('incorrect password for email');
-                    break;
-                case 'auth/user-not-found':
-                    alert('no user associated with this email');
-                    break;
-                default:
-                    console.log(error);
-            }
-        }
+        // } catch (error) {
+        //     switch (error.code) {
+        //         case 'auth/wrong-password':
+        //             alert('incorrect password for email');
+        //             break;
+        //         case 'auth/user-not-found':
+        //             alert('no user associated with this email');
+        //             break;
+        //         default:
+        //             console.log(error);
+        //     }
+        // }
     }
 
     return (
@@ -64,19 +74,16 @@ const SignInForm = () => {
                 <h2>Already have an account?</h2>
                 <span>Sign in with your email and password</span>
                 <Form onSubmit={handleSubmit} style={{ color: 'black', marginTop: '1rem' }}>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Group className="mb-3" controlId="formBasicUsername">
                         <Form.Label>Email address</Form.Label>
                         <Form.Control
-                            type="email"
-                            name="email"
+                            type="username"
+                            name="username"
                             required
-                            placeholder="Enter email"
-                            value={email}
-                            onChange={handleEmailChange}
+                            placeholder="Enter username"
+                            value={username}
+                            onChange={handleUsernameChange}
                         />
-                        <Form.Text className="text-muted">
-                            We'll never share your email with anyone else.
-                    </Form.Text>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>
@@ -92,8 +99,6 @@ const SignInForm = () => {
                     <Row xs={1}>
                         <Col>
                             <Button variant="light" type="submit">Sign in</Button>
-                            <SignInButton />
-                            {/*<SignOutButton />*/}
                         </Col>
                     </Row>
                 </Form>
