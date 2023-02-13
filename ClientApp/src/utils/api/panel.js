@@ -15,6 +15,10 @@ export async function getPanels() {
   return await axios.get(`${api}/Panel`)
 }
 
+export async function getUserPanels() {
+  return await axios.get(`${api}/Panel/users`)
+}
+
 export async function addPanel(panel) {
   return await axios.post(`${api}/Panel`, panel, {
     config: headers

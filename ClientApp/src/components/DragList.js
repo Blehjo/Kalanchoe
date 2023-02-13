@@ -2,7 +2,7 @@
 import styled from "styled-components";
 import { DragDropContext } from "react-beautiful-dnd";
 import DraggableElement from "./DraggableElement";
-import { getPanels } from "../utils/api/panel";
+import { getUserPanels } from "../utils/api/panel";
 
 const DragDropContextContainer = styled.div`
   padding: 20px;
@@ -31,7 +31,7 @@ function DragList() {
     const [panels, setPanels] = useState([]);
 
     useEffect(() => {
-        getPanels()
+        getUserPanels()
         .then((response) => setPanels(response.data));
     }, []);
 
@@ -61,7 +61,7 @@ function DragList() {
         <DragDropContextContainer>
             <DragDropContext onDragEnd={onDragEnd}>
                 <ListGrid>
-                    {panels?.map(({panelId, title}) => (
+                    {panels.length > 1 && panels?.map(({panelId, title}) => (
                         <DraggableElement
                             title={title}
                             key={panelId}

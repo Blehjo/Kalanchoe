@@ -27,7 +27,7 @@ export const login = async (username, password) => {
 export const getUser = async () => {
     const user = await axios({
         method: 'get',
-        url: `https://localhost:7028/api/users/0`,
+        url: `https://localhost:7028/api/users/data`,
         headers: {
             'Content-Type': 'application/json',
         },
