@@ -41,15 +41,15 @@ function DragList() {
         }
         const listCopy = { ...panels };
         
-        const sourceList = listCopy[result.source.droppableId];
-        console.log("Source List 1: ", sourceList);
+        const sourceList = listCopy[result.source.index];
+        console.log("Source List 1: ", listCopy);
         const [removedElement, newSourceList] = removeFromList(
             sourceList,
             result.source.index
         );
-        listCopy[result.source.droppableId] = newSourceList;
-        const destinationList = listCopy[result.destination.droppableId];
-        listCopy[result.destination.droppableId] = addToList(
+        listCopy[result.source.index] = newSourceList;
+        const destinationList = listCopy[result.destination.index];
+        listCopy[result.destination.index] = addToList(
             destinationList,
             result.destination.index,
             removedElement

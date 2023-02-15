@@ -38,7 +38,6 @@ const SignUpForm = () => {
             return;
         }
         dispatch(signUpStart(username, emailAddress, password, profileImage, dateOfBirth, firstName, lastName, about));
-        dispatch(emailSignInStart(username, password));
         resetForm();
         navigate('/profile');
     }

@@ -54,17 +54,18 @@ export function* isUserAuthenticated() {
    }
 }
 
-export function* signUp({ payload: { username, email, password, country, date_of_birth, first_name, last_name } }) {
+export function* signUp({ payload: { username, firstName, lastName, dateOfBirth, emailAddress, password, about, profileImage } }) {
    try {
-        const { user } = yield call(
+        const user = yield call(
            signUpUser,
            username,
-           email,
+           firstName,
+           lastName,
+           dateOfBirth,
+           emailAddress,
            password,
-           country,
-           date_of_birth,
-           first_name,
-           last_name
+           about,
+           profileImage
         );
         yield put(signUpSuccess(user));
     } catch (error) {

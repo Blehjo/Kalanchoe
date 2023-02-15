@@ -36,18 +36,19 @@ export const getUser = async () => {
     return user;
 }
 
-export const signUpUser = async (username, email, password, profileImage, dateOfBirth, firstName, lastName) => {
+export const signUpUser = async (username, firstName, lastName, dateOfBirth, emailAddress, password, about, profileImage) => {
     await axios({
         method: 'post',
         url: "https://localhost:7028/api/users/register",
         data: {
             Username: username,
-            EmailAddress: email,
-            Password: password,
-            ProfileImage: profileImage,
-            DateOfBirth: dateOfBirth,
             FirstName: firstName,
-            LastName: lastName
+            LastName: lastName,
+            DateOfBirth: dateOfBirth,
+            EmailAddress: emailAddress,
+            Password: password,
+            About: about,
+            ProfileImage: profileImage
         },
         headers: {
             'Content-Type': 'application/json'

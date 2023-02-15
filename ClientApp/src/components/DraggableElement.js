@@ -45,7 +45,7 @@ const DraggableElement = ({ prefix, panelId }) => {
                     title={"New Note"} 
                     functionHandler={addNote}
                     panelId={panelId}
-                    type={"note"}
+                    type={"Note"}
                     placeholder={"Write note here"}
                 />
             }

@@ -39,7 +39,7 @@ const Listnote = ({ note, index }) => {
     setShow(!show);
 
   return (
-    <Draggable draggableId={note.noteValue} index={index}>
+    <Draggable draggableId={note.noteId.toString()} index={index}>
       {(provided, snapshot) => {
           return (
               <DragNote
@@ -57,7 +57,7 @@ const Listnote = ({ note, index }) => {
                   </Col>
                 </Row>
                   <CardFooter>
-                      <span>{note.dateAdded}</span>
+                      <span>{note.dateCreated}</span>
                       {/* <Author>
                         {note.noteId}
                       </Author> */}
