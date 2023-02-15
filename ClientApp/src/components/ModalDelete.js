@@ -7,8 +7,7 @@ const ModalDelete = ({ functionHandler, id }) => {
     const handleClose = () =>
         setShow(!show);
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+    const handleSubmit = async () => {
         functionHandler(id);
         handleClose();
     }

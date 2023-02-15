@@ -16,19 +16,31 @@ export async function getPanels() {
 }
 
 export async function getUserPanels() {
-  return await axios.get(`${api}/Panel/users`)
+  return await axios.get(`${api}/panel/users`, {
+    config: headers,
+    withCredentials: true
+  });
 }
 
 export async function addPanel(panel) {
-  return await axios.post(`${api}/Panel`, panel, {
-    config: headers
-  });
+  return await axios({
+    method: 'post',
+    url: `${api}/panel`,
+    data: {
+      title: panel
+    },
+    config: headers,
+    withCredentials: true
+  })
+  .then((response) => console.log(response))
+  .catch((error) => console.log(error));
 }
 
 export async function editPanel(panel) {
   return await axios.put(`${api}/Panel/${panel.id}`, panel, {
-    config: headers
-  })
+    config: headers,
+    withCredentials: true
+  });
 }
 
 export async function deletePanel(panelId) {

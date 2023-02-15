@@ -61,7 +61,7 @@ function DragList() {
         <DragDropContextContainer>
             <DragDropContext onDragEnd={onDragEnd}>
                 <ListGrid>
-                    {panels.length > 1 && panels?.map(({panelId, title}) => (
+                    {panels.length > 0 && panels?.map(({panelId, title}) => (
                         <DraggableElement
                             title={title}
                             key={panelId}

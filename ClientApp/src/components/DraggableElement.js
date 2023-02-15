@@ -30,22 +30,23 @@ const DraggableElement = ({ prefix, panelId }) => {
         .then((response) => setNotes(response.data));
     }, []);
 
+    console.log("Panel Id: ", panelId);
     console.log("prefix: ", prefix)
     return (
         <DroppableStyles>
             <Row xs={2}>
-                <Col>
+                <Col >
                     <ColumnHeader>{prefix}</ColumnHeader>
                 </Col>
-                <Col>
-                <Button variant="light" onClick={handleAddNoteClick} ><Plus/></Button>
+                <Col xs={3}>
+                    <Button variant="light" onClick={handleAddNoteClick} ><Plus/></Button>
                 </Col>
             </Row>
             {
                 show && <ModalSubmit 
                     title={"New Note"} 
                     functionHandler={addNote}
-                    id={panelId}
+                    panelId={panelId}
                     type={"note"}
                     placeholder={"Write note here"}
                 />

@@ -19,7 +19,8 @@ const SignInButton = () => {
 
     useEffect(() => {
         dispatch(checkUserSession());
-    }, [])
+    }, []);
+    
     return (
         <Fragment>
         {

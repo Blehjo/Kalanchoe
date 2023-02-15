@@ -1,21 +1,20 @@
 import { Modal, Form, Button } from 'react-bootstrap';
 import { useState } from "react";
 
-const ModalSubmit = ({ title, functionHandler, id, type, placeholder }) => {
+const ModalSubmit = ({ title, functionHandler, panelId, type, placeholder }) => {
     const [show, setShow] = useState(true);
     const [value, setValue] = useState('');
 
     const handleClose = () =>
-        setShow(!show);
+        setShow(false);
 
     const handleValueChange = (event) => {
         setValue(event.target.value);
     }
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        functionHandler({ panelId: id, noteValue: value });
-        handleClose();
+    const handleSubmit = async () => {
+        functionHandler(value, panelId);
+        setShow(false);
     }
 
     return (
@@ -30,8 +29,8 @@ const ModalSubmit = ({ title, functionHandler, id, type, placeholder }) => {
                     </Form.Group>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" as="input" type="submit" value="Close" onClick={handleClose}/>
-                    <Button variant="light" as="input" type="submit" value="Add Note" />
+                    <Button variant="secondary" as="input" type="button" value="Close" onClick={handleClose}/>
+                    <Button variant="light" as="input" type="submit" value={`Add ${type}`} />
                 </Modal.Footer>
             </Form>
         </Modal>

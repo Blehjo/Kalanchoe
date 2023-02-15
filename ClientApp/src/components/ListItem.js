@@ -58,9 +58,9 @@ const Listnote = ({ note, index }) => {
                 </Row>
                   <CardFooter>
                       <span>{note.dateAdded}</span>
-                      <Author>
+                      {/* <Author>
                         {note.noteId}
-                      </Author>
+                      </Author> */}
                   </CardFooter>
                   {show && <ModalDelete 
                     functionHandler={deleteNote}
