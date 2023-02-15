@@ -30,8 +30,6 @@ const DraggableElement = ({ prefix, panelId }) => {
         .then((response) => setNotes(response.data));
     }, []);
 
-    console.log("Panel Id: ", panelId);
-    console.log("prefix: ", prefix)
     return (
         <DroppableStyles>
             <Row xs={2}>
