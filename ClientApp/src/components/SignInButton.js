@@ -5,7 +5,7 @@ import { NavLink } from 'reactstrap';
 import { Fragment, useEffect, useState } from "react";
 import { Person } from "react-bootstrap-icons";
 import { checkUserSession } from "../store/user/user.action";
-import ProfileDropdown from "./ProfileDropdown";
+import ProfileDropdown from "./profileDropdown/ProfileDropdown";
 
 const SignInButton = () => {
     const [show, setShow] = useState(false);
@@ -29,7 +29,7 @@ const SignInButton = () => {
         <Fragment>
         {
             currentUser ?
-            <NavLink><Person color="black" size={20} onClick={showProfileDropdown}/></NavLink> : 
+            <NavLink><Person style={{ cursor: 'pointer' }} color="black" size={20} onClick={showProfileDropdown}/></NavLink> : 
             <NavLink style={{ cursor: 'pointer' }} onClick={goToSignIn} className="text-dark" to="/projects">Sign In</NavLink>
         }
         {show && <ProfileDropdown/>}

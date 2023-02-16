@@ -1,9 +1,9 @@
 import { Nav, Row } from "react-bootstrap";
 import { Inbox, Gear, Laptop, DoorOpen, QuestionCircle, MenuApp, Person } from 'react-bootstrap-icons';
 import { useDispatch } from 'react-redux';
-import { signOutStart } from '../store/user/user.action';
+import { signOutStart } from '../../store/user/user.action';
 
-// import './profile-dropdown.styles.scss';
+import './profileDropdown.scss';
 
 const ProfileDropdown = () => {
     const dispatch = useDispatch();

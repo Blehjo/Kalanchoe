@@ -1,0 +1,28 @@
+.profile-dropdown-container {
+    position: absolute;
+    width: 240px;
+    height: 450px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: rgba(27, 23, 23, 0.7);
+    top: 57px;
+    right: 370px;
+    z-index: 5;
+  
+    .empty-message {
+      font-size: 18px;
+      margin: 50px auto;
+    }
+  
+    .profile-options {
+      height: 240px;
+      display: flex;
+      flex-direction: column;
+    }
+  
+    p {
+      margin-top: auto;
+    }
+  }
+  
