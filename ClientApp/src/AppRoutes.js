@@ -28,7 +28,11 @@ const AppRoutes = [
     element: <Authentication />
   },
   {
-    path: '/artoo',
+    path: '/artoo/:id',
+    element: <Artoo />
+  },
+  {
+    path: '/artoo/',
     element: <Artoo />
   },
   {

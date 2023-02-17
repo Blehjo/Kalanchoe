@@ -1,15 +1,37 @@
 import axios from "axios";
 
+const api = "https://localhost:7028/api/chatComment"
+
 export async function getSingleChatcomment(chatcommentId) {
-  return await axios.get(`/chatcomments/${chatcommentId}`)
+  return await axios({
+    method: 'get',
+    url: `${api}/user/${chatcommentId}`,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true
+  });
 }
 
 export async function getChatcomments() {
   return await axios.get('/chatcomments')
 }
 
-export async function addChatcomment(chatcomment) {
-  return await axios.post('/chatcomments', chatcomment)
+export async function addChatComment(chatComment) {
+  const { chatValue, chatId } = chatComment;
+  console.log("chatComment: ", chatComment)
+  return await axios({
+    method: 'post',
+      url: api,
+      data: {
+        chatValue: chatValue,
+        chatId: chatId
+      },
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      withCredentials: true
+  });
 }
 
 export async function editChatcomment(chatcomment) {
