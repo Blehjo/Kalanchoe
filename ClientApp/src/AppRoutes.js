@@ -16,6 +16,7 @@ import Profiles from "./components/Profiles";
 import SinglePost from "./components/SinglePost";
 import Users from "./components/Users";
 import Artoo from "./components/Artoo";
+import ArtGeneration from "./components/ArtGeneration";
 
 
 const AppRoutes = [
@@ -34,6 +35,14 @@ const AppRoutes = [
   {
     path: '/artoo/',
     element: <Artoo />
+  },
+  {
+    path: '/artgenerator/:id',
+    element: <ArtGeneration />
+  },
+  {
+    path: '/artgenerator/',
+    element: <ArtGeneration />
   },
   {
     path: '/chats',
