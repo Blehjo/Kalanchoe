@@ -38,6 +38,12 @@ const Listnote = ({ note, index }) => {
   const handleClose = () => 
     setShow(!show);
 
+  const utcConverter = (unixTimestamp) => {
+    const date = new Date(unixTimestamp);
+    const convertedTime = date.toLocaleDateString();
+    return convertedTime;
+  }
+
   return (
     <Draggable draggableId={note.noteId.toString()} index={index}>
       {(provided, snapshot) => {
@@ -57,7 +63,7 @@ const Listnote = ({ note, index }) => {
                   </Col>
                 </Row>
                   <CardFooter>
-                      <span>{note.dateCreated}</span>
+                      <span>{utcConverter(note.dateCreated)}</span>
                       {/* <Author>
                         {note.noteId}
                       </Author> */}

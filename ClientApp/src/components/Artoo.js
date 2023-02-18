@@ -67,17 +67,20 @@ const Artoo = () => {
     .then((response) => setChats(response.data));
     addChatComment({ chatValue: aiResponse, chatId: chatId });
 
-    getSingleChatcomment(id)
-    .then((response) => setChatComments(response.data));
-  }, [aiResponse, chatId, id]);
+    if (id != null) {
+      getSingleChatcomment(id)
+      .then((response) => setChatComments(response.data));
+    }
+  }, [aiResponse, id]);
 
   return (
     <Row xs={2}>
       <Col sm={3}>
-        <div style={{ height: '100vh', overflowY: 'auto', background: 'grey', borderRadius: '.2rem', textAlign: 'center' }}>
+        <div style={{ height: '94vh', overflowY: 'auto', background: 'grey', borderRadius: '.2rem', textAlign: 'center' }}>
           <h1 style={{}}>Archives</h1>
           {chats?.length > 0 && chats?.map(({ chatId, title }) => (
             <div style={{ cursor: 'pointer', background: 'white', margin: '1rem', padding: '.5rem', borderRadius: '.2rem' }} key={chatId}>
+              <div>
               <Row>
                 <Col xs={9}>
                   <div id={chatId} onClick={goToChat}>
@@ -88,6 +91,7 @@ const Artoo = () => {
                   <Button variant="light" id={chatId} onClick={handleChatDelete}><XCircle/></Button>
                 </Col>
               </Row>
+              </div>
             </div>
           ))}
         </div>
