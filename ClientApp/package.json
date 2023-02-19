@@ -17,6 +17,7 @@
     "generate-avatar": "^1.4.10",
     "http-proxy-middleware": "^2.0.6",
     "jquery": "^3.6.0",
+    "js-cookie": "^3.0.1",
     "lorem-ipsum": "^2.0.8",
     "merge": "^2.1.1",
     "oidc-client": "^1.11.5",

@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const api = "https://localhost:7028/api/chatComment"
+const api = "https://localhost:7028/api/chatcomment"
 
-export async function getSingleChatcomment(chatcommentId) {
+export async function getSingleChatcomment(chatId) {
   return await axios({
     method: 'get',
-    url: `${api}/user/${chatcommentId}`,
+    url: `${api}/user/${chatId}`,
     headers: {
       'Content-Type': 'application/json'
     },
@@ -14,7 +14,14 @@ export async function getSingleChatcomment(chatcommentId) {
 }
 
 export async function getChatcomments() {
-  return await axios.get('/chatcomments')
+  return await axios({
+    method: 'get',
+    url: `${api}/`,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true
+  });
 }
 
 export async function addChatComment(chatComment) {

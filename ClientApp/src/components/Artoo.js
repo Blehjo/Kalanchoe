@@ -1,23 +1,43 @@
-import { useEffect, useState } from "react";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { useCallback, useEffect, useState } from "react";
+import { Form, Button, Row, Col, Dropdown } from "react-bootstrap";
 import { XCircle } from 'react-bootstrap-icons';
 import axios from "axios";
 import { useParams, useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
 import { addChat, deleteChat, getChats } from "../utils/api/chat";
 import { addChatComment, getSingleChatcomment } from "../utils/api/chatcomment";
+import { toggle } from "../utils/artootoggle";
+import { selectChatItems, selectChatReducer } from "../store/chat/chat.selector";
+import { chatFetchAllStart } from "../store/chat/chat.action";
+import Cookies from 'js-cookie'
+import { chatcommentFetchAllStart } from "../store/chatcomment/chatcomment.action";
+import { selectChatCommentItems } from "../store/chatcomment/chatcomment.selector";
+
+const defaultFormFields = {
+  request: '',
+  dropdown: ''
+}
 
 const Artoo = () => {
+  const dispatch = useDispatch(); 
   const navigate = useNavigate();
-  const [chats, setChats] = useState([]);
-  const [chatComments, setChatComments] = useState([]);
-  const [chatId, setChatId] = useState(null);
-  const [request, setRequest] = useState('');
-  const [aiResponse, setAiResponse] = useState();
   const { id } = useParams();
-  console.log("Page ID: ", id);
-  console.log("Request: ", request);
-  console.log("AI Response: ", aiResponse);
-  console.log("Chat ID: ", chatId);
+  const chatComments = useSelector(selectChatCommentItems);
+  const chats = useSelector(selectChatItems);
+  const [chatId, setChatId] = useState(null);
+  const [choice, setChoice] = useState("Text");
+  const [aiResponse, setAiResponse] = useState(null);
+  const [formFields, setFormFields] = useState(defaultFormFields);
+  const { request, dropdown } = formFields;
+
+  const resetForm = () => {
+    setFormFields(defaultFormFields);
+  }
+
+  const handleChange = (event) => {
+      const { name, value } = event.target;
+      setFormFields({ ...formFields, [name]: value })
+  };
   
   const handleAddChat = () => {
     if (id == null) {
@@ -25,11 +45,6 @@ const Artoo = () => {
       .then((response) => setChatId(response.data.chatId));
       navigate(`/artoo/${chatId}`);
     }
-  }
-
-  const handleRequestChange = (event) => {
-    event.preventDefault();
-    setRequest(event.target.value);
   }
 
   const handleChatDelete = (event) => {
@@ -41,7 +56,7 @@ const Artoo = () => {
     handleAddChat();
     await axios({
       method: 'post',
-      url: 'https://localhost:7028/api/chatgpt/completion',
+      url: toggle(choice),
       data: {
         request: request
       },
@@ -51,39 +66,32 @@ const Artoo = () => {
       withCredentials: true
     })
     .then((response) => setAiResponse(response.data));
-    setRequest('');
-  }
-
-  const goToChat = (event) => {
-    const chat = event.target.id;
-    if (chat != null) {
-      setChatId(chat);
-      navigate(`/artoo/${chatId}`);
-    }
+    resetForm();
   }
   
   useEffect(() => {
+    navigate(`/artoo/${chatId}`);
     getChats()
-    .then((response) => setChats(response.data));
-    addChatComment({ chatValue: aiResponse, chatId: chatId });
+    .then((response) => dispatch(chatFetchAllStart(response.data)));
 
-    if (id != null) {
-      getSingleChatcomment(id)
-      .then((response) => setChatComments(response.data));
+    // addChatComment({ chatValue: aiResponse, chatId: id });
+
+    if (chatId !== null) {
+      getSingleChatcomment(chatId)
+      .then((response) => dispatch(chatcommentFetchAllStart(response.data)));
     }
-  }, [aiResponse, id]);
+  }, [aiResponse, chatId]);
 
   return (
     <Row xs={2}>
       <Col sm={3}>
-        <div style={{ height: '94vh', overflowY: 'auto', background: 'grey', borderRadius: '.2rem', textAlign: 'center' }}>
+        <div style={{ height: '94vh', overflowY: 'auto', background: '#d4d4d4', borderRadius: '.2rem', textAlign: 'center' }}>
           <h1 style={{}}>Archives</h1>
           {chats?.length > 0 && chats?.map(({ chatId, title }) => (
             <div style={{ cursor: 'pointer', background: 'white', margin: '1rem', padding: '.5rem', borderRadius: '.2rem' }} key={chatId}>
-              <div>
               <Row>
                 <Col xs={9}>
-                  <div id={chatId} onClick={goToChat}>
+                  <div id={chatId} onClick={(event) => setChatId(event.target.id)}>
                   {title}
                   </div>
                 </Col>
@@ -91,13 +99,22 @@ const Artoo = () => {
                   <Button variant="light" id={chatId} onClick={handleChatDelete}><XCircle/></Button>
                 </Col>
               </Row>
-              </div>
             </div>
           ))}
         </div>
       </Col>
       <Col sm={9}>
-        <Form style={{ background: 'grey', borderRadius: '.2rem' }} onSubmit={sendMessage}>
+        <Form style={{ background: '#d4d4d4', borderRadius: '.2rem' }} onSubmit={sendMessage}>
+        <Dropdown>
+          <Dropdown.Toggle variant="light" id="dropdown">
+            {choice}
+          </Dropdown.Toggle>
+          <Dropdown.Menu >
+            <Dropdown.Item onClick={(event) => setChoice(event.target.name)} name="Text" value="text" active>Text</Dropdown.Item>
+            <Dropdown.Item onClick={(event) => setChoice(event.target.name)} name="Code" value="code">Code</Dropdown.Item>
+            <Dropdown.Item onClick={(event) => setChoice(event.target.name)} name="Art" value="art">Art</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
           <Row style={{ padding: '2rem' }}>
             <Col>
               <div style={{ height: '73vh', overflowY: 'auto', borderRadius: '.2rem' }}>
@@ -114,7 +131,7 @@ const Artoo = () => {
           <Row style={{ padding: '2rem' }} xs={2}>
             <Col xs={10}>
               <Form.Group className="mb-3" controlId="request">
-                <Form.Control type="text" onChange={handleRequestChange} value={request} name="request" placeholder="Send a message" />
+                <Form.Control type="text" onChange={handleChange} value={request} name="request" placeholder="Send a message" />
               </Form.Group>
             </Col>
             <Col xs={2}>

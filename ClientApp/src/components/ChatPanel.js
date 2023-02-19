@@ -1,18 +1,14 @@
 import { useEffect, useState } from "react";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Button, Row, Col } from "react-bootstrap";
 import { XCircle } from 'react-bootstrap-icons';
 import axios from "axios";
 import { useParams, useNavigate } from "react-router";
-import { addChat, deleteChat, getChats } from "../utils/api/chat";
-import { addChatComment, getSingleChatcomment } from "../utils/api/chatcomment";
+import { deleteChat, getChats } from "../utils/api/chat";
 
 const ChatPanel = () => {
     const navigate = useNavigate();
     const [chats, setChats] = useState([]);
-    const [chatComments, setChatComments] = useState([]);
     const [chatId, setChatId] = useState(null);
-    const [request, setRequest] = useState('');
-    const [aiResponse, setAiResponse] = useState();
     const { id } = useParams();
 
     const goToChat = (event) => {
@@ -30,36 +26,28 @@ const ChatPanel = () => {
     useEffect(() => {
         getChats()
         .then((response) => setChats(response.data));
-        addChatComment({ chatValue: aiResponse, chatId: chatId });
-    
-        if (id != null) {
-          getSingleChatcomment(id)
-          .then((response) => setChatComments(response.data));
-        }
-      }, [aiResponse, id]);
+      }, [id]);
 
     return (
-            <div style={{ height: '350px', width: 'auto%', backgroundColor: 'grey', borderRadius: '.2rem', textAlign: 'center', margin: '1rem' }}>
-                <h1>Chat Archives</h1>
-                <Row xs={2}>
-                {chats?.length > 0 && chats?.map(({ chatId, title }) => (
-                    <div style={{ cursor: 'pointer', background: 'white', margin: '1rem', padding: '.5rem', borderRadius: '.2rem' }} key={chatId}>
-                        <div>
-                        <Row>
-                            <Col xs={9}>
+        <div style={{ height: '350px', width: 'auto', backgroundColor: '#d4d4d4', padding: '1rem', borderRadius: '.2rem', textAlign: 'center', margin: '1rem', overflowY: 'auto' }}>
+            <h1>Chat Archives</h1>
+            <Row xs={1} xl={2}>
+            {chats?.length > 0 && chats?.map(({ chatId, title }) => (
+                <div style={{ width: '18rem', cursor: 'pointer', boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)', background: 'white', margin: '.3rem', padding: '.5rem', borderRadius: '.2rem' }} key={chatId}>
+                    <Row xs={2}>
+                        <Col xs={9}>
                             <div id={chatId} onClick={goToChat}>
-                            {title}
+                                {title}
                             </div>
-                            </Col>
-                            <Col>
-                                <Button variant="light" id={chatId} onClick={handleChatDelete}><XCircle/></Button>
-                            </Col>
-                        </Row>
-                        </div>
-                    </div>
-                ))}
-                </Row>
-            </div>
+                        </Col>
+                        <Col xs={1}>
+                            <Button variant="light" id={chatId} onClick={handleChatDelete}><XCircle/></Button>
+                        </Col>
+                    </Row>
+                </div>
+            ))}
+            </Row>
+        </div>
     )
 }
 

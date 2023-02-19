@@ -3,7 +3,14 @@ import axios from "axios";
 const api = "https://localhost:7028/api/chat";
 
 export async function getSingleChat(chatId) {
-  return await axios.get(`/chat/${chatId}`)
+  return await axios({
+    method: 'get',
+    url: `${api}/chat/${chatId}`,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true
+  });
 }
 
 export async function getAllChats() {

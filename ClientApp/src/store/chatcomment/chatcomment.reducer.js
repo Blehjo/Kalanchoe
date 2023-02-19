@@ -14,7 +14,7 @@ export const chatcommentReducer = (state = INITIAL_STATE, action) => {
         case CHATCOMMENT_ACTION_TYPES.UPDATE_START:
         case CHATCOMMENT_ACTION_TYPES.DELETE_START:
         case CHATCOMMENT_ACTION_TYPES.FETCH_ALL_START:
-            return { ...state, isLoading: true };
+            return { ...state, chatcomments: payload, isLoading: true };
         case CHATCOMMENT_ACTION_TYPES.CREATE_SUCCESS:
         case CHATCOMMENT_ACTION_TYPES.UPDATE_SUCCESS:
         case CHATCOMMENT_ACTION_TYPES.DELETE_SUCCESS:

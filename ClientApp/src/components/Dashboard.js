@@ -7,21 +7,18 @@ import PanelPanel from "./PanelPanel";
 
 const Dashboard = () => {
     return(
-        <Fragment>
-            <h1>Dashboard</h1>
-            <Row>
-                <Col xs={3}>
-                    <MessagePanel/>
-                </Col>
-                <Col xs={6}>
-                    <ChatPanel/>
-                    <PanelPanel/>
-                </Col>
-                <Col xs={3}>
-                    <CommunityPanel/>
-                </Col>
-            </Row>
-        </Fragment>
+        <Row>
+            <Col xs={3}>
+                <MessagePanel/>
+            </Col>
+            <Col xs={6}>
+                <ChatPanel/>
+                <PanelPanel/>
+            </Col>
+            <Col xs={3}>
+                <CommunityPanel/>
+            </Col>
+        </Row>
     );
 }
 
