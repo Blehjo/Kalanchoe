@@ -24,6 +24,7 @@ const Artoo = () => {
   const { id } = useParams();
   const chatComments = useSelector(selectChatCommentItems);
   const chats = useSelector(selectChatItems);
+  const length = chats.length;
   const [chatId, setChatId] = useState(null);
   const [choice, setChoice] = useState("Text");
   const [aiResponse, setAiResponse] = useState(null);
@@ -70,17 +71,22 @@ const Artoo = () => {
   }
   
   useEffect(() => {
-    navigate(`/artoo/${chatId}`);
+    if (aiResponse != null && chatId != null) {
+      addChatComment({ chatValue: aiResponse, chatId: chatId });
+    }
+
+    if (chatId != null) {
+      navigate(`/artoo/${chatId}`);
+    }
+
     getChats()
     .then((response) => dispatch(chatFetchAllStart(response.data)));
-
-    // addChatComment({ chatValue: aiResponse, chatId: id });
 
     if (chatId !== null) {
       getSingleChatcomment(chatId)
       .then((response) => dispatch(chatcommentFetchAllStart(response.data)));
     }
-  }, [aiResponse, chatId]);
+  }, [aiResponse, chatId, length]);
 
   return (
     <Row xs={2}>
