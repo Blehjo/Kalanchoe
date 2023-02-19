@@ -8,6 +8,7 @@ import {
     chatFetchAllFailed,
     chatFetchAllSuccess,
 } from './chat.action';
+
 import { addChat, getChats, getSingleChat } from '../../utils/api/chat';
 
 export function* getSnapshotFromChat(chat, additionalDetails) {

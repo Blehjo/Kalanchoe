@@ -1,4 +1,4 @@
-import { ME, MESSAGE_ACTION_TYPESSSAGE_ACTION_TYPES } from './message.types';
+import { MESSAGE_ACTION_TYPES } from './message.types';
 import { createAction } from '../../utils/reducer';
 
 export const messageCreateStart = (userId, messageValue) => 
@@ -29,7 +29,7 @@ export const messageDeleteFailed = (error) =>
     createAction(MESSAGE_ACTION_TYPES.DELETE_START, error);
 
 export const messageFetchAllStart = (userId) => 
-    createAction(MESSAGE_ACTION_TYPES.FETCH_ALL_START, { userId });
+    createAction(MESSAGE_ACTION_TYPES.FETCH_ALL_START, userId);
 
 export const messageFetchAllSuccess = (message) => 
     createAction(MESSAGE_ACTION_TYPES.FETCH_ALL_SUCCESS, message);

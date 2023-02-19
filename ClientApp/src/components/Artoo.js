@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Form, Button, Row, Col, Dropdown } from "react-bootstrap";
 import { XCircle } from 'react-bootstrap-icons';
 import axios from "axios";
@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addChat, deleteChat, getChats } from "../utils/api/chat";
 import { addChatComment, getSingleChatcomment } from "../utils/api/chatcomment";
 import { toggle } from "../utils/artootoggle";
-import { selectChatItems, selectChatReducer } from "../store/chat/chat.selector";
+import { selectChatItems } from "../store/chat/chat.selector";
 import { chatFetchAllStart } from "../store/chat/chat.action";
 import Cookies from 'js-cookie'
 import { chatcommentFetchAllStart } from "../store/chatcomment/chatcomment.action";
@@ -111,7 +111,7 @@ const Artoo = () => {
       </Col>
       <Col sm={9}>
         <Form style={{ background: '#d4d4d4', borderRadius: '.2rem' }} onSubmit={sendMessage}>
-        <Dropdown>
+        <Dropdown style={{ padding: '1rem' }}>
           <Dropdown.Toggle variant="light" id="dropdown">
             {choice}
           </Dropdown.Toggle>

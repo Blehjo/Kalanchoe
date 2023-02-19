@@ -24,20 +24,14 @@ const SidebarOverlay = () => {
                 </Nav.Item>
                 <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
                     <ChatDots className='' color="black" size={20} />
-                    <Nav.Link href="/chats" className="ms-4">
-                        ChatAI
+                    <Nav.Link href="/messages" className="ms-4">
+                        Messages
                     </Nav.Link>
                 </Nav.Item>
                 <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
                     <PersonWorkspace className='' color="black" size={20}/>
                     <Nav.Link href="/dashboard" className="ms-4">
                         Dashboard
-                    </Nav.Link>
-                </Nav.Item>
-                <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
-                    <Messenger className='' color="black" size={20}/>
-                    <Nav.Link href="/messages" className="ms-4">
-                        Messages
                     </Nav.Link>
                 </Nav.Item>
                 <Nav.Item className="mb-3 ms-3 d-flex align-items-center">

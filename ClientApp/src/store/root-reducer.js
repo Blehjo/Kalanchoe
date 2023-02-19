@@ -16,6 +16,7 @@ import { userReducer } from './user/user.reducer';
 import { toolReducer } from './tool/tool.reducer';
 import { listReducer } from './list/list.reducer';
 import { toolboxReducer } from './toolbox/toolbox.reducer';
+import { messagecommentReducer } from './messagecomment/messagecomment.reducer';
 
 export const rootReducer = combineReducers({
     user: userReducer,
@@ -23,7 +24,7 @@ export const rootReducer = combineReducers({
     comment: commentReducer,
     panel: panelReducer,
     note: noteReducer,
-    messaage: messageReducer,
+    message: messageReducer,
     member: memberReducer,
     follower: followerReducer,
     community: communityReducer,
@@ -34,5 +35,6 @@ export const rootReducer = combineReducers({
     aicompletion: aicompletionReducer,
     tool: toolReducer,
     list: listReducer,
-    toolbox: toolboxReducer
+    toolbox: toolboxReducer,
+    messagecomment: messagecommentReducer
 });

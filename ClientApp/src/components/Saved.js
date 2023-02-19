@@ -12,14 +12,11 @@ const Saved = () => {
             <Nav.Link href="/artoo">
                 <Robot className='mt-4' color="black" size={40} />
             </Nav.Link>
-            <Nav.Link href="/chats">
+            <Nav.Link href="/messages">
                 <ChatDots className='mt-4' color="black" size={40} />
             </Nav.Link>
             <Nav.Link href="/dashboard">
                 <PersonWorkspace className='mt-4' color="black" size={40} />
-            </Nav.Link>
-            <Nav.Link href="/messages">
-                <Messenger className='mt-4' action='true' color="black" size={40} />
             </Nav.Link>
             <Nav.Link href="/projects">
                 <Clipboard className='mt-4' color="black" size={40} />

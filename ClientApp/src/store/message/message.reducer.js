@@ -14,7 +14,7 @@ export const messageReducer = (state = INITIAL_STATE, action) => {
         case MESSAGE_ACTION_TYPES.UPDATE_START:
         case MESSAGE_ACTION_TYPES.DELETE_START:
         case MESSAGE_ACTION_TYPES.FETCH_ALL_START:
-            return { ...state, isLoading: true };
+            return { ...state, messages: payload, isLoading: true };
         case MESSAGE_ACTION_TYPES.CREATE_SUCCESS:
         case MESSAGE_ACTION_TYPES.UPDATE_SUCCESS:
         case MESSAGE_ACTION_TYPES.DELETE_SUCCESS:
