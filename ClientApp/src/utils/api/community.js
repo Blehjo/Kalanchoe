@@ -17,8 +17,12 @@ export async function getCommunity() {
 
 export async function addCommunity(community) {
   console.log(community)
-    return await axios.post(`${api}/Community`, community, {
-        config: headers
+    return await axios({
+      method: 'post',
+      url: `${api}/Community`, 
+      data: community, 
+      config: headers,
+      withCredentials: true
     })
 }
 

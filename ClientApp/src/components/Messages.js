@@ -78,12 +78,12 @@ const Messages = () => {
       <Col sm={3}>
         <div style={{ height: '94vh', overflowY: 'auto', background: '#d4d4d4', borderRadius: '.2rem', textAlign: 'center' }}>
           <h1 style={{}}>Messages</h1>
-          {messages?.length > 0 && messages?.map(({ messageId, title }) => (
+          {messages?.length > 0 && messages?.map(({ messageId, messageValue }) => (
             <div style={{ cursor: 'pointer', background: 'white', margin: '1rem', padding: '.5rem', borderRadius: '.2rem' }} key={messageId}>
               <Row>
                 <Col xs={9}>
                   <div id={messageId} onClick={(event) => setMessageId(event.target.id)}>
-                  {title}
+                  {messageValue}
                   </div>
                 </Col>
                 <Col>

@@ -94,7 +94,7 @@ const Artoo = () => {
         <div style={{ height: '94vh', overflowY: 'auto', background: '#d4d4d4', borderRadius: '.2rem', textAlign: 'center' }}>
           <h1 style={{}}>Archives</h1>
           {chats?.length > 0 && chats?.map(({ chatId, title }) => (
-            <div style={{ cursor: 'pointer', background: 'white', margin: '1rem', padding: '.5rem', borderRadius: '.2rem' }} key={chatId}>
+            <div style={{ boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)', cursor: 'pointer', background: 'white', margin: '1rem', padding: '.5rem', borderRadius: '.2rem' }} key={chatId}>
               <Row>
                 <Col xs={9}>
                   <div id={chatId} onClick={(event) => setChatId(event.target.id)}>

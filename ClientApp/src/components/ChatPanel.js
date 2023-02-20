@@ -26,7 +26,7 @@ const ChatPanel = () => {
     useEffect(() => {
         getChats()
         .then((response) => setChats(response.data));
-      }, [id]);
+    }, [id]);
 
     return (
         <div style={{ height: '350px', width: 'auto', backgroundColor: '#d4d4d4', padding: '1rem', borderRadius: '.2rem', textAlign: 'center', margin: '1rem', overflowY: 'auto' }}>

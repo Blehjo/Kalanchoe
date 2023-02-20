@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const api = "https://localhost:7028/api";
+const api = "https://localhost:7028/api/channel";
 
 const headers = {
   'Accept': 'application/json',
@@ -8,25 +8,48 @@ const headers = {
 }
 
 export async function getSingleChannel(channelId) {
-  return await axios.get(`${api}/Channel/${channelId}`)
+  return await axios.get({
+    method: 'get',
+    url: `${api}/${channelId}`,
+    config: headers,
+    withCredentials: true
+  })
 }
 
 export async function getChannels() {
-  return await axios.get(`${api}/Channel`)
+  return await axios({
+    method: 'get',
+    url: `${api}`,
+    config: headers,
+    withCredentials: true
+  });
 }
 
 export async function addChannel(channel) {
-  return await axios.post(`${api}/Channel`, channel, {
-    config: headers
+  return await axios({
+    method: 'post',
+    url: `${api}`, 
+    data: channel, 
+    config: headers,
+    withCredentials: true
   })
 }
 
 export async function editChannel(channel) {
-  return await axios.put(`${api}/Channel/${channel.id}`, channel, {
-    config: headers
+  return await axios({
+    method: 'put',
+    url: `${api}/${channel.id}`, 
+    data: channel, 
+    config: headers,
+    withCredentials: true
   })
 }
 
 export async function deleteChannel(channelId) {
-  return await axios.delete(`${api}/Channel/${channelId}`)
+  return await axios({
+    method: 'delete',
+    url: `${api}/${channelId}`,
+    config: headers,
+    withCredentials: true
+})
 }
