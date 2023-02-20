@@ -13,7 +13,7 @@ const ModalSubmit = ({ title, functionHandler, panelId, type, placeholder }) => 
     }
 
     const handleSubmit = async () => {
-        functionHandler(value, panelId);
+        functionHandler({value, panelId});
         setShow(false);
     }
 

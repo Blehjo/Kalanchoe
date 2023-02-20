@@ -17,7 +17,7 @@ export async function getSingleCommunity(communityId) {
 }
 
 export async function getCommunity() {
-  return await axios.get({
+  return await axios({
     method: 'get',
     url: `${api}`,
     config: headers,

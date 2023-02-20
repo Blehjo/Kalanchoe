@@ -26,10 +26,14 @@ export async function getChannels() {
 }
 
 export async function addChannel(channel) {
+  console.log(channel);
   return await axios({
     method: 'post',
-    url: `${api}`, 
-    data: channel, 
+    url: api, 
+    data: {
+      description: channel.value,
+      communityId: channel.panelId
+    }, 
     config: headers,
     withCredentials: true
   })

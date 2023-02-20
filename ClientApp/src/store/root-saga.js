@@ -6,6 +6,8 @@ import { chatSagas } from './chat/chat.saga';
 import { chatCommentSagas } from './chatcomment/chatcomment.saga';
 import { messageCommentSagas } from './messagecomment/messagecomment.saga';
 import { messageSagas } from './message/message.saga';
+import { channelSagas } from './channel/channel.saga';
+import { channelcommentSagas } from './channelcomment/channelcomment.saga';
 
 // generator function
 export function* rootSaga() {
@@ -15,6 +17,8 @@ export function* rootSaga() {
         call(chatSagas), 
         call(chatCommentSagas),
         call(messageSagas),
-        call(messageCommentSagas)
+        call(messageCommentSagas),
+        call(channelSagas),
+        call(channelcommentSagas)
     ]);
 }

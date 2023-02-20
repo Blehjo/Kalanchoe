@@ -14,7 +14,7 @@ export const channelReducer = (state = INITIAL_STATE, action) => {
         case CHANNEL_ACTION_TYPES.UPDATE_START:
         case CHANNEL_ACTION_TYPES.DELETE_START:
         case CHANNEL_ACTION_TYPES.FETCH_ALL_START:
-            return { ...state, isLoading: true };
+            return { ...state, channels: payload, isLoading: true };
         case CHANNEL_ACTION_TYPES.CREATE_SUCCESS:
         case CHANNEL_ACTION_TYPES.UPDATE_SUCCESS:
         case CHANNEL_ACTION_TYPES.DELETE_SUCCESS:

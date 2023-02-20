@@ -59,7 +59,12 @@ const AppRoutes = [
   {
     path: '/community/:id',
     element: <Community />
-  },{
+  },
+  {
+    path: '/community/:id/:channelId',
+    element: <Community />
+  },
+  {
     path: '/dashboard',
     element: <Dashboard />
   },

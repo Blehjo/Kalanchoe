@@ -1,15 +1,21 @@
-import { ChannelList } from "@pubnub/react-chat-components";
 import { Fragment, useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { XCircle, Plus, ArrowRight } from 'react-bootstrap-icons';
 import ModalSubmit from "./ModalSubmit";
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import { getChannels, addChannel } from "../utils/api/channel";
 
 const Channels = () => {
+    const navigate = useNavigate();
     const [channels, setChannels] = useState([]);
+    const [channelId, setChannelId] = useState(null);
     const [show, setShow] = useState(false);
     const { id } = useParams();
+
+    const handleClickEvent = (event) => {
+        setChannelId(event.target.id)
+        navigate(`/community/${id}/${channelId}`);
+    }
 
     const handleShow = () =>
         setShow(!show);
@@ -22,11 +28,28 @@ const Channels = () => {
     return (
         <Fragment>
             <Row>
+                    
                 <Col>
+                    <div style={{ height: '94vh', overflowY: 'auto', background: '#d4d4d4', borderRadius: '.2rem', textAlign: 'center' }}>
+                <Row xs={2}>
+                <Col xs={9}>
                     <h1>Channels</h1>
                 </Col>
-                <Col>
-                    <Button variant="light" type="submit" onClick={handleShow}><Plus/></Button>
+                <Col xs={1}>
+                    <Button style={{ marginTop: '.5rem' }} variant="light" type="submit" onClick={handleShow}><Plus/></Button>
+                </Col>
+                </Row>
+                    {channels?.map(({ description, channelId }) => (
+                        <div 
+                        onClick={handleClickEvent}
+                        style={{ cursor: 'pointer', background: 'white', margin: '1rem', padding: '.5rem', borderRadius: '.2rem' }} 
+                        key={channelId}
+                        id={channelId}
+                        >
+                            {description}
+                        </div>
+                    ))}
+                </div>
                 </Col>
             </Row>
             {
@@ -34,28 +57,11 @@ const Channels = () => {
                 <ModalSubmit
                     title={"New Channel"}
                     functionHandler={addChannel}
-                    id={id}
-                    type={"channel"}
+                    panelId={id}
+                    type={"Channel"}
                     placeholder={"Channel name"}
                 />
             }
-            {/* {
-                channels?.length > 0 &&
-                <ChannelList
-                    channels={
-                        channels?.map(({ channelId, communityId, description, dateCreated }) => ({
-                            "name": {description},
-                            // "custom": {
-                            //     "profileUrl": "https://www.gravatar.com/avatar/149e60f311749f2a7c6515f7b34?s=256&d=identicon"
-                            // },
-                            "description": {description},
-                        //     "eTag": "AbOx6N+6vu3zoAE",
-                            "id": {channelId},
-                            "updated": {dateCreated}
-                        }))
-                    }
-                />
-            } */}
         </Fragment>
     )
 }
