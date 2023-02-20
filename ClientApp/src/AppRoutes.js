@@ -87,7 +87,11 @@ const AppRoutes = [
   {
     path: '/messages',
     element: <Messages />
-    },
+  },
+  {
+    path: '/messages/:id',
+    element: <Messages />
+  },
   {
     path: '/news',
     element: <News />

@@ -23,7 +23,6 @@ const Messages = () => {
   const messageComments = useSelector(selectMessageCommentItems);
   const messages = useSelector(selectMessageItems);
   const length = messages.length;
-  const [messageId, setMessageId] = useState(null);
   const [message, setMessage] = useState(null);
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { request } = formFields;
@@ -39,9 +38,7 @@ const Messages = () => {
   
   const handleAddMessage = () => {
     if (id == null) {
-      addMessage({ messageValue: request })
-      .then((response) => setMessageId(response.data.messageId));
-      navigate(`/messages/${messageId}`);
+      addMessagecomment({ messageValue: request })
     }
   }
 
@@ -56,22 +53,14 @@ const Messages = () => {
   }
   
   useEffect(() => {
-    if (message != null && messageId != null) {
-      addMessagecomment({ messageValue: message, messageId: messageId });
-    }
-
-    if (messageId != null) {
-      navigate(`/artoo/${messageId}`);
-    }
-
     getAllMessages()
     .then((response) => dispatch(messageFetchAllStart(response.data)));
 
-    if (messageId !== null) {
-      getSingleMessagecomment(messageId)
+    if (id !== null) {
+      getSingleMessagecomment(id)
       .then((response) => dispatch(messagecommentFetchAllStart(response.data)));
     }
-  }, [message, messageId, length]);
+  }, [message, length, id]);
 
   return (
     <Row xs={2}>
@@ -82,7 +71,7 @@ const Messages = () => {
             <div style={{ cursor: 'pointer', background: 'white', margin: '1rem', padding: '.5rem', borderRadius: '.2rem' }} key={messageId}>
               <Row>
                 <Col xs={9}>
-                  <div id={messageId} onClick={(event) => setMessageId(event.target.id)}>
+                  <div id={messageId} onClick={(event) => navigate(`/messages/${event.target.id}`)}>
                   {messageValue}
                   </div>
                 </Col>
@@ -101,7 +90,7 @@ const Messages = () => {
               <div style={{ height: '73vh', overflowY: 'auto', borderRadius: '.2rem' }}>
               {messageComments?.length > 0 && messageComments?.map(({ messageCommentId, messageValue }) => (
                 <div style={{ background: 'white', margin: '1rem', padding: '.5rem', borderRadius: '.2rem' }} key={messageCommentId}>
-                      <div key={messageValue}>
+                      <div key={messageCommentId}>
                       {messageValue}
                       </div>
                 </div>

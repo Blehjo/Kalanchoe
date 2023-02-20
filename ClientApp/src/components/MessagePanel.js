@@ -8,13 +8,11 @@ import { deleteMessage, getAllMessages } from "../utils/api/message";
 const MessagePanel = () => {
     const navigate = useNavigate();
     const [messages, setMessages] = useState([]);
-    const [messageId, setMessageId] = useState(null);
 
     const goToMessage = (event) => {
         const message = event.target.id;
         if (message != null) {
-            setMessageId(message);
-            navigate(`/artoo/${messageId}`);
+            navigate(`/messages/${message}`);
         }
     }
 
