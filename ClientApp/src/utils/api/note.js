@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const api = "https://localhost:7028/api";
+const api = "https://localhost:7028/api/note";
 
 const headers = {
   'Accept': 'application/json',
@@ -8,14 +8,18 @@ const headers = {
 }
 
 export async function getSingleNote(noteId) {
-  return await axios.get(`${api}/Note/${noteId}`, {
+  return await axios({
+    method: 'get',
+    url: `${api}/${noteId}`,
     config: headers,
     withCredentials: true
   })
 }
 
 export async function getNotes() {
-  return await axios.get(`${api}/Note`, {
+  return await axios({
+    method: 'get',
+    url: api,
     config: headers,
     withCredentials: true
   });
@@ -24,27 +28,30 @@ export async function getNotes() {
 export async function addNote(noteValue, panelId) {
   return await axios({
     method: 'post',
-    url: `${api}/note`, 
+    url: api, 
     data: {
       noteValue: noteValue,
       panelId: panelId
     },
     config: headers,
     withCredentials: true
-  })
-  .then((response) => console.log(response))
-  .catch((error) => console.log(error));
+  });
 }
 
 export async function editNote(note) {
-  return await axios.put(`${api}/Note/${note.id}`, note, {
+  return await axios({
+    method: 'put',
+    url: `${api}/${note.id}`, 
+    data: note, 
     config: headers,
     withCredentials: true
   });
 }
 
 export async function deleteNote(noteId) {
-  return await axios.delete(`${api}/Note/${noteId}`, {
+  return await axios({
+    method: 'delete',
+    url: `${api}/${noteId}`,
     config: headers,
     withCredentials: true
   });

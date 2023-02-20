@@ -1,21 +1,60 @@
 import axios from "axios";
 
-export async function getSingleComment(commentId) {
-  return await axios.get(`/comments/${commentId}`)
+const api = "https://localhost:7028/api/comment"
+
+export async function getSingleComment(postId) {
+  return await axios({
+    method: 'get',
+    url: `${api}/user/${postId}`,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true
+  });
 }
 
 export async function getComments() {
-  return await axios.get('/comments')
+  return await axios({
+    method: 'get',
+    url: `${api}/`,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true
+  });
 }
 
 export async function addComment(comment) {
-  return await axios.post('/comments', comment)
+  return await axios({
+    method: 'post',
+    url: api,
+    data: comment,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true
+  });
 }
 
-export async function editComment(comment) {
-  return await axios.put(`/comments/${comment.id}`, comment)
+export async function editcomment(comment) {
+  return await axios({
+    method: 'put',
+    url: `${api}/${comment.commentId}`, 
+    data: comment,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true
+  })
 }
 
-export async function deleteComment(commentId) {
-  return await axios.delete(`/comments/${commentId}`)
+export async function deletecomment(commentId) {
+  return await axios({
+    method: 'delete',
+    url: `${api}/${commentId}`,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true
+  })
 }

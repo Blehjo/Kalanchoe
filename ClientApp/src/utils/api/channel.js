@@ -8,7 +8,7 @@ const headers = {
 }
 
 export async function getSingleChannel(channelId) {
-  return await axios.get({
+  return await axios({
     method: 'get',
     url: `${api}/${channelId}`,
     config: headers,

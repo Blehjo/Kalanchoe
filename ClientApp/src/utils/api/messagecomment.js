@@ -16,7 +16,7 @@ export async function getSingleMessagecomment(messageId) {
 export async function getMessagecomments() {
   return await axios({
     method: 'get',
-    url: `${api}/`,
+    url: api,
     headers: {
       'Content-Type': 'application/json'
     },
@@ -25,41 +25,36 @@ export async function getMessagecomments() {
 }
 
 export async function addMessagecomment(messagecomment) {
-  const { messageValue, messageId } = messagecomment;
-  console.log("messagecomment: ", messagecomment)
   return await axios({
     method: 'post',
-      url: api,
-      data: {
-        messageValue: messageValue,
-        messageId: messageId
-      },
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      withCredentials: true
+    url: api,
+    data: messagecomment,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true
   });
 }
 
 export async function editMessagecomment(messagecomment) {
-    return await axios({
-        method: 'put',
-        url: `/messagecomments/${messagecomment.id}`, 
-        data: messagecomment,
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        withCredentials: true
-    });
+  return await axios({
+    method: 'put',
+    url: `${api}/${messagecomment.id}`, 
+    data: messagecomment,
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    withCredentials: true
+  });
 }
 
 export async function deleteMessagecomment(messagecommentId) {
-    return await axios({ 
-        method: 'delete',
-        url: `/messagecomments/${messagecommentId}`,
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        withCredentials: true
-    });
+  return await axios({ 
+    method: 'delete',
+    url: `${api}/${messagecommentId}`,
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    withCredentials: true
+  });
 }

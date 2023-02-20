@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const api = "https://localhost:7028/api";
+const api = "https://localhost:7028/api/community";
 
 const headers = {
   'Accept': 'application/json',
@@ -8,30 +8,48 @@ const headers = {
 }
 
 export async function getSingleCommunity(communityId) {
-  return await axios.get(`${api}/Community/${communityId}`)
+  return await axios({
+    method: 'get',
+    url: `${api}/${communityId}`,
+    config: headers,
+    withCredentials: true
+  })
 }
 
 export async function getCommunity() {
-  return await axios.get(`${api}/Community`)
+  return await axios.get({
+    method: 'get',
+    url: `${api}`,
+    config: headers,
+    withCredentials: true
+  })
 }
 
 export async function addCommunity(community) {
-  console.log(community)
-    return await axios({
-      method: 'post',
-      url: `${api}/Community`, 
-      data: community, 
-      config: headers,
-      withCredentials: true
-    })
+  return await axios({
+    method: 'post',
+    url: `${api}`, 
+    data: community, 
+    config: headers,
+    withCredentials: true
+  })
 }
 
 export async function editCommunity(community) {
-  return await axios.put(`${api}/Community/${community.id}`, community, {
-    config: headers
+  return await axios({
+    method: 'put',
+    url:`${api}/${community.id}`, 
+    data: community, 
+    config: headers,
+    withCredentials: true
   })
 }
 
 export async function deleteCommunity(communityId) {
-  return await axios.delete(`${api}/Community/${communityId}`)
+  return await axios({
+    method: 'delete',
+    url: `${api}/${communityId}`,
+    config: headers,
+    withCredentials: true
+  })
 }

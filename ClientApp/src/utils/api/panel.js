@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const api = "https://localhost:7028/api";
+const api = "https://localhost:7028/api/panel";
 
 const headers = {
   'Accept': 'application/json',
@@ -8,15 +8,27 @@ const headers = {
 }
 
 export async function getSinglePanel(panelId) {
-  return await axios.get(`${api}/Panel/${panelId}`)
+  return await axios({
+    method: 'get',
+    url: `${api}/${panelId}`,
+    config: headers,
+    withCredentials: true
+  });
 }
 
 export async function getPanels() {
-  return await axios.get(`${api}/Panel`)
+  return await axios({
+    method: 'get',
+    url: api, 
+    config: headers,
+    withCredentials: true
+  });
 }
 
 export async function getUserPanels() {
-  return await axios.get(`${api}/panel/users`, {
+  return await axios({
+    method: 'get',
+    url: `${api}/users`, 
     config: headers,
     withCredentials: true
   });
@@ -25,24 +37,30 @@ export async function getUserPanels() {
 export async function addPanel(panel) {
   return await axios({
     method: 'post',
-    url: `${api}/panel`,
+    url: `${api}`,
     data: {
       title: panel
     },
     config: headers,
     withCredentials: true
   })
-  .then((response) => console.log(response))
-  .catch((error) => console.log(error));
 }
 
 export async function editPanel(panel) {
-  return await axios.put(`${api}/Panel/${panel.id}`, panel, {
+  return await axios({
+    method: 'put',
+    url: `${api}/${panel.id}`,
+    data: panel,
     config: headers,
     withCredentials: true
   });
 }
 
 export async function deletePanel(panelId) {
-  return await axios.delete(`${api}/Panel/${panelId}`)
+  return await axios({
+    method: 'delete',
+    url: `${api}/${panelId}`,
+    config: headers,
+    withCredentials: true
+  });
 }

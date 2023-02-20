@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const api = "https://localhost:7028/api";
+const api = "https://localhost:7028/api/post";
 
 const headers = {
   'Accept': 'application/json',
@@ -8,31 +8,48 @@ const headers = {
 }
 
 export async function getSinglePost(postId) {
-  return await axios.get(`${api}/Post/${postId}`)
+  return await axios({
+    method: 'get',
+    url: `${api}/${postId}`,
+    config: headers,
+    withCredentials: true
+  })
 }
 
 export async function getPosts() {
-  return await axios.get(`${api}/Post`);
+  return await axios({
+    method: 'get',
+    url: `${api}`,
+    config: headers,
+    withCredentials: true
+  });
 }
 
 export async function addPost(post) {
-  const { postValue, mediaLink } = post;
-  const data = {
-    userId: 1,
-    postValue: postValue,
-    mediaLink: mediaLink
-  }
-  return await axios.post(`${api}Post`, data, {
+  return await axios({
+    method: 'post',
+    url: api, 
+    data: post,
     config: headers,
+    withCredentials: true
   });
 }
 
 export async function editPost(post) {
-  return await axios.put(`${api}/Post/${post.id}`, ...post, {
+  return await axios({
+    method: 'put',
+    url:`${api}/${post.id}`, 
+    data: post,
     config: headers,
-  })
+    withCredentials: true
+  });
 }
 
 export async function deletePost(postId) {
-  return await axios.delete(`${api}/Post/${postId}`)
+  return await axios({
+    method: 'delete',
+    url: `${api}/${postId}`,
+    config: headers,
+    withCredentials: true
+  });
 }

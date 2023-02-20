@@ -5,7 +5,7 @@ const api = "https://localhost:7028/api/chat";
 export async function getSingleChat(chatId) {
   return await axios({
     method: 'get',
-    url: `${api}/chat/${chatId}`,
+    url: `${api}/${chatId}`,
     headers: {
       'Content-Type': 'application/json'
     },
@@ -51,7 +51,15 @@ export async function addChat(chat) {
 }
 
 export async function editChat(chat) {
-  return await axios.put(`/chat/${chat.id}`, chat)
+  return await axios({
+    method: 'put',
+    url: `${api}/${chat.id}`, 
+    data: chat,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true
+  })
 }
 
 export async function deleteChat(chatId) {

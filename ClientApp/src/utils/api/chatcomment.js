@@ -29,22 +29,37 @@ export async function addChatComment(chatComment) {
   console.log("chatComment: ", chatComment)
   return await axios({
     method: 'post',
-      url: api,
-      data: {
-        chatValue: chatValue,
-        chatId: chatId
-      },
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      withCredentials: true
+    url: api,
+    data: {
+      chatValue: chatValue,
+      chatId: chatId
+    },
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true
   });
 }
 
 export async function editChatcomment(chatcomment) {
-  return await axios.put(`/chatcomments/${chatcomment.id}`, chatcomment)
+  return await axios({
+    method: 'put',
+    url: `${api}/${chatcomment.id}`, 
+    data: chatcomment,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true
+  })
 }
 
 export async function deleteChatcomment(chatcommentId) {
-  return await axios.delete(`/chatcomments/${chatcommentId}`)
+  return await axios({
+    method: 'delete',
+    url: `${api}/${chatcommentId}`,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true
+  })
 }
