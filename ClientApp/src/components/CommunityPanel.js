@@ -13,8 +13,7 @@ const CommunityPanel = () => {
     const goToCommunity = (event) => {
         const channel = event.target.id;
         if (channel != null) {
-            setCommunityId(channel);
-            navigate(`/channel/${communityId}`);
+            navigate(`/community/${channel}`);
         }
     }
 

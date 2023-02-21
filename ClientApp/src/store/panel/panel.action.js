@@ -29,7 +29,7 @@ export const panelDeleteFailed = (error) =>
     createAction(PANEL_ACTION_TYPES.DELETE_START, error);
 
 export const panelFetchSingleStart = (userId) => 
-    createAction(PANEL_ACTION_TYPES.FETCH_SINGLE_START, { userId });
+    createAction(PANEL_ACTION_TYPES.FETCH_SINGLE_START, userId);
 
 export const panelFetchSingleSuccess = (panel) => 
     createAction(PANEL_ACTION_TYPES.FETCH_SINGLE_SUCCESS, panel);
@@ -38,7 +38,7 @@ export const panelFetchSingleFailed = (error) =>
     createAction(PANEL_ACTION_TYPES.FETCH_SINGLE_START, error);
 
 export const panelFetchAllStart = (userId) => 
-    createAction(PANEL_ACTION_TYPES.FETCH_ALL_START, { userId });
+    createAction(PANEL_ACTION_TYPES.FETCH_ALL_START, userId);
 
 export const panelFetchAllSuccess = (panel) => 
     createAction(PANEL_ACTION_TYPES.FETCH_ALL_SUCCESS, panel);

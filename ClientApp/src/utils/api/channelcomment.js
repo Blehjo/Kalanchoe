@@ -5,7 +5,7 @@ const api = "https://localhost:7028/api/channelcomment"
 export async function getSingleChannelcomment(channelId) {
   return await axios({
     method: 'get',
-    url: `${api}/user/${channelId}`,
+    url: `${api}/${channelId}`,
     headers: {
       'Content-Type': 'application/json'
     },
@@ -25,15 +25,10 @@ export async function getChannelcomments() {
 }
 
 export async function addChannelComment(channelComment) {
-  const { channelValue, channelId } = channelComment;
-  console.log("ChannelComment: ", channelComment)
   return await axios({
     method: 'post',
     url: api,
-    data: {
-      channelValue: channelValue,
-      channelId: channelId
-    },
+    data: channelComment,
     headers: {
       'Content-Type': 'application/json'
     },

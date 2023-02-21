@@ -1,27 +1,39 @@
 ﻿import { Fragment, useEffect, useState } from "react";
 import { Col, Row, Form, Button } from 'react-bootstrap';
-import { useParams } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams, useNavigate } from "react-router";
+import { channelcommentFetchAllStart } from "../store/channelcomment/channelcomment.action";
+import { selectChannelcommentItems } from "../store/channelcomment/channelcomment.selector";
 import { addChannelComment, getSingleChannelcomment } from "../utils/api/channelcomment";
 import Channels from "./Channels";
 
+const defaultFormFields = {
+    request: ''
+}
+
 const Community = () => {
-    const [request, setRequest] = useState();
-    const [channelComments, setChannelComments] = useState();
-    const { channelId } = useParams();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const channelComments = useSelector(selectChannelcommentItems);
+    const { id, channelId } = useParams();
+    const [formFields, setFormFields] = useState(defaultFormFields);
+    const { request } = formFields;
 
     const handleChange = (event) => {
-        setRequest(event.target.id);
+        const { name, value } = event.target;
+        setFormFields({ ...formFields, [name]: value });
     }
    
-    const sendMessage = async (event) => {
-        event.preventDefault();
-        addChannelComment({ channelCommentValue: request })
+    const sendMessage = async () => {
+        console.log(channelId);
+        addChannelComment({ channelcommentValue: request, channelId: channelId });
+        setFormFields(defaultFormFields);
     }
 
     useEffect(() => {
         getSingleChannelcomment(channelId)
-        .then((response) => setChannelComments(response.data))
-    }, []);
+        .then((response) => dispatch(channelcommentFetchAllStart(response.data)));
+    }, [channelId]);
 
     return(
         <Fragment>

@@ -8,17 +8,21 @@ import { messageCommentSagas } from './messagecomment/messagecomment.saga';
 import { messageSagas } from './message/message.saga';
 import { channelSagas } from './channel/channel.saga';
 import { channelcommentSagas } from './channelcomment/channelcomment.saga';
+import { panelSagas } from './panel/panel.saga';
+import { userprofileSagas } from './userprofiles/userprofile.saga';
 
 // generator function
 export function* rootSaga() {
     yield all([
         call(userSagas), 
         call(postSagas), 
+        call(panelSagas),
         call(chatSagas), 
         call(chatCommentSagas),
         call(messageSagas),
         call(messageCommentSagas),
         call(channelSagas),
-        call(channelcommentSagas)
+        call(channelcommentSagas),
+        call(userprofileSagas)
     ]);
 }

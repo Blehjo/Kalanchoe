@@ -4,17 +4,19 @@ import { XCircle, Plus, ArrowRight } from 'react-bootstrap-icons';
 import ModalSubmit from "./ModalSubmit";
 import { useParams, useNavigate } from "react-router";
 import { getChannels, addChannel } from "../utils/api/channel";
+import { useDispatch, useSelector } from "react-redux";
+import { channelFetchAllStart } from "../store/channel/channel.action";
+import { selectChannelItems } from "../store/channel/channel.selector";
 
 const Channels = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [channels, setChannels] = useState([]);
-    const [channelId, setChannelId] = useState(null);
+    const channels = useSelector(selectChannelItems);
     const [show, setShow] = useState(false);
     const { id } = useParams();
 
     const handleClickEvent = (event) => {
-        setChannelId(event.target.id)
-        navigate(`/community/${id}/${channelId}`);
+        navigate(`/community/${id}/${event.target.id}`);
     }
 
     const handleShow = () =>
@@ -22,7 +24,7 @@ const Channels = () => {
 
     useEffect(() => {
         getChannels()
-        .then((response) => setChannels(response.data));
+        .then((response) => dispatch(channelFetchAllStart(response.data)));
     }, [])
 
     return (

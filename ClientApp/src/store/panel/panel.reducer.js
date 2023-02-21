@@ -15,7 +15,7 @@ export const panelReducer = (state = INITIAL_STATE, action) => {
         case PANEL_ACTION_TYPES.DELETE_START:
         case PANEL_ACTION_TYPES.FETCH_SINGLE_START:
         case PANEL_ACTION_TYPES.FETCH_ALL_START:
-            return { ...state, isLoading: true };
+            return { ...state, panels: payload, isLoading: true };
         case PANEL_ACTION_TYPES.CREATE_SUCCESS:
         case PANEL_ACTION_TYPES.UPDATE_SUCCESS:
         case PANEL_ACTION_TYPES.DELETE_SUCCESS:

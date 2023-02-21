@@ -29,7 +29,7 @@ export const channelDeleteFailed = (error) =>
     createAction(CHANNEL_ACTION_TYPES.DELETE_START, error);
 
 export const channelFetchAllStart = (userId) => 
-    createAction(CHANNEL_ACTION_TYPES.FETCH_ALL_START, { userId });
+    createAction(CHANNEL_ACTION_TYPES.FETCH_ALL_START, userId);
 
 export const channelFetchAllSuccess = (channel) => 
     createAction(CHANNEL_ACTION_TYPES.FETCH_ALL_SUCCESS, channel);

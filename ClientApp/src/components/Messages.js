@@ -23,7 +23,6 @@ const Messages = () => {
   const messageComments = useSelector(selectMessageCommentItems);
   const messages = useSelector(selectMessageItems);
   const length = messages.length;
-  const [message, setMessage] = useState(null);
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { request } = formFields;
 
@@ -37,8 +36,8 @@ const Messages = () => {
   };
   
   const handleAddMessage = () => {
-    if (id == null) {
-      addMessagecomment({ messageValue: request })
+    if (id != null) {
+      addMessagecomment({ messageValue: request, messageId: id })
     }
   }
 
@@ -46,8 +45,7 @@ const Messages = () => {
     deleteMessage(event.target.id);
   }
 
-  const sendMessage = async (event) => {
-    event.preventDefault();
+  const sendMessage = async () => {
     handleAddMessage();
     resetForm();
   }
@@ -60,7 +58,7 @@ const Messages = () => {
       getSingleMessagecomment(id)
       .then((response) => dispatch(messagecommentFetchAllStart(response.data)));
     }
-  }, [message, length, id]);
+  }, [length, id]);
 
   return (
     <Row xs={2}>

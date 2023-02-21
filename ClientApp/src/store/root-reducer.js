@@ -17,6 +17,7 @@ import { toolReducer } from './tool/tool.reducer';
 import { listReducer } from './list/list.reducer';
 import { toolboxReducer } from './toolbox/toolbox.reducer';
 import { messagecommentReducer } from './messagecomment/messagecomment.reducer';
+import { userprofileReducer } from './userprofiles/userprofile.reducer';
 
 export const rootReducer = combineReducers({
     user: userReducer,
@@ -36,5 +37,6 @@ export const rootReducer = combineReducers({
     tool: toolReducer,
     list: listReducer,
     toolbox: toolboxReducer,
-    messagecomment: messagecommentReducer
+    messagecomment: messagecommentReducer,
+    userprofile: userprofileReducer
 });

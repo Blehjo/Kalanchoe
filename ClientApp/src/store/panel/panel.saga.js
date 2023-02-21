@@ -15,7 +15,7 @@ import {
 
 import { 
     getSinglePanel,
-    getPanels,
+    getUserPanels,
     addPanel,
     editPanel,
     deletePanel
@@ -53,19 +53,11 @@ export function* deleteItem(userId, panelId) {
     }
 }
 
-export function* fetchSinglePanel(panelId) {
+export function* fetchAllPanel() {
     try {
-        const { panel } = yield call(getSinglePanel, userId, panelId);
-        yield put(panelFetchSingleSuccess(panel));
-    } catch (error) {
-        yield put(panelFetchSingleFailed(error));
-    }
-}
-
-export function* fetchAllPanel(userId) {
-    try {
-        const { panel } = yield call(getPanels, userId);
-        yield put(panelFetchAllSuccess(panel));
+        const panel = yield call(getUserPanels);
+        if (!panel) return;
+        yield call(panelFetchAllSuccess, panel);
     } catch (error) {
         yield put(panelFetchAllFailed(error));
     }
@@ -83,10 +75,6 @@ export function* onpanelDeleteStart() {
     yield takeLatest(PANEL_ACTION_TYPES.DELETE_START, deleteItem);
 }
 
-export function* onpanelFetchSingleStart() {
-    yield takeLatest(PANEL_ACTION_TYPES.FETCH_SINGLE_START, fetchSinglePanel); 
-}
-
 export function* onpanelFetchAllStart() {
     yield takeLatest(PANEL_ACTION_TYPES.FETCH_ALL_START, fetchAllPanel);
 }
@@ -96,7 +84,6 @@ export function* panelSagas() {
         call(onpanelCreateStart),
         call(onpanelUpdateStart),
         call(onpanelDeleteStart),
-        call(onpanelFetchAllStart),
-        call(onpanelFetchSingleStart)
+        call(onpanelFetchAllStart)
     ]);
 }

@@ -8,14 +8,12 @@ import { deleteChat, getChats } from "../utils/api/chat";
 const ChatPanel = () => {
     const navigate = useNavigate();
     const [chats, setChats] = useState([]);
-    const [chatId, setChatId] = useState(null);
     const { id } = useParams();
 
     const goToChat = (event) => {
         const chat = event.target.id;
         if (chat != null) {
-          setChatId(chat);
-          navigate(`/artoo/${chatId}`);
+          navigate(`/artoo/${chat}`);
         }
     }
 

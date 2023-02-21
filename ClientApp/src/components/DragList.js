@@ -1,8 +1,11 @@
 ﻿import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { DragDropContext } from "react-beautiful-dnd";
+import { useDispatch, useSelector } from "react-redux";
 import DraggableElement from "./DraggableElement";
 import { getUserPanels } from "../utils/api/panel";
+import { selectPanelItems } from "../store/panel/panel.selector";
+import { panelFetchAllStart } from "../store/panel/panel.action";
 
 const DragDropContextContainer = styled.div`
   padding: 20px;
@@ -28,11 +31,13 @@ const addToList = (list, index, element) => {
 };
 
 function DragList() {
-    const [panels, setPanels] = useState([]);
+    const dispatch = useDispatch();
+    const panels = useSelector(selectPanelItems);
+    console.log(panels)
 
     useEffect(() => {
         getUserPanels()
-        .then((response) => setPanels(response.data));
+        .then((response) => dispatch(panelFetchAllStart(response.data)));
     }, []);
 
     const onDragEnd = (result) => {
@@ -41,23 +46,22 @@ function DragList() {
         }
         const listCopy = { ...panels };
         
-        const sourceList = listCopy[result.source.index];
-        console.log("Source List 1: ", listCopy);
+        const sourceList = listCopy[result.source.droppableId];
+        console.log("Source List 1: ", sourceList);
         const [removedElement, newSourceList] = removeFromList(
             sourceList,
             result.source.index
         );
-        listCopy[result.source.index] = newSourceList;
-        const destinationList = listCopy[result.destination.index];
-        listCopy[result.destination.index] = addToList(
+        listCopy[result.source.droppableId] = newSourceList;
+        const destinationList = listCopy[result.destination.droppableId];
+        listCopy[result.destination.droppableId] = addToList(
             destinationList,
             result.destination.index,
             removedElement
         );
         
-        setPanels(listCopy);
+        dispatch(panelFetchAllStart(listCopy));
     };
-    console.log("Panels: ", panels);
     
     return (
         <DragDropContextContainer>

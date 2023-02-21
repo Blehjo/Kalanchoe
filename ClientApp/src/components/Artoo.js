@@ -9,7 +9,6 @@ import { addChatComment, getSingleChatcomment } from "../utils/api/chatcomment";
 import { toggle } from "../utils/artootoggle";
 import { selectChatItems } from "../store/chat/chat.selector";
 import { chatFetchAllStart } from "../store/chat/chat.action";
-import Cookies from 'js-cookie'
 import { chatcommentFetchAllStart } from "../store/chatcomment/chatcomment.action";
 import { selectChatCommentItems } from "../store/chatcomment/chatcomment.selector";
 
@@ -82,11 +81,11 @@ const Artoo = () => {
     getChats()
     .then((response) => dispatch(chatFetchAllStart(response.data)));
 
-    if (chatId !== null) {
-      getSingleChatcomment(chatId)
+    if (id !== null) {
+      getSingleChatcomment(id)
       .then((response) => dispatch(chatcommentFetchAllStart(response.data)));
     }
-  }, [aiResponse, chatId, length]);
+  }, [id, length]);
 
   return (
     <Row xs={2}>
@@ -97,7 +96,7 @@ const Artoo = () => {
             <div style={{ boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)', cursor: 'pointer', background: 'white', margin: '1rem', padding: '.5rem', borderRadius: '.2rem' }} key={chatId}>
               <Row>
                 <Col xs={9}>
-                  <div id={chatId} onClick={(event) => setChatId(event.target.id)}>
+                  <div id={chatId} onClick={(event) => navigate(`/artoo/${event.target.id}`)}>
                   {title}
                   </div>
                 </Col>
