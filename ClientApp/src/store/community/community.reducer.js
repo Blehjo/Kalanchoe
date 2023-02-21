@@ -14,7 +14,7 @@ export const communityReducer = (state = INITIAL_STATE, action) => {
         case COMMUNITY_ACTION_TYPES.UPDATE_START:
         case COMMUNITY_ACTION_TYPES.DELETE_START:
         case COMMUNITY_ACTION_TYPES.FETCH_ALL_START:
-            return { ...state, isLoading: true };
+            return { ...state, communities: payload, isLoading: true };
         case COMMUNITY_ACTION_TYPES.CREATE_SUCCESS:
         case COMMUNITY_ACTION_TYPES.UPDATE_SUCCESS:
         case COMMUNITY_ACTION_TYPES.DELETE_SUCCESS:

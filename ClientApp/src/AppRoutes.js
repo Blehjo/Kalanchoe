@@ -17,6 +17,7 @@ import SinglePost from "./components/SinglePost";
 import Users from "./components/Users";
 import Artoo from "./components/Artoo";
 import ArtGeneration from "./components/ArtGeneration";
+import SingleProfile from "./components/SingleProfile";
 
 
 const AppRoutes = [
@@ -114,7 +115,7 @@ const AppRoutes = [
   },
   {
     path: '/profile/:id',
-    element: <Users />
+    element: <SingleProfile />
   }
 ];
 

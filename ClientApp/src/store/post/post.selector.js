@@ -4,10 +4,10 @@ export const selectPostReducer = (state) => state.post;
 
 export const selectPosts = createSelector(
     [selectPostReducer],
-    (postsSlice) => postsSlice.posts
+    (post) => post.posts
 );
 
 export const selectPostsIsLoading = createSelector(
     [selectPostReducer],
-    (postsSlice) => postsSlice.isLoading
+    (post) => post.isLoading
 );

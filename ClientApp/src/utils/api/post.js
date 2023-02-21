@@ -25,6 +25,15 @@ export async function getPosts() {
   });
 }
 
+export async function getUserPosts(id) {
+  return await axios({
+    method: 'get',
+    url: `${api}/user/${id}`,
+    config: headers,
+    withCredentials: true
+  });
+}
+
 export async function addPost(post) {
   return await axios({
     method: 'post',

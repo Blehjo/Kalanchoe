@@ -2,7 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import { XCircle, Plus, ArrowRight } from 'react-bootstrap-icons';
 import { Modal, Form, Button, Col, Row, Card } from 'react-bootstrap';
-import { addCommunity, getCommunity, deleteCommunity } from "../utils/api/community";
+import { addCommunity, getCommunities, deleteCommunity } from "../utils/api/community";
 import ModalDelete from "./ModalDelete";
 
 const defaultFormFields = {
@@ -46,7 +46,7 @@ const Communities = () => {
     }
 
     useEffect(() => {
-        getCommunity()
+        getCommunities()
         .then((response) => setCommunities(response.data));
     }, [handleShow]);
 

@@ -3,7 +3,7 @@ import { Button, Row, Col } from "react-bootstrap";
 import { XCircle } from 'react-bootstrap-icons';
 import axios from "axios";
 import { useNavigate } from "react-router";
-import { deleteCommunity, getCommunity } from "../utils/api/community";
+import { deleteCommunity, getCommunities } from "../utils/api/community";
 
 const CommunityPanel = () => {
     const navigate = useNavigate();
@@ -22,7 +22,7 @@ const CommunityPanel = () => {
     }
 
     useEffect(() => {
-        getCommunity()
+        getCommunities()
         .then((response) => setCommunities(response.data));
     }, []);
 

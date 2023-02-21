@@ -16,10 +16,19 @@ export async function getSingleCommunity(communityId) {
   })
 }
 
-export async function getCommunity() {
+export async function getCommunities() {
   return await axios({
     method: 'get',
     url: `${api}`,
+    config: headers,
+    withCredentials: true
+  })
+}
+
+export async function getUserCommunities(id) {
+  return await axios({
+    method: 'get',
+    url: `${api}/user/${id}`,
     config: headers,
     withCredentials: true
   })

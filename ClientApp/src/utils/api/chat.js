@@ -24,6 +24,17 @@ export async function getAllChats() {
   });
 }
 
+export async function getUserChats(id) {
+  return await axios({
+    method: 'get',
+    url: `${api}/user/${id}`,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true
+  });
+}
+
 export async function getChats() {
   return await axios({
     method: 'get',

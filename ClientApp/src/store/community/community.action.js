@@ -28,8 +28,17 @@ export const communityDeleteSuccess = () =>
 export const communityDeleteFailed = (error) => 
     createAction(COMMUNITY_ACTION_TYPES.DELETE_START, error);
 
+    export const communityFetchSingleStart = (userId) => 
+    createAction(COMMUNITY_ACTION_TYPES.FETCH_SINGLE_START, userId);
+
+export const communityFetchSingleSuccess = (community) => 
+    createAction(COMMUNITY_ACTION_TYPES.FETCH_SINGLE_SUCCESS, community);
+
+export const communityFetchSingleFailed = (error) => 
+    createAction(COMMUNITY_ACTION_TYPES.FETCH_SINGLE_FAILED, error);
+
 export const communityFetchAllStart = (userId) => 
-    createAction(COMMUNITY_ACTION_TYPES.FETCH_ALL_START, { userId });
+    createAction(COMMUNITY_ACTION_TYPES.FETCH_ALL_START, userId);
 
 export const communityFetchAllSuccess = (community) => 
     createAction(COMMUNITY_ACTION_TYPES.FETCH_ALL_SUCCESS, community);

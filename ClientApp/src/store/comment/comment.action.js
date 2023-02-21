@@ -29,7 +29,7 @@ export const commentDeleteFailed = (error) =>
     createAction(COMMENT_ACTION_TYPES.DELETE_START, error);
 
 export const commentFetchAllStart = (userId) => 
-    createAction(COMMENT_ACTION_TYPES.FETCH_ALL_START, { userId });
+    createAction(COMMENT_ACTION_TYPES.FETCH_ALL_START, userId);
 
 export const commentFetchAllSuccess = (comment) => 
     createAction(COMMENT_ACTION_TYPES.FETCH_ALL_SUCCESS, comment);

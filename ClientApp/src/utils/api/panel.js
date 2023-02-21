@@ -25,6 +25,15 @@ export async function getPanels() {
   });
 }
 
+export async function getUserPanelsProfile(id) {
+  return await axios({
+    method: 'get',
+    url: `${api}/user/${id}`,
+    config: headers,
+    withCredentials: true
+  });
+}
+
 export async function getUserPanels() {
   return await axios({
     method: 'get',
