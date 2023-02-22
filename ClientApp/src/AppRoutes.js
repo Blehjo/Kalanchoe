@@ -18,6 +18,7 @@ import Users from "./components/Users";
 import Artoo from "./components/Artoo";
 import ArtGeneration from "./components/ArtGeneration";
 import SingleProfile from "./components/SingleProfile";
+import SingleChat from "./components/SingleChat";
 
 
 const AppRoutes = [
@@ -48,7 +49,11 @@ const AppRoutes = [
   {
     path: '/chats',
     element: <Chats />
-    },
+  },
+  {
+    path: '/chat/:id',
+    element: <SingleChat />
+  },
   {
     path: '/chatpage',
     element: <ChatPage />

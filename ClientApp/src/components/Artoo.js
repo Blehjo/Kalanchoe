@@ -65,15 +65,11 @@ const Artoo = () => {
       },
       withCredentials: true
     })
-    .then((response) => setAiResponse(response.data));
+    .then((response) => addChatComment({chatValue: response.data, chatId: id != null ? id : chatId }));
     resetForm();
   }
   
   useEffect(() => {
-    if (aiResponse != null && chatId != null) {
-      addChatComment({ chatValue: aiResponse, chatId: chatId });
-    }
-
     if (chatId != null) {
       navigate(`/artoo/${chatId}`);
     }
@@ -85,7 +81,7 @@ const Artoo = () => {
       getSingleChatcomment(id)
       .then((response) => dispatch(chatcommentFetchAllStart(response.data)));
     }
-  }, [id, length]);
+  }, [id, length, chats]);
 
   return (
     <Row xs={2}>
