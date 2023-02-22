@@ -6,6 +6,9 @@ import { addNote, getNotes } from "../utils/api/note";
 import ModalSubmit from "./ModalSubmit";
 import { Button, Col, Row } from "react-bootstrap";
 import { Plus } from 'react-bootstrap-icons';
+import { useDispatch, useSelector } from "react-redux";
+import { selectNoteItems } from "../store/note/note.selector";
+import { noteFetchAllStart } from "../store/note/note.action";
 
 const ColumnHeader = styled.div`
   text-transform: uppercase;
@@ -19,7 +22,8 @@ const DroppableStyles = styled.div`
 `;
 
 const DraggableElement = ({ prefix, panelId }) => {
-    const [notes, setNotes] = useState([]);
+    const dispatch = useDispatch();
+    const notes = useSelector(selectNoteItems);
     const [show, setShow] = useState(false);
 
     const handleAddNoteClick = () => 
@@ -27,16 +31,16 @@ const DraggableElement = ({ prefix, panelId }) => {
 
     useEffect(() => {
         getNotes()
-        .then((response) => setNotes(response.data));
+        .then((response) => dispatch(noteFetchAllStart(response.data)));
     }, []);
 
     return (
         <DroppableStyles>
             <Row xs={2}>
-                <Col >
+                <Col xs={10}>
                     <ColumnHeader>{prefix}</ColumnHeader>
                 </Col>
-                <Col xs={3}>
+                <Col xs={2}>
                     <Button variant="light" onClick={handleAddNoteClick} ><Plus/></Button>
                 </Col>
             </Row>

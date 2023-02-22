@@ -8,11 +8,21 @@ import { getUserPanelsProfile } from '../utils/api/panel';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectPanelItems } from '../store/panel/panel.selector';
 import { panelFetchAllStart } from '../store/panel/panel.action';
+import { getPanelNotes } from '../utils/api/note';
+import { noteFetchAllStart } from '../store/note/note.action';
+import { selectNoteItems } from '../store/note/note.selector';
 
 const UserDilemmasTab = () => {
     const dispatch = useDispatch();
     const dilemmas = useSelector(selectPanelItems);
+    const notes = useSelector(selectNoteItems);
     const { id } = useParams();
+
+    const handleClickEvent = (event) => {
+        getPanelNotes(event.target.id)
+        .then((response) => dispatch(noteFetchAllStart(response.data)));
+        console.log("Notes: ", notes)
+    }
     
     useEffect(() => {
         getUserPanelsProfile(id)
@@ -21,24 +31,22 @@ const UserDilemmasTab = () => {
 
     return (
         <Fragment>
+            <Row>
             {dilemmas?.length > 0 ? Array.from(dilemmas)?.map(({ panelId, title, dateCreated }) => (
-                    <Card.Link style={{ textDecoration: 'none', margin: '1rem', color: 'black', textAlign: 'center' }} href={`/panel/${id}`}>
-                        <Row>
-                            <Col xl={8} key={panelId}>
-                                <Card.Header>{title}</Card.Header>
-                                <Card.Body>
-                                    <Card.Text>{`Created ${utcConverter(dateCreated)}`}</Card.Text>
-                                </Card.Body>
-                            </Col>
-                        </Row>
-                    </Card.Link>
+                <Card id={panelId} onClick={handleClickEvent} style={{ cursor: 'pointer', textDecoration: 'none', margin: '1rem', color: 'white', textAlign: 'center' }} href={`/panel/${id}`} className="bg-dark">
+                    <Col xs={8} key={panelId}>
+                        <Card.Header id={panelId} onClick={handleClickEvent} >{title}</Card.Header>
+                        <Card.Footer>{`Created ${utcConverter(dateCreated)}`}</Card.Footer>
+                    </Col>
+                </Card>
             )) : (
                 <Card style={{ color: 'white', textAlign: 'center' }}className="bg-dark">
                     <Card.Title>"Stay tuned. Currently no dilemmas..."</Card.Title>
                 </Card>
             )}
+            </Row>
         </Fragment>
-    )
+    );
 }
 
 export default UserDilemmasTab;

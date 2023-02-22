@@ -19,6 +19,8 @@ import Artoo from "./components/Artoo";
 import ArtGeneration from "./components/ArtGeneration";
 import SingleProfile from "./components/SingleProfile";
 import SingleChat from "./components/SingleChat";
+import SingleDilemma from "./components/SingleDilemma";
+import DilemmasPage from "./components/DilemmasPage";
 
 
 const AppRoutes = [
@@ -73,6 +75,14 @@ const AppRoutes = [
   {
     path: '/dashboard',
     element: <Dashboard />
+  },
+  {
+    path: '/dilemmas',
+    element: <DilemmasPage />
+  },
+  {
+    path: '/dilemmas/:id',
+    element: <SingleDilemma />
   },
   {
     path: '/projects',

@@ -33,7 +33,6 @@ const addToList = (list, index, element) => {
 function DragList() {
     const dispatch = useDispatch();
     const panels = useSelector(selectPanelItems);
-    console.log(panels)
 
     useEffect(() => {
         getUserPanels()

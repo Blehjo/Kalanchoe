@@ -16,6 +16,15 @@ export async function getSingleNote(noteId) {
   })
 }
 
+export async function getPanelNotes(panelId) {
+  return await axios({
+    method: 'get',
+    url: `${api}/user/${panelId}`,
+    config: headers,
+    withCredentials: true
+  })
+}
+
 export async function getNotes() {
   return await axios({
     method: 'get',

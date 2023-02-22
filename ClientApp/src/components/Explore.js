@@ -10,7 +10,7 @@ const contentArray = [
     },
     {
         type: "Dilemmas",
-        path: "/projects",
+        path: "/dilemmas",
         media_location_url: "https://www.trustedreviews.com/wp-content/uploads/sites/54/2020/07/Watch-Dogs-Legion-4-2-scaled.jpg",
         id: 2
     },

@@ -55,10 +55,10 @@ const Listnote = ({ note, index }) => {
                   {...provided.dragHandleProps}
               >
                 <Row xs={2}>
-                  <Col>
+                  <Col xs={10}>
                     <CardHeader>{note.noteValue}</CardHeader>
                   </Col>
-                  <Col>
+                  <Col xs={2}>
                     <Button variant="light" onClick={handleClose}><XCircle/></Button>
                   </Col>
                 </Row>

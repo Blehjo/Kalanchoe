@@ -9,11 +9,7 @@ import FetchedPosts from "./FetchedPosts";
 import { PostForm } from './PostForm';
 
 const Posts = () => {
-    const dispatch = useDispatch();
-    const currentUser = useSelector(selectCurrentUser);
-    const [posts, setPosts] = useState([]);
     const [isShowing, setIsShowing] = useState(false);
-    // const posts = useSelector(selectPostReducer);
 
     const showPostForm = () =>
         setIsShowing(!isShowing);

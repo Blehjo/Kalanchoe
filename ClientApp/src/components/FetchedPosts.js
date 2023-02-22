@@ -1,13 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { deletePost, editPost, getPosts } from "../utils/api/post";
 import { Button, Row, Col, Card } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from "../store/user/user.selector";
+import { selectPosts } from "../store/post/post.selector";
+import { postFetchAllStart } from "../store/post/post.action";
 
 const FetchedPosts = () => {
+    const dispatch = useDispatch();
     const currentUser = useSelector(selectCurrentUser);
-    const [posts, setPosts] = useState([]);
+    const posts = useSelector(selectPosts);
     const navigate = useNavigate();
 
     const clearPost = async (event) => {
@@ -27,7 +30,7 @@ const FetchedPosts = () => {
 
     useEffect(() => {
         getPosts()
-        .then((response) => setPosts(response.data));
+        .then((response) => dispatch(postFetchAllStart(response.data)));
     }, []);
 
     return (

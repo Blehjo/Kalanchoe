@@ -14,7 +14,7 @@ export const noteReducer = (state = INITIAL_STATE, action) => {
         case NOTE_ACTION_TYPES.UPDATE_START:
         case NOTE_ACTION_TYPES.DELETE_START:
         case NOTE_ACTION_TYPES.FETCH_ALL_START:
-            return { ...state, isLoading: true };
+            return { ...state, notes: payload, isLoading: true };
         case NOTE_ACTION_TYPES.CREATE_SUCCESS:
         case NOTE_ACTION_TYPES.UPDATE_SUCCESS:
         case NOTE_ACTION_TYPES.DELETE_SUCCESS:
