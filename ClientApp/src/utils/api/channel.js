@@ -25,6 +25,15 @@ export async function getChannels() {
   });
 }
 
+export async function getCommunityChannels(id) {
+  return await axios({
+    method: 'get',
+    url: `${api}/community/${id}`,
+    config: headers,
+    withCredentials: true
+  });
+}
+
 export async function addChannel(channel) {
   console.log(channel);
   return await axios({

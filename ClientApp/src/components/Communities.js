@@ -62,19 +62,16 @@ const Communities = () => {
             </Row>
             {
                 communities.length > 0 && communities.map(({ groupName, description, communityId, userId, dateCreated, mediaLink }) => (
-                    <Row xs={1} lg={3}>
-                        <Col key={communityId}>
-                            {mediaLink?.length > 0 ? <Card.Img height='200' style={{ objectFit:'cover'}} src={mediaLink}/> : ''}
-                            <Row xs={2}>
-                                <Col xs={10}>
-                                    <Card.Title style={{ margin: 'auto' }}>{groupName}</Card.Title>
-                                </Col>
-                                <Col xs={2}>
-                                    <Button variant="light" type="button" ><ArrowRight onClick={goToCommunity} id={communityId}/></Button>
-                                </Col>
+                    <Row style={{ margin: '1rem' }} xs={2}>
+                        <Col xs={4} key={communityId}>
+                            {mediaLink?.length > 0 ? <Card.Img onClick={goToCommunity} id={communityId} height='200' style={{ cursor: 'pointer', borderRadius: '.2rem', objectFit:'cover'}} src={mediaLink}/> : ''}
+                        </Col>
+                        <Col>
+                            <Card.Title style={{ margin: 'auto' }}>{groupName}</Card.Title>
+                            <Card.Body>
                                 <Card.Subtitle style={{ margin: 'auto' }}>{description}</Card.Subtitle>
-                            <Button variant="light" onClick={handleClose}><XCircle/></Button>
-                            </Row>
+
+                            </Card.Body>
                         </Col>
                     {
                         deleteModal && 

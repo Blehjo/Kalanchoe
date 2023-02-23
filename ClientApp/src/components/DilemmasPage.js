@@ -4,24 +4,14 @@ import { Button, Row, Col, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { selectPanelItems } from "../store/panel/panel.selector";
 import { panelFetchAllStart } from "../store/panel/panel.action";
-import { deletePanel, editPanel, getPanels } from "../utils/api/panel";
-import { selectCurrentUser } from "../store/user/user.selector";
+import { getPanels } from "../utils/api/panel";
+import UserInfo from "./UserInfo";
+import NoteInfo from "./NoteInfo";
 
 const DilemmasPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const currentUser = useSelector(selectCurrentUser);
     const panels = useSelector(selectPanelItems);
-
-    const clearPost = async (event) => {
-        const id = event.target.id;
-        deletePanel(id);
-    }
-
-    const updatePost = async (event) => {
-        const id = event.target.id;
-        editPanel();
-    }
 
     const goToPost = async (event) => {
         const id = event.target.id;
@@ -34,17 +24,20 @@ const DilemmasPage = () => {
     }, []);
 
     return (
-        <Row xl={4} style={{ marginTop: '1rem' }}>
-            {
-                panels?.length > 0 && panels?.map(({ title, panelId, userId }) => (
-                    <Col onClick={goToPost} key={panelId}>
-                        <Card.Title style={{ margin: 'auto' }}>{title}</Card.Title>
-                        <Button variant="light" onClick={goToPost} as="input" type="button" value="Go to Post" id={panelId}/> 
-                    </Col>
-                ))
-            }
+        <Row xl={3} style={{ marginTop: '1rem' }}>
+        {
+            panels?.length > 0 && panels?.map(({ title, panelId, userId }) => (
+                <Col onClick={goToPost} key={panelId}>
+                    <Card style={{ margin: 'auto', textAlign: 'center' }}>
+                        <Card.Title>{title} <NoteInfo panelId={panelId}/> </Card.Title>
+                        <Card.Subtitle><UserInfo userId={userId}/></Card.Subtitle>
+                        <Button variant="light" onClick={goToPost} as="input" type="button" value="Go to Dilemma" id={panelId}/> 
+                    </Card>
+                </Col>
+            ))
+        }
         </Row>
-    )
+    );
 }
 
 export default DilemmasPage;

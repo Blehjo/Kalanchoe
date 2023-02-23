@@ -6,6 +6,7 @@ import { selectChatItems } from "../store/chat/chat.selector";
 import { getChats } from "../utils/api/chat";
 import { utcConverter } from "../utils/date/Date";
 import { useNavigate } from 'react-router';
+import UserInfo from "./UserInfo";
 
 const ChatPage = () => {
     const navigate = useNavigate();
@@ -25,10 +26,13 @@ const ChatPage = () => {
         <Fragment>
             <h1>Chats</h1>
             <Row xl={3}>
-                {chats?.length > 0 && chats?.map(({ title, chatId, dateCreated, }) => (
+                {chats?.length > 0 && chats?.map(({ title, chatId, dateCreated, userId }) => (
                 <Col>
                     <Card style={{ margin: '1rem', cursor: 'pointer' }} key={chatId}>
-                        <Card.Title style={{ padding: '1rem' }} id={chatId} onClick={handleClickEvent}>{title}</Card.Title>
+                        <Card.Header style={{ padding: '1rem' }} id={chatId} onClick={handleClickEvent}>{title}</Card.Header>
+                        <Card.Text>
+                            <UserInfo userId={userId} />
+                        </Card.Text>
                         <Card.Footer>{utcConverter(dateCreated)}</Card.Footer>
                     </Card>
                 </Col>
