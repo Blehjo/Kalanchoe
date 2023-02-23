@@ -32,7 +32,7 @@ const SignInButton = () => {
             <NavLink><Person style={{ cursor: 'pointer' }} color="black" size={20} onClick={showProfileDropdown}/></NavLink> : 
             <NavLink style={{ cursor: 'pointer' }} onClick={goToSignIn} className="text-dark" to="/projects">Sign In</NavLink>
         }
-        {show && <ProfileDropdown/>}
+        {show && <ProfileDropdown user={currentUser}/>}
         </Fragment>
     );
 }

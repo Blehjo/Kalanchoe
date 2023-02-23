@@ -14,13 +14,12 @@ import Posts from "./components/Posts";
 import Profile from "./components/Profile";
 import Profiles from "./components/Profiles";
 import SinglePost from "./components/SinglePost";
-import Users from "./components/Users";
 import Artoo from "./components/Artoo";
-import ArtGeneration from "./components/ArtGeneration";
 import SingleProfile from "./components/SingleProfile";
 import SingleChat from "./components/SingleChat";
 import SingleDilemma from "./components/SingleDilemma";
 import DilemmasPage from "./components/DilemmasPage";
+import ProfilePage from "./components/ProfilePage";
 
 
 const AppRoutes = [
@@ -39,14 +38,6 @@ const AppRoutes = [
   {
     path: '/artoo/',
     element: <Artoo />
-  },
-  {
-    path: '/artgenerator/:id',
-    element: <ArtGeneration />
-  },
-  {
-    path: '/artgenerator/',
-    element: <ArtGeneration />
   },
   {
     path: '/chats',
@@ -131,7 +122,11 @@ const AppRoutes = [
   {
     path: '/profile/:id',
     element: <SingleProfile />
-  }
+  },
+  {
+    path: '/page/:id',
+    element: <ProfilePage />
+  },
 ];
 
 export default AppRoutes;

@@ -5,7 +5,7 @@ import { signOutStart } from '../../store/user/user.action';
 
 import './profileDropdown.scss';
 
-const ProfileDropdown = () => {
+const ProfileDropdown = ({ user }) => {
     const dispatch = useDispatch();
     
     const signOutUser = () => dispatch(signOutStart());
@@ -20,7 +20,7 @@ const ProfileDropdown = () => {
                 >
                     <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
                         <Person className='' color="white" size={20}/>
-                        <Nav.Link href="/profile" className="ms-4">
+                        <Nav.Link href={`/page/${user.userId}`} className="ms-4">
                         Profile
                         </Nav.Link>
                     </Nav.Item>
