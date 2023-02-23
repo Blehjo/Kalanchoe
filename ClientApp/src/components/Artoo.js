@@ -81,7 +81,7 @@ const Artoo = () => {
       getSingleChatcomment(id)
       .then((response) => dispatch(chatcommentFetchAllStart(response.data)));
     }
-  }, [id, length, chats]);
+  }, [id, length]);
 
   return (
     <Row xs={2}>

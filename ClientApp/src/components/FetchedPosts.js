@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from "../store/user/user.selector";
 import { selectPosts } from "../store/post/post.selector";
 import { postFetchAllStart } from "../store/post/post.action";
+import UserInfo from "./UserInfo";
 
 const FetchedPosts = () => {
     const dispatch = useDispatch();
@@ -34,16 +35,21 @@ const FetchedPosts = () => {
     }, []);
 
     return (
-        <Row xl={4} style={{ marginTop: '1rem' }}>
+        <Row xs={1} style={{ marginTop: '1rem' }}>
             {
                 posts?.length > 0 && posts?.map(({ postValue, postId, mediaLink, userId }) => (
-                    <Col onClick={goToPost} key={postId}>
-                        {mediaLink?.length > 0 ? <Card.Img height='200' style={{ objectFit:'cover'}} src={mediaLink}/> : ''}
-                        <Card.Title style={{ margin: 'auto' }}>{postValue}</Card.Title>
-                        <Button variant="light" onClick={goToPost} as="input" type="button" value="Go to Post" id={postId}/>
-                        {currentUser && <Button variant="light" as="input" type="button" value="Delete" onClick={clearPost} id={postId}/>}
-                        {currentUser && <Button variant="light" as="input" type="button" value="Edit" onClick={updatePost} id={postId}/>}  
-                    </Col>
+                    <Row style={{ margin: '1rem' }} xs={2}>
+                        <Col xs={4} onClick={goToPost} key={postId}>
+                            {mediaLink?.length > 0 ? <Card.Img height='200' style={{ objectFit:'cover'}} src={mediaLink}/> : ''}
+                        </Col>
+                        <Col>
+                            <Card.Title style={{ margin: '1rem' }}>{postValue}</Card.Title>
+                            <div style={{ margin: '1rem' }}>
+                            <UserInfo userId={userId} />
+                            </div>
+                            <Button variant="light" onClick={goToPost} as="input" type="button" value="Go to Post" id={postId}/>
+                        </Col>
+                    </Row>
                 ))
             }
         </Row>
