@@ -13,8 +13,7 @@ import { chatcommentFetchAllStart } from "../store/chatcomment/chatcomment.actio
 import { selectChatCommentItems } from "../store/chatcomment/chatcomment.selector";
 
 const defaultFormFields = {
-  request: '',
-  dropdown: ''
+  request: ''
 }
 
 const Artoo = () => {
@@ -24,11 +23,9 @@ const Artoo = () => {
   const chatComments = useSelector(selectChatCommentItems);
   const chats = useSelector(selectChatItems);
   const length = chats.length;
-  const [chatId, setChatId] = useState(null);
   const [choice, setChoice] = useState("Text");
-  const [aiResponse, setAiResponse] = useState(null);
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const { request, dropdown } = formFields;
+  const { request } = formFields;
 
   const resetForm = () => {
     setFormFields(defaultFormFields);
@@ -42,8 +39,7 @@ const Artoo = () => {
   const handleAddChat = () => {
     if (id == null) {
       addChat({ title: request })
-      .then((response) => setChatId(response.data.chatId));
-      navigate(`/artoo/${chatId}`);
+      .then((response) => navigate(`/artoo/${response.data.chatId}`));
     }
   }
 
@@ -54,6 +50,7 @@ const Artoo = () => {
   const sendMessage = async (event) => {
     event.preventDefault();
     handleAddChat();
+    console.log("ID: ", id);
     await axios({
       method: 'post',
       url: toggle(choice),
@@ -65,15 +62,12 @@ const Artoo = () => {
       },
       withCredentials: true
     })
-    .then((response) => addChatComment({chatValue: response.data, chatId: id != null ? id : chatId }));
+    .then((response) => addChatComment({ chatValue: response.data, chatId: id }));
+    console.log(id);
     resetForm();
   }
   
   useEffect(() => {
-    if (chatId != null) {
-      navigate(`/artoo/${chatId}`);
-    }
-
     getChats()
     .then((response) => dispatch(chatFetchAllStart(response.data)));
 

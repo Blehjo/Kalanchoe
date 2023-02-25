@@ -24,13 +24,22 @@ const DilemmasPage = () => {
     }, []);
 
     return (
-        <Row xl={3} style={{ marginTop: '1rem' }}>
+        <Row xl={3} style={{ margin: '1rem' }}>
         {
             panels?.length > 0 && panels?.map(({ title, panelId, userId }) => (
                 <Col onClick={goToPost} key={panelId}>
-                    <Card style={{ margin: 'auto', textAlign: 'center' }}>
-                        <Card.Title>{title} <NoteInfo panelId={panelId}/> </Card.Title>
-                        <Card.Subtitle><UserInfo userId={userId}/></Card.Subtitle>
+                    <Card style={{ margin: '1rem', textAlign: 'center' }}>
+                        <Card.Title style={{ margin: '1rem' }}>
+                            <Row xs={2}>
+                                <Col>
+                                    {title}
+                                </Col>
+                                <Col>
+                                    <NoteInfo panelId={panelId}/> 
+                                </Col>
+                            </Row>
+                        </Card.Title>
+                        <Card.Subtitle style={{ marginBottom: '1rem' }}><UserInfo userId={userId}/></Card.Subtitle>
                         <Button variant="light" onClick={goToPost} as="input" type="button" value="Go to Dilemma" id={panelId}/> 
                     </Card>
                 </Col>

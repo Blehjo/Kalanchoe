@@ -1,5 +1,4 @@
-﻿import { Fragment } from "react";
-import ChatPanel from "./ChatPanel";
+﻿import ChatPanel from "./ChatPanel";
 import MessagePanel from "./MessagePanel";
 import { Col, Row } from 'react-bootstrap';
 import CommunityPanel from "./CommunityPanel";

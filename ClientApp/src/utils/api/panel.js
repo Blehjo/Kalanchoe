@@ -48,7 +48,8 @@ export async function addPanel(panel) {
     method: 'post',
     url: `${api}`,
     data: {
-      title: panel
+      title: panel.value,
+      panelId: panel.panelId
     },
     config: headers,
     withCredentials: true

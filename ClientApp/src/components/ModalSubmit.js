@@ -1,7 +1,7 @@
 import { Modal, Form, Button } from 'react-bootstrap';
 import { useState } from "react";
 
-const ModalSubmit = ({ title, functionHandler, panelId, type, placeholder }) => {
+const ModalSubmit = ({ title, functionHandler, id, type, placeholder }) => {
     const [show, setShow] = useState(true);
     const [value, setValue] = useState('');
 
@@ -13,7 +13,7 @@ const ModalSubmit = ({ title, functionHandler, panelId, type, placeholder }) => 
     }
 
     const handleSubmit = async () => {
-        functionHandler({value, panelId});
+        functionHandler({ value, id });
         setShow(false);
     }
 
