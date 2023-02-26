@@ -37,7 +37,7 @@ const Messages = () => {
   
   const handleAddMessage = () => {
     if (id != null) {
-      addMessagecomment({ messageValue: request, messageId: id })
+      addMessagecomment({ value: request, id: id })
     }
   }
 

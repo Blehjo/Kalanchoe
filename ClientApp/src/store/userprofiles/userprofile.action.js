@@ -28,6 +28,9 @@ export const userprofileDeleteSuccess = () =>
 export const userprofileDeleteFailed = (error) => 
     createAction(USERPROFILE_ACTION_TYPES.DELETE_START, error);
 
+export const userprofileFetchSingleId = (userId) => 
+    createAction(USERPROFILE_ACTION_TYPES.FETCH_ID_START, userId);
+
 export const userprofileFetchSingleStart = (userId) => 
     createAction(USERPROFILE_ACTION_TYPES.FETCH_SINGLE_START, userId);
 

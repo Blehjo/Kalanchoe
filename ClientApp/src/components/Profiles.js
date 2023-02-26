@@ -2,16 +2,21 @@
 import { Row, Col, Card } from 'react-bootstrap';
 import { getUsers } from '../utils/api/user';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectUserprofileItems } from '../store/userprofiles/userprofile.selector';
-import { userprofileFetchAllStart } from '../store/userprofiles/userprofile.action';
+import { selectUserprofileId, selectUserprofileItems } from '../store/userprofiles/userprofile.selector';
+import { userprofileFetchAllStart, userprofileFetchSingleId } from '../store/userprofiles/userprofile.action';
 import { addFollower, deleteFollower } from '../utils/api/follower';
 import ModalSubmit from './ModalSubmit';
 import { addMessage } from '../utils/api/message';
+import Cookies from 'js-cookie';
+import { addMessagecomment } from '../utils/api/messagecomment';
 
 export default function Profiles() {
     const dispatch = useDispatch();
     const userProfiles = useSelector(selectUserprofileItems);
+    const userprofileId = useSelector(selectUserprofileId);
     const [show, setShow] = useState(false);
+    const [name, setName] = useState(null);
+    const userId = Cookies.get("user");
 
     const followMate = async (event) => {
         event.preventDefault();
@@ -23,9 +28,12 @@ export default function Profiles() {
         deleteFollower(event.target.id);
     }
 
-    const sendMessage = () => {
-        addMessage()
-        .then((response) => response.data.messageId);
+    const sendMessage = (event) => {
+        event.preventDefault();
+        setShow(!show);
+        addMessage({ messageValue: event.target.id, userId: userId })
+        .then((response) => dispatch(userprofileFetchSingleId(response.data.messageId)));
+        console.log("Message ID: ", userprofileId);
     }
 
     useEffect(() => {
@@ -49,7 +57,7 @@ export default function Profiles() {
                     </Row>
                     <Card.Text>{firstName}</Card.Text>
                     <Card.Subtitle>{about}</Card.Subtitle>
-                    <Card.Subtitle onClick={() => setShow(!show)}>Send Mesage</Card.Subtitle>
+                    <Card.Subtitle id={username} onClick={(event) => sendMessage(event)}>Send Mesage</Card.Subtitle>
                 </Card.Body>
             </Card>
         </Col>
@@ -57,11 +65,11 @@ export default function Profiles() {
         {
             show && 
             <ModalSubmit
-                title={`Send  a message`}
-                functionHandler={addMessage}
-                id={sendMessage}
-                type={"Channel"}
-                placeholder={"Channel name"}
+                title={`Send a message`}
+                functionHandler={addMessagecomment}
+                id={userprofileId}
+                type={"Message"}
+                placeholder={"Send message"}
             />
         }
     </Row>

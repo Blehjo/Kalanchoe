@@ -2,6 +2,7 @@ import { USERPROFILE_ACTION_TYPES } from './userprofile.types';
 
 const INITIAL_STATE = {
     userprofiles: [],
+    userprofileId: null,
     isLoading: false,
     error: null,
 };
@@ -10,6 +11,8 @@ export const userprofileReducer = (state = INITIAL_STATE, action) => {
     const { type, payload } = action;
 
     switch (type) {
+        case USERPROFILE_ACTION_TYPES.FETCH_ID_START:
+            return { ...state, userprofileId: payload, isLoading: true };
         case USERPROFILE_ACTION_TYPES.CREATE_START:
         case USERPROFILE_ACTION_TYPES.UPDATE_START:
         case USERPROFILE_ACTION_TYPES.DELETE_START:

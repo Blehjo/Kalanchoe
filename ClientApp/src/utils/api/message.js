@@ -29,9 +29,7 @@ export async function addMessage(message) {
   return await axios({
     method: 'post',
     url: api,
-    data: {
-      title: title,
-    },
+    data: message,
     headers: {
       'Content-Type': 'application/json'
     },
