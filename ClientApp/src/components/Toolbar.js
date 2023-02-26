@@ -1,5 +1,5 @@
 ﻿import { Fragment } from 'react';
-import { Col } from 'react-bootstrap';
+import { Col, Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { XSquare, Robot, Globe, Paperclip, Clipboard, ChatDots, Messenger, FileCode, AspectRatio, Newspaper, JournalCode } from 'react-bootstrap-icons';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -75,38 +75,148 @@ const Toolbar = () => {
     return (
         <Fragment> 
             <Col style={{ cursor: 'pointer' }} onClick={handlePanelClick}>
-                <Paperclip className='mx-2' color="black" size={40} />
+                <OverlayTrigger
+                    key="paperclip"
+                    placement="bottom"
+                    overlay={
+                        <Tooltip id="tooltip-bottom">
+                        Panels
+                        </Tooltip>
+                    }
+                >
+                    <Paperclip className='mx-2' color="black" size={40} />
+                </OverlayTrigger>
             </Col>
             <Col style={{ cursor: 'pointer' }} onClick={handleNoteClick}>
-                <FileCode className='mx-2' color="black" size={40} />
+                <OverlayTrigger
+                    key="filecode"
+                    placement="bottom"
+                    overlay={
+                        <Tooltip id="tooltip-bottom">
+                        IDE
+                        </Tooltip>
+                    }
+                >
+                    <FileCode className='mx-2' color="black" size={40} />
+                </OverlayTrigger>
             </Col>
             <Col style={{ cursor: 'pointer' }} onClick={handleArtooClick}>
-                <Robot className='mx-2' color="black" size={40} />
+                <OverlayTrigger
+                    key="robot"
+                    placement="bottom"
+                    overlay={
+                        <Tooltip id="tooltip-bottom">
+                        Artoo
+                        </Tooltip>
+                    }
+                >
+                    <Robot className='mx-2' color="black" size={40} />
+                </OverlayTrigger>
             </Col>
             <Col style={{ cursor: 'pointer' }} onClick={handleChatBotClick}>
-                <ChatDots className='mx-2' action='true' color="black" size={40} />
+                <OverlayTrigger
+                    key="messages"
+                    placement="bottom"
+                    overlay={
+                        <Tooltip id="tooltip-bottom">
+                        Messages
+                        </Tooltip>
+                    }
+                >
+                    <ChatDots className='mx-2' action='true' color="black" size={40} />
+                </OverlayTrigger>
             </Col>
             <Col style={{ cursor: 'pointer' }} onClick={handleSearchBarClick}>
-                <JournalCode className='mx-2' color="black" size={40} />
+            <OverlayTrigger
+                    key="journal"
+                    placement="bottom"
+                    overlay={
+                        <Tooltip id="tooltip-bottom">
+                        Notes
+                        </Tooltip>
+                    }
+                >
+                    <JournalCode className='mx-2' color="black" size={40} />
+                </OverlayTrigger>
             </Col>
             <Col style={{ cursor: 'pointer' }} onClick={handleEditorClick}>
-                <Newspaper className='mx-2' color="black" size={40} />
+            <OverlayTrigger
+                    key="news"
+                    placement="bottom"
+                    overlay={
+                        <Tooltip id="tooltip-bottom">
+                        News
+                        </Tooltip>
+                    }
+                >
+                    <Newspaper className='mx-2' color="black" size={40} />
+                </OverlayTrigger>
             </Col>
             <Col style={{ cursor: 'pointer' }} onClick={handleTasksClick}>
-                <Clipboard className='mx-2' action='true' color="black" size={40} />
+                <OverlayTrigger
+                    key="overlaytrigger"
+                    placement="bottom"
+                    overlay={
+                        <Tooltip id="tooltip-bottom">
+                        Playground
+                        </Tooltip>
+                    }
+                >
+                    <Clipboard className='mx-2' action='true' color="black" size={40} />
+                </OverlayTrigger>
             </Col>
             <Col style={{ cursor: 'pointer' }} onClick={handleReset}>
-                <AspectRatio style={{ cursor: 'pointer' }} className='mx-2' color="black" size={40} />
+            <OverlayTrigger
+                    key="robot"
+                    placement="bottom"
+                    overlay={
+                        <Tooltip id="tooltip-bottom">
+                        Full Screen
+                        </Tooltip>
+                    }
+                >
+                    <AspectRatio style={{ cursor: 'pointer' }} className='mx-2' color="black" size={40} />
+                </OverlayTrigger>
             </Col>
             <Col style={{ cursor: 'pointer' }} onClick={showMessages}>
-                <Messenger className='mx-2' color="black" size={40} />
+            <OverlayTrigger
+                    key="robot"
+                    placement="bottom"
+                    overlay={
+                        <Tooltip id="tooltip-bottom">
+                        Messenger
+                        </Tooltip>
+                    }
+                >
+                    <Messenger className='mx-2' color="black" size={40} />
+                </OverlayTrigger>
             </Col>
             {/* If user is in communities, show this icon */}
             <Col style={{ cursor: 'pointer' }} onClick={showCommunities}>
-                <Globe className='mx-2' color="black" size={40} />
+            <OverlayTrigger
+                    key="robot"
+                    placement="bottom"
+                    overlay={
+                        <Tooltip id="tooltip-bottom">
+                        Communities
+                        </Tooltip>
+                    }
+                >
+                    <Globe className='mx-2' color="black" size={40} />
+                </OverlayTrigger>
             </Col>
             <Col style={{ cursor: 'pointer' }} onClick={toggleIsToolOpen}>
-                <XSquare className='mx-2' color="black" size={40} />
+            <OverlayTrigger
+                    key="robot"
+                    placement="bottom"
+                    overlay={
+                        <Tooltip id="tooltip-bottom">
+                        Close
+                        </Tooltip>
+                    }
+                >
+                    <XSquare className='mx-2' color="black" size={40} />
+                </OverlayTrigger>
             </Col>
         </Fragment>
     )
