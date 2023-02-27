@@ -1,127 +1,63 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
 
-import { USER_ACTION_TYPES } from './user.types';
+import { COMMENT_ACTION_TYPES } from './comment.types';
 
 import {
-    signInSuccess,
-    signInFailed,
-    signUpSuccess,
-    signUpFailed,
-    signOutSuccess,
-    signOutFailed,
-} from './user.action';
+    commentCreateSuccess,
+    commentCreateFailed,
+    commentFetchAllFailed,
+    commentFetchAllSuccess,
+} from './comment.action';
 
-import {
-    getCurrentUser,
-    createUserDocumentFromAuth,
-    signInWithGooglePopup,
-    signInAuthUserWithEmailAndPassword,
-    createAuthUserWithEmailAndPassword,
-    signOutUser,
-} from '../../utils/firebase/firebase.utils';
+import { addComment, getSingleComment, getComments } from '../../utils/api/comment';
 
-export function* getSnapshotFromUserAuth(userAuth, additionalDetails) {
+export function* getSnapshotFromComment(comment, additionalDetails) {
     try {
-        const userSnapshot = yield call(
-            createUserDocumentFromAuth,
-            userAuth,
+        const commentSnapshot = yield call(
+            getSingleComment,
+            comment.Id,
             additionalDetails
         );
-        yield put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }));
+        yield put(commentCreateSuccess({ id: commentSnapshot.chatId, ...commentSnapshot.data }));
     } catch (error) {
-        yield put(signInFailed(error));
+        yield put(commentCreateFailed(error));
     }
 }
 
-export function* signInWithGoogle() {
+export function* createComment({ payload: { commentId, commentValue } }) {
     try {
-        const { user } = yield call(signInWithGooglePopup);
-        yield call(getSnapshotFromUserAuth, user);
-    } catch (error) {
-        yield put(signInFailed(error));
-    }
-}
-
-export function* signInWithEmail({ payload: { email, password } }) {
-    try {
-        const { user } = yield call(
-            signInAuthUserWithEmailAndPassword,
-            email,
-            password
+        const comment = yield call(
+            addComment,
+            commentId,
+            commentValue,
         );
-        yield call(getSnapshotFromUserAuth, user);
+        yield call(getSnapshotFromComment, comment);
     } catch (error) {
-        yield put(signInFailed(error));
+        yield put(commentCreateFailed(error));
     }
 }
 
-export function* isUserAuthenticated() {
+export function* getUserComments() {
     try {
-        const userAuth = yield call(getCurrentUser);
-        if (!userAuth) return;
-        yield call(getSnapshotFromUserAuth, userAuth);
+        const comment = yield call(getComments);
+        if (!comment) return;
+        yield call(commentFetchAllSuccess, comment);
     } catch (error) {
-        yield put(signInFailed(error));
+        yield put(commentFetchAllFailed(error));
     }
 }
 
-export function* signUp({ payload: { email, password, displayName } }) {
-    try {
-        const { user } = yield call(
-            createAuthUserWithEmailAndPassword,
-            email,
-            password
-        );
-        yield put(signUpSuccess(user, { displayName }));
-    } catch (error) {
-        yield put(signUpFailed(error));
-    }
+export function* onCommentStart() {
+    yield takeLatest(COMMENT_ACTION_TYPES.CREATE_START, createComment);
 }
 
-export function* signOut() {
-    try {
-        yield call(signOutUser);
-        yield put(signOutSuccess());
-    } catch (error) {
-        yield put(signOutFailed(error));
-    }
+export function* onFetchStart() {
+    yield takeLatest(COMMENT_ACTION_TYPES.FETCH_ALL_START, getUserComments);
 }
 
-export function* signInAfterSignUp({ payload: { user, additionalDetails } }) {
-    yield call(getSnapshotFromUserAuth, user, additionalDetails);
-}
-
-export function* onGoogleSignInStart() {
-    yield takeLatest(USER_ACTION_TYPES.GOOGLE_SIGN_IN_START, signInWithGoogle);
-}
-
-export function* onCheckUserSession() {
-    yield takeLatest(USER_ACTION_TYPES.CHECK_USER_SESSION, isUserAuthenticated);
-}
-
-export function* onEmailSignInStart() {
-    yield takeLatest(USER_ACTION_TYPES.EMAIL_SIGN_IN_START, signInWithEmail);
-}
-
-export function* onSignUpStart() {
-    yield takeLatest(USER_ACTION_TYPES.SIGN_UP_START, signUp);
-}
-
-export function* onSignUpSuccess() {
-    yield takeLatest(USER_ACTION_TYPES.SIGN_UP_SUCCESS, signInAfterSignUp);
-}
-
-export function* onSignOutStart() {
-    yield takeLatest(USER_ACTION_TYPES.SIGN_OUT_START, signOut);
-}
-
-export function* userSagas() {
+export function* commentSagas() {
     yield all([
-        call(onCheckUserSession),
-        call(onGoogleSignInStart),
-        call(onEmailSignInStart),
-        call(onSignUpStart),
-        call(onSignUpSuccess),
-        call(onSignOutStart),
+        call(onCommentStart),
+        call(onFetchStart)
     ]);
 }

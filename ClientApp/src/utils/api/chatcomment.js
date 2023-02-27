@@ -26,7 +26,6 @@ export async function getChatcomments() {
 
 export async function addChatComment(chatComment) {
   const { chatValue, chatId } = chatComment;
-  console.log("chatComment: ", chatComment)
   return await axios({
     method: 'post',
     url: api,

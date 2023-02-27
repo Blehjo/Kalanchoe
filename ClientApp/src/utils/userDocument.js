@@ -1,9 +1,6 @@
 import axios from "axios";
 
-export const userDocument = (user) => {
-    console.log(user);
-    return user;
-}
+export const userDocument = (user) => user;
 
 export const login = async (username, password) => {
     await axios({
@@ -17,10 +14,6 @@ export const login = async (username, password) => {
             'Content-Type': 'application/json'
         },
         withCredentials: true
-    })
-    .then((response) => {
-        console.log(response);
-        return response.data;
     });
 }
 

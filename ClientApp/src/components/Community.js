@@ -1,10 +1,13 @@
 ﻿import { Fragment, useEffect, useState } from "react";
-import { Col, Row, Form, Button } from 'react-bootstrap';
+import { Col, Row, Form, Button, Card } from 'react-bootstrap';
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router";
 import { channelcommentFetchAllStart } from "../store/channelcomment/channelcomment.action";
 import { selectChannelcommentItems } from "../store/channelcomment/channelcomment.selector";
+import { communityFetchSingleStart } from "../store/community/community.action";
+import { selectCommunities } from "../store/community/community.selector";
 import { addChannelComment, getSingleChannelcomment } from "../utils/api/channelcomment";
+import { getSingleCommunity } from "../utils/api/community";
 import Channels from "./Channels";
 
 const defaultFormFields = {
@@ -13,7 +16,7 @@ const defaultFormFields = {
 
 const Community = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const { communityId, groupName, description, mediaLink, userId } = useSelector(selectCommunities);
     const channelComments = useSelector(selectChannelcommentItems);
     const { id, channelId } = useParams();
     const [formFields, setFormFields] = useState(defaultFormFields);
@@ -25,19 +28,27 @@ const Community = () => {
     }
    
     const sendMessage = async () => {
-        console.log(channelId);
         addChannelComment({ channelcommentValue: request, channelId: channelId });
         setFormFields(defaultFormFields);
     }
 
     useEffect(() => {
+        getSingleCommunity(id)
+        .then((response) => dispatch(communityFetchSingleStart(response.data)));
         getSingleChannelcomment(channelId)
         .then((response) => dispatch(channelcommentFetchAllStart(response.data)));
     }, [channelId]);
 
     return(
         <Fragment>
-            <h1>Community</h1>
+            <Row xs={2}>
+                <Col xs={1}>
+                    <Card.Img style={{ marginTop: '.2rem', borderRadius: '.5rem', height: '3rem', width: '3rem', objectFit: 'cover' }} src={mediaLink} />
+                </Col>
+                <Col xs={2}>
+                    <h1>{groupName}</h1>
+                </Col>
+            </Row>
             <Row>
                 <Col xs={3}>
                     <Channels/>

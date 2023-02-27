@@ -12,6 +12,7 @@ import { panelSagas } from './panel/panel.saga';
 import { userprofileSagas } from './userprofiles/userprofile.saga';
 import { communitySagas } from './community/community.saga';
 import { noteSagas } from './note/note.saga';
+import { commentSagas } from './comment/comment.saga';
 
 // generator function
 export function* rootSaga() {
@@ -27,6 +28,7 @@ export function* rootSaga() {
         call(channelcommentSagas),
         call(userprofileSagas),
         call(communitySagas),
-        call(noteSagas)
+        call(noteSagas),
+        call(commentSagas)
     ]);
 }

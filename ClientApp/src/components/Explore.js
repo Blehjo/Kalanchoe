@@ -5,37 +5,37 @@ const contentArray = [
     {
         type: "Communities",
         path: "/communities",
-        media_location_url: "https://otakuusamagazine.com/wp-content/uploads/2020/06/gits01.jpg",
+        media_location_url: "https://i.imgur.com/BEIcwEa.jpg",
         id: 1
     },
     {
         type: "Dilemmas",
         path: "/dilemmas",
-        media_location_url: "https://www.trustedreviews.com/wp-content/uploads/sites/54/2020/07/Watch-Dogs-Legion-4-2-scaled.jpg",
+        media_location_url: "https://i.imgur.com/ijeK4AL.jpg",
         id: 2
     },
     {
         type: "Profiles",
         path: "/profiles",
-        media_location_url: "https://i0.wp.com/learning2grow.org/wp-content/uploads/2020/10/neuromancer-gibson-web.jpg?resize=1000%2C600&ssl=1",
+        media_location_url: "https://i.imgur.com/HxNGjRH.jpg",
         id: 3
     },
     {
         type: "Posts",
         path: "/posts",
-        media_location_url: "https://www.digitalturbine.com/wp-content/uploads/2022/07/HardcoreGamers-Blog-Header.webp",
+        media_location_url: "https://i.imgur.com/7Nxg9uE.jpg",
         id: 4
     },
     {
         type: "Chats",
         path: "/chatpage",
-        media_location_url: "https://www.arthipo.com/image/cache/catalog/genel-tasarim/all-posters/oyun/PSTER-oyun04-bioschock-infinite-1000x1000.jpg",
+        media_location_url: "https://i.imgur.com/WsUbtP6.jpg",
         id: 5
     },
     {
         type: "News",
         path: "/news",
-        media_location_url: "https://d.newsweek.com/en/full/1944794/game-awards-2021-logo.jpg",
+        media_location_url: "https://i.imgur.com/ceyA482.jpg",
         id: 6
     }
 ]

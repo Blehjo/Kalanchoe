@@ -16,7 +16,7 @@ const News = () => {
     const search = () => {
         const doTask = async (objectId) => {
             await axios.get(objectUrl + objectId)
-                .then((response) => console.log(response.data.primaryImage));
+                .then((response) => setResults(response.data.primaryImage));
         }
         
         objects.splice(0, 10).map((object) => doTask(object));

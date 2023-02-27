@@ -46,7 +46,7 @@ function DragList() {
         const listCopy = { ...panels };
         
         const sourceList = listCopy[result.source.droppableId];
-        console.log("Source List 1: ", sourceList);
+
         const [removedElement, newSourceList] = removeFromList(
             sourceList,
             result.source.index

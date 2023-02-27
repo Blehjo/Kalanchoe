@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Row, Col } from "react-bootstrap";
 import { XCircle } from 'react-bootstrap-icons';
-import axios from "axios";
 import { useParams, useNavigate } from "react-router";
 import { deleteChat, getChats } from "../utils/api/chat";
 

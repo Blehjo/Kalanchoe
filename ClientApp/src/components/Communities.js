@@ -4,6 +4,7 @@ import { XCircle, Plus, ArrowRight } from 'react-bootstrap-icons';
 import { Modal, Form, Button, Col, Row, Card } from 'react-bootstrap';
 import { addCommunity, getCommunities, deleteCommunity } from "../utils/api/community";
 import ModalDelete from "./ModalDelete";
+import { addMember } from "../utils/api/member";
 
 const defaultFormFields = {
     groupName: '',
@@ -40,6 +41,10 @@ const Communities = () => {
         handleShow();
     }
 
+    const join = (event) => {
+        addMember({ communityId: event.target.id });
+    }
+
     const goToCommunity = async (event) => {
         const id = event.target.id;
         navigate(`/community/${id}`);
@@ -70,7 +75,7 @@ const Communities = () => {
                             <Card.Title style={{ margin: 'auto' }}>{groupName}</Card.Title>
                             <Card.Body>
                                 <Card.Subtitle style={{ margin: 'auto' }}>{description}</Card.Subtitle>
-
+                                <Button id={communityId} style={{ marginTop: '1rem' }} variant="light" type="submit" onClick={join}>Join</Button>
                             </Card.Body>
                         </Col>
                     {

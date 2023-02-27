@@ -37,7 +37,7 @@ export async function getUserMembers() {
 export async function addMember(member) {
   return await axios({
     method: 'post',
-    url: `${api}`,
+    url: api,
     data: member,
     config: headers,
     withCredentials: true

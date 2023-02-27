@@ -7,6 +7,11 @@ export const selectPosts = createSelector(
     (post) => post.posts
 );
 
+export const selectSinglePost = createSelector(
+    [selectPostReducer],
+    (post) => post.singlePost
+);
+
 export const selectPostsIsLoading = createSelector(
     [selectPostReducer],
     (post) => post.isLoading

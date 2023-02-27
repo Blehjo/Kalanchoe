@@ -35,7 +35,6 @@ export async function getCommunityChannels(id) {
 }
 
 export async function addChannel(channel) {
-  console.log(channel);
   return await axios({
     method: 'post',
     url: api, 

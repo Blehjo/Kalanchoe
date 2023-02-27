@@ -33,7 +33,6 @@ export default function Profiles() {
         setShow(!show);
         addMessage({ messageValue: event.target.id, userId: userId })
         .then((response) => dispatch(userprofileFetchSingleId(response.data.messageId)));
-        console.log("Message ID: ", userprofileId);
     }
 
     useEffect(() => {
@@ -45,8 +44,8 @@ export default function Profiles() {
     <Row xs={1} md={2} lg={3} className="justify-content-center">
         {userProfiles?.map(({ userId, profileImage, firstName, about, username }) => (
         <Col key={userId} className='mb-5'>
-            <Card style={{ color: 'white' }} className="bg-dark" key={userId}>
-                <Card.Img variant="top" src={profileImage ? profileImage : "https://www.cooperhewitt.org/wp-content/uploads/2018/07/20914_472d45b4ae377c5f_b1.jpg"} /> 
+            <Card style={{ color: 'white', objectFit: 'cover', height: '30rem' }} className="bg-dark" key={userId}>
+                <Card.Img style={{ height: '20rem', width: 'auto', objectFit: 'cover' }} variant="top" src={profileImage ? profileImage : "https://www.cooperhewitt.org/wp-content/uploads/2018/07/20914_472d45b4ae377c5f_b1.jpg"} /> 
                 <Card.Body>
                     <Row xs={2}>
                         <Col xs={9}>
@@ -57,7 +56,7 @@ export default function Profiles() {
                     </Row>
                     <Card.Text>{firstName}</Card.Text>
                     <Card.Subtitle>{about}</Card.Subtitle>
-                    <Card.Subtitle id={username} onClick={(event) => sendMessage(event)}>Send Mesage</Card.Subtitle>
+                    <Card.Subtitle style={{ marginTop: '.2rem', cursor: 'pointer' }} id={username} onClick={(event) => sendMessage(event)}>Send Mesage</Card.Subtitle>
                 </Card.Body>
             </Card>
         </Col>

@@ -28,25 +28,23 @@ const UserProfileCard = () => {
     }, [id])
 
     return (
-        <Fragment>
-            <Card style={{ color: 'white' }} className="bg-dark" key={userId}>
-                <Card.Img variant="top" src={profileImage ? profileImage : "https://www.cooperhewitt.org/wp-content/uploads/2018/07/20914_472d45b4ae377c5f_b1.jpg"} /> 
-                <Card.Body>
-                    <Row xs={2}>
-                    <Col xs={9}>
-                    <Card.Link style={{ textDecoration: 'none', color: 'black' }} href={`profile/${id}`}>
-                    <Card.Header>{username}</Card.Header>
-                    <Card.Title>{firstName}</Card.Title>
-                    <Card.Subtitle>{about}</Card.Subtitle>
-                    </Card.Link>
-                    </Col>
-                    {/* <Col xs={3}>{(friendships.some(({ profile_request }) => profile_request === 'auth?.id')) ? <Card.Text id={id} onClick={unfollowMate} >Unfollow</Card.Text> : <Card.Text id={id} onClick={followMate}>Follow</Card.Text> }</Col> */}
-                    </Row>
-                    <Row style={{ marginBottom: '1rem' }} xs={2}>
-                    </Row>
-                </Card.Body>
-            </Card>
-        </Fragment>
+        <Card style={{ color: 'white' }} className="bg-dark" key={userId}>
+            <Card.Img style={{ height: '20rem', width: 'auto', objectFit: 'cover' }} variant="top" src={profileImage ? profileImage : "https://www.cooperhewitt.org/wp-content/uploads/2018/07/20914_472d45b4ae377c5f_b1.jpg"} /> 
+            <Card.Body>
+                <Row xs={2}>
+                <Col xs={9}>
+                <Card.Link style={{ textDecoration: 'none', color: 'white' }} href={`profile/${id}`}>
+                <Card.Header>{username}</Card.Header>
+                <Card.Title>{firstName}</Card.Title>
+                <Card.Subtitle>{about}</Card.Subtitle>
+                </Card.Link>
+                </Col>
+                {/* <Col xs={3}>{(friendships.some(({ profile_request }) => profile_request === 'auth?.id')) ? <Card.Text id={id} onClick={unfollowMate} >Unfollow</Card.Text> : <Card.Text id={id} onClick={followMate}>Follow</Card.Text> }</Col> */}
+                </Row>
+                <Row style={{ marginBottom: '1rem' }} xs={2}>
+                </Row>
+            </Card.Body>
+        </Card>
     );
 }
 

@@ -1,9 +1,5 @@
 ﻿import { Fragment, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { postFetchAllStart } from "../store/post/post.action";
-import { selectPostReducer } from "../store/post/post.selector";
-import { selectCurrentUser } from "../store/user/user.selector";
 
 import FetchedPosts from "./FetchedPosts";
 import { PostForm } from './PostForm';

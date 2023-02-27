@@ -27,7 +27,7 @@ const DilemmasPage = () => {
         <Row xl={3} style={{ margin: '1rem' }}>
         {
             panels?.length > 0 && panels?.map(({ title, panelId, userId }) => (
-                <Col onClick={goToPost} key={panelId}>
+                <Col key={panelId}>
                     <Card style={{ margin: '1rem', textAlign: 'center' }}>
                         <Card.Title style={{ margin: '1rem' }}>
                             <Row xs={2}>

@@ -22,7 +22,6 @@ const Artoo = () => {
   const { id } = useParams();
   const chatComments = useSelector(selectChatCommentItems);
   const chats = useSelector(selectChatItems);
-  const length = chats.length;
   const [choice, setChoice] = useState("Text");
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { request } = formFields;
@@ -39,6 +38,7 @@ const Artoo = () => {
   const handleAddChat = () => {
     if (id == null) {
       addChat({ title: request })
+      .then((response) => addChatComment({ chatValue: request, chatId: response.data.chatId }))
       .then((response) => navigate(`/artoo/${response.data.chatId}`));
     }
   }
@@ -49,8 +49,8 @@ const Artoo = () => {
 
   const sendMessage = async (event) => {
     event.preventDefault();
+    addChatComment({ chatValue: request, chatId: id });
     handleAddChat();
-    console.log("ID: ", id);
     await axios({
       method: 'post',
       url: toggle(choice),
@@ -63,7 +63,6 @@ const Artoo = () => {
       withCredentials: true
     })
     .then((response) => addChatComment({ chatValue: response.data, chatId: id }));
-    console.log(id);
     resetForm();
   }
   
@@ -75,13 +74,13 @@ const Artoo = () => {
       getSingleChatcomment(id)
       .then((response) => dispatch(chatcommentFetchAllStart(response.data)));
     }
-  }, [id, length]);
+  }, [id]);
 
   return (
     <Row xs={2}>
       <Col sm={3}>
         <div style={{ height: '94vh', overflowY: 'auto', background: '#d4d4d4', borderRadius: '.2rem', textAlign: 'center' }}>
-          <h1 style={{}}>Archives</h1>
+          <h1 style={{}}>Artoo</h1>
           {chats?.length > 0 && chats?.map(({ chatId, title }) => (
             <div style={{ boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)', cursor: 'pointer', background: 'white', margin: '1rem', padding: '.5rem', borderRadius: '.2rem' }} key={chatId}>
               <Row>
@@ -105,7 +104,7 @@ const Artoo = () => {
             {choice}
           </Dropdown.Toggle>
           <Dropdown.Menu >
-            <Dropdown.Item onClick={(event) => setChoice(event.target.name)} name="Text" value="text" active>Text</Dropdown.Item>
+            <Dropdown.Item onClick={(event) => setChoice(event.target.name)} name="Text" value="text">Text</Dropdown.Item>
             <Dropdown.Item onClick={(event) => setChoice(event.target.name)} name="Code" value="code">Code</Dropdown.Item>
             <Dropdown.Item onClick={(event) => setChoice(event.target.name)} name="Art" value="art">Art</Dropdown.Item>
           </Dropdown.Menu>

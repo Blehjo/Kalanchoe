@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { getSingleUser } from "../utils/api/user";
 
 const UserInfo = ({ userId }) => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [user, setUser] = useState({ 
-        userId: '', 
         username: '', 
         profileImage: ''
     });
@@ -18,9 +19,9 @@ const UserInfo = ({ userId }) => {
     }, []);
 
     return (
-        <Row xs={2} style={{ justifyContent: 'center' }}>
-            <Col style={{ height: '.1rem', width: 'auto', textAlign: 'center' }} xs={1}>
-                <img style={{ height: '1.5rem', borderRadius: '.2rem' }} src={profileImage} />
+        <Row xs={2} style={{ cursor: 'pointer', justifyContent: 'left' }}>
+            <Col style={{ height: '.1rem', width: 'auto' }} xs={1}>
+                <img style={{ height: '1rem', width: '1rem', objectFit: 'cover', borderRadius: '.2rem' }} src={profileImage} />
             </Col>
             <Col>
                 <div onClick={() => navigate(`/profile/${userId}`)}>{username}</div>

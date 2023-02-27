@@ -5,7 +5,7 @@ const api = "https://localhost:7028/api/comment"
 export async function getSingleComment(postId) {
   return await axios({
     method: 'get',
-    url: `${api}/user/${postId}`,
+    url: `${api}/post/${postId}`,
     headers: {
       'Content-Type': 'application/json'
     },

@@ -9,6 +9,7 @@ import { selectChatCommentItems } from "../store/chatcomment/chatcomment.selecto
 import { getSingleChatcomment } from "../utils/api/chatcomment";
 import { chatcommentFetchAllStart } from "../store/chatcomment/chatcomment.action";
 import { utcConverter } from "../utils/date/Date";
+import UserInfo from "./UserInfo";
 
 const SingleChat = () => {
     const dispatch = useDispatch();
@@ -29,8 +30,9 @@ const SingleChat = () => {
             <Col>
             <Card>
                 <Card.Title id={chatId}>{title}</Card.Title>
+                <UserInfo userId={userId} />
                 {comments?.length > 0 && comments?.map(({ chatCommentId, chatValue, dateCreated }) => (
-                    <Card style={{ margin: '2rem' }}>
+                    <Card key={chatCommentId} style={{ margin: '2rem' }}>
                         <Card.Body key={chatCommentId}>{chatValue}</Card.Body>
                         <Card.Footer>Posted {utcConverter(dateCreated)}</Card.Footer>
                     </Card>
