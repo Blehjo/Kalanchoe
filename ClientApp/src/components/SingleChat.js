@@ -29,8 +29,10 @@ const SingleChat = () => {
         <Row>
             <Col>
             <Card>
-                <Card.Title id={chatId}>{title}</Card.Title>
+                <Row style={{ marginLeft: '1rem', justifyContent: 'center' }}>
+                <Card.Title style={{ marginTop: '1rem' }} id={chatId}>{title}</Card.Title>
                 <UserInfo userId={userId} />
+                </Row>
                 {comments?.length > 0 && comments?.map(({ chatCommentId, chatValue, dateCreated }) => (
                     <Card key={chatCommentId} style={{ margin: '2rem' }}>
                         <Card.Body key={chatCommentId}>{chatValue}</Card.Body>

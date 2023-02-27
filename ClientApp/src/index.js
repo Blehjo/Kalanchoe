@@ -8,29 +8,15 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
 import "bootstrap/dist/css/bootstrap.min.css";
-import { PublicClientApplication } from "@azure/msal-browser";
-import { MsalProvider } from "@azure/msal-react";
-import { msalConfig } from "./authConfig";
-import PubNub from "pubnub";
-import { PubNubProvider } from "pubnub-react";
 
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
-const msalInstance = new PublicClientApplication(msalConfig);
-
-const pubnub = new PubNub({
-    publishKey: process.env.REACT_APP_PUBNUB_PUBLISH_KEY,
-    subscribeKey: 'sub-c-1cb5ec4e-bd94-4281-8fcc-98ccc6b484a3',
-    userId: "myFirstUser",
-});
 
 root.render(
     <Provider store={store}>
         <BrowserRouter basename={baseUrl}>
-            <PubNubProvider client={pubnub}>
-                <App />
-            </PubNubProvider>
+            <App />
         </BrowserRouter>
     </Provider>
 );

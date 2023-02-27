@@ -54,13 +54,13 @@
       <td>Artoo</td>
    </tr>
    <tr>
-      <td style="width: 50%;"><img src="src/images/" alt="Studio view"></td>
-      <td style="width: 50%;"><img src="src/images/" alt="Artoo"></td>
+      <td style="width: 50%;"><img src="src/images/studiowtoolbar.png" alt="Studio view"></td>
+      <td style="width: 50%;"><img src="src/images/artoo.png" alt="Artoo"></td>
    </tr>
    </table>
 </div>
 
-### Website
+### Other Utilities
 
 <div align="center">
    <table>
@@ -70,7 +70,7 @@
    </tr>
    <tr>
       <td style="width: 50%;"><img src="src/images/dashboard.png"  alt="kalanchoe dashboard"></td>
-      <td style="width: 50%;"><img src="src/images/dilemmas.png" alt="RVDVR Eisenhower Matrix"></td>
+      <td style="width: 50%;"><img src="src/images/singledilemma.png" alt="kalanchoe dilemmas"></td>
    </tr>
    </table>
 </div>
@@ -81,65 +81,65 @@ Artoo:
 
 Use your personal AI, Artoo, to find answer's to your curiosity and find inspiration for your masterpiece plans.
 
-<img style="width: 75%" src="src/images/dashboard.png"  alt="kalanchoe dashboard">
-
 Chats:
 
 Alternatively, search the application for chats created by other artists looking for answers and inspirations.
 
-<img style="width: 50%" src="src/images/chats.png"  alt="kalanchoe dashboard"><img style="width: 50%" src="src/images/chats.png"  alt="kalanchoe dashboard">
+<img style="width: 47%" src="src/images/chats.png"  alt="kalanchoe dashboard">
+<img style="width: 47%" src="src/images/singlechat.png"  alt="kalanchoe dashboard">
 
 Channels:
 
 Organize your community by creating channels for specific discussions.
 
-<img style="width: 75%" src="src/images/dashboard.png"  alt="kalanchoe dashboard">
-
 Communities: 
 
 Create an organization for like-minded individuals aspiring for the same goal.
 
-<img style="width: 75%" src="src/images/dashboard.png"  alt="kalanchoe dashboard">
+<img style="width: 47%" src="src/images/createcommunity.png"  alt="kalanchoe dashboard">
+<img style="width: 47%" src="src/images/community.png"  alt="kalanchoe dashboard">
 
 Dashboard:
 
 See all of your messages, dilemmas, chats, and communities from your dashboard. Stay organized and on top of everything.
 
-<img style="width: 75%" src="src/images/dashboard.png"  alt="kalanchoe dashboard">
-
 Dilemmas:
 
 Start organizing your plan here with dilemmas. Dilemmas help break down your ultimate goals. You can also share them with the community and find help.
 
-<img style="width: 50%" src="src/images/dilemmas.png"  alt="kalanchoe dashboard"><img style="width: 50%" src="src/images/dilemmas.png"  alt="kalanchoe dashboard">
+<img style="width: 50%" src="src/images/dilemmas.png"  alt="kalanchoe dashboard">
 
 Messages: 
 
 Message your close friends with messages and take a break from speaking to your AI, Artoo.
 
-<img style="width: 75%" src="src/images/dashboard.png"  alt="kalanchoe dashboard">
+<img style="width: 47%" src="src/images/messages.png"  alt="kalanchoe messages">
 
 Notes: 
 
 Add notes to your dilemmas to further break down your plans. You can add steps or just general tasks that need to get done.
 
-<img style="width: 75%" src="src/images/dashboard.png"  alt="kalanchoe dashboard">
-
 Posts: 
 
 Share your masterpiece and current state with posts. Have fun!
 
-<img style="width: 75%" src="src/images/posts.png"  alt="kalanchoe dashboard">
+
+<img style="width: 47%" src="src/images/posts.png"  alt="kalanchoe dashboard">
+<img style="width: 47%" src="src/images/singlepost.png"  alt="kalanchoe dashboard">
+
 
 ## Design:
 
-### Mobile
+Other Pages: 
 
-![Mobile Design](./src/assets/images/design/RVDVR-figma-mobile.jpg)
-
-### Website
-
-![Web Design](./src/assets/images/design/RVDVR-figma-web.jpg)
+<img style="width: 47%" src="src/images/profiles.png"  alt="kalanchoe profiles">
+<img style="width: 47%" src="src/images/userprofilechats.png"  alt="kalanchoe chats">
+<img style="width: 47%" src="src/images/userprofilecommunities.png"  alt="kalanchoe communities">
+<img style="width: 47%" src="src/images/userprofiledilemmas.png"  alt="kalanchoe dilemmas">
+<img style="width: 47%" src="src/images/userprofileposts.png"  alt="kalanchoe posts">
+<img style="width: 47%" src="src/images/studioblank.png"  alt="kalanchoe studio">
+<img style="width: 47%" src="src/images/studiowtoolbar.png"  alt="kalanchoe studio with toolbar">
+<img style="width: 47%" src="src/images/explore.png"  alt="kalanchoe explore">
 
 ## License: 
 
