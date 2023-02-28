@@ -46,10 +46,9 @@ export async function getUserPanels() {
 export async function addPanel(panel) {
   return await axios({
     method: 'post',
-    url: `${api}`,
+    url: api,
     data: {
-      title: panel.value,
-      panelId: panel.panelId
+      title: panel.value
     },
     config: headers,
     withCredentials: true

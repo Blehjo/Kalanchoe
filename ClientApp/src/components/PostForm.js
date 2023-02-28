@@ -1,7 +1,7 @@
 ﻿import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from '../store/user/user.selector';
-import { Button, Col, Form } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import { addPost } from "../utils/api/post";
 
 const defaultFormFields = {
@@ -37,6 +37,7 @@ export const PostForm = () => {
     }
 
     return (
+        <Row style={{ justifyContent: 'center' }}>
         <Col xs={6}>
             <Form onSubmit={handleSubmit} style={{ color: 'black', marginTop: '1rem' }}>
                 <Form.Group className="mb-3" controlId="formPostValue">
@@ -50,7 +51,7 @@ export const PostForm = () => {
                         onChange={handleChange}
                         name="postValue"
                         value={postValue}
-                    />
+                        />
                     <Form.Text className="text-muted">
                         Share with the KalanchoeAI community
                     </Form.Text>
@@ -65,10 +66,11 @@ export const PostForm = () => {
                         onChange={handleChange}
                         name="mediaLink"
                         value={mediaLink}
-                    />
+                        />
                 </Form.Group>
                 <Button as="input" type="submit" value="Submit" />
             </Form>
         </Col>
+        </Row>
     );
 }

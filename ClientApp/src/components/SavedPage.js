@@ -21,42 +21,42 @@ const Saved = () => {
         .then((response) => dispatch(savedFetchAllStart(response.data)));
     }, []);
 
-    const open = (event) => {
-        console.log("Link: ", event.target.id);
-        window.open(event.target.id, "_blank");
-    }
+    const openInNewTab = (url) => {
+        const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+        if (newWindow) newWindow.opener = null
+      }
 
     return(
         <Fragment>
-            <Row xs={2}>
-                <Col xs={10}>
+            <Row key="header" xs={2}>
+                <Col key="saved" xs={10}>
                     <h1>Saved</h1>
                 </Col>
-                <Col xs={2}>
+                <Col key="button" xs={2}>
                     <Button variant="light" onClick={showPostForm}>{!isShowing ? 'Create Saved' : 'Nevermind'}</Button>
                 </Col>
             </Row>
             <Row xs={1} md={2} key="groups">
                 {saved?.map(({ id, mediaLink, title, link }) => (
                     <Col style={{ marginBottom: '1.5rem' }} key={id}>
-                            <Card
-                                id={link} 
-                                onClick={() => window.open(link, "_blank")}
-                                style={{ color: 'white' }}
-                                className="bg-dark"
-                                key={id}
-                            >
-                                <Card.Img style={{ position: 'relative', borderRadius: ".5rem", width: "100%", height: "25rem", objectFit: "cover" }} src={mediaLink} alt={title} />
-                                <Card.ImgOverlay >
-                                    <div style={{ position: 'absolute', left: '50%', top: '50%', borderRadius: '1rem', transform: 'translate(-50%, -50%)' }} className="text-white">
-                                        <Card.Title style={{ fontSize: '500%' }}>{title}</Card.Title>
-                                    </div>
-                                </Card.ImgOverlay>
-                            </Card>
+                        <Card
+                            id={link} 
+                            onClick={() => openInNewTab(link)}
+                            style={{ color: 'white' }}
+                            className="bg-dark"
+                            key={id}
+                        >
+                            <Card.Img style={{ position: 'relative', borderRadius: ".5rem", width: "100%", height: "25rem", objectFit: "cover" }} src={mediaLink} alt={title} />
+                            <Card.ImgOverlay >
+                                <div style={{ position: 'absolute', left: '50%', top: '50%', borderRadius: '1rem', transform: 'translate(-50%, -50%)' }} className="text-white">
+                                    <Card.Title style={{ fontSize: '500%' }}>{title}</Card.Title>
+                                </div>
+                            </Card.ImgOverlay>
+                        </Card>
                     </Col>
                 ))}
                 {
-                isShowing && <SavedForm/> 
+                isShowing && <SavedForm key="savedform"/> 
                 }
             </Row>
         </Fragment>

@@ -9,16 +9,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectPosts, selectSinglePost } from "../store/post/post.selector";
 import { postFetchAllStart, postFetchSingleStart } from "../store/post/post.action";
 import CommentInfo from "./CommentInfo";
+import { PostForm } from "./PostForm";
 
 const PostsTab = () => {
     const dispatch = useDispatch();
     const posts = useSelector(selectPosts);
     const { postId, mediaLink, postValue, dateCreated } = useSelector(selectSinglePost);
     const [commentValue, setCommentValue] = useState('');
+    const [postForm, setPostForm] = useState(false);
     const { id } = useParams();
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
+
+    const handlePostForm = () => setPostForm(!postForm);
 
     const handleShow = (event) => {
         getSinglePost(event.target.id)
@@ -41,6 +45,16 @@ const PostsTab = () => {
     }, [postId, show, commentValue]);
 
     return (
+        <>
+        <Row style={{ marginBottom: '2rem' }} xs={1} >
+                <Col>
+                    <Card style={{ color: 'white', textAlign: 'center' }} className='bg-dark'>
+                        <Card.Body>
+                            <Card.Title style={{ cursor: 'pointer' }} onClick={handlePostForm}>Create a post</Card.Title>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
         <Row xs={3}>
         {posts?.length > 0 ? posts?.map(({ postId, mediaLink, postValue, dateCreated }) => (
             <Col>
@@ -90,7 +104,19 @@ const PostsTab = () => {
                     </Card.Footer>
                 </Card>
             </Modal>
+            <Modal show={postForm} onHide={handlePostForm}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Create a post</Modal.Title>
+                </Modal.Header>
+                <Modal.Body style={{ marginTop: '-1rem' }}>
+                    <PostForm/>
+                </Modal.Body>
+                <Modal.Footer style={{ justifyContent: 'center' }}>
+                    Share your masterpiece!
+                </Modal.Footer>
+            </Modal>
         </Row>
+        </>
     );
 }
 

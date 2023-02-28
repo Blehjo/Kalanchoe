@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { selectCurrentUser } from '../store/user/user.selector';
 import { Button, Col, Form } from "react-bootstrap";
 import { addSaved } from "../utils/api/saved";
 
