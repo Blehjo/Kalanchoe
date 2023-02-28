@@ -1,20 +1,17 @@
-﻿import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 import { selectCurrentUser } from '../store/user/user.selector';
 import { Button, Col, Form } from "react-bootstrap";
-import { addPost } from "../utils/api/post";
+import { addSaved } from "../utils/api/saved";
 
 const defaultFormFields = {
-    postValue: '',
+    title: '',
     mediaLink: '',
+    link: '',
 }
 
-export const PostForm = () => {
-    const dispatch = useDispatch();
-    const currentUser = useSelector(selectCurrentUser);
-    const userId = currentUser;
+export const SavedForm = () => {
     const [formFields, setFormFields] = useState(defaultFormFields);
-    const { postValue, mediaLink } = formFields;
+    const { title, mediaLink, link } = formFields;
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -28,32 +25,28 @@ export const PostForm = () => {
         event.preventDefault();
 
         try {
-            addPost(formFields);
+            addSaved(formFields);
             resetFormFields();
         } catch (error) {
             console.log(error);
         }
-
     }
 
     return (
         <Col xs={6}>
             <Form onSubmit={handleSubmit} style={{ color: 'black', marginTop: '1rem' }}>
-                <Form.Group className="mb-3" controlId="formPostValue">
-                    <Form.Label>Post</Form.Label>
+                <Form.Group className="mb-3" controlId="formTitle">
+                    <Form.Label>Saved</Form.Label>
                         <Form.Control
                         as='textarea'
-                        placeholder="Make a post"
-                        label="PostValue"
-                        type="postValue"
+                        placeholder="Create a Saved Icon"
+                        label="Title"
+                        type="Title"
                         required
                         onChange={handleChange}
-                        name="postValue"
-                        value={postValue}
+                        name="title"
+                        value={title}
                     />
-                    <Form.Text className="text-muted">
-                        Share with the KalanchoeAI community
-                    </Form.Text>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formMediaLink">
                     <Form.Label>Media</Form.Label>
@@ -65,6 +58,18 @@ export const PostForm = () => {
                         onChange={handleChange}
                         name="mediaLink"
                         value={mediaLink}
+                    />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formLink">
+                    <Form.Label>Link</Form.Label>
+                    <Form.Control
+                        as="input"
+                        label="Link"
+                        type="text"
+                        placeholder="Place Link Here"
+                        onChange={handleChange}
+                        name="link"
+                        value={link}
                     />
                 </Form.Group>
                 <Button as="input" type="submit" value="Submit" />

@@ -3,14 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { deletePost, editPost, getPosts } from "../utils/api/post";
 import { Button, Row, Col, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { selectCurrentUser } from "../store/user/user.selector";
 import { selectPosts } from "../store/post/post.selector";
 import { postFetchAllStart } from "../store/post/post.action";
 import UserInfo from "./UserInfo";
 
 const FetchedPosts = () => {
     const dispatch = useDispatch();
-    const currentUser = useSelector(selectCurrentUser);
     const posts = useSelector(selectPosts);
     const navigate = useNavigate();
 

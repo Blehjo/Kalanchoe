@@ -13,6 +13,7 @@ import { userprofileSagas } from './userprofiles/userprofile.saga';
 import { communitySagas } from './community/community.saga';
 import { noteSagas } from './note/note.saga';
 import { commentSagas } from './comment/comment.saga';
+import { savedSagas } from './saved/saved.saga';
 
 // generator function
 export function* rootSaga() {
@@ -29,6 +30,7 @@ export function* rootSaga() {
         call(userprofileSagas),
         call(communitySagas),
         call(noteSagas),
-        call(commentSagas)
+        call(commentSagas),
+        call(savedSagas)
     ]);
 }

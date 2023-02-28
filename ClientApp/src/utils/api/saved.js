@@ -1,22 +1,22 @@
 import axios from "axios";
 
-const api = "https://localhost:7028/api/post";
+const api = "https://localhost:7028/api/savedcontrollers";
 
 const headers = {
   'Accept': 'application/json',
   'Content-Type': 'application/json' 
 }
 
-export async function getSinglePost(postId) {
+export async function getSingleSaved(savedId) {
   return await axios({
     method: 'get',
-    url: `${api}/${postId}`,
+    url: `${api}/${savedId}`,
     config: headers,
     withCredentials: true
   })
 }
 
-export async function getPosts() {
+export async function getSaved() {
   return await axios({
     method: 'get',
     url: api,
@@ -25,39 +25,39 @@ export async function getPosts() {
   });
 }
 
-export async function getUserPosts(id) {
+export async function getUserSaved() {
   return await axios({
     method: 'get',
-    url: `${api}/user/${id}`,
+    url: `${api}/user`,
     config: headers,
     withCredentials: true
   });
 }
 
-export async function addPost(post) {
+export async function addSaved(saved) {
   return await axios({
     method: 'post',
     url: api, 
-    data: post,
+    data: saved,
     config: headers,
     withCredentials: true
   });
 }
 
-export async function editPost(post) {
+export async function editSaved(saved) {
   return await axios({
     method: 'put',
-    url:`${api}/${post.id}`, 
-    data: post,
+    url:`${api}/${saved.id}`, 
+    data: saved,
     config: headers,
     withCredentials: true
   });
 }
 
-export async function deletePost(postId) {
+export async function deleteSaved(savedId) {
   return await axios({
     method: 'delete',
-    url: `${api}/${postId}`,
+    url: `${api}/${savedId}`,
     config: headers,
     withCredentials: true
   });

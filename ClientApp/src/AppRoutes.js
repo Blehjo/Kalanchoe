@@ -20,6 +20,7 @@ import SingleChat from "./components/SingleChat";
 import SingleDilemma from "./components/SingleDilemma";
 import DilemmasPage from "./components/DilemmasPage";
 import ProfilePage from "./components/ProfilePage";
+import Saved from "./components/SavedPage";
 
 
 const AppRoutes = [
@@ -126,6 +127,10 @@ const AppRoutes = [
   {
     path: '/page/:id',
     element: <ProfilePage />
+  },
+  {
+    path: '/saved',
+    element: <Saved />
   },
 ];
 
