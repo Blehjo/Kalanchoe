@@ -31,13 +31,16 @@ const News = () => {
 
     return (
         <Fragment>
-            
-            <Row xs={2} style={{ justifyContent: 'center' }}>
-                <Col xs={2}><h1>News</h1></Col>
+            <Row xs={1} style={{ justifyContent: 'center', marginTop: '5rem' }}>
+                <Col xs={4}>
+                    <img style={{ objectFit: 'cover', width: '25rem', height: '140px', borderRadius: '1rem' }} src="https://i.imgur.com/20LpIoh.jpg"/>
+                </Col>
+            </Row>
+            <Row xs={1} style={{ justifyContent: 'center', marginTop: '2rem' }}>
                 <Col xs={4}>
                     <Form style={{ margin: '.2rem' }} onSubmit={artSearch}> 
                         <Form.Group>
-                            <Form.Control onChange={handleSearchFieldChange} value={searchField} type="text" placeholder="Search for art" />
+                            <Form.Control style={{ textAlign: 'center' }} onChange={handleSearchFieldChange} value={searchField} type="text" placeholder="Search for art" />
                         </Form.Group>
                     </Form>
                 </Col>

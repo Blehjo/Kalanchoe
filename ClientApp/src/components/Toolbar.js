@@ -1,6 +1,7 @@
 ﻿import { Fragment, useState, useEffect } from 'react';
-import { Col, Tooltip, OverlayTrigger, Modal, Button, Row, Card } from 'react-bootstrap';
-import { XSquare, Robot, Globe, Paperclip, Clipboard, ChatDots, Messenger, FileCode, AspectRatio, Newspaper, JournalCode } from 'react-bootstrap-icons';
+import { Col, Tooltip, OverlayTrigger, Modal, Button, Row, Card, Form, Dropdown } from 'react-bootstrap';
+import { XSquare, Robot, Globe, Paperclip, Clipboard, ChatDots, Messenger, AspectRatio, Newspaper } from 'react-bootstrap-icons';
+import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router";
@@ -15,20 +16,101 @@ import { getAllMessages } from '../utils/api/message';
 import { messageFetchAllStart } from '../store/message/message.action';
 import { selectMessageItems } from '../store/message/message.selector';
 import { getUserPosts } from '../utils/api/post';
+import { toggle } from "../utils/artootoggle";
 import { postFetchAllStart } from '../store/post/post.action';
 import { selectPosts } from '../store/post/post.selector';
+import { selectChatCommentItems } from '../store/chatcomment/chatcomment.selector';
+import { addChat } from '../utils/api/chat';
+import { addChatComment } from '../utils/api/chatcomment';
+import ModalSubmit from './ModalSubmit';
+import { addPanel } from '../utils/api/panel';
+import { addNote } from '../utils/api/note';
+
+const defaultFormFields = {
+    request: ''
+}
 
 const Toolbar = () => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch(); 
     const navigate = useNavigate();
     const [communities, setCommunities] = useState(false);
     const [messages, setMessages] = useState(false);
     const [posts, setPosts] = useState(false);
+    const [news, setNews] = useState(false);
+    const [artoo, setArtoo] = useState(false);
+    const [saved, setSaved] = useState(false);
+    const [note, setNote] = useState(false);
+    const [panel, setPanel] = useState(false);
+    const [results, setResults] = useState([]);
+    const [objects, setObjects] = useState([]);
+    const [searchField, setSearchField] = useState("");
+    const [formFields, setFormFields] = useState(defaultFormFields);
+    const { request } = formFields;  
+    const [choice, setChoice] = useState("Text");
     const isToolOpen = useSelector(selectIsToolOpen);
     const userMessages = useSelector(selectMessageItems);
     const userPosts = useSelector(selectPosts);
     const userCommunities = useSelector(selectCommunities);
+    const userChatComments = useSelector(selectChatCommentItems);
     const id = Cookies.get("user");
+    const baseUrl = "https://collectionapi.metmuseum.org/public/collection/v1/search?q=";
+    const objectUrl = "https://collectionapi.metmuseum.org/public/collection/v1/objects/";
+
+    const resetForm = () => {
+        setFormFields(defaultFormFields);
+    }
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormFields({ ...formFields, [name]: value })
+    };
+
+    const handleAddChat = () => {
+        if (id == null) {
+          addChat({ title: request })
+          .then((response) => addChatComment({ chatValue: request, chatId: response.data.chatId }))
+          .then((response) => navigate(`/artoo/${response.data.chatId}`));
+        }
+    }
+
+    const sendMessage = async (event) => {
+        event.preventDefault();
+        addChatComment({ chatValue: request, chatId: id });
+        handleAddChat();
+        await axios({
+          method: 'post',
+          url: toggle(choice),
+          data: {
+            request: request
+          },
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          withCredentials: true
+        })
+        .then((response) => addChatComment({ chatValue: response.data, chatId: id }));
+        resetForm();
+      }
+
+    const handleSearchFieldChange = (event) => {
+        setSearchField(event.target.value);
+    }
+
+    const search = () => {
+        const doTask = async (objectId) => {
+            await axios.get(objectUrl + objectId)
+                .then((response) => setResults(response.data.primaryImage));
+        }
+        
+        objects.splice(0, 10).map((object) => doTask(object));
+    }
+
+    const artSearch = async (event) => {
+        event.preventDefault();
+        await axios.get(baseUrl + searchField)
+            .then((response) => setObjects(response.data.objectIDs));
+        search();
+    }
     
     useEffect(() => {
         getUserPosts(id)
@@ -42,46 +124,19 @@ const Toolbar = () => {
     const toggleIsToolOpen = () => dispatch(setIsToolOpen(!isToolOpen));
 
     // Function that creates a new panel Modal
-    const handlePanelClick = () => {
-        console.log('handlePanelClick', 0);
-
-    }
+    const handlePanelClick = () => setPanel(!panel);
     
     // Function that creates a new note Modal
-    const handleNoteClick = () => {
-        console.log('handleNoteClick', 3);
-        
-    }
+    const handleNoteClick = () => setNote(!note);
 
     // Function that calls Artoo Modal
-    const handleArtooClick = () => {
-        console.log('handleArtooClick', 1);
-        
-    }
+    const handleArtooClick = () => setArtoo(!artoo);
 
     // Function that calls Saved Modal
-    const handleSavedClick = () => {
-        console.log('handleSavedClick', 4);
-        
-    }
+    const handleSavedClick = () => setSaved(!saved);
 
     // Function that calls search bar for art
-    const handleSearchBarClick = () => {
-        console.log('handleSearchBarClick', 2);
-        
-    }
-
-    // Function that calls search bar for poetry
-    const handleEditorClick = () => {
-        console.log('handleEditorlick');
-        
-    }
-
-    // Function that shows tasks
-    const handleTasksClick = () => {
-        console.log('handleTasksClick', 5);
-        
-    }
+    const handleSearchBarClick = () => setNews(!news);
 
     // Function that resets panel
     const showPosts = () => setPosts(!posts);
@@ -104,20 +159,20 @@ const Toolbar = () => {
                         </Tooltip>
                     }
                 >
-                    <Paperclip className='mx-2' color="black" size={40} />
+                    <Clipboard className='mx-2' color="black" size={40} />
                 </OverlayTrigger>
             </Col>
             <Col style={{ cursor: 'pointer' }} onClick={handleNoteClick}>
-                <OverlayTrigger
-                    key="filecode"
+            <OverlayTrigger
+                    key="journal"
                     placement="bottom"
                     overlay={
                         <Tooltip id="tooltip-bottom">
-                        IDE
+                        Notes
                         </Tooltip>
                     }
                 >
-                    <FileCode className='mx-2' color="black" size={40} />
+                    <Paperclip className='mx-2' color="black" size={40} />
                 </OverlayTrigger>
             </Col>
             <Col style={{ cursor: 'pointer' }} onClick={handleArtooClick}>
@@ -133,7 +188,7 @@ const Toolbar = () => {
                     <Robot className='mx-2' color="black" size={40} />
                 </OverlayTrigger>
             </Col>
-            <Col style={{ cursor: 'pointer' }} onClick={handleSavedClick}>
+            {/* <Col style={{ cursor: 'pointer' }} onClick={handleSavedClick}>
                 <OverlayTrigger
                     key="messages"
                     placement="bottom"
@@ -145,21 +200,8 @@ const Toolbar = () => {
                 >
                     <ChatDots className='mx-2' action='true' color="black" size={40} />
                 </OverlayTrigger>
-            </Col>
+            </Col> */}
             <Col style={{ cursor: 'pointer' }} onClick={handleSearchBarClick}>
-            <OverlayTrigger
-                    key="journal"
-                    placement="bottom"
-                    overlay={
-                        <Tooltip id="tooltip-bottom">
-                        Notes
-                        </Tooltip>
-                    }
-                >
-                    <JournalCode className='mx-2' color="black" size={40} />
-                </OverlayTrigger>
-            </Col>
-            <Col style={{ cursor: 'pointer' }} onClick={handleEditorClick}>
             <OverlayTrigger
                     key="news"
                     placement="bottom"
@@ -224,6 +266,102 @@ const Toolbar = () => {
             >
                 <XSquare className='mx-2' color="black" size={40} />
             </OverlayTrigger>
+            {
+                note && <ModalSubmit 
+                    title={"New Note"} 
+                    functionHandler={addNote}
+                    panelId={1}
+                    type={"Note"}
+                    placeholder={"Write note here"}
+                />
+            }
+            {
+                panel &&
+                <ModalSubmit
+                    title={"New Panel"}
+                    functionHandler={addPanel}
+                    type={"Panel"}
+                    placeholder={"Write panel name here"}
+                />
+            }
+            {
+                <Modal show={artoo}>
+                    <Modal.Header>Artoo</Modal.Header>
+                    <Modal.Body>
+                    <Col >
+                        <Form style={{ background: '#d4d4d4', borderRadius: '.2rem' }} onSubmit={sendMessage}>
+                        <Dropdown style={{ padding: '1rem' }}>
+                        <Dropdown.Toggle variant="light" id="dropdown">
+                            {choice}
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu >
+                            <Dropdown.Item onClick={(event) => setChoice(event.target.name)} name="Text" value="text">Text</Dropdown.Item>
+                            <Dropdown.Item onClick={(event) => setChoice(event.target.name)} name="Code" value="code">Code</Dropdown.Item>
+                            <Dropdown.Item onClick={(event) => setChoice(event.target.name)} name="Art" value="art">Art</Dropdown.Item>
+                        </Dropdown.Menu>
+                        </Dropdown>
+                        <Row style={{ padding: '2rem' }}>
+                            <Col>
+                            <div style={{ height: 'auto', overflowY: 'auto', borderRadius: '.2rem' }}>
+                            {userChatComments?.length > 0 && userChatComments?.map(({ chatCommentId, chatValue }) => (
+                                <div style={{ background: 'white', margin: '1rem', padding: '.5rem', borderRadius: '.2rem' }} key={chatCommentId}>
+                                    <div key={chatValue}>
+                                    {chatValue}
+                                    </div>
+                                </div>
+                            ))}
+                            </div>
+                            </Col>
+                        </Row>
+                        <Row style={{ padding: '2rem', margin: 'auto' }} xs={2}>
+                            <Col xs={10}>
+                            <Form.Group className="mb-3" controlId="request">
+                                <Form.Control type="text" onChange={handleChange} value={request} name="request" placeholder="Send a message" />
+                            </Form.Group>
+                            </Col>
+                            <Col xs={2}>
+                            <Button variant="light" type="submit">
+                                Submit
+                            </Button>
+                            </Col>
+                        </Row>
+                        </Form>
+                    </Col>
+                    </Modal.Body>
+                </Modal>
+            }
+            {
+                <Modal show={news}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Search</Modal.Title> 
+                    </Modal.Header>
+                    <Modal.Body>
+                    <Row xs={1} style={{ justifyContent: 'center', margin: '1rem' }}>
+                        <Col >
+                            <img style={{ objectFit: 'cover', width: '25rem', height: '140px', borderRadius: '1rem' }} src="https://i.imgur.com/20LpIoh.jpg"/>
+                        </Col>
+                    </Row>
+                    <Row xs={1} style={{ justifyContent: 'center', marginTop: '2rem' }}>
+                        <Col >
+                            <Form style={{ margin: '.2rem' }} onSubmit={artSearch}> 
+                                <Form.Group>
+                                    <Form.Control style={{ textAlign: 'center' }} onChange={handleSearchFieldChange} value={searchField} type="text" placeholder="Search for art" />
+                                </Form.Group>
+                            </Form>
+                        </Col>
+                    </Row>
+                    </Modal.Body>
+                    <Modal.Footer>
+                    <Row>
+                        <Col xs={8}>
+                        {results?.map((image) => (
+                            <Card.Img src={image} alt={image} />
+                            ))}
+                        </Col>
+                    </Row>
+                    </Modal.Footer>
+                </Modal>
+            }
             {
                 <Modal show={posts}>
                     <Modal.Header closeButton>
