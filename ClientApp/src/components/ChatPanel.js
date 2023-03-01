@@ -27,12 +27,11 @@ const ChatPanel = () => {
 
     return (
         <div style={{ height: '350px', width: 'auto', backgroundColor: '#d4d4d4', padding: '1rem', borderRadius: '.2rem', textAlign: 'center', margin: '1rem', overflowY: 'auto' }}>
-            <h1>Chat Archives</h1>
-            <Row xs={1} xl={2}>
+            <h1>Chats</h1>
             {chats?.length > 0 && chats?.map(({ chatId, title }) => (
-                <div style={{ width: '18rem', cursor: 'pointer', boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)', background: 'white', margin: '.3rem', padding: '.5rem', borderRadius: '.2rem' }} key={chatId}>
+                <div style={{ cursor: 'pointer', boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)', background: 'white', margin: '.3rem', padding: '.5rem', borderRadius: '.2rem' }} key={chatId}>
                     <Row xs={2}>
-                        <Col xs={9}>
+                        <Col xs={10}>
                             <div id={chatId} onClick={goToChat}>
                                 {title}
                             </div>
@@ -43,7 +42,6 @@ const ChatPanel = () => {
                     </Row>
                 </div>
             ))}
-            </Row>
         </div>
     )
 }

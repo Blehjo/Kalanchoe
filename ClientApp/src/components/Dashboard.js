@@ -2,7 +2,7 @@
 import MessagePanel from "./MessagePanel";
 import { Col, Row } from 'react-bootstrap';
 import CommunityPanel from "./CommunityPanel";
-import PanelPanel from "./PanelPanel";
+import DilemmasPanel from "./DilemmasPanel";
 
 const Dashboard = () => {
     return(
@@ -12,7 +12,7 @@ const Dashboard = () => {
             </Col>
             <Col xs={6}>
                 <ChatPanel/>
-                <PanelPanel/>
+                <DilemmasPanel/>
             </Col>
             <Col xs={3}>
                 <CommunityPanel/>

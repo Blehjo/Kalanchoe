@@ -11,7 +11,7 @@ function SidebarIndex() {
     const isListOpen = useSelector(selectIsListOpen);
 
     return (
-        <Row style={{ zIndex: 2 }}>
+        <Row style={{ marginLeft: "2rem", zIndex: 2 }}>
             <Col xs={2} >
                 <div className="sticky-top">
                     <SidebarMenu />

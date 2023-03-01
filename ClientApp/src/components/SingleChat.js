@@ -17,6 +17,15 @@ const SingleChat = () => {
     const comments = useSelector(selectChatCommentItems);
     const { id } = useParams();
 
+    const convertImages = (value) => {
+    if (value.startsWith("https")) {
+      const images = value.split("%3D");
+      images.pop()
+      return images.map((image) => (<img style={{ margin: '1rem', height: '30rem', width: '30rem', objectFit: 'fit' }} key={images.indexOf(image)} src={image + "%3D"} />));
+    }
+    return value;
+  }
+
     useEffect(() => {
         getSingleChatcomment(id)
         .then((response) => dispatch(chatcommentFetchAllStart(response.data)));
@@ -35,7 +44,7 @@ const SingleChat = () => {
                 </Row>
                 {comments?.length > 0 && comments?.map(({ chatCommentId, chatValue, dateCreated }) => (
                     <Card key={chatCommentId} style={{ margin: '2rem' }}>
-                        <Card.Body key={chatCommentId}>{chatValue}</Card.Body>
+                        <Card.Body key={chatCommentId}>{convertImages(chatValue)}</Card.Body>
                         <Card.Footer>Posted {utcConverter(dateCreated)}</Card.Footer>
                     </Card>
                 ))}

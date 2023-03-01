@@ -5,7 +5,7 @@ import { getUserPanels, deletePanel } from "../utils/api/panel";
 import { useNavigate } from "react-router";
 import NoteInfo from "./NoteInfo";
 
-const PanelPanel = () => {
+const DilemmasPanel = () => {
     const navigate = useNavigate();
     const [panels, setPanels] = useState([]);
 
@@ -46,4 +46,4 @@ const PanelPanel = () => {
     )
 }
 
-export default PanelPanel;
+export default DilemmasPanel;

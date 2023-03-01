@@ -1,6 +1,6 @@
 ﻿import { Fragment, useState, useEffect } from 'react';
 import { Col, Tooltip, OverlayTrigger, Modal, Button, Row, Card, Form, Dropdown } from 'react-bootstrap';
-import { XSquare, Robot, Globe, Paperclip, Clipboard, ChatDots, Messenger, AspectRatio, Newspaper } from 'react-bootstrap-icons';
+import { XSquare, Robot, Globe, Paperclip, Clipboard, Messenger, AspectRatio, Newspaper } from 'react-bootstrap-icons';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import Cookies from "js-cookie";
@@ -188,19 +188,6 @@ const Toolbar = () => {
                     <Robot className='mx-2' color="black" size={40} />
                 </OverlayTrigger>
             </Col>
-            {/* <Col style={{ cursor: 'pointer' }} onClick={handleSavedClick}>
-                <OverlayTrigger
-                    key="messages"
-                    placement="bottom"
-                    overlay={
-                        <Tooltip id="tooltip-bottom">
-                        Messages
-                        </Tooltip>
-                    }
-                >
-                    <ChatDots className='mx-2' action='true' color="black" size={40} />
-                </OverlayTrigger>
-            </Col> */}
             <Col style={{ cursor: 'pointer' }} onClick={handleSearchBarClick}>
             <OverlayTrigger
                     key="news"
@@ -240,7 +227,6 @@ const Toolbar = () => {
                     <Messenger className='mx-2' color="black" size={40} />
                 </OverlayTrigger>
             </Col>
-            {/* If user is in communities, show this icon */}
             <Col style={{ cursor: 'pointer' }} onClick={showCommunities}>
             <OverlayTrigger
                     key="robot"
