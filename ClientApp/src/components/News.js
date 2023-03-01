@@ -1,11 +1,16 @@
 ﻿import { Fragment, useEffect, useState } from "react";
-import { Row, Col, Form, Card } from 'react-bootstrap';
+import { Row, Col, Form, Card, Modal } from 'react-bootstrap';
+import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
+import { selectPosts } from "../store/post/post.selector";
+import { postFetchAllStart } from "../store/post/post.action";
+import { selectMessageItems } from "../store/message/message.selector";
 
 const News = () => {
-    const [results, setResults] = useState([]);
-    const [objects, setObjects] = useState([]);
+    const dispatch = useDispatch();
+    const results = useSelector(selectPosts);
     const [searchField, setSearchField] = useState("");
+    const objectArray = [];
     const baseUrl = "https://collectionapi.metmuseum.org/public/collection/v1/search?q=";
     const objectUrl = "https://collectionapi.metmuseum.org/public/collection/v1/objects/";
 
@@ -13,20 +18,25 @@ const News = () => {
         setSearchField(event.target.value);
     }
 
-    const search = () => {
-        const doTask = async (objectId) => {
-            await axios.get(objectUrl + objectId)
-                .then((response) => setResults(response.data.primaryImage));
-        }
-        
-        objects.splice(0, 10).map((object) => doTask(object));
+    const doTask = async (objectId) => {
+        await axios.get(objectUrl + objectId)
+        .then((response) => objectArray.push(response.data.primaryImage != null && response.data.primaryImage));
+    }
+    
+    const search = async (objects) => {
+        await objects.splice(0, 100).map((objectId) => doTask(objectId));
+        dispatch(postFetchAllStart(objectArray));
     }
 
     const artSearch = async (event) => {
         event.preventDefault();
         await axios.get(baseUrl + searchField)
-            .then((response) => setObjects(response.data.objectIDs));
-        search();
+        .then((response) => search(response.data.objectIDs));
+    }
+
+    const openInNewTab = (url) => {
+        const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+        if (newWindow) newWindow.opener = null
     }
 
     return (
@@ -45,10 +55,10 @@ const News = () => {
                     </Form>
                 </Col>
             </Row>
-            <Row>
-                <Col xs={8}>
+            <Row style={{ marginTop: '2rem' }} xs={4}>
+                <Col xs={12}>
                 {results?.map((image) => (
-                    <Card.Img src={image} alt={image} />
+                    <img onClick={() => openInNewTab(image)} style={{ borderRadius: '1rem', margin: '.1rem', cursor: 'pointer', height: '20rem', width: '20rem', objectFit: 'cover' }} src={image} alt={image} />
                 ))}
                 </Col>
             </Row>

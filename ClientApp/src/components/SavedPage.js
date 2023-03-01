@@ -24,7 +24,7 @@ const Saved = () => {
     const openInNewTab = (url) => {
         const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
         if (newWindow) newWindow.opener = null
-      }
+    }
 
     return(
         <Fragment>
@@ -42,7 +42,7 @@ const Saved = () => {
                         <Card
                             id={link} 
                             onClick={() => openInNewTab(link)}
-                            style={{ color: 'white' }}
+                            style={{ color: 'white', cursor: 'pointer' }}
                             className="bg-dark"
                             key={id}
                         >
