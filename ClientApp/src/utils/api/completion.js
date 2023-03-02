@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const api = "https://localhost:7028/api/chatgpt";
+const api = "https://kalanchoeai-server.azurewebsites.net/api/chatgpt";
 
 const headers = {
   'Accept': 'application/json',

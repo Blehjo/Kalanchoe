@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const api = "https://localhost:7028/api/channelcomment"
+const api = "https://kalanchoeai-server.azurewebsites.net/api/channelcomment"
 
 export async function getSingleChannelcomment(channelId) {
   return await axios({

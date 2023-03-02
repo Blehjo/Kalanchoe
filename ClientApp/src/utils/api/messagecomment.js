@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const api = "https://localhost:7028/api/messagecomment"
+const api = "https://kalanchoeai-server.azurewebsites.net/api/messagecomment"
 
 export async function getSingleMessagecomment(messageId) {
   return await axios({

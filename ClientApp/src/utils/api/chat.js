@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const api = "https://localhost:7028/api/chat";
+const api = "https://kalanchoeai-server.azurewebsites.net/api/chat";
 
 export async function getSingleChat(chatId) {
   return await axios({

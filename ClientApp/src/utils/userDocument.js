@@ -5,7 +5,7 @@ export const userDocument = (user) => user;
 export const login = async (username, password) => {
     await axios({
         method: 'post',
-        url: "https://localhost:7028/api/users/authenticate",
+        url: "https://kalanchoeai-server.azurewebsites.net/api/users/authenticate",
         data: {
             Username: username,
             Password: password
@@ -20,7 +20,7 @@ export const login = async (username, password) => {
 export const getUser = async () => {
     const user = await axios({
         method: 'get',
-        url: `https://localhost:7028/api/users/data`,
+        url: `https://kalanchoeai-server.azurewebsites.net/api/users/data`,
         headers: {
             'Content-Type': 'application/json',
         },
@@ -32,7 +32,7 @@ export const getUser = async () => {
 export const signUpUser = async (username, firstName, lastName, dateOfBirth, emailAddress, password, about, profileImage) => {
     await axios({
         method: 'post',
-        url: "https://localhost:7028/api/users/register",
+        url: "https://kalanchoeai-server.azurewebsites.net/api/users/register",
         data: {
             Username: username,
             FirstName: firstName,
@@ -56,7 +56,7 @@ export const signUpUser = async (username, firstName, lastName, dateOfBirth, ema
 export const signOutUser = async () => {
     await axios({
         method: 'post',
-        url: "https://localhost:7028/api/users/logout",
+        url: "https://kalanchoeai-server.azurewebsites.net/api/users/logout",
         headers: {
             'Content-Type': 'application/json'
         },

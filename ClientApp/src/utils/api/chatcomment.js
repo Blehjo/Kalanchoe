@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const api = "https://localhost:7028/api/chatcomment"
+const api = "https://kalanchoeai-server.azurewebsites.net/api/chatcomment"
 
 export async function getSingleChatcomment(chatId) {
   return await axios({

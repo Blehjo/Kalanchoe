@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const api = "https://localhost:7028/api/user"
+const api = "https://kalanchoeai-server.azurewebsites.net/api/user"
 
 export async function getSingleUser(userId) {
   return await axios({

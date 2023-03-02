@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const api = "https://localhost:7028/api/member";
+const api = "https://kalanchoeai-server.azurewebsites.net/api/member";
 
 const headers = {
   'Accept': 'application/json',
