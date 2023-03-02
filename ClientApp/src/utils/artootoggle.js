@@ -1,7 +1,8 @@
 const libraries = {
     0: "https://localhost:7028/api/chatgpt/completion",
     1: "https://localhost:7028/api/chatgpt/dalle",
-    2: "https://localhost:7028/api/chatgpt/code"
+    2: "https://localhost:7028/api/chatgpt/code",
+    3: "https://localhost:7028/api/chatgpt/artoo"
 }
 
 export const toggle = (library) => {
@@ -12,6 +13,8 @@ export const toggle = (library) => {
             return libraries[1];
         case "Code": 
             return libraries[2];
+        case "Artoo": 
+            return libraries[3];
         default:
             return "Try again";
     }
