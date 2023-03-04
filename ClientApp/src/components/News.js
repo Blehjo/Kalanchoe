@@ -25,7 +25,7 @@ const News = () => {
     const search = async (objects) => {
         await objects.splice(0, 200).map((objectId) => doTask(objectId));
         dispatch(postFetchAllStart(objectArray));
-        setTimeout(() => setSearchField(""), 1000);
+        setTimeout(() => setSearchField(""), 3000);
     }
     
     const artSearch = async (event) => {
@@ -47,7 +47,6 @@ const News = () => {
                 </Col>
                 <Col xs={12} md={12}>
                     <div className="searchrow" style={{ }}>
-
                     <Form style={{ justifyContent: 'center', margin: '.2rem' }} onSubmit={artSearch}> 
                         <Form.Group >
                             <Form.Control style={{ textAlign: 'center' }} onChange={handleSearchFieldChange} value={searchField} type="text" placeholder="Search for art" />
@@ -59,7 +58,7 @@ const News = () => {
             <Row key="results" style={{ marginTop: '2rem' }} xs={4}>
                 <Col xs={12}>
                 {results?.map((image) => (
-                    <img key={results[image]} onClick={() => openInNewTab(image)} style={{ borderRadius: '1rem', margin: '.1rem', cursor: 'pointer', height: '20rem', width: '20rem', objectFit: 'cover' }} src={image} alt={image} />
+                    <img key={results[image]} onClick={() => openInNewTab(image)} style={{ borderRadius: '1rem', margin: '.1rem', cursor: 'pointer', height: '25rem', width: '25rem', objectFit: 'cover' }} src={image} alt={image} />
                 ))}
                 </Col>
             </Row>

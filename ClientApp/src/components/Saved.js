@@ -36,9 +36,6 @@ const Saved = () => {
             <Nav.Link href="/news">
                 <Newspaper className='mt-4' color="black" size={40} />
             </Nav.Link>
-            <Nav.Link href="/search">
-                <Globe className='mt-4' color="black" size={40} />
-            </Nav.Link>
         </Fragment>
     )
 }

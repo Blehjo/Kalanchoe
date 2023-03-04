@@ -65,12 +65,6 @@ const SidebarOverlay = () => {
                     </Nav.Link>
                 </Nav.Item>
                 <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
-                    <Globe className='' color="black" size={20}/>
-                    <Nav.Link href="/search" className="ms-4">
-                        Search
-                    </Nav.Link>
-                </Nav.Item >
-                <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
                     <Newspaper className='' color="black" size={20}/>
                     <Nav.Link href="/news" className="ms-4">
                         News

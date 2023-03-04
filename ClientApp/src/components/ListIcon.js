@@ -12,7 +12,7 @@ const ListIcon = () => {
 
     return (
         <div className='' onClick={toggleIsListOpen}>
-            <List style={{ cursor: "pointer" }} className='me-2' size={25} color="black" />
+            <List style={{ marginLeft: '1rem', cursor: "pointer" }} className='me-2' size={25} color="black" />
         </div>
     )
 }

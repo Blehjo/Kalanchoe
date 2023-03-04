@@ -39,6 +39,10 @@ code {
   margin: auto;
 }
 
+.navbar-nav {
+  color: 'black'
+}
+
 @media only screen and (max-width: 62em) {
   .panel {
     height: 350px;

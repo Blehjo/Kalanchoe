@@ -45,7 +45,7 @@ const Community = () => {
                 <Col xs={1}>
                     <Card.Img style={{ marginTop: '.2rem', borderRadius: '.5rem', height: '3rem', width: '3rem', objectFit: 'cover' }} src={mediaLink} />
                 </Col>
-                <Col xs={2}>
+                <Col xs={9}>
                     <h1>{groupName}</h1>
                 </Col>
             </Row>
