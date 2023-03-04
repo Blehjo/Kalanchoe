@@ -1,13 +1,19 @@
 ﻿import { Nav } from 'react-bootstrap';
-import { Collection, Router, Globe, House, Database, Eye, Clipboard, Bookmark, Speedometer2, ArrowRepeat, ChatDots, Person, Messenger, PersonWorkspace, Newspaper, Robot } from 'react-bootstrap-icons';
+import { Collection, House, Database, Eye, Clipboard, Bookmark, ChatDots, Person, PersonWorkspace, Newspaper, Robot } from 'react-bootstrap-icons';
 import { Fragment } from 'react';
-
+import Cookie from "js-cookie";
 
 const Saved = () => {
+    const userId = Cookie.get("user");
+    console.log("")
+
     return (
         <Fragment>
             <Nav.Link href="/profile">
                 <Person className='mt-4' color="black" size={40} />
+            </Nav.Link>
+            <Nav.Link href={`/page/${userId}`}>
+                <House className='mt-4' color="black" size={40}/>
             </Nav.Link>
             <Nav.Link href="/artoo">
                 <Robot className='mt-4' color="black" size={40} />
@@ -27,9 +33,9 @@ const Saved = () => {
             <Nav.Link href="/communities">
                 <Database className='mt-4' action='true' color="black" size={40} />
             </Nav.Link>
-            <Nav.Link href="/posts">
+            {/* <Nav.Link href="/posts">
                 <Collection className='mt-4' color="black" size={40} />
-            </Nav.Link>
+            </Nav.Link> */}
             <Nav.Link href="/saved">
                 <Bookmark className='mt-4' color="black" size={40} />
             </Nav.Link>

@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
-// import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
-import { Link } from 'react-router-dom';
-import './NavMenu.css';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import { Col, Row } from 'reactstrap';
 
 import ListIcon from './ListIcon';
 import SignInButton from './SignInButton';
 
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import { Col, Row } from 'reactstrap';
+import './NavMenu.css';
 
 export class NavMenu extends Component {
 
@@ -22,6 +16,9 @@ export class NavMenu extends Component {
             <Navbar fixed='top' bg='light' expand="sm">
                 <ListIcon key='listicon'/>
                 <Nav >
+                    <img onClick={() => {
+                        this.props.navigation.navigate('/')
+                    }} height="25rem" width="15rem" style={{ cursor: 'pointer', objectFit: 'cover', margin: '.6rem .3rem .6rem 1rem' }} src='https://i.imgur.com/20LpIoh.jpg'/>
                 <Navbar.Brand href="/">Kalanchoe AI</Navbar.Brand>
                 </Nav>
               <Navbar.Toggle key="navbarToggle" aria-controls={`navBarItems}`} />
@@ -31,7 +28,7 @@ export class NavMenu extends Component {
 
                   </Nav>
                 </Col>
-                <Row style={{ justifyContent: "space-between"}}>
+                <Row style={{ justifyContent: "space-between", textAlign: "center"}}>
                     <Col key="navigationIcons">
                         <Nav.Link href="/dashboard" className="text-dark">Dashboard</Nav.Link>
                     </Col>

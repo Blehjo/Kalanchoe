@@ -1,18 +1,18 @@
 .profile-dropdown-container {
     position: absolute;
     width: 240px;
-    height: 450px;
+    height: 260px;
     display: flex;
     flex-direction: column;
     padding: 20px;
     background-color: rgba(27, 23, 23, 0.7);
     top: 57px;
-    right: 370px;
+    right: 0;
     z-index: 5;
   
     .empty-message {
       font-size: 18px;
-      margin: 50px auto;
+      margin: auto;
     }
   
     .profile-options {

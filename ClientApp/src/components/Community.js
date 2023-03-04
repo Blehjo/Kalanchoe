@@ -59,7 +59,7 @@ const Community = () => {
                     <Form className="channelform" style={{ background: '#d4d4d4', borderRadius: '.2rem' }} onSubmit={sendMessage}>
                     <Row style={{ padding: '2rem' }}>
                         <Col>
-                            <div style={{ overflowY: 'auto', borderRadius: '.2rem' }}>
+                            <div style={{ overflowY: 'auto', borderRadius: '.2rem', height: '80vh', overflowY: 'auto'  }}>
                             {channelComments?.length > 0 && channelComments?.map(({ channelCommentId, channelCommentValue }) => (
                                 <div style={{ background: 'white', margin: '1rem', padding: '.5rem', borderRadius: '.2rem' }} key={channelCommentId}>
                                     <div key={channelCommentId}>

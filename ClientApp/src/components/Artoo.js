@@ -123,7 +123,7 @@ const Artoo = () => {
             <Dropdown.Item onClick={(event) => setChoice(event.target.name)} name="Art" value="art">Art</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
-          <Row style={{ padding: '2rem' }}>
+          <Row style={{ padding: '2rem', height: '80vh', overflowY: 'auto' }}>
             <Col>
               {chatComments?.length > 0 && chatComments?.map(({ chatCommentId, chatValue }) => (
                 <div style={{ background: 'white', margin: '1rem', padding: '.5rem', borderRadius: '.2rem' }} key={chatCommentId}>

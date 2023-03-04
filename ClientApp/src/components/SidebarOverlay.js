@@ -1,8 +1,7 @@
-﻿import { useState, useEffect } from "react";
-import { Card, Nav, Row, Col } from "react-bootstrap";
-import { Collection, Router, Globe, House, Database, Eye, Clipboard, Bookmark, Speedometer2, ArrowRepeat, ChatDots, Person, Messenger, PersonWorkspace, Newspaper, Robot } from 'react-bootstrap-icons';
+﻿import { Nav, Row } from "react-bootstrap";
+import { Collection, House, Database, Eye, Clipboard, Bookmark, ChatDots, Person, PersonWorkspace, Newspaper, Robot } from 'react-bootstrap-icons';
 
-const SidebarOverlay = () => {
+const SidebarOverlay = ({ userId }) => {
 
     return (
         <div style={{ color: "black", width: 200, height: '100vh', overflowY: 'auto', marginTop: '3rem' }} className='fixed-top bg-light'>
@@ -14,6 +13,12 @@ const SidebarOverlay = () => {
                     <Person className='' color="black" size={20}/>
                     <Nav.Link href="/profile" className="ms-4">
                         Workspace
+                    </Nav.Link>
+                </Nav.Item>
+                <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
+                    <House className='' color="black" size={20}/>
+                    <Nav.Link href={`/page/${userId}`} className="ms-4">
+                        Profile
                     </Nav.Link>
                 </Nav.Item>
                 <Nav.Item className="mb-3 ms-3 d-flex align-items-center">

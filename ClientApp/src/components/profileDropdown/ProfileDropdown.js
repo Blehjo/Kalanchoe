@@ -1,5 +1,5 @@
 import { Nav, Row } from "react-bootstrap";
-import { Inbox, Gear, Laptop, DoorOpen, QuestionCircle, MenuApp, Person } from 'react-bootstrap-icons';
+import { Inbox, Gear, DoorOpen, QuestionCircle, Person } from 'react-bootstrap-icons';
 import { useDispatch } from 'react-redux';
 import { signOutStart } from '../../store/user/user.action';
 
@@ -13,7 +13,6 @@ const ProfileDropdown = ({ user }) => {
     return (
         <div className='profile-dropdown-container'>
             <div className='profile-options' />
-            <div className='' >
                 <Row 
                 className="" style={{color: "white"}} 
                 xs={1} 
@@ -28,18 +27,6 @@ const ProfileDropdown = ({ user }) => {
                         <Inbox className='' color="white" size={20}/>
                         <Nav.Link href="/" className="ms-4">
                         Notifications
-                        </Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item className="mb-3 ms-3 d-flex align-items-center ">
-                        <Laptop className='' color="white" size={20}/>
-                        <Nav.Link href="/explore" className="ms-4">
-                        Dashboard
-                        </Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item className="mb-3 ms-3 d-flex align-items-center ">
-                        <MenuApp className='' color="white" size={25}/>
-                        <Nav.Link href="/savedgames" className="ms-4">
-                        Appearance: Device theme
                         </Nav.Link>
                     </Nav.Item>
                     <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
@@ -61,7 +48,6 @@ const ProfileDropdown = ({ user }) => {
                         </Nav.Link>
                     </Nav.Item>
                 </Row>
-            </div>
         </div>
     )
 }

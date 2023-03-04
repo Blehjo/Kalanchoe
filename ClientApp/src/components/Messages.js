@@ -92,7 +92,7 @@ const Messages = () => {
         <Form className="messageform" style={{ background: '#d4d4d4', borderRadius: '.2rem' }} onSubmit={sendMessage}>
           <Row style={{ padding: '2rem' }}>
             <Col>
-              <div style={{ overflowY: 'auto', borderRadius: '.2rem' }}>
+              <div style={{ height: '80vh', overflowY: 'auto', borderRadius: '.2rem' }}>
               {messageComments?.length > 0 && messageComments?.map(({ messageCommentId, messageValue }) => (
                 <div style={{ background: 'white', margin: '1rem', padding: '.5rem', borderRadius: '.2rem' }} key={messageCommentId}>
                       <div key={messageCommentId} style={{ textAlign: message.messageValue != username ? 'right' : 'left' }}>
