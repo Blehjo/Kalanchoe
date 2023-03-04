@@ -89,9 +89,9 @@ const Artoo = () => {
   }, [id]);
 
   return (
-    <Row xs={2}>
-      <Col sm={3}>
-        <div style={{ height: '94vh', overflowY: 'auto', background: '#d4d4d4', borderRadius: '.2rem', textAlign: 'center' }}>
+    <Row xs={1} md={2}>
+      <Col md={3}>
+        <div className="artoo" style={{ marginBottom: '1rem', overflowY: 'auto', background: '#d4d4d4', borderRadius: '.2rem', textAlign: 'center' }}>
           <h1 style={{}}>Artoo</h1>
           {chats?.length > 0 && chats?.map(({ chatId, title }) => (
             <div style={{ boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)', cursor: 'pointer', background: 'white', margin: '1rem', padding: '.5rem', borderRadius: '.2rem' }} key={chatId}>
@@ -109,8 +109,9 @@ const Artoo = () => {
           ))}
         </div>
       </Col>
-      <Col sm={9}>
-        <Form style={{ background: '#d4d4d4', borderRadius: '.2rem' }} onSubmit={sendMessage}>
+      <Col md={9}>
+        <div style={{ overflowY: 'auto', borderRadius: '.2rem' }}>
+        <Form className="artooform" style={{ position: 'relative', background: '#d4d4d4', borderRadius: '.2rem' }} onSubmit={sendMessage}>
         <Dropdown style={{ padding: '1rem' }}>
           <Dropdown.Toggle variant="light" id="dropdown">
             {choice}
@@ -124,7 +125,6 @@ const Artoo = () => {
         </Dropdown>
           <Row style={{ padding: '2rem' }}>
             <Col>
-              <div style={{ height: '73vh', overflowY: 'auto', borderRadius: '.2rem' }}>
               {chatComments?.length > 0 && chatComments?.map(({ chatCommentId, chatValue }) => (
                 <div style={{ background: 'white', margin: '1rem', padding: '.5rem', borderRadius: '.2rem' }} key={chatCommentId}>
                       <div key={chatValue}>
@@ -132,22 +132,24 @@ const Artoo = () => {
                       </div>
                 </div>
               ))}
-              </div>
             </Col>
-          </Row>
-          <Row style={{ padding: '2rem' }} xs={2}>
-            <Col xs={10}>
+          <div style={{ position: 'absolute', bottom: '0' }} >
+          <Row  xs={2}>
+            <Col xs={8} md={10}>
               <Form.Group className="mb-3" controlId="request">
                 <Form.Control type="text" onChange={handleChange} value={request} name="request" placeholder="Send a message" />
               </Form.Group>
             </Col>
             <Col xs={2}>
               <Button variant="light" type="submit">
-                Submit
+                Go
               </Button>
             </Col>
           </Row>
+          </div>
+          </Row>
         </Form>
+        </div>
       </Col>
     </Row>
   );

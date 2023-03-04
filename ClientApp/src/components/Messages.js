@@ -68,10 +68,10 @@ const Messages = () => {
   }, [length, id]);
 
   return (
-    <Row xs={2}>
-      <Col sm={3}>
-        <div style={{ height: '94vh', overflowY: 'auto', background: '#d4d4d4', borderRadius: '.2rem', textAlign: 'center' }}>
-          <h1 style={{}}>Messages</h1>
+    <Row xs={1} md={2}>
+      <Col md={3}>
+        <div className="messages"style={{ marginBottom: '1rem', overflowY: 'auto', background: '#d4d4d4', borderRadius: '.2rem', textAlign: 'center' }}>
+          <h1>Messages</h1>
           {messages?.length > 0 && messages?.map(({ messageId, messageValue }) => (
             <div style={{ cursor: 'pointer', background: 'white', margin: '1rem', padding: '.5rem', borderRadius: '.2rem' }} key={messageId}>
               <Row>
@@ -88,11 +88,11 @@ const Messages = () => {
           ))}
         </div>
       </Col>
-      <Col sm={9}>
-        <Form style={{ background: '#d4d4d4', borderRadius: '.2rem' }} onSubmit={sendMessage}>
+      <Col md={9}>
+        <Form className="messageform" style={{ background: '#d4d4d4', borderRadius: '.2rem' }} onSubmit={sendMessage}>
           <Row style={{ padding: '2rem' }}>
             <Col>
-              <div style={{ height: '73vh', overflowY: 'auto', borderRadius: '.2rem' }}>
+              <div style={{ overflowY: 'auto', borderRadius: '.2rem' }}>
               {messageComments?.length > 0 && messageComments?.map(({ messageCommentId, messageValue }) => (
                 <div style={{ background: 'white', margin: '1rem', padding: '.5rem', borderRadius: '.2rem' }} key={messageCommentId}>
                       <div key={messageCommentId} style={{ textAlign: message.messageValue != username ? 'right' : 'left' }}>
@@ -102,18 +102,20 @@ const Messages = () => {
               ))}
               </div>
             </Col>
-          </Row>
+          <div style={{ position: 'absolute', bottom: '0' }} >
           <Row style={{ padding: '2rem' }} xs={2}>
-            <Col xs={10}>
+            <Col xs={8} md={10}>
               <Form.Group className="mb-3" controlId="request">
                 <Form.Control type="text" onChange={handleChange} value={request} name="request" placeholder="Send a message" />
               </Form.Group>
             </Col>
             <Col xs={2}>
               <Button variant="light" type="submit">
-                Submit
+                Send
               </Button>
             </Col>
+          </Row>
+          </div>
           </Row>
         </Form>
       </Col>

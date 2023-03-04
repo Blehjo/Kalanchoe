@@ -41,18 +41,19 @@ const News = () => {
 
     return (
         <Fragment>
-            <Row key="image" xs={1} style={{ justifyContent: 'center', marginTop: '5rem' }}>
-                <Col xs={4}>
-                    <img style={{ objectFit: 'cover', width: '25rem', height: '140px', borderRadius: '1rem' }} src="https://i.imgur.com/20LpIoh.jpg"/>
+            <Row key="image" xs={1} style={{ textAlign: 'center', marginTop: '5rem' }}>
+                <Col xs={12} md={12}>
+                    <img className="searchrow" style={{ objectFit: 'cover', width: '25rem', height: '140px', borderRadius: '1rem' }} src="https://i.imgur.com/20LpIoh.jpg"/>
                 </Col>
-            </Row>
-            <Row key="searchbar" xs={1} style={{ justifyContent: 'center', marginTop: '2rem' }}>
-                <Col xs={4}>
-                    <Form style={{ margin: '.2rem' }} onSubmit={artSearch}> 
-                        <Form.Group>
+                <Col xs={12} md={12}>
+                    <div className="searchrow" style={{ }}>
+
+                    <Form style={{ justifyContent: 'center', margin: '.2rem' }} onSubmit={artSearch}> 
+                        <Form.Group >
                             <Form.Control style={{ textAlign: 'center' }} onChange={handleSearchFieldChange} value={searchField} type="text" placeholder="Search for art" />
                         </Form.Group>
                     </Form>
+                    </div>
                 </Col>
             </Row>
             <Row key="results" style={{ marginTop: '2rem' }} xs={4}>

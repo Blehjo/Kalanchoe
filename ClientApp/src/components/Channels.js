@@ -29,18 +29,18 @@ const Channels = () => {
 
     return (
         <Fragment>
-            <Row>
-                    
+            <Row>     
                 <Col>
-                    <div style={{ height: '94vh', overflowY: 'auto', background: '#d4d4d4', borderRadius: '.2rem', textAlign: 'center' }}>
+                <div className="channels" style={{ overflowY: 'auto', background: '#d4d4d4', borderRadius: '.2rem', textAlign: 'center' }}>
                 <Row xs={2}>
-                <Col xs={9}>
-                    <h1>Channels</h1>
-                </Col>
-                <Col xs={1}>
-                    <Button style={{ marginTop: '.5rem' }} variant="light" type="submit" onClick={handleShow}><Plus/></Button>
-                </Col>
+                    <Col xs={9}>
+                        <h1>Channels</h1>
+                    </Col>
+                    <Col xs={1}>
+                        <Button style={{ marginTop: '.2rem' }} variant="light" type="submit" onClick={handleShow}><Plus/></Button>
+                    </Col>
                 </Row>
+                <Col>
                     {channels?.map(({ description, channelId }) => (
                         <div 
                         onClick={handleClickEvent}
@@ -51,6 +51,7 @@ const Channels = () => {
                             {description}
                         </div>
                     ))}
+                </Col>
                 </div>
                 </Col>
             </Row>

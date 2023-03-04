@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from "react";
+﻿import { useEffect } from "react";
 import styled from "styled-components";
 import { DragDropContext } from "react-beautiful-dnd";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,6 +6,7 @@ import DraggableElement from "./DraggableElement";
 import { getUserPanels } from "../utils/api/panel";
 import { selectPanelItems } from "../store/panel/panel.selector";
 import { panelFetchAllStart } from "../store/panel/panel.action";
+import { Col, Row } from "react-bootstrap";
 
 const DragDropContextContainer = styled.div`
   padding: 20px;
@@ -66,14 +67,18 @@ function DragList() {
         <DragDropContextContainer>
             <DragDropContext onDragEnd={onDragEnd}>
                 <ListGrid>
+                    <Row xs={1} md={3}>
                     {panels.length > 0 && panels?.map(({panelId, title}) => (
+                        <Col xs={12} md={4}>
                         <DraggableElement
-                            title={title}
-                            key={panelId}
-                            panelId={panelId}
-                            prefix={title}
+                        title={title}
+                        key={panelId}
+                        panelId={panelId}
+                        prefix={title}
                         />
-                    ))}
+                        </Col>
+                        ))}
+                    </Row>
                 </ListGrid>
             </DragDropContext>
         </DragDropContextContainer>

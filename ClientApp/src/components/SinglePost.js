@@ -52,11 +52,11 @@ const SinglePost = () => {
             </Row>
             <Form style={{ margin: 'auto' }} id={postId} onSubmit={postComment}>
                 <Row style={{ marginBottom: '3rem', justifyContent: 'center' }} xs={2}>
-                    <Col xs={5} >
+                    <Col xs={9} md={8} lg={5}>
                         <Form.Control as="textarea" onChange={handleTextChange} placeholder=" Write your comment here" />
                     </Col>
-                    <Col xs={1}>
-                        <Button id={postId} style={{ width: '100%', height: '100%'}} variant="light" type="submit">
+                    <Col xs={3} md={2}>
+                        <Button id={postId} style={{ textAlign: 'center', width: '100%', height: '100%'}} variant="light" type="submit">
                             Post
                         </Button>
                     </Col>                

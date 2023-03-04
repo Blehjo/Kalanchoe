@@ -49,36 +49,40 @@ const Community = () => {
                     <h1>{groupName}</h1>
                 </Col>
             </Row>
-            <Row>
-                <Col xs={3}>
+            <Row xs={1} md={2}>
+                <Col md={3}>
+                <div style={{ marginBottom: '1rem' }}>
                     <Channels/>
+                </div>
                 </Col>
-                <Col sm={9}>
-                    <Form style={{ background: '#d4d4d4', borderRadius: '.2rem' }} onSubmit={sendMessage}>
+                <Col md={9}>
+                    <Form className="channelform" style={{ background: '#d4d4d4', borderRadius: '.2rem' }} onSubmit={sendMessage}>
                     <Row style={{ padding: '2rem' }}>
                         <Col>
-                        <div style={{ height: '73vh', overflowY: 'auto', borderRadius: '.2rem' }}>
-                        {channelComments?.length > 0 && channelComments?.map(({ channelCommentId, channelCommentValue }) => (
-                            <div style={{ background: 'white', margin: '1rem', padding: '.5rem', borderRadius: '.2rem' }} key={channelCommentId}>
-                                <div key={channelCommentId}>
-                                {channelCommentValue}
+                            <div style={{ overflowY: 'auto', borderRadius: '.2rem' }}>
+                            {channelComments?.length > 0 && channelComments?.map(({ channelCommentId, channelCommentValue }) => (
+                                <div style={{ background: 'white', margin: '1rem', padding: '.5rem', borderRadius: '.2rem' }} key={channelCommentId}>
+                                    <div key={channelCommentId}>
+                                    {channelCommentValue}
+                                    </div>
                                 </div>
+                            ))}
                             </div>
-                        ))}
+                        </Col>
+                        <div style={{ position: 'absolute', bottom: '0' }} >
+                            <Row style={{ padding: '2rem' }} xs={2}>
+                                <Col xs={8} md={10}>
+                                <Form.Group className="mb-3" controlId="request">
+                                    <Form.Control type="text" onChange={handleChange} value={request} name="request" placeholder="Send a message" />
+                                </Form.Group>
+                                </Col>
+                                <Col xs={2}>
+                                <Button variant="light" type="submit">
+                                    Send
+                                </Button>
+                                </Col>
+                            </Row>
                         </div>
-                        </Col>
-                    </Row>
-                    <Row style={{ padding: '2rem' }} xs={2}>
-                        <Col xs={10}>
-                        <Form.Group className="mb-3" controlId="request">
-                            <Form.Control type="text" onChange={handleChange} value={request} name="request" placeholder="Send a message" />
-                        </Form.Group>
-                        </Col>
-                        <Col xs={2}>
-                        <Button variant="light" type="submit">
-                            Submit
-                        </Button>
-                        </Col>
                     </Row>
                     </Form>
                 </Col>

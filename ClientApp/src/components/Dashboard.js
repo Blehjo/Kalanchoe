@@ -6,16 +6,20 @@ import DilemmasPanel from "./DilemmasPanel";
 
 const Dashboard = () => {
     return(
-        <Row>
-            <Col xs={3}>
-                <MessagePanel/>
-            </Col>
-            <Col xs={6}>
+        <Row xs={1} md={2} lg={3}>
+            <Col xs={12} lg={6}>
                 <ChatPanel/>
                 <DilemmasPanel/>
             </Col>
-            <Col xs={3}>
-                <CommunityPanel/>
+            <Col xs={12} lg={6}>
+                <Row xs={1} lg={2}>
+                    <Col>
+                        <MessagePanel/>
+                    </Col>
+                    <Col>
+                        <CommunityPanel/>
+                    </Col>
+                </Row>
             </Col>
         </Row>
     );

@@ -16,3 +16,46 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+#root {
+  margin-left: 6rem;
+}
+
+.panel {
+  height: 716px;
+}
+
+.artoo, .messages, .channels {
+  height: 100vh;
+}
+
+.artooform, .messageform, .channelform {
+  height: 100vh;
+  position: relative;
+}
+
+.searchrow {
+  width: 50%;
+  margin: auto;
+}
+
+@media only screen and (max-width: 62em) {
+  .panel {
+    height: 350px;
+  }
+  .artoo, .messages {
+    height: 350px;
+  }
+  .searchrow {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 49em) {
+  .hidden { 
+    display: none;
+  }
+  #root {
+    margin-left: 0rem;
+  }
+}

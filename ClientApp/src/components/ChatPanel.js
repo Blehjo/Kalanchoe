@@ -26,7 +26,7 @@ const ChatPanel = () => {
     }, [id]);
 
     return (
-        <div style={{ height: '350px', width: 'auto', backgroundColor: '#d4d4d4', padding: '1rem', borderRadius: '.2rem', textAlign: 'center', margin: '1rem', overflowY: 'auto' }}>
+        <div style={{ height: '350px', backgroundColor: '#d4d4d4', padding: '1rem', borderRadius: '.2rem', textAlign: 'center', overflowY: 'auto' }}>
             <h1>Chats</h1>
             {chats?.length > 0 && chats?.map(({ chatId, title }) => (
                 <div style={{ cursor: 'pointer', boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)', background: 'white', margin: '.3rem', padding: '.5rem', borderRadius: '.2rem' }} key={chatId}>
