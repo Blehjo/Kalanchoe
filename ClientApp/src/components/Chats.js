@@ -1,4 +1,4 @@
-﻿import { useCallback, useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { Form, Button, Row, Col, Dropdown } from "react-bootstrap";
 import { XCircle } from 'react-bootstrap-icons';
 import axios from "axios";
@@ -7,15 +7,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { addChat, deleteChat, getChats } from "../utils/api/chat";
 import { addChatComment, getSingleChatcomment } from "../utils/api/chatcomment";
 import { toggle } from "../utils/artootoggle";
-import { selectChatItems, selectChatReducer } from "../store/chat/chat.selector";
+import { selectChatItems } from "../store/chat/chat.selector";
 import { chatFetchAllStart } from "../store/chat/chat.action";
-import Cookies from 'js-cookie'
 import { chatcommentFetchAllStart } from "../store/chatcomment/chatcomment.action";
 import { selectChatCommentItems } from "../store/chatcomment/chatcomment.selector";
 
 const defaultFormFields = {
-  request: '',
-  dropdown: ''
+  request: ''
 }
 
 const Chats = () => {
@@ -24,12 +22,9 @@ const Chats = () => {
   const { id } = useParams();
   const chatComments = useSelector(selectChatCommentItems);
   const chats = useSelector(selectChatItems);
-  const length = chats.length;
-  const [chatId, setChatId] = useState(null);
-  const [choice, setChoice] = useState("Text");
-  const [aiResponse, setAiResponse] = useState(null);
+  const [choice, setChoice] = useState("Artoo");
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const { request, dropdown } = formFields;
+  const { request } = formFields;
 
   const resetForm = () => {
     setFormFields(defaultFormFields);
@@ -43,8 +38,8 @@ const Chats = () => {
   const handleAddChat = () => {
     if (id == null) {
       addChat({ title: request })
-      .then((response) => setChatId(response.data.chatId));
-      navigate(`/artoo/${chatId}`);
+      .then((response) => addChatComment({ chatValue: request, chatId: response.data.chatId }))
+      .then((response) => navigate(`/artoo/${response.data.chatId}`));
     }
   }
 
@@ -54,6 +49,7 @@ const Chats = () => {
 
   const sendMessage = async (event) => {
     event.preventDefault();
+    addChatComment({ chatValue: request, chatId: id });
     handleAddChat();
     await axios({
       method: 'post',
@@ -66,38 +62,42 @@ const Chats = () => {
       },
       withCredentials: true
     })
-    .then((response) => setAiResponse(response.data));
+    .then((response) => addChatComment({ chatValue: response.data, chatId: id }));
     resetForm();
+    window.location.reload();
+  }
+
+  const convertImages = (value) => {
+    if (value.startsWith("https")) {
+      const images = value.split("%3D");
+      images.pop()
+      return <div style={{ textAlign: 'center'}}>
+        {images?.map((image) => (<img style={{ margin: '1rem', height: '20rem', width: '20rem', objectFit: 'fit' }} key={images.indexOf(image)} src={image + "%3D"} />))}
+      </div>
+    }
+    return value;
   }
   
   useEffect(() => {
-    if (aiResponse != null && chatId != null) {
-      addChatComment({ chatValue: aiResponse, chatId: chatId });
-    }
-
-    if (chatId != null) {
-      navigate(`/artoo/${chatId}`);
-    }
-
     getChats()
     .then((response) => dispatch(chatFetchAllStart(response.data)));
 
-    if (chatId !== null) {
-      getSingleChatcomment(chatId)
+    if (id !== null) {
+      getSingleChatcomment(id)
       .then((response) => dispatch(chatcommentFetchAllStart(response.data)));
     }
-  }, [aiResponse, chatId, length]);
+  }, [id]);
 
   return (
-    <Row xs={2}>
-      <Col sm={3}>
-        <div style={{ height: '94vh', overflowY: 'auto', background: '#d4d4d4', borderRadius: '.2rem', textAlign: 'center' }}>
-          <h1 style={{}}>Messages</h1>
+    <Row xs={1} md={2}>
+      <Col md={3}>
+        <div className="artoo" style={{ marginBottom: '1rem', overflowY: 'auto', background: '#d4d4d4', borderRadius: '.2rem', textAlign: 'center' }}>
+          <h1 style={{}}>Artoo</h1>
           {chats?.length > 0 && chats?.map(({ chatId, title }) => (
-            <div style={{ cursor: 'pointer', background: 'white', margin: '1rem', padding: '.5rem', borderRadius: '.2rem' }} key={chatId}>
+            <div style={{ boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)', cursor: 'pointer', background: 'white', margin: '1rem', padding: '.5rem', borderRadius: '.2rem' }} key={chatId}>
               <Row>
                 <Col xs={9}>
-                  <div id={chatId} onClick={(event) => setChatId(event.target.id)}>
+                  <div id={chatId} onClick={(event) => navigate(`/artoo/${event.target.id}`)}>
                   {title}
                   </div>
                 </Col>
@@ -109,44 +109,47 @@ const Chats = () => {
           ))}
         </div>
       </Col>
-      <Col sm={9}>
-        <Form style={{ background: '#d4d4d4', borderRadius: '.2rem' }} onSubmit={sendMessage}>
+      <Col md={9}>
+        <div style={{ overflowY: 'auto', borderRadius: '.2rem' }}>
+        <Form className="artooform" style={{ position: 'relative', background: '#d4d4d4', borderRadius: '.2rem' }} onSubmit={sendMessage}>
         <Dropdown style={{ padding: '1rem' }}>
           <Dropdown.Toggle variant="light" id="dropdown">
             {choice}
           </Dropdown.Toggle>
           <Dropdown.Menu >
-            <Dropdown.Item onClick={(event) => setChoice(event.target.name)} name="Text" value="text" active>Text</Dropdown.Item>
+            <Dropdown.Item onClick={(event) => setChoice(event.target.name)} name="Artoo" value="artoo">Artoo</Dropdown.Item>
+            <Dropdown.Item onClick={(event) => setChoice(event.target.name)} name="Text" value="text">Text</Dropdown.Item>
             <Dropdown.Item onClick={(event) => setChoice(event.target.name)} name="Code" value="code">Code</Dropdown.Item>
             <Dropdown.Item onClick={(event) => setChoice(event.target.name)} name="Art" value="art">Art</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
-          <Row style={{ padding: '2rem' }}>
+          <Row style={{ padding: '2rem', height: '80vh', overflowY: 'auto' }}>
             <Col>
-              <div style={{ height: '73vh', overflowY: 'auto', borderRadius: '.2rem' }}>
               {chatComments?.length > 0 && chatComments?.map(({ chatCommentId, chatValue }) => (
                 <div style={{ background: 'white', margin: '1rem', padding: '.5rem', borderRadius: '.2rem' }} key={chatCommentId}>
                       <div key={chatValue}>
-                      {chatValue}
+                      {convertImages(chatValue)}
                       </div>
                 </div>
               ))}
-              </div>
             </Col>
-          </Row>
-          <Row style={{ padding: '2rem' }} xs={2}>
-            <Col xs={10}>
+          <div style={{ position: 'absolute', bottom: '0' }} >
+          <Row  xs={2}>
+            <Col xs={8} md={10}>
               <Form.Group className="mb-3" controlId="request">
                 <Form.Control type="text" onChange={handleChange} value={request} name="request" placeholder="Send a message" />
               </Form.Group>
             </Col>
             <Col xs={2}>
               <Button variant="light" type="submit">
-                Submit
+                Go
               </Button>
             </Col>
           </Row>
+          </div>
+          </Row>
         </Form>
+        </div>
       </Col>
     </Row>
   );

@@ -4,7 +4,7 @@ import { Collection, House, Database, Eye, Clipboard, Bookmark, ChatDots, Person
 const SidebarOverlay = ({ userId }) => {
 
     return (
-        <div style={{ color: "black", width: 200, height: '100vh', overflowY: 'auto', marginTop: '3rem' }} className='fixed-top bg-light'>
+        <div style={{ zIndex: 7, color: "black", width: 200, height: '100vh', overflowY: 'auto', marginTop: '3rem' }} className='sidebaroverlay fixed-top bg-light'>
             <Row 
             className="mw-100 pt-3"  
             xs={1} 

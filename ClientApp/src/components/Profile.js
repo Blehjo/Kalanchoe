@@ -30,7 +30,7 @@ const Profile = () => {
 
     return(
         <Fragment>
-            <Row style={{ width: '100%', justifyContent: 'center' }} className="sticky-top">
+            <Row style={{ zIndex: 1, width: '100%', justifyContent: 'center' }} className="sticky-top">
                 {isToolOpen ?
                     <Col xs={6} sm={10}>
                     <Navbar style={{ justifyContent: 'space-evenly' }}>

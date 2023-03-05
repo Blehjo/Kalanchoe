@@ -20,7 +20,7 @@ export class NavMenu extends Component {
                 >
                     <img onClick={() => {
                         this.props.navigation.navigate('/')
-                    }} height="25rem" width="15rem" style={{ cursor: 'pointer', objectFit: 'cover', margin: '.6rem .3rem .6rem 1rem' }} src='https://i.imgur.com/20LpIoh.jpg'/>
+                    }} height="25rem" width="15rem" style={{ cursor: 'pointer', objectFit: 'cover', margin: '0rem .3rem 0rem 1rem' }} src='https://i.imgur.com/20LpIoh.jpg'/>
                     Kalanchoe AI
                 </Navbar.Brand>
                 </Nav>
