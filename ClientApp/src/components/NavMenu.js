@@ -16,10 +16,13 @@ export class NavMenu extends Component {
             <Navbar fixed='top' bg='light' expand="sm">
                 <ListIcon key='listicon'/>
                 <Nav >
+                <Navbar.Brand href="/"
+                >
                     <img onClick={() => {
                         this.props.navigation.navigate('/')
                     }} height="25rem" width="15rem" style={{ cursor: 'pointer', objectFit: 'cover', margin: '.6rem .3rem .6rem 1rem' }} src='https://i.imgur.com/20LpIoh.jpg'/>
-                <Navbar.Brand href="/">Kalanchoe AI</Navbar.Brand>
+                    Kalanchoe AI
+                </Navbar.Brand>
                 </Nav>
               <Navbar.Toggle key="navbarToggle" aria-controls={`navBarItems}`} />
               <Navbar.Collapse key="navbarCollapse" id="navBarItems">
