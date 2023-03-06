@@ -11,10 +11,10 @@ const ProfilePage = () => {
             <Col style={{ marginBottom: '2rem' }}lg={4}>
                 <ProfileCard />
             </Col>
-            <Col lg={8}>
+            <Col lg={8}>                
+            <div id="tabprofile">
             <Tabs
                 defaultActiveKey="posts"
-                id="justify-tab-example"
                 justify
                 className='mb-5'
                 variant='pills'
@@ -26,13 +26,14 @@ const ProfilePage = () => {
                 <Tab eventKey="chats" title="Chats">
                     <ChatsTab />
                 </Tab>
-                <Tab eventKey="communities" title="Communities">
+                <Tab eventKey="communities" title="Groups">
                     <CommunitiesTab />
                 </Tab>
                 <Tab eventKey="dilemmas" title="Dilemmas">
                     <DilemmasTab />
                 </Tab>
             </Tabs>
+            </div>
             </Col>
         </Row>
     );

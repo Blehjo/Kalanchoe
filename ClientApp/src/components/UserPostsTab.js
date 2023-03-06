@@ -53,7 +53,7 @@ const UserPostsTab = () => {
                     {utcConverter(dateCreated)}
                 </Card.Footer>
                 <Card.Footer>
-                    <Card.Text style={{ cursor: 'pointer' }} id={postId} onClick={handleShow}>Comment</Card.Text>
+                    <Card.Text style={{ cursor: 'pointer', fontSize: '90%' }} id={postId} onClick={handleShow}>Comment</Card.Text>
                 </Card.Footer>
             </Card>
             </Col>

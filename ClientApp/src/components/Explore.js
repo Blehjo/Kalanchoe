@@ -44,19 +44,19 @@ const Explore = () => {
     return(
         <Fragment>
             <h1 style={{ color: 'black' }}>Explore</h1>
-            <Row xs={1} md={2} key="groups">
+            <Row xs={2} md={2} key="groups">
                 {contentArray?.map(({ id, media_location_url, type, path }) => (
                     <Col style={{ marginBottom: '1.5rem' }} key={id}>
-                        <Card.Link href={`${path}`}>
+                        <Card.Link  href={`${path}`}>
                             <Card
                                 style={{ color: 'white' }}
-                                className="bg-dark"
+                                className="explorepanel bg-dark"
                                 key={id}
                             >
-                                <Card.Img style={{ position: 'relative', borderRadius: ".5rem", width: "100%", height: "25rem", objectFit: "cover" }} src={media_location_url} alt={type} />
+                                <Card.Img className="explorepanel" style={{ position: 'relative', borderRadius: ".5rem", width: "100%", objectFit: "cover" }} src={media_location_url} alt={type} />
                                 <Card.ImgOverlay >
                                     <div style={{ position: 'absolute', left: '50%', top: '50%', borderRadius: '1rem', transform: 'translate(-50%, -50%)' }} className="text-white">
-                                        <Card.Title style={{ fontSize: '500%' }}>{type}</Card.Title>
+                                        <Card.Title id='explorefont'>{type}</Card.Title>
                                     </div>
                                 </Card.ImgOverlay>
                             </Card>

@@ -26,7 +26,7 @@ const SingleProfile = () => {
                 <Tab eventKey="chats" title="Chats">
                     <UserChatsTab />
                 </Tab>
-                <Tab eventKey="communities" title="Communities">
+                <Tab eventKey="communities" title="Groups">
                     <UserCommunitiesTab />
                 </Tab>
                 <Tab eventKey="dilemmas" title="Dilemmas">

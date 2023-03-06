@@ -55,12 +55,12 @@ const News = () => {
                     </div>
                 </Col>
             </Row>
-            <Row key="results" style={{ marginTop: '2rem' }} xs={4}>
-                <Col xs={12}>
+            <Row key="results" style={{ marginTop: '2rem' }} xs={2} md={3} xl={4}>
                 {results?.map((image) => (
-                    <img key={results[image]} onClick={() => openInNewTab(image)} style={{ borderRadius: '1rem', margin: '.1rem', cursor: 'pointer', height: '25rem', width: '25rem', objectFit: 'cover' }} src={image} alt={image} />
-                ))}
+                <Col xs={6}>
+                    <img className="newsimage" key={results[image]} onClick={() => openInNewTab(image)} style={{ borderRadius: '1rem', margin: '.1rem', cursor: 'pointer', objectFit: 'cover' }} src={image} alt={image} />
                 </Col>
+                ))}
             </Row>
         </Fragment >
     );

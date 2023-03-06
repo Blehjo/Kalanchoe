@@ -48,6 +48,89 @@ code {
   overflow-x: hidden;
 }
 
+.explorepanel {
+  height: 25rem
+}
+
+#explorefont {
+  font-size: 500%;
+}
+
+.newsimage {
+  height: 20rem; 
+  width: 20rem;
+}
+
+@media only screen and (max-width: 88em) {
+  .newsimage {
+    height: 16.5rem; 
+    width: 16.5rem;
+  }
+}
+
+@media only screen and (max-width: 75em) {
+  .newsimage {
+    height: 18.5rem; 
+    width: 18.5rem;
+  }
+}
+
+@media only screen and (max-width: 65em) {
+  .newsimage {
+    height: 18.5rem; 
+    width: 18.5rem;
+  }
+}
+
+@media only screen and (max-width: 64em) {
+  .newsimage {
+    height: 18rem; 
+    width: 18rem;
+  }
+}
+
+@media only screen and (max-width: 62em) {
+  .newsimage {
+    height: 14.5rem; 
+    width: 14.5rem;
+  }
+}
+
+@media only screen and (max-width: 48em) {
+  .newsimage {
+    height: 17.5rem; 
+    width: 17.5rem;
+  }
+}
+
+@media only screen and (max-width: 32em) {
+  .newsimage {
+    height: 15.5rem; 
+    width: 15.5rem;
+  }
+}
+
+@media only screen and (max-width: 27em) {
+  .newsimage {
+    height: 14rem; 
+    width: 14rem;
+  }
+}
+
+@media only screen and (max-width: 26rem) {
+  .newsimage {
+    height: 13rem; 
+    width: 13rem;
+  }
+}
+
+@media only screen and (max-width: 25rem) {
+  .newsimage {
+    height: 12rem; 
+    width: 12rem;
+  }
+}
+
 @media only screen and (max-width: 62em) {
   .panel {
     height: 350px;
@@ -61,7 +144,12 @@ code {
   .sidebaroverlay {
     padding-top: 1rem;
   }
-  
+  .explorepanel {
+    height: 12rem;
+  }
+  #explorefont {
+    font-size: 200%;
+  }
 }
 
 @media only screen and (max-width: 49em) {
