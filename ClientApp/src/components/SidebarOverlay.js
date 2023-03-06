@@ -1,10 +1,27 @@
-﻿import { Nav, Row } from "react-bootstrap";
+﻿import { useEffect, useState } from "react";
+import { Col, Nav, Row } from "react-bootstrap";
 import { Collection, House, Database, Eye, Clipboard, Bookmark, ChatDots, Person, PersonWorkspace, Newspaper, Robot } from 'react-bootstrap-icons';
+import { useDispatch, useSelector } from "react-redux";
+import { communityFetchAllStart } from "../store/community/community.action";
+import { selectCommunities } from "../store/community/community.selector";
+import { getUserCommunities } from "../utils/api/community";
+import { getUser } from "../utils/userDocument";
 
-const SidebarOverlay = ({ userId }) => {
+const SidebarOverlay = () => {
+    const dispatch = useDispatch();
+    const communities = useSelector(selectCommunities);
+    const [userId, setUserId] = useState(null);
+
+    useEffect(() => {
+        getUser()
+        .then((response) => setUserId(response.data.userId));
+
+        getUser()
+        .then((response) => getUserCommunities(response.data.userId).then((response) => dispatch(communityFetchAllStart(response.data))));
+    }, []);
 
     return (
-        <div style={{ color: "black", width: 200, height: '100vh', overflowY: 'auto', marginTop: '3rem' }} className='sidebaroverlay fixed-top bg-light'>
+        <div style={{ color: "black", width: 200, height: '100vh', overflowY: 'auto', marginTop: '3rem', overflowX: 'hidden' }} className='sidebaroverlay fixed-top bg-light'>
             <Row 
             className="mw-100 pt-3"  
             xs={1} 
@@ -75,6 +92,20 @@ const SidebarOverlay = ({ userId }) => {
                         News
                     </Nav.Link>
                 </Nav.Item >
+                {communities?.length > 0 && communities?.map(({ groupName, mediaLink }) => (
+                    <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
+                        <Row xs={2}>
+                            <Col xs={2}>
+                                <img src={mediaLink} style={{ height: '1.2rem', width: '1.2rem', borderRadius: '.2rem' }}/>
+                            </Col>
+                            <Col xs={10}>
+                                <Nav.Link href="/news" className="ms-3">
+                                    {groupName}
+                                </Nav.Link>
+                            </Col>
+                        </Row>
+                    </Nav.Item>
+                ))}
             </Row>
         </div>
     )

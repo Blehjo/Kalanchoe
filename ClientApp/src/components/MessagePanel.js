@@ -29,7 +29,7 @@ const MessagePanel = () => {
     }, []);
 
     return (
-        <div className="panel" style={{ textAlign: 'center', marginBottom: '1rem', backgroundColor: '#d4d4d4', borderRadius: '.2rem', justifyContent: 'center' }}>
+        <div className="panel" style={{ maxHeight: '100%', overflowY: 'auto', textAlign: 'center', marginBottom: '1rem', backgroundColor: '#d4d4d4', borderRadius: '.2rem', justifyContent: 'center' }}>
             <h1>Messages</h1>
             {messages?.length > 0 && messages?.map(({ messageId, messageValue }) => (
                 <div style={{ cursor: 'pointer', boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)', background: 'white', margin: '.3rem', padding: '.5rem', borderRadius: '.2rem' }} key={messageId}>

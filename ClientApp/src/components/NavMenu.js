@@ -42,9 +42,7 @@ export class NavMenu extends Component {
                         <Nav.Link href="/projects" className="text-dark">Dilemmas</Nav.Link>
                     </Col>
                     <Col >
-                        <Nav.Link>
-                            <SignInButton/>
-                        </Nav.Link>
+                        <SignInButton/>
                     </Col>
                 </Row>
               </Navbar.Collapse>

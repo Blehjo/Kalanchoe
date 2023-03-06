@@ -66,6 +66,8 @@ const Messages = () => {
       .then((response) => setMessage(response.data));
     }
   }, [length, id]);
+  console.log("Username: ", username)
+  console.log("Message: ", message)
 
   return (
     <Row xs={1} md={2}>

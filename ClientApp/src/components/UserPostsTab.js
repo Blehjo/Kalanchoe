@@ -60,9 +60,11 @@ const UserPostsTab = () => {
             </Card>
             </Col>
         )) : 
-            <Card style={{ color: 'white', textAlign: 'center' }} className="bg-dark">
-                <Card.Title>"Stay tuned. Currently no posts..."</Card.Title>
-            </Card>
+            <Col xs={12}>
+                <Card style={{ color: 'white', textAlign: 'center' }} className="bg-dark">
+                    <Card.Title>"Stay tuned. Currently no posts..."</Card.Title>
+                </Card>
+            </Col>
         }
             <Modal show={show} onHide={handleClose}>
                 <Card className="bg-light" key={id}>

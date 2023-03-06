@@ -49,8 +49,7 @@ const Artoo = () => {
 
   const sendMessage = async (event) => {
     event.preventDefault();
-    addChatComment({ chatValue: request, chatId: id });
-    handleAddChat();
+    handleAddChat()
     await axios({
       method: 'post',
       url: toggle(choice),

@@ -1,10 +1,15 @@
 ﻿import { Nav } from 'react-bootstrap';
 import { Collection, House, Database, Eye, Clipboard, Bookmark, ChatDots, Person, PersonWorkspace, Newspaper, Robot } from 'react-bootstrap-icons';
-import { Fragment } from 'react';
-import Cookie from "js-cookie";
+import { Fragment, useEffect, useState } from 'react';
+import { getUser } from '../utils/userDocument';
 
 const Saved = () => {
-    const userId = Cookie.get("user");
+    const [userId, setUserId] = useState(null);
+
+    useEffect(() => {
+        getUser()
+        .then((response) => setUserId(response.data.userId));
+    }, []);
 
     return (
         <Fragment>

@@ -43,6 +43,12 @@ code {
   color: 'black'
 }
 
+.medialinkfeed {
+  height: auto;
+  max-width: 100%;
+  object-fit: cover;
+}
+
 #root {
   max-width: 100%;
   overflow-x: hidden;
