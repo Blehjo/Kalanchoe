@@ -32,14 +32,14 @@ const Saved = () => {
             <Nav.Link href="/communities">
                 <Database className='mt-4' action='true' color="black" size={40} />
             </Nav.Link>
-            {/* <Nav.Link href="/posts">
-                <Collection className='mt-4' color="black" size={40} />
-            </Nav.Link> */}
             <Nav.Link href="/saved">
                 <Bookmark className='mt-4' color="black" size={40} />
             </Nav.Link>
             <Nav.Link href="/news">
                 <Newspaper className='mt-4' color="black" size={40} />
+            </Nav.Link>
+            <Nav.Link href="/posts">
+                <Collection className='mt-4' color="black" size={40} />
             </Nav.Link>
         </Fragment>
     )

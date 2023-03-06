@@ -1,5 +1,6 @@
 ﻿import { Fragment, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
+import { FileMinus, Plus } from "react-bootstrap-icons";
 
 import FetchedPosts from "./FetchedPosts";
 import { PostForm } from './PostForm';
@@ -16,8 +17,8 @@ const Posts = () => {
                 <Col xs={10}>
                     <h1>Posts</h1>
                 </Col>
-                <Col xs={2}>
-                    <Button variant="light" onClick={showPostForm}>{!isShowing ? 'Create a post' : 'Nevermind'}</Button>
+                <Col xs={1}>
+                    <Button variant="light" onClick={showPostForm}>{!isShowing ? <Plus/> : <FileMinus/>}</Button>
                 </Col>
             </Row>
             {

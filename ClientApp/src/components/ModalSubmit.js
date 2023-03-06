@@ -14,9 +14,9 @@ const ModalSubmit = ({ title, functionHandler, id, type, placeholder }) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        functionHandler({ value, id });
+        functionHandler({ value, id })
+        .then(() => window.location.reload());
         setShow(false);
-        setTimeout(() => window.location.reload(), 1000);
     }
 
     return (

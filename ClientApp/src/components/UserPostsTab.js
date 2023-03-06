@@ -1,5 +1,6 @@
-import { Fragment, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Card, Modal, Row, Col, Form, Button } from "react-bootstrap";
+import { useNavigate } from "react-router";
 
 import { utcConverter } from "../utils/date/Date";
 import { useParams } from "react-router";
@@ -12,6 +13,7 @@ import CommentInfo from "./CommentInfo";
 
 const UserPostsTab = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const posts = useSelector(selectPosts);
     const [commentValue, setCommentValue] = useState('');
     const { postId, mediaLink, postValue, dateCreated } = useSelector(selectSinglePost);
@@ -45,7 +47,7 @@ const UserPostsTab = () => {
         {posts?.length > 0 ? posts?.map(({ postId, mediaLink, postValue, dateCreated }) => (
             <Col>
             <Card key={postId} style={{ color: 'white', marginBottom: '1rem', objectFit: 'cover', height: '30rem' }} className="bg-dark">
-                <Card.Img style={{ height: '20rem', width: 'auto', objectFit: 'cover' }} src={mediaLink}/>
+                <Card.Img onClick={() => navigate(`/posts/${id}`)} style={{ cursor: 'pointer', height: '20rem', width: 'auto', objectFit: 'cover' }} src={mediaLink}/>
                 <Card.Body>
                     <Card.Title>{postValue}</Card.Title>
                 </Card.Body>

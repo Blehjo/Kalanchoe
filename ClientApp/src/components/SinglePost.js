@@ -38,15 +38,23 @@ const SinglePost = () => {
     return(
         <div key={postId} style={{ margin: 'auto' }}>
             <Button variant="light" as="input" type="button" value="Back to Posts" onClick={backToPosts}/>
-            <Row style={{ justifyContent: 'center' }}>
-                <Col xs={6}>
-                    {mediaLink?.length > 0 ? <Card.Img height='400rem' style={{ borderRadius: '1rem', objectFit:'scale-down' }} src={mediaLink}/> : ''}
-                    <Card.Title style={{ textAlign: 'center', marginBottom: '1rem' }}>{postValue}</Card.Title>
-                    <Card.Text style={{ textAlign: 'right' }}>Posted {utcConverter(dateCreated)}</Card.Text>
+            <Row xs={1} style={{ justifyContent: 'center' }}>
+                <Col xs={12}>
+                    {mediaLink?.length > 0 ? <Card.Img style={{ height: '25rem', borderRadius: '1rem', objectFit: 'contain' }} src={mediaLink}/> : ''}
+                </Col>
+                <Col xs={12} md={6}>
+                    <Row xs={2}>
+                        <Col xs={10}>
+                            <Card.Title style={{ textAlign: 'left', marginBottom: '1rem' }}>{postValue}</Card.Title>
+                        </Col>
+                        <Col xs={2}>
+                            <Card.Text style={{ textAlign: 'right' }}>{utcConverter(dateCreated)}</Card.Text>
+                        </Col>
+                    </Row>
                 </Col>
             </Row>
             <Row style={{ justifyContent: 'center' }}>
-                <Col xs={6}>
+                <Col xs={12} md={6}>
                     <CommentInfo postId={postId} />
                 </Col>
             </Row>

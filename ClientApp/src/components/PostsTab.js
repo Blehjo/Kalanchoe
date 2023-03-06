@@ -61,7 +61,7 @@ const PostsTab = () => {
         {posts?.length > 0 ? posts?.map(({ postId, mediaLink, postValue, dateCreated }) => (
             <Col>
             <Card key={postId} style={{ color: 'white', marginBottom: '1rem', objectFit: 'cover', height: '30rem' }} className="bg-dark">
-                <Card.Img onClick={() => navigate(`/posts/${id}`)} style={{ height: '20rem', width: 'auto', objectFit: 'cover' }} src={mediaLink}/>
+                <Card.Img onClick={() => navigate(`/posts/${id}`)} style={{ cursor: 'pointer', height: '20rem', width: 'auto', objectFit: 'cover' }} src={mediaLink}/>
                 <Card.Body>
                     <Card.Title>{postValue}</Card.Title>
                 </Card.Body>

@@ -23,7 +23,8 @@ export const PostForm = () => {
         event.preventDefault();
 
         try {
-            addPost(formFields);
+            addPost(formFields)
+            .then(() => window.location.reload());
             resetFormFields();
         } catch (error) {
             throw error;
