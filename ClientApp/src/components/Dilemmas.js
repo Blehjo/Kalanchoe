@@ -9,16 +9,16 @@ import ModalSubmit from "./ModalSubmit";
 const Dilemmas = () => {
     const [show, setShow] = useState(false);
 
-    const hanldeClick = () => setShow(true);
+    const handleClick = () => setShow(true);
 
     return(
         <Fragment>
             <Row xs ={2}>
-            <Col xs={11}>
+            <Col xs={10}>
                 <h1>Dilemmas</h1>
             </Col>
             <Col xs={1}>
-                <Button variant="light" onClick={hanldeClick} ><Plus/></Button>
+                <Button variant="light" onClick={handleClick} ><Plus/></Button>
             </Col>
             </Row>
             <DragList />

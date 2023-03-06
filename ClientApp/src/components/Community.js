@@ -43,10 +43,10 @@ const Community = () => {
         <Fragment>
             <Row xs={2}>
                 <Col xs={1}>
-                    <Card.Img style={{ marginTop: '.2rem', borderRadius: '.5rem', height: '3rem', width: '3rem', objectFit: 'cover' }} src={mediaLink} />
+                    <Card.Img style={{ margin: '.5rem', borderRadius: '.5rem', height: '2rem', width: '2rem', objectFit: 'cover' }} src={mediaLink} />
                 </Col>
                 <Col xs={9}>
-                    <h1>{groupName}</h1>
+                    <h1 className="channelname">{groupName}</h1>
                 </Col>
             </Row>
             <Row xs={1} md={2}>

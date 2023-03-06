@@ -58,7 +58,7 @@ const Communities = () => {
     return(
         <Fragment>
             <Row xs={2}>
-                <Col xs={11}>
+                <Col xs={10}>
                     <h1>Communities</h1>
                 </Col>
                 <Col xs={1}>

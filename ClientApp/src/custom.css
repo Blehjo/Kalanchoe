@@ -48,6 +48,11 @@ code {
   overflow-x: hidden;
 }
 
+#channelslist {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 .explorepanel {
   height: 25rem
 }
@@ -107,6 +112,12 @@ code {
   .newsimage {
     height: 15.5rem; 
     width: 15.5rem;
+  }
+  
+  .channelname {
+    margin-top: .3rem;
+    margin-left: 2rem;
+    /* margin-bottom: 2rem; */
   }
 }
 

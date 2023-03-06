@@ -35,12 +35,12 @@ const DraggableElement = ({ prefix, panelId }) => {
     }, []);
 
     return (
-        <DroppableStyles>
+        <DroppableStyles style={{ marginBottom: '1rem' }}>
             <Row xs={2}>
                 <Col xs={10}>
                     <ColumnHeader>{prefix}</ColumnHeader>
                 </Col>
-                <Col xs={2}>
+                <Col xs={1}>
                     <Button variant="light" onClick={handleAddNoteClick} ><Plus/></Button>
                 </Col>
             </Row>
@@ -48,7 +48,7 @@ const DraggableElement = ({ prefix, panelId }) => {
                 show && <ModalSubmit 
                     title={"New Note"} 
                     functionHandler={addNote}
-                    panelId={panelId}
+                    id={panelId}
                     type={"Note"}
                     placeholder={"Write note here"}
                 />

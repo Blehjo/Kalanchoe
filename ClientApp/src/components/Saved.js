@@ -5,7 +5,6 @@ import Cookie from "js-cookie";
 
 const Saved = () => {
     const userId = Cookie.get("user");
-    console.log("")
 
     return (
         <Fragment>

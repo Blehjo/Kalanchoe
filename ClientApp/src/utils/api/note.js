@@ -34,13 +34,13 @@ export async function getNotes() {
   });
 }
 
-export async function addNote({value, panelId}) {
+export async function addNote({value, id}) {
   return await axios({
     method: 'post',
     url: api, 
     data: {
       noteValue: value,
-      panelId: panelId
+      panelId: id
     },
     config: headers,
     withCredentials: true

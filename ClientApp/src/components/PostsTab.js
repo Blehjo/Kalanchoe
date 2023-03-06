@@ -1,5 +1,6 @@
-import { Fragment, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Card, Modal, Row, Col, Form, Button } from "react-bootstrap";
+import { useNavigate } from "react-router";
 
 import { utcConverter } from "../utils/date/Date";
 import { useParams } from "react-router";
@@ -13,6 +14,7 @@ import { PostForm } from "./PostForm";
 
 const PostsTab = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const posts = useSelector(selectPosts);
     const { postId, mediaLink, postValue, dateCreated } = useSelector(selectSinglePost);
     const [commentValue, setCommentValue] = useState('');
@@ -59,7 +61,7 @@ const PostsTab = () => {
         {posts?.length > 0 ? posts?.map(({ postId, mediaLink, postValue, dateCreated }) => (
             <Col>
             <Card key={postId} style={{ color: 'white', marginBottom: '1rem', objectFit: 'cover', height: '30rem' }} className="bg-dark">
-                <Card.Img style={{ height: '20rem', width: 'auto', objectFit: 'cover' }} src={mediaLink}/>
+                <Card.Img onClick={() => navigate(`/posts/${id}`)} style={{ height: '20rem', width: 'auto', objectFit: 'cover' }} src={mediaLink}/>
                 <Card.Body>
                     <Card.Title>{postValue}</Card.Title>
                 </Card.Body>
@@ -80,11 +82,11 @@ const PostsTab = () => {
                 <Card className="bg-light" key={id}>
                     <div className='card-container'>
                     <Card.Link className='card-info' href={`posts/${id}`}>
-                        {mediaLink && <Card.Img  style={{ objectFit:'cover'}} variant="top" src={mediaLink} />}
+                        {mediaLink && <Card.Img style={{ objectFit:'cover'}} variant="top" src={mediaLink} />}
                     </Card.Link>
                     </div>
                     <Card.Body >
-                        <Card.Subtitle style={{ color: 'white' }}>{postValue}</Card.Subtitle>
+                        <Card.Subtitle >{postValue}</Card.Subtitle>
                         <Card.Text>{`Posted ${utcConverter(dateCreated)}`}</Card.Text>
                     </Card.Body>
                     <Card.Footer>

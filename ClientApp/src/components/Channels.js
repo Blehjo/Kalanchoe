@@ -14,6 +14,7 @@ const Channels = () => {
     const channels = useSelector(selectChannelItems);
     const [show, setShow] = useState(false);
     const { id } = useParams();
+    console.log(id)
 
     const handleClickEvent = (event) => {
         navigate(`/community/${id}/${event.target.id}`);
@@ -43,6 +44,7 @@ const Channels = () => {
                 <Col>
                     {channels?.map(({ description, channelId }) => (
                         <div 
+                        className="channelslist"
                         onClick={handleClickEvent}
                         style={{ cursor: 'pointer', background: 'white', margin: '1rem', padding: '.5rem', borderRadius: '.2rem' }} 
                         key={channelId}
@@ -60,7 +62,7 @@ const Channels = () => {
                 <ModalSubmit
                     title={"New Channel"}
                     functionHandler={addChannel}
-                    panelId={id}
+                    id={id}
                     type={"Channel"}
                     placeholder={"Channel name"}
                 />

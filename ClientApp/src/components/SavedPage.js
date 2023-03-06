@@ -6,6 +6,7 @@ import { savedFetchAllStart } from "../store/saved/saved.action";
 import { selectSaved } from "../store/saved/saved.selector";
 import { getUserSaved } from "../utils/api/saved";
 import { SavedForm } from "./SavedForm";
+import { Plus } from "react-bootstrap-icons";
 
 const Saved = () => {
     const dispatch = useDispatch();
@@ -33,7 +34,7 @@ const Saved = () => {
                     <h1>Saved</h1>
                 </Col>
                 <Col key="button" xs={2}>
-                    <Button variant="light" onClick={showPostForm}>{!isShowing ? 'Create Saved' : 'Nevermind'}</Button>
+                    <Button variant="light" onClick={showPostForm}>{!isShowing ? <Plus/> : 'Nevermind'}</Button>
                 </Col>
             </Row>
             <Row xs={1} md={2} key="groups">

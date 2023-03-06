@@ -31,7 +31,7 @@ const ToolbarForms = ({ add, secondary, third, type }) => {
         try {
             add(formFields);
         } catch (error) {
-            console.log(error);
+            throw error;
         }
     }
 

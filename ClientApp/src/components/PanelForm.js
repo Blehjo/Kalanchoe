@@ -20,7 +20,7 @@ export const PostForm = () => {
             addPanel(title);
             setTitle('');
         } catch (error) {
-            console.log(error);
+            throw error;
         }
     }
 

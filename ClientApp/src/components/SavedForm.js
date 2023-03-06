@@ -27,12 +27,12 @@ export const SavedForm = () => {
             addSaved(formFields);
             resetFormFields();
         } catch (error) {
-            console.log(error);
+            throw error;
         }
     }
 
     return (
-        <Col xs={6}>
+        <Col xs={12} md={6}>
             <Form onSubmit={handleSubmit} style={{ color: 'black', marginTop: '1rem' }}>
                 <Form.Group className="mb-3" controlId="formTitle">
                     <Form.Label>Saved</Form.Label>

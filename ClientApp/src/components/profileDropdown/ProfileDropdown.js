@@ -4,11 +4,15 @@ import { useDispatch } from 'react-redux';
 import { signOutStart } from '../../store/user/user.action';
 
 import './profileDropdown.scss';
+import { setIsProfileOpen } from "../../store/profile/profile.action";
 
 const ProfileDropdown = ({ user }) => {
     const dispatch = useDispatch();
     
-    const signOutUser = () => dispatch(signOutStart());
+    const signOutUser = () => {
+        dispatch(signOutStart());
+        dispatch(setIsProfileOpen(false));
+    }
 
     return (
         <div className='profile-dropdown-container'>
@@ -19,7 +23,7 @@ const ProfileDropdown = ({ user }) => {
                 >
                     <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
                         <Person className='' color="white" size={20}/>
-                        <Nav.Link href={`/page/${user.userId}`} className="ms-4">
+                        <Nav.Link href={`/page/${user && user.userId}`} className="ms-4">
                         Profile
                         </Nav.Link>
                     </Nav.Item>
@@ -37,8 +41,8 @@ const ProfileDropdown = ({ user }) => {
                     </Nav.Item>
                     <Nav.Item className="mb-3 ms-3 d-flex align-items-center ">
                         <DoorOpen className='' color="white" size={20}/>
-                        <Nav.Link href="/authentication" className="ms-3">
-                        <span className='nav-link' onClick={signOutUser}>Sign out</span>
+                        <Nav.Link href="/authentication" className="ms-4" onClick={signOutUser}>
+                        Sign out
                         </Nav.Link>
                     </Nav.Item>
                     <Nav.Item className="mb-3 ms-3 d-flex align-items-center">

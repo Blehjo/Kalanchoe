@@ -1,6 +1,4 @@
 ﻿import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { selectCurrentUser } from '../store/user/user.selector';
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { addPost } from "../utils/api/post";
 
@@ -10,9 +8,6 @@ const defaultFormFields = {
 }
 
 export const PostForm = () => {
-    const dispatch = useDispatch();
-    const currentUser = useSelector(selectCurrentUser);
-    const userId = currentUser;
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { postValue, mediaLink } = formFields;
 
@@ -31,14 +26,13 @@ export const PostForm = () => {
             addPost(formFields);
             resetFormFields();
         } catch (error) {
-            console.log(error);
+            throw error;
         }
-
     }
 
     return (
         <Row style={{ justifyContent: 'center' }}>
-        <Col xs={6}>
+        <Col xs={12} >
             <Form onSubmit={handleSubmit} style={{ color: 'black', marginTop: '1rem' }}>
                 <Form.Group className="mb-3" controlId="formPostValue">
                     <Form.Label>Post</Form.Label>

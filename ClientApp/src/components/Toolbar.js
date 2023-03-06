@@ -256,7 +256,7 @@ const Toolbar = () => {
                 note && <ModalSubmit 
                     title={"New Note"} 
                     functionHandler={addNote}
-                    panelId={1}
+                    id={1}
                     type={"Note"}
                     placeholder={"Write note here"}
                 />

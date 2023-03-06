@@ -6,19 +6,21 @@ import { Fragment, useEffect, useState } from "react";
 import { Person } from "react-bootstrap-icons";
 import { checkUserSession } from "../store/user/user.action";
 import ProfileDropdown from "./profileDropdown/ProfileDropdown";
+import { setIsProfileOpen } from "../store/profile/profile.action";
+import { selectIsProfileOpen } from "../store/profile/profile.selector";
 
 const SignInButton = () => {
-    const [show, setShow] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const currentUser = useSelector(selectCurrentUser);
+    const profileOpen = useSelector(selectIsProfileOpen);
 
     const goToSignIn = () => {
         navigate('/authentication');
     }
 
     const showProfileDropdown = () => {
-        setShow(!show);
+        dispatch(setIsProfileOpen(!profileOpen));
     }
 
     useEffect(() => {
@@ -32,7 +34,7 @@ const SignInButton = () => {
             <NavLink><Person style={{ cursor: 'pointer' }} color="black" size={20} onClick={showProfileDropdown}/></NavLink> : 
             <NavLink style={{ cursor: 'pointer' }} onClick={goToSignIn} className="text-dark" to="/projects">Sign In</NavLink>
         }
-        {show && <ProfileDropdown user={currentUser}/>}
+        {profileOpen && <ProfileDropdown user={currentUser}/>}
         </Fragment>
     );
 }

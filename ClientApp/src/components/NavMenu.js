@@ -31,7 +31,7 @@ export class NavMenu extends Component {
 
                   </Nav>
                 </Col>
-                <Row style={{ justifyContent: "space-between", textAlign: "center"}}>
+                <Row style={{ justifyContent: "space-between", textAlign: "center", marginRight: '.5rem' }}>
                     <Col key="navigationIcons">
                         <Nav.Link href="/dashboard" className="text-dark">Dashboard</Nav.Link>
                     </Col>
