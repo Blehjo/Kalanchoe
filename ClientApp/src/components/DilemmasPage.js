@@ -30,7 +30,7 @@ const DilemmasPage = () => {
                 <Col key={panelId}>
                     <Card style={{ margin: '1rem', textAlign: 'center' }}>
                         <Card.Title style={{ margin: '1rem' }}>
-                            <Row xs={2}>
+                            <Row xs={1} lg={2}>
                                 <Col>
                                     {title}
                                 </Col>
@@ -39,7 +39,7 @@ const DilemmasPage = () => {
                                 </Col>
                             </Row>
                         </Card.Title>
-                        <Card.Subtitle style={{ marginBottom: '1rem' }}><UserInfo userId={userId}/></Card.Subtitle>
+                        <Card.Subtitle style={{ margin: '1rem' }}><UserInfo userId={userId}/></Card.Subtitle>
                         <Button variant="light" onClick={goToPost} as="input" type="button" value="Go to Dilemma" id={panelId}/> 
                     </Card>
                 </Col>

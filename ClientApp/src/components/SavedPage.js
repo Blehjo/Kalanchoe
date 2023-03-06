@@ -37,20 +37,20 @@ const Saved = () => {
                     <Button variant="light" onClick={showPostForm}>{!isShowing ? <Plus/> : <FileMinus/>}</Button>
                 </Col>
             </Row>
-            <Row xs={1} md={2} key="groups">
+            <Row xs={2} key="groups">
                 {saved?.map(({ id, mediaLink, title, link }) => (
                     <Col style={{ marginBottom: '1.5rem' }} key={id}>
                         <Card
                             id={link} 
                             onClick={() => openInNewTab(link)}
-                            style={{ color: 'white', cursor: 'pointer' }}
-                            className="bg-dark"
+                            style={{ color: 'white' }}
+                            className="explorepanel bg-dark"
                             key={id}
                         >
-                            <Card.Img style={{ position: 'relative', borderRadius: ".5rem", width: "100%", height: "25rem", objectFit: "cover" }} src={mediaLink} alt={title} />
+                            <Card.Img className="explorepanel" style={{ position: 'relative', borderRadius: ".5rem", width: "100%", objectFit: "cover" }} src={mediaLink} alt={mediaLink} />
                             <Card.ImgOverlay >
                                 <div style={{ position: 'absolute', left: '50%', top: '50%', borderRadius: '1rem', transform: 'translate(-50%, -50%)' }} className="text-white">
-                                    <Card.Title style={{ fontSize: '500%' }}>{title}</Card.Title>
+                                    <Card.Title id='explorefont'>{title}</Card.Title>
                                 </div>
                             </Card.ImgOverlay>
                         </Card>

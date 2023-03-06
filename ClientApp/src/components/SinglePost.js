@@ -40,9 +40,9 @@ const SinglePost = () => {
             <Button variant="light" as="input" type="button" value="Back to Posts" onClick={backToPosts}/>
             <Row xs={1} style={{ justifyContent: 'center' }}>
                 <Col xs={12}>
-                    {mediaLink?.length > 0 ? <Card.Img style={{ height: '25rem', borderRadius: '1rem', objectFit: 'contain' }} src={mediaLink}/> : ''}
+                    {mediaLink?.length > 0 ? <Card.Img style={{ height: '25rem', borderRadius: '1rem', objectFit: 'contain', marginBottom: '1rem' }} src={mediaLink}/> : ''}
                 </Col>
-                <Col xs={12} md={6}>
+                <Col xs={12} md={9} lg={6}>
                     <Row xs={2}>
                         <Col xs={10}>
                             <Card.Title style={{ textAlign: 'left', marginBottom: '1rem' }}>{postValue}</Card.Title>
@@ -54,13 +54,13 @@ const SinglePost = () => {
                 </Col>
             </Row>
             <Row style={{ justifyContent: 'center' }}>
-                <Col xs={12} md={6}>
+                <Col xs={12} md={9} lg={6}>
                     <CommentInfo postId={postId} />
                 </Col>
             </Row>
             <Form style={{ margin: 'auto' }} id={postId} onSubmit={postComment}>
                 <Row style={{ marginBottom: '3rem', justifyContent: 'center' }} xs={2}>
-                    <Col xs={9} md={8} lg={5}>
+                    <Col xs={9} md={7} lg={4}>
                         <Form.Control as="textarea" onChange={handleTextChange} placeholder=" Write your comment here" />
                     </Col>
                     <Col xs={3} md={2}>

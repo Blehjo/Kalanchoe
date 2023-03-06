@@ -19,7 +19,7 @@ const CommentInfo = ({ postId }) => {
     return (
         <Row style={{ justifyContent: 'center' }}>
         {comments?.length > 0 && comments?.map(({ commentId, commentValue, dateCreated, userId }) => (
-            <Row style={{ marginBottom: '1rem', justifyContent: 'center' }} key={commentId} xs={1}>
+            <Row style={{ marginBottom: '1rem' }} key={commentId} xs={1}>
                 <Col xs={6}>
                     <Card.Text>{commentValue}</Card.Text>
                     <Card.Text>{utcConverter(dateCreated)}</Card.Text>

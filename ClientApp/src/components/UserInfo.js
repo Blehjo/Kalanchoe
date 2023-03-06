@@ -23,8 +23,8 @@ const UserInfo = ({ userId }) => {
             <Col style={{ height: '.1rem', width: 'auto' }} xs={1}>
                 <img style={{ height: '1rem', width: '1rem', objectFit: 'cover', borderRadius: '.2rem' }} src={profileImage} />
             </Col>
-            <Col>
-                <div onClick={() => navigate(`/profile/${userId}`)}>{username}</div>
+            <Col xs={11}>
+                <div style={{ textAlign: 'left', marginLeft: '1.5rem' }} onClick={() => navigate(`/profile/${userId}`)}>{username}</div>
             </Col>
         </Row>
     );

@@ -24,7 +24,7 @@ export class NavMenu extends Component {
                     Kalanchoe AI
                 </Navbar.Brand>
                 </Nav>
-              <Navbar.Toggle key="navbarToggle" aria-controls={`navBarItems}`} />
+              <Navbar.Toggle style={{ marginRight: '1rem' }} key="navbarToggle" aria-controls={`navBarItems}`} />
               <Navbar.Collapse key="navbarCollapse" id="navBarItems">
                 <Col key="searchColumn" className=''>
                   <Nav key="navForm">

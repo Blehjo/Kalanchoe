@@ -31,9 +31,10 @@ const DilemmasTab = () => {
     return (
         <Row xs={3}>
         {dilemmas?.length > 0 ? Array.from(dilemmas)?.map(({ panelId, title, dateCreated }) => (
-            <Card key={panelId} id={panelId} onClick={handleClickEvent} style={{ width: '18rem', cursor: 'pointer', textDecoration: 'none', margin: '.1rem', color: 'white', textAlign: 'center' }} href={`/panel/${id}`} className="bg-dark">
+            <Col>
+            <Card key={panelId} id={panelId} onClick={handleClickEvent} style={{ cursor: 'pointer', textDecoration: 'none', color: 'white', textAlign: 'center' }} href={`/panel/${id}`} className="bg-dark">
                 <Card.Body id={panelId} onClick={handleClickEvent}>
-                    <Row xs={2}>
+                    <Row xs={1} lg={2}>
                         <Col>
                             {title}
                         </Col>
@@ -44,6 +45,7 @@ const DilemmasTab = () => {
                 </Card.Body>
                 <Card.Footer>{`Created ${utcConverter(dateCreated)}`}</Card.Footer>
             </Card>
+            </Col>
             
         )) : (
             <Card style={{ color: 'white', textAlign: 'center' }}className="bg-dark">
