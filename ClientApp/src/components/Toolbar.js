@@ -23,8 +23,10 @@ import { selectChatCommentItems } from '../store/chatcomment/chatcomment.selecto
 import { addChat } from '../utils/api/chat';
 import { addChatComment } from '../utils/api/chatcomment';
 import ModalSubmit from './ModalSubmit';
-import { addPanel } from '../utils/api/panel';
+import { addPanel, getUserPanels } from '../utils/api/panel';
 import { addNote } from '../utils/api/note';
+import { panelFetchUserStart } from '../store/panel/panel.action';
+import { selectUserPanelItems } from '../store/panel/panel.selector';
 
 const defaultFormFields = {
     request: ''
@@ -46,7 +48,11 @@ const Toolbar = () => {
     const [searchField, setSearchField] = useState("");
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { request } = formFields;  
-    const [choice, setChoice] = useState("Text");
+    const [choice, setChoice] = useState("Artoo");
+    const userPanels = useSelector(selectUserPanelItems);
+    const [panelChoice, setPanelChoice] = useState("Choose Panel");
+    const [value, setValue] = useState("");
+    const [itemId, setItemId] = useState(null);
     const isToolOpen = useSelector(selectIsToolOpen);
     const userMessages = useSelector(selectMessageItems);
     const userPosts = useSelector(selectPosts);
@@ -65,18 +71,15 @@ const Toolbar = () => {
         setFormFields({ ...formFields, [name]: value })
     };
 
-    const handleAddChat = () => {
+    const handleAddChat = async () => {
         if (id == null) {
-          addChat({ title: request })
-          .then((response) => addChatComment({ chatValue: request, chatId: response.data.chatId }))
-          .then((response) => navigate(`/artoo/${response.data.chatId}`));
+          return await addChat({ title: request })
+          .then((response) => addChatComment({ chatValue: request, chatId: response.data.chatId }));
         }
-    }
+        return addChatComment({ chatValue: request, chatId: id });
+      }
 
-    const sendMessage = async (event) => {
-        event.preventDefault();
-        addChatComment({ chatValue: request, chatId: id });
-        handleAddChat();
+    const artooResponse = async (chatId) => {
         await axios({
           method: 'post',
           url: toggle(choice),
@@ -88,9 +91,29 @@ const Toolbar = () => {
           },
           withCredentials: true
         })
-        .then((response) => addChatComment({ chatValue: response.data, chatId: id }));
+        .then((response) => addChatComment({ chatValue: response.data, chatId: chatId ? chatId : id }).then((response) => id == null && navigate(`/artoo/${response.data.chatId}`)));
+    }
+
+    const sendMessage = async (event) => {
+        event.preventDefault();
+        await handleAddChat()
+        .then((response) => artooResponse(response.data.chatId));
         resetForm();
-      }
+        window.location.reload();
+    }
+
+    const handleChoiceChange = (event) => {
+        setPanelChoice(event.target.name);
+        setItemId(event.target.id);
+        console.log("Item ID: ", itemId, "Choice: ", panelChoice);
+    }
+    const handleValueChange = (event) => {
+        setValue(event.target.value);
+    }
+
+    const handleSubmit = () => {
+        addNote({ value, id: itemId })
+    }
 
     const handleSearchFieldChange = (event) => {
         setSearchField(event.target.value);
@@ -113,6 +136,8 @@ const Toolbar = () => {
     }
     
     useEffect(() => {
+        getUserPanels()
+        .then((response) => dispatch(panelFetchUserStart(response.data)));
         getUserPosts(id)
         .then((response) => dispatch(postFetchAllStart(response.data)));
         getAllMessages()
@@ -127,7 +152,10 @@ const Toolbar = () => {
     const handlePanelClick = () => setPanel(!panel);
     
     // Function that creates a new note Modal
-    const handleNoteClick = () => setNote(!note);
+    const handleNoteClick = (event) => {
+        event.preventDefault();
+        setNote(!note);
+    }
 
     // Function that calls Artoo Modal
     const handleArtooClick = () => setArtoo(!artoo);
@@ -240,26 +268,51 @@ const Toolbar = () => {
                     <Globe className='mx-2' color="black" size={40} />
                 </OverlayTrigger>
             </Col>
-            <Col style={{ cursor: 'pointer' }} onClick={toggleIsToolOpen}>
+            <Col style={{ cursor: 'pointer' }} >
             <OverlayTrigger
-                key="robot"
+                key="closebutton"
                 placement="bottom"
                 overlay={
-                    <Tooltip id="tooltip-bottom">
+                    <Tooltip id="tooltip-close">
                     Close
                     </Tooltip>
                 }
             >
-                <XSquare className='mx-2' color="black" size={40} />
+                <XSquare onClick={toggleIsToolOpen} className='mx-2' color="black" size={40} />
             </OverlayTrigger>
             {
-                note && <ModalSubmit 
-                    title={"New Note"} 
-                    functionHandler={addNote}
-                    id={1}
-                    type={"Note"}
-                    placeholder={"Write note here"}
-                />
+                <Modal show={note} onHide={handleNoteClick}>
+                <Form onSubmit={handleSubmit}>
+                    <Modal.Header onClick={handleNoteClick} closeButton>
+                        <Row xs={2}>
+                        <Col>
+                        <Modal.Title>New Note</Modal.Title>
+                        </Col>
+                        <Col>
+                        <Dropdown>
+                        <Dropdown.Toggle variant="light" id="dropdown">
+                            {panelChoice}
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            {userPanels?.length && userPanels?.map(({ panelId, title }) => (
+                                <Dropdown.Item id={panelId} key={panelId} onClick={handleChoiceChange} name={title} value={title}>{title}</Dropdown.Item>
+                            ))}
+                        </Dropdown.Menu>
+                        </Dropdown>
+                        </Col>
+                        </Row>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Control onChange={handleValueChange} value={value} type="textarea" placeholder="Write your note" />
+                        </Form.Group>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" as="input" type="button" value="Close" onClick={handleNoteClick}/>
+                        <Button variant="light" as="input" type="submit" value={`Add note`} />
+                    </Modal.Footer>
+                </Form>
+                </Modal>
             }
             {
                 panel &&
@@ -272,7 +325,7 @@ const Toolbar = () => {
             }
             {
                 <Modal show={artoo}>
-                    <Modal.Header>Artoo</Modal.Header>
+                    <Modal.Header onClick={handleArtooClick} closeButton>Artoo</Modal.Header>
                     <Modal.Body>
                     <Col >
                         <Form style={{ background: '#d4d4d4', borderRadius: '.2rem' }} onSubmit={sendMessage}>
@@ -281,6 +334,7 @@ const Toolbar = () => {
                             {choice}
                         </Dropdown.Toggle>
                         <Dropdown.Menu >
+                            <Dropdown.Item onClick={(event) => setChoice(event.target.name)} name="Artoo" value="artoo">Artoo</Dropdown.Item>
                             <Dropdown.Item onClick={(event) => setChoice(event.target.name)} name="Text" value="text">Text</Dropdown.Item>
                             <Dropdown.Item onClick={(event) => setChoice(event.target.name)} name="Code" value="code">Code</Dropdown.Item>
                             <Dropdown.Item onClick={(event) => setChoice(event.target.name)} name="Art" value="art">Art</Dropdown.Item>
@@ -318,7 +372,7 @@ const Toolbar = () => {
             }
             {
                 <Modal show={news}>
-                    <Modal.Header closeButton>
+                    <Modal.Header onClick={handleSearchBarClick} closeButton>
                         <Modal.Title>Search</Modal.Title> 
                     </Modal.Header>
                     <Modal.Body>
@@ -350,7 +404,7 @@ const Toolbar = () => {
             }
             {
                 <Modal show={posts}>
-                    <Modal.Header closeButton>
+                    <Modal.Header onClick={showPosts} closeButton>
                         <Modal.Title>Posts</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
@@ -379,7 +433,7 @@ const Toolbar = () => {
             }
             {
                 <Modal show={messages}>
-                    <Modal.Header closeButton>
+                    <Modal.Header onClick={showMessages} closeButton>
                         <Modal.Title>Messages</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
@@ -408,7 +462,7 @@ const Toolbar = () => {
             }
             {
                 <Modal show={communities}>
-                    <Modal.Header closeButton>
+                    <Modal.Header onClick={showCommunities} closeButton>
                         <Modal.Title>Communities</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>

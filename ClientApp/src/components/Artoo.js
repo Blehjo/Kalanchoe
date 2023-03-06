@@ -35,21 +35,19 @@ const Artoo = () => {
       setFormFields({ ...formFields, [name]: value })
   };
   
-  const handleAddChat = () => {
+  const handleAddChat = async () => {
     if (id == null) {
-      addChat({ title: request })
-      .then((response) => addChatComment({ chatValue: request, chatId: response.data.chatId }))
-      .then((response) => navigate(`/artoo/${response.data.chatId}`));
+      return await addChat({ title: request })
+      .then((response) => addChatComment({ chatValue: request, chatId: response.data.chatId }));
     }
+    return addChatComment({ chatValue: request, chatId: id });
   }
 
   const handleChatDelete = (event) => {
     deleteChat(event.target.id);
   }
 
-  const sendMessage = async (event) => {
-    event.preventDefault();
-    handleAddChat()
+  const artooResponse = async (chatId) => {
     await axios({
       method: 'post',
       url: toggle(choice),
@@ -61,7 +59,13 @@ const Artoo = () => {
       },
       withCredentials: true
     })
-    .then((response) => addChatComment({ chatValue: response.data, chatId: id }));
+    .then((response) => addChatComment({ chatValue: response.data, chatId: chatId ? chatId : id }).then((response) => id == null && navigate(`/artoo/${response.data.chatId}`)));
+  }
+
+  const sendMessage = async (event) => {
+    event.preventDefault();
+    await handleAddChat()
+    .then((response) => artooResponse(response.data.chatId));
     resetForm();
     window.location.reload();
   }
@@ -75,6 +79,11 @@ const Artoo = () => {
       </div>
     }
     return value;
+  }
+
+  const newForm = () => {
+    navigate("/artoo");
+    window.location.reload();
   }
   
   useEffect(() => {
@@ -110,17 +119,24 @@ const Artoo = () => {
       </Col>
       <Col md={9}>
         <Form className="artooform" style={{ position: 'relative', background: '#d4d4d4', borderRadius: '.2rem' }} onSubmit={sendMessage}>
-        <Dropdown style={{ padding: '1rem' }}>
-          <Dropdown.Toggle variant="light" id="dropdown">
-            {choice}
-          </Dropdown.Toggle>
-          <Dropdown.Menu >
-            <Dropdown.Item onClick={(event) => setChoice(event.target.name)} name="Artoo" value="artoo">Artoo</Dropdown.Item>
-            <Dropdown.Item onClick={(event) => setChoice(event.target.name)} name="Text" value="text">Text</Dropdown.Item>
-            <Dropdown.Item onClick={(event) => setChoice(event.target.name)} name="Code" value="code">Code</Dropdown.Item>
-            <Dropdown.Item onClick={(event) => setChoice(event.target.name)} name="Art" value="art">Art</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
+        <Row xs={2}>
+        <Col>
+          <Dropdown style={{ padding: '1rem' }}>
+            <Dropdown.Toggle variant="light" id="dropdown">
+              {choice}
+            </Dropdown.Toggle>
+            <Dropdown.Menu >
+              <Dropdown.Item onClick={(event) => setChoice(event.target.name)} name="Artoo" value="artoo">Artoo</Dropdown.Item>
+              <Dropdown.Item onClick={(event) => setChoice(event.target.name)} name="Text" value="text">Text</Dropdown.Item>
+              <Dropdown.Item onClick={(event) => setChoice(event.target.name)} name="Code" value="code">Code</Dropdown.Item>
+              <Dropdown.Item onClick={(event) => setChoice(event.target.name)} name="Art" value="art">Art</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </Col>
+        <Col>
+          <Button onClick={newForm} variant="light" style={{ margin: '1rem', position: 'absolute', right: '0' }}>New</Button>
+        </Col>
+        </Row>
           <Row style={{ padding: '2rem', height: '80vh', overflowY: 'auto' }}>
             <Col>
               {chatComments?.length > 0 && chatComments?.map(({ chatCommentId, chatValue }) => (

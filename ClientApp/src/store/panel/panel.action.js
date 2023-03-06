@@ -37,6 +37,9 @@ export const panelFetchSingleSuccess = (panel) =>
 export const panelFetchSingleFailed = (error) => 
     createAction(PANEL_ACTION_TYPES.FETCH_SINGLE_START, error);
 
+export const panelFetchUserStart = (panels) => 
+    createAction(PANEL_ACTION_TYPES.FETCH_USER_START, panels);
+
 export const panelFetchAllStart = (userId) => 
     createAction(PANEL_ACTION_TYPES.FETCH_ALL_START, userId);
 

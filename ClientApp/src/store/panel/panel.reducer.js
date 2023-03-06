@@ -2,6 +2,7 @@ import { PANEL_ACTION_TYPES } from './panel.types';
 
 const INITIAL_STATE = {
     panels: [],
+    userPanels: [],
     isLoading: false,
     error: null,
 };
@@ -10,6 +11,8 @@ export const panelReducer = (state = INITIAL_STATE, action) => {
     const { type, payload } = action;
 
     switch (type) {
+        case PANEL_ACTION_TYPES.FETCH_USER_START:
+            return { ...state, userPanels: payload, isLoading: true };
         case PANEL_ACTION_TYPES.CREATE_START:
         case PANEL_ACTION_TYPES.UPDATE_START:
         case PANEL_ACTION_TYPES.DELETE_START:

@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import { getCommunities } from "../utils/api/community";
+import { getPanels } from "../utils/api/panel";
 import { getPosts } from "../utils/api/post";
 
 const CommunityPanel = () => {
     const navigate = useNavigate();
     const [communities, setCommunities] = useState([]);
     const [posts, setPosts] = useState([]);
+    const [panels, setPanels] = useState([]);
 
     const goToCommunity = (event) => {
         const channel = event.target.id;
@@ -22,7 +24,15 @@ const CommunityPanel = () => {
         }
     }
 
+    const goToPanel= (event) => {
+        if (event.target.id != null) {
+            navigate(`/dilemmas/${event.target.id}`);
+        }
+    }
+
     useEffect(() => {
+        getPanels()
+        .then((response) => setPanels(response.data));
         getPosts()
         .then((response) => setPosts(response.data));
         getCommunities()
@@ -41,6 +51,17 @@ const CommunityPanel = () => {
                         <Col>
                             <div id={postId} onClick={goToPost}>
                                 {postValue}
+                            </div>
+                        </Col>
+                    </Row>
+                </div>
+            ))}
+            {panels?.length > 0 && panels?.map(({ panelId, title }) => (
+                <div style={{ justifyContent: 'center', cursor: 'pointer', boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)', background: 'white', margin: '.3rem', padding: '.5rem', borderRadius: '.2rem' }} key={panelId}>
+                    <Row>
+                        <Col>
+                            <div id={panelId} onClick={goToPanel}>
+                                {title}
                             </div>
                         </Col>
                     </Row>
