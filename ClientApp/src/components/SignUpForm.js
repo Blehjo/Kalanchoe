@@ -55,7 +55,7 @@ const SignUpForm = () => {
                             onChange={handleChange}
                             name="username"
                             value={username}
-                            type="text"
+                            as="textarea"
                             className="form-control"
                             id="inputUsername"
                             placeholder="User123"
@@ -64,6 +64,7 @@ const SignUpForm = () => {
                     <div className="col-md-6">
                         <label htmlFor="inputEmailAddress" className="form-label">Email</label>
                         <input
+                            as="textarea"
                             type="emailAddress"
                             required
                             onChange={handleChange}
@@ -77,7 +78,7 @@ const SignUpForm = () => {
                     <div className="col-md-6">
                         <label htmlFor="inputFirstName" className="form-label">First Name</label>
                         <input
-                            type="text"
+                            as="textarea"
                             required
                             onChange={handleChange}
                             name="firstName"
@@ -90,7 +91,7 @@ const SignUpForm = () => {
                     <div className="col-md-6">
                         <label htmlFor="inputLastName" className="form-label">Last Name</label>
                         <input
-                            type="text"
+                            as="textarea"
                             required
                             onChange={handleChange}
                             name="lastName"

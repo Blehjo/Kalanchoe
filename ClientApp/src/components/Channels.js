@@ -32,7 +32,7 @@ const Channels = () => {
         <Fragment>
             <Row>     
                 <Col>
-                <div className="channels" style={{ overflowY: 'auto', background: '#d4d4d4', borderRadius: '.2rem', textAlign: 'center' }}>
+                <div className="channels" style={{ maxWidth: '100%', overflowX: 'hidden', overflowY: 'auto', background: '#d4d4d4', borderRadius: '.2rem', textAlign: 'center' }}>
                 <Row xs={2}>
                     <Col xs={9}>
                         <h1>Channels</h1>

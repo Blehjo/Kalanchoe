@@ -304,7 +304,7 @@ const Toolbar = () => {
                     </Modal.Header>
                     <Modal.Body>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Control onChange={handleValueChange} value={value} type="textarea" placeholder="Write your note" />
+                            <Form.Control onChange={handleValueChange} value={value} as="textarea" placeholder="Write your note" />
                         </Form.Group>
                     </Modal.Body>
                     <Modal.Footer>
@@ -356,11 +356,11 @@ const Toolbar = () => {
                         <Row style={{ padding: '2rem', margin: 'auto' }} xs={2}>
                             <Col xs={10}>
                             <Form.Group className="mb-3" controlId="request">
-                                <Form.Control type="text" onChange={handleChange} value={request} name="request" placeholder="Send a message" />
+                                <Form.Control as="textarea" onChange={handleChange} value={request} name="request" placeholder="Send a message" />
                             </Form.Group>
                             </Col>
                             <Col xs={2}>
-                            <Button variant="light" type="submit">
+                            <Button style={{ height: "3.8rem" }} variant="light" type="submit">
                                 Submit
                             </Button>
                             </Col>
@@ -385,7 +385,7 @@ const Toolbar = () => {
                         <Col >
                             <Form style={{ margin: '.2rem' }} onSubmit={artSearch}> 
                                 <Form.Group>
-                                    <Form.Control style={{ textAlign: 'center' }} onChange={handleSearchFieldChange} value={searchField} type="text" placeholder="Search for art" />
+                                    <Form.Control style={{ textAlign: 'center' }} onChange={handleSearchFieldChange} value={searchField} as="textarea" placeholder="Search for art" />
                                 </Form.Group>
                             </Form>
                         </Col>

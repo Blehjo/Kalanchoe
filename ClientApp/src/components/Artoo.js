@@ -151,11 +151,11 @@ const Artoo = () => {
           <Row  xs={2}>
             <Col xs={8} md={10}>
               <Form.Group className="mb-3" controlId="request">
-                <Form.Control type="text" onChange={handleChange} value={request} name="request" placeholder="Send a message" />
+                <Form.Control as="textarea" onChange={handleChange} value={request} name="request" placeholder="Send a message" />
               </Form.Group>
             </Col>
             <Col xs={2}>
-              <Button variant="light" type="submit">
+              <Button style={{ height: "3.8rem" }} variant="light" type="submit">
                 Go
               </Button>
             </Col>

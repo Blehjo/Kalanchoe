@@ -92,14 +92,14 @@ const SidebarOverlay = () => {
                         News
                     </Nav.Link>
                 </Nav.Item >
-                {communities?.length > 0 && communities?.map(({ groupName, mediaLink }) => (
+                {communities?.length > 0 && communities?.map(({ groupName, mediaLink, communityId }) => (
                     <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
                         <Row xs={2}>
                             <Col xs={2}>
                                 <img src={mediaLink} style={{ height: '1.2rem', width: '1.2rem', borderRadius: '.2rem' }}/>
                             </Col>
                             <Col xs={10}>
-                                <Nav.Link href="/news" className="ms-3">
+                                <Nav.Link href={`/community/${communityId}`} className="ms-3">
                                     {groupName}
                                 </Nav.Link>
                             </Col>

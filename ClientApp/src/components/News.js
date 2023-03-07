@@ -49,7 +49,7 @@ const News = () => {
                     <div className="searchrow" style={{ }}>
                     <Form style={{ justifyContent: 'center', margin: '.2rem' }} onSubmit={artSearch}> 
                         <Form.Group >
-                            <Form.Control style={{ textAlign: 'center' }} onChange={handleSearchFieldChange} value={searchField} type="text" placeholder="Search for art" />
+                            <Form.Control style={{ textAlign: 'center' }} onChange={handleSearchFieldChange} value={searchField} as="textarea" placeholder="Search for art" />
                         </Form.Group>
                     </Form>
                     </div>

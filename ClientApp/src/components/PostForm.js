@@ -54,7 +54,7 @@ export const PostForm = () => {
                 <Form.Group className="mb-3" controlId="formMediaLink">
                     <Form.Label>Media</Form.Label>
                     <Form.Control
-                        as="input"
+                        as="textarea"
                         label="MediaLink"
                         type="text"
                         placeholder="Place Media Here"
@@ -63,7 +63,7 @@ export const PostForm = () => {
                         value={mediaLink}
                         />
                 </Form.Group>
-                <Button as="input" type="submit" value="Submit" />
+                <Button style={{ height: "3.8rem" }} as="input" type="submit" value="Submit" />
             </Form>
         </Col>
         </Row>

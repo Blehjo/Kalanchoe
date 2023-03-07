@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
-import { Row, Col, Card, Button } from "react-bootstrap";
+import { Row, Col, Card, Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { savedFetchAllStart } from "../store/saved/saved.action";
@@ -43,7 +43,7 @@ const Saved = () => {
                         <Card
                             id={link} 
                             onClick={() => openInNewTab(link)}
-                            style={{ color: 'white' }}
+                            style={{ color: 'white', cursor: 'pointer' }}
                             className="explorepanel bg-dark"
                             key={`card-${savedId}`}
                         >
@@ -56,9 +56,9 @@ const Saved = () => {
                         </Card>
                     </Col>
                 ))}
-                {
-                isShowing && <SavedForm key="savedform"/> 
-                }
+                <Modal show={isShowing} onHide={showPostForm}>
+                    <SavedForm key="savedform"/>
+                </Modal> 
             </Row>
         </Fragment>
     );

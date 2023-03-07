@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Col, Form } from "react-bootstrap";
+import { Button, Col, Form, Modal } from "react-bootstrap";
 import { addSaved } from "../utils/api/saved";
 
 const defaultFormFields = {
@@ -26,14 +26,19 @@ export const SavedForm = () => {
         try {
             addSaved(formFields);
             resetFormFields();
+            window.location.reload();
         } catch (error) {
             throw error;
         }
     }
 
     return (
-        <Col xs={12} md={6}>
+        <Col xs={12} >
             <Form onSubmit={handleSubmit} style={{ color: 'black', marginTop: '1rem' }}>
+            <Modal.Header closeButton>
+                <Modal.Title>Add a page</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
                 <Form.Group className="mb-3" controlId="formTitle">
                     <Form.Label>Saved</Form.Label>
                         <Form.Control
@@ -50,7 +55,7 @@ export const SavedForm = () => {
                 <Form.Group className="mb-3" controlId="formMediaLink">
                     <Form.Label>Media</Form.Label>
                     <Form.Control
-                        as="input"
+                        as="textarea"
                         label="MediaLink"
                         type="text"
                         placeholder="Place Media Here"
@@ -62,7 +67,7 @@ export const SavedForm = () => {
                 <Form.Group className="mb-3" controlId="formLink">
                     <Form.Label>Link</Form.Label>
                     <Form.Control
-                        as="input"
+                        as="textarea"
                         label="Link"
                         type="text"
                         placeholder="Place Link Here"
@@ -71,7 +76,10 @@ export const SavedForm = () => {
                         value={link}
                     />
                 </Form.Group>
+            </Modal.Body>
+            <Modal.Footer>
                 <Button as="input" type="submit" value="Submit" />
+            </Modal.Footer>
             </Form>
         </Col>
     );
