@@ -34,7 +34,7 @@ export const PostForm = () => {
     return (
         <Row style={{ justifyContent: 'center' }}>
         <Col xs={12} >
-            <Form onSubmit={handleSubmit} style={{ color: 'black', marginTop: '1rem' }}>
+            <Form asp-controller="post" encType="multipart/form-data" onSubmit={handleSubmit} style={{ color: 'black', marginTop: '1rem' }}>
                 <Form.Group className="mb-3" controlId="formPostValue">
                     <Form.Label>Post</Form.Label>
                         <Form.Control
@@ -54,9 +54,9 @@ export const PostForm = () => {
                 <Form.Group className="mb-3" controlId="formMediaLink">
                     <Form.Label>Media</Form.Label>
                     <Form.Control
-                        as="textarea"
+                        as="input"
                         label="MediaLink"
-                        type="text"
+                        type="file"
                         placeholder="Place Media Here"
                         onChange={handleChange}
                         name="mediaLink"

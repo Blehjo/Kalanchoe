@@ -34,7 +34,7 @@ export const SavedForm = () => {
 
     return (
         <Col xs={12} >
-            <Form onSubmit={handleSubmit} style={{ color: 'black', marginTop: '1rem' }}>
+            <Form asp-controller="saved" encType="multipart/form-data" onSubmit={handleSubmit} style={{ color: 'black', marginTop: '1rem' }}>
             <Modal.Header closeButton>
                 <Modal.Title>Add a page</Modal.Title>
             </Modal.Header>
@@ -67,9 +67,9 @@ export const SavedForm = () => {
                 <Form.Group className="mb-3" controlId="formLink">
                     <Form.Label>Link</Form.Label>
                     <Form.Control
-                        as="textarea"
+                        as="input"
                         label="Link"
-                        type="text"
+                        type="file"
                         placeholder="Place Link Here"
                         onChange={handleChange}
                         name="link"

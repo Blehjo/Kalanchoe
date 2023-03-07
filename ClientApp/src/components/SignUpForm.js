@@ -47,7 +47,7 @@ const SignUpForm = () => {
             <Col>
                 <h2>Don't have an account?</h2>
                 <span>Sign up with your email and password</span>
-                <form style={{ color: 'black', marginTop: '1rem' }} onSubmit={handleSubmit} className="row">
+                <form asp-controller="users" encType="multipart/form-data" style={{ color: 'black', marginTop: '1rem' }} onSubmit={handleSubmit} className="row">
                     <div className="col-md-6">
                         <label htmlFor="inputUsername" className="form-label">Username</label>
                         <input
@@ -129,13 +129,6 @@ const SignUpForm = () => {
                             placeholder="Confirm Password"
                         />
                     </div>
-                    {/*<div className="col-md-6">
-                        <label for="selectCountry" className="form-label">Country</label>
-                        <CountrySelect
-                            value={country}
-                            onChange={setCountry}
-                        />
-                    </div>*/}
                     <div className="col-md-6">
                         <label htmlFor="" className="form-label">Date of Birth</label>
                         <input
@@ -160,14 +153,25 @@ const SignUpForm = () => {
                             className="form-control"
                         />
                     </div>
-                    <div className="col-md-6">
+                    {/* <div className="col-md-6">
                         <label htmlFor="" className="form-label">Profile Image</label>
                         <input
                             required
                             onChange={handleChange}
                             type="profileImage"
                             name="profileImage"
+                            id="selectProfileImage"
+                            className="form-control"
+                            />
+                    </div> */}
+                    <div className="col-md-6">
+                        <label htmlFor="" className="form-label">Profile Image</label>
+                        <input
+                            required
+                            onChange={handleChange}
+                            type="file"
                             value={profileImage}
+                            name="profileImage"
                             id="selectProfileImage"
                             className="form-control"
                         />

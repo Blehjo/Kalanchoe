@@ -91,7 +91,7 @@ const Communities = () => {
             {
                 createModal && 
                 <Modal show={createModal} onHide={handleShow}>
-                    <Form onSubmit={handleSubmit}>
+                    <Form asp-controller="community" encType="multipart/form-data" onSubmit={handleSubmit}>
                         <Modal.Header closeButton>
                             <Modal.Title>Create a community</Modal.Title>
                         </Modal.Header>
@@ -103,7 +103,7 @@ const Communities = () => {
                                 <Form.Control onChange={handleChange} name="description" value={description} as="textarea" type="description" placeholder="Description" />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formMedia">
-                                <Form.Control onChange={handleChange} name="mediaLink" value={mediaLink} as="textarea" type="mediaLink" placeholder="Media" />
+                                <Form.Control onChange={handleChange} name="mediaLink" value={mediaLink} as="input" type="file" placeholder="Media" />
                             </Form.Group>
                         </Modal.Body>
                         <Modal.Footer>
