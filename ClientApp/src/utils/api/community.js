@@ -37,7 +37,7 @@ export async function getUserCommunities(id) {
 export async function addCommunity(community) {
   return await axios({
     method: 'post',
-    url: `${api}`, 
+    url: api, 
     data: community, 
     config: headers,
     withCredentials: true

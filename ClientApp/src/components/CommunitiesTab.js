@@ -34,6 +34,10 @@ const CommunitiesTab = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        const formData = new FormData();
+        formData.append("groupName", groupName);
+        formData.append("description", description);
+        formData.append("mediaLink", mediaLink);
         await addCommunity({ groupName: groupName, description: description, mediaLink: mediaLink });
         resetFormFields();
         handleShowCreateGroup();
@@ -43,6 +47,7 @@ const CommunitiesTab = () => {
         getUserCommunities(id)
         .then((response) => dispatch(communityFetchAllStart(response.data)));
     }, []);
+    console.log(mediaLink)
 
     return (
         <Fragment>
@@ -78,7 +83,7 @@ const CommunitiesTab = () => {
                 </Card>
             )}
             <Modal show={showCreateGroup} onHide={handleShowCreateGroup}>
-                    <Form asp-controller="saved" encType="multipart/form-data" onSubmit={handleSubmit}>
+                    <Form onSubmit={handleSubmit}>
                         <Modal.Header closeButton>
                             <Modal.Title>Create a community</Modal.Title>
                         </Modal.Header>

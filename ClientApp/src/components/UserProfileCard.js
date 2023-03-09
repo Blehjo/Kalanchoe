@@ -25,7 +25,7 @@ const UserProfileCard = () => {
     useEffect(() => {
         getSingleUser(id)
         .then((response) => dispatch(userprofileFetchAllStart(response.data)));
-    }, [id])
+    }, [id]);
 
     return (
         <Card style={{ color: 'white' }} className="bg-dark" key={userId}>

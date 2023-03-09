@@ -47,7 +47,7 @@ const SignUpForm = () => {
             <Col>
                 <h2>Don't have an account?</h2>
                 <span>Sign up with your email and password</span>
-                <form asp-controller="users" encType="multipart/form-data" style={{ color: 'black', marginTop: '1rem' }} onSubmit={handleSubmit} className="row">
+                <form style={{ color: 'black', marginTop: '1rem' }} onSubmit={handleSubmit} className="row">
                     <div className="col-md-6">
                         <label htmlFor="inputUsername" className="form-label">Username</label>
                         <input

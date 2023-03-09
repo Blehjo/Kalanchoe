@@ -40,6 +40,8 @@ export default function Profiles() {
         .then((response) => dispatch(userprofileFetchAllStart(response.data)));
     }, [])
 
+    console.log("User Profiles: ", userProfiles)
+
     return (
     <Row xs={1} md={2} lg={3} className="justify-content-center">
         {userProfiles?.map(({ userId, profileImage, firstName, about, username }) => (
