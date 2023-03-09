@@ -89,13 +89,13 @@ const CommunitiesTab = () => {
                         </Modal.Header>
                         <Modal.Body>
                             <Form.Group className="mb-3" controlId="formName">
-                                <Form.Control onChange={handleChange} name="groupName" value={groupName} as="textarea" type="groupname" placeholder="Community name" />
+                                <Form.Control style={{ height: '.5rem' }} onChange={handleChange} name="groupName" value={groupName} as="textarea" type="groupname" placeholder="Community name" />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formDescription">
-                                <Form.Control onChange={handleChange} name="description" value={description} as="textarea" type="description" placeholder="Description" />
+                                <Form.Control style={{ height: '.5rem' }} onChange={handleChange} name="description" value={description} as="textarea" type="description" placeholder="Description" />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formMedia">
-                                <Form.Control onChange={handleChange} name="mediaLink" value={mediaLink} as="input" type="file" placeholder="Media" />
+                                <Form.Control style={{ height: '.5rem' }} onChange={handleChange} name="mediaLink" value={mediaLink} as="input" type="file" placeholder="Media" />
                             </Form.Group>
                         </Modal.Body>
                         <Modal.Footer>

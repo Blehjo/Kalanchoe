@@ -96,7 +96,7 @@ const PostsTab = () => {
                         <Form id={postId} onSubmit={postComment}>
                         <Row style={{ marginBottom: '3rem', justifyContent: 'center' }} xs={2}>
                             <Col xs={9} >
-                                <Form.Control as="textarea" onChange={handleTextChange} placeholder=" Write your comment here" />
+                                <Form.Control style={{ height: '.5rem' }} as="textarea" onChange={handleTextChange} placeholder=" Write your comment here" />
                             </Col>
                             <Col xs={3}>
                                 <Button id={postId} style={{ width: '100%', height: '100%'}} variant="light" type="submit">

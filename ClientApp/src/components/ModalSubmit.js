@@ -27,7 +27,7 @@ const ModalSubmit = ({ title, functionHandler, id, type, placeholder }) => {
                 </Modal.Header>
                 <Modal.Body>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Control as="textarea" onChange={handleValueChange} value={value} type={type} placeholder={placeholder} />
+                        <Form.Control style={{ height: '.5rem' }} as="textarea" onChange={handleValueChange} value={value} type={type} placeholder={placeholder} />
                     </Form.Group>
                 </Modal.Body>
                 <Modal.Footer>

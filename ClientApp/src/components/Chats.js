@@ -136,11 +136,11 @@ const Chats = () => {
           <Row  xs={2}>
             <Col xs={8} md={10}>
               <Form.Group className="mb-3" controlId="request">
-                <Form.Control as="textarea" onChange={handleChange} value={request} name="request" placeholder="Send a message" />
+                <Form.Control style={{ height: '.5rem' }} as="textarea" onChange={handleChange} value={request} name="request" placeholder="Send a message" />
               </Form.Group>
             </Col>
             <Col xs={2}>
-              <Button style={{ height: "3.8rem" }} variant="light" type="submit">
+              <Button variant="light" type="submit">
                 Go
               </Button>
             </Col>

@@ -61,7 +61,7 @@ const SinglePost = () => {
             <Form style={{ margin: 'auto' }} id={postId} onSubmit={postComment}>
                 <Row style={{ marginBottom: '3rem', justifyContent: 'center' }} xs={2}>
                     <Col xs={9} md={7} lg={4}>
-                        <Form.Control as="textarea" onChange={handleTextChange} placeholder=" Write your comment here" />
+                        <Form.Control style={{ height: '.5rem' }} as="textarea" onChange={handleTextChange} placeholder=" Write your comment here" />
                     </Col>
                     <Col xs={3} md={2}>
                         <Button id={postId} style={{ textAlign: 'center', width: '100%', height: '100%'}} variant="light" type="submit">

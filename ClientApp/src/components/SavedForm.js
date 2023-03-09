@@ -55,6 +55,7 @@ export const SavedForm = () => {
                 <Form.Group className="mb-3" controlId="formMediaLink">
                     <Form.Label>Media</Form.Label>
                     <Form.Control
+                        style={{ height: '.5rem' }}
                         as="textarea"
                         label="MediaLink"
                         type="text"
