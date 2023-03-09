@@ -244,7 +244,10 @@ export default function Employee(props) {
             formData.append('description', values.description)
             formData.append('mediaLink', values.mediaLink)
             formData.append('ImageFile', values.imageFile)
+            formData.append('ImageSource', values.description)
+            console.log("Image Source: ", values.imageSource);
             addCommunity(formData);
+            console.log("Image Source Updated: ", values.imageSource);
         }
     }
 
