@@ -32,13 +32,15 @@ const FetchedPosts = () => {
         .then((response) => dispatch(postFetchAllStart(response.data)));
     }, []);
 
+    console.log(posts)
+
     return (
         <Row xs={1} style={{ marginTop: '1rem' }}>
             {
-                posts?.length > 0 && posts?.map(({ postValue, postId, mediaLink, userId }) => (
+                posts?.length > 0 && posts?.map(({ postValue, postId, mediaLink, userId, imageSource }) => (
                     <Row style={{ margin: '1rem' }} xs={2}>
                         <Col xs={4} onClick={goToPost} key={postId}>
-                            {mediaLink?.length > 0 ? <Card.Img height='200' style={{ objectFit:'cover'}} src={mediaLink}/> : ''}
+                            {mediaLink?.length > 0 ? <Card.Img height='200' style={{ objectFit:'cover'}} src={imageSource}/> : ''}
                         </Col>
                         <Col>
                             <Card.Title style={{ margin: '1rem' }}>{postValue}</Card.Title>

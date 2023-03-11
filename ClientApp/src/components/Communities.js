@@ -6,13 +6,11 @@ import { addCommunity, getCommunities, deleteCommunity } from "../utils/api/comm
 import ModalDelete from "./ModalDelete";
 import { addMember } from "../utils/api/member";
 
-const defaultImageSource = '/img/image_placeholder.png'
-
 const defaultFormFields = {
     groupName: '',
     description: '',
     mediaLink: '',
-    imageSource: defaultImageSource,
+    imageSource: null,
     imageFile: null
 }
 
@@ -22,12 +20,10 @@ const Communities = () => {
     const [createModal, setCreateModal] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
     const [formFields, setFormFields] = useState(defaultFormFields);
-    // const { groupName, description, mediaLink } = formFields;
 
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormFields({ ...formFields, [name]: value })
-        console.log(formFields);
     }
 
     const showPreview = e => {
@@ -47,7 +43,7 @@ const Communities = () => {
             setFormFields({
                 ...formFields,
                 imageFile: null,
-                imageSource: defaultImageSource
+                imageSource: null
             })
         }
     }
@@ -66,6 +62,8 @@ const Communities = () => {
         formData.append('mediaLink', formFields.mediaLink);
         formData.append('imageFile', formFields.imageFile);
         addCommunity(formData);
+        resetFormFields();
+        window.location.reload();
     }
 
     const join = (event) => {
@@ -81,8 +79,6 @@ const Communities = () => {
         getCommunities()
         .then((response) => setCommunities(response.data));
     }, []);
-
-    console.log(communities)
 
     return(
         <Fragment>
@@ -140,30 +136,6 @@ const Communities = () => {
                             <Button variant="light" as="input" type="submit" value="Add Community" />
                         </Modal.Footer>
                     </Form>
-                    {/* <form autoComplete="off" noValidate onSubmit={handleFormSubmit}>
-                <div className="card">
-                    <img src={formFields.imageSource} className="card-img-top" />
-                    <div className="card-body">
-                        <div className="form-group">
-                            <input type="file" accept="image/*" className={"form-control-file"}
-                                onChange={showPreview} id="image-uploader" />
-                        </div>
-                        <div className="form-group">
-                            <input className={"form-control" } placeholder="Community Name" name="groupName"
-                                value={formFields.groupName}
-                                onChange={handleChange} />
-                        </div>
-                        <div className="form-group">
-                            <input className="form-control" placeholder="Description" name="description"
-                                value={formFields.description}
-                                onChange={handleChange} />
-                        </div>
-                        <div className="form-group text-center">
-                            <button type="submit" className="btn btn-light">Submit</button>
-                        </div>
-                    </div>
-                </div>
-            </form> */}
                 </Modal>
             }
         </Fragment >

@@ -11,7 +11,9 @@ import { communityFetchAllStart } from '../store/community/community.action';
 const defaultFormFields = {
     groupName: '',
     description: '',
-    mediaLink: ''
+    mediaLink: '', 
+    imageSource: null,
+    imageFile: null
 }
 
 const CommunitiesTab = () => {
@@ -19,7 +21,7 @@ const CommunitiesTab = () => {
     const communities = useSelector(selectCommunities);
     const [showCreateGroup, setShowCreateGroup] = useState(false);
     const [formFields, setFormFields] = useState(defaultFormFields);
-    const { groupName, description, mediaLink } = formFields;
+    const { groupName, description, mediaLink, imageFile } = formFields;
     const { id } = useParams();
 
     const handleChange = (event) => {
@@ -28,6 +30,28 @@ const CommunitiesTab = () => {
     }
     
     const handleShowCreateGroup = () => setShowCreateGroup(!showCreateGroup);
+
+    const showPreview = e => {
+        if (e.target.files && e.target.files[0]) {
+            let imageFile = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = x => {
+                setFormFields({
+                    ...formFields,
+                    imageFile,
+                    imageSource: x.target.result
+                })
+            }
+            reader.readAsDataURL(imageFile)
+        }
+        else {
+            setFormFields({
+                ...formFields,
+                imageFile: null,
+                imageSource: null
+            })
+        }
+    }
 
     const resetFormFields = () =>
         setFormFields(defaultFormFields);
@@ -38,7 +62,8 @@ const CommunitiesTab = () => {
         formData.append("groupName", groupName);
         formData.append("description", description);
         formData.append("mediaLink", mediaLink);
-        await addCommunity({ groupName: groupName, description: description, mediaLink: mediaLink });
+        formData.append('imageFile', imageFile);
+        await addCommunity(formData);
         resetFormFields();
         handleShowCreateGroup();
     }
@@ -95,7 +120,7 @@ const CommunitiesTab = () => {
                                 <Form.Control style={{ height: '.5rem' }} onChange={handleChange} name="description" value={description} as="textarea" type="description" placeholder="Description" />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formMedia">
-                                <Form.Control style={{ height: '.5rem' }} onChange={handleChange} name="mediaLink" value={mediaLink} as="input" type="file" placeholder="Media" />
+                                <Form.Control onChange={showPreview} name="mediaLink" as="input" accept="image/*" type="file" placeholder="Media" />
                             </Form.Group>
                         </Modal.Body>
                         <Modal.Footer>

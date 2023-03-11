@@ -1,4 +1,5 @@
 ﻿import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { Col, Nav, Row } from "react-bootstrap";
 import { Collection, House, Database, Eye, Clipboard, Bookmark, ChatDots, Person, PersonWorkspace, Newspaper, Robot } from 'react-bootstrap-icons';
 import { useDispatch, useSelector } from "react-redux";
@@ -8,9 +9,17 @@ import { getUserCommunities } from "../utils/api/community";
 import { getUser } from "../utils/userDocument";
 
 const SidebarOverlay = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const communities = useSelector(selectCommunities);
     const [userId, setUserId] = useState(null);
+
+    const goToCommunity = (event) => {
+        const channel = event.target.id;
+        if (channel != null) {
+            navigate(`/community/${channel}`);
+        }
+    }
 
     useEffect(() => {
         getUser()
@@ -92,20 +101,20 @@ const SidebarOverlay = () => {
                         News
                     </Nav.Link>
                 </Nav.Item >
-                {communities?.length > 0 && communities?.map(({ groupName, mediaLink, communityId, imageSource }) => (
-                    <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
-                        <Row xs={2}>
-                            <Col xs={2}>
-                                <img src={imageSource} style={{ height: '1.2rem', width: '1.2rem', borderRadius: '.2rem' }}/>
-                            </Col>
-                            <Col xs={10}>
-                                <Nav.Link href={`/community/${communityId}`} className="ms-3">
-                                    {groupName}
-                                </Nav.Link>
-                            </Col>
-                        </Row>
-                    </Nav.Item>
-                ))}
+                {communities?.length > 0 && communities?.map(({ communityId, groupName, imageSource }) => (
+                <div style={{ cursor: 'pointer', margin: '.3rem', padding: '.5rem', borderRadius: '.2rem' }} key={communityId}>
+                    <Row xs={2}>
+                        <Col xs={2}>
+                            <img style={{ marginLeft: '1.5rem', objectFit: 'cover' }} height="20rem" width="20rem" id={communityId} onClick={goToCommunity} className="medialinkfeed" src={imageSource} />
+                        </Col>
+                        <Col xs={10}>
+                            <div style={{ marginLeft: "1rem" }} id={communityId} onClick={goToCommunity}>
+                                {groupName}
+                            </div>
+                        </Col>
+                    </Row>
+                </div>
+            ))}
             </Row>
         </div>
     )
