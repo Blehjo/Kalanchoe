@@ -16,7 +16,7 @@ const defaultFormFields = {
 
 const Community = () => {
     const dispatch = useDispatch();
-    const { communityId, groupName, description, mediaLink, userId } = useSelector(selectCommunities);
+    const { communityId, groupName, description, mediaLink, userId, imageSource } = useSelector(selectCommunities);
     const channelComments = useSelector(selectChannelcommentItems);
     const { id, channelId } = useParams();
     const [formFields, setFormFields] = useState(defaultFormFields);
@@ -43,7 +43,7 @@ const Community = () => {
         <Fragment>
             <Row xs={2}>
                 <Col xs={1}>
-                    <Card.Img style={{ margin: '.5rem', borderRadius: '.5rem', height: '2rem', width: '2rem', objectFit: 'cover' }} src={mediaLink} />
+                    <Card.Img style={{ margin: '.5rem', borderRadius: '.5rem', height: '2rem', width: '2rem', objectFit: 'cover' }} src={imageSource} />
                 </Col>
                 <Col xs={9}>
                     <h1 className="channelname">{groupName}</h1>

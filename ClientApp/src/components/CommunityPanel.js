@@ -67,10 +67,13 @@ const CommunityPanel = () => {
                     </Row>
                 </div>
             ))}
-            {communities?.length > 0 && communities?.map(({ communityId, groupName }) => (
-                <div style={{ justifyContent: 'center', cursor: 'pointer', boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)', background: 'white', margin: '.3rem', padding: '.5rem', borderRadius: '.2rem' }} key={communityId}>
-                    <Row>
-                        <Col>
+            {communities?.length > 0 && communities?.map(({ communityId, groupName, imageSource }) => (
+                <div style={{ cursor: 'pointer', boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)', background: 'white', margin: '.3rem', padding: '.5rem', borderRadius: '.2rem' }} key={communityId}>
+                    <Row xs={2}>
+                        <Col xs={2}>
+                            <img style={{ objectFit: 'cover' }} height="20rem" width="20rem" id={communityId} onClick={goToCommunity} className="medialinkfeed" src={imageSource} />
+                        </Col>
+                        <Col xs={10}>
                             <div id={communityId} onClick={goToCommunity}>
                                 {groupName}
                             </div>
