@@ -65,8 +65,6 @@ const Communities = () => {
         formData.append('description', formFields.description);
         formData.append('mediaLink', formFields.mediaLink);
         formData.append('imageFile', formFields.imageFile);
-        console.log("Form Fields: ", formFields);
-        console.log("Form Data: ", formData);
         addCommunity(formData);
     }
 
@@ -83,8 +81,8 @@ const Communities = () => {
         getCommunities()
         .then((response) => setCommunities(response.data));
     }, []);
-
     console.log("Communities: ", communities);
+
     return(
         <Fragment>
             <Row xs={2}>

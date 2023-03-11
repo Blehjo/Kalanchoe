@@ -27,6 +27,8 @@ import { addPanel, getUserPanels } from '../utils/api/panel';
 import { addNote } from '../utils/api/note';
 import { panelFetchUserStart } from '../store/panel/panel.action';
 import { selectUserPanelItems } from '../store/panel/panel.selector';
+import { getSingleUser } from '../utils/api/user';
+import { getUser } from '../utils/userDocument';
 
 const defaultFormFields = {
     request: ''
@@ -72,11 +74,8 @@ const Toolbar = () => {
     };
 
     const handleAddChat = async () => {
-        if (id == null) {
-          return await addChat({ title: request })
-          .then((response) => addChatComment({ chatValue: request, chatId: response.data.chatId }));
-        }
-        return addChatComment({ chatValue: request, chatId: id });
+        return await addChat({ title: request })
+        .then((response) => addChatComment({ chatValue: request, chatId: response.data.chatId }));
       }
 
     const artooResponse = async (chatId) => {
@@ -91,7 +90,7 @@ const Toolbar = () => {
           },
           withCredentials: true
         })
-        .then((response) => addChatComment({ chatValue: response.data, chatId: chatId ? chatId : id }).then((response) => id == null && navigate(`/artoo/${response.data.chatId}`)));
+        .then((response) => addChatComment({ chatValue: response.data, chatId: chatId }).then((response) => navigate(`/artoo/${response.data.chatId}`)));
     }
 
     const sendMessage = async (event) => {
@@ -105,7 +104,6 @@ const Toolbar = () => {
     const handleChoiceChange = (event) => {
         setPanelChoice(event.target.name);
         setItemId(event.target.id);
-        console.log("Item ID: ", itemId, "Choice: ", panelChoice);
     }
     const handleValueChange = (event) => {
         setValue(event.target.value);
@@ -138,11 +136,13 @@ const Toolbar = () => {
     useEffect(() => {
         getUserPanels()
         .then((response) => dispatch(panelFetchUserStart(response.data)));
-        getUserPosts(id)
+        getUser()
+        .then((response) => getUserPosts(response.data.userId))
         .then((response) => dispatch(postFetchAllStart(response.data)));
         getAllMessages()
         .then((response) => dispatch(messageFetchAllStart(response.data)));
-        getUserCommunities(id)
+        getUser()
+        .then((response) => getUserCommunities(response.data.userId))
         .then((response) => dispatch(communityFetchAllStart(response.data)));
     }, []);
 
@@ -467,7 +467,7 @@ const Toolbar = () => {
                     </Modal.Header>
                     <Modal.Body>
                     {userCommunities?.length > 0 ? Array.from(userCommunities)?.map(({ communityId, groupName, description, dateCreated, mediaLink }) => (
-                        <Card.Link key={communityId} style={{ textDecoration: 'none', color: 'black', margin: '1rem' }} href={`/community/${id}`}>
+                        <Card.Link key={communityId} style={{ textDecoration: 'none', color: 'black', margin: '1rem' }} href={`/community/${communityId}`}>
                             <Row>
                                 <Col key='img' xl={4}>
                                     <Card.Img height='200' style={{ objectFit:'cover', borderRadius: '.5rem' }} src={mediaLink} />
