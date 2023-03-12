@@ -63,6 +63,10 @@ code {
   height: 25rem
 }
 
+.sidebarIndex {
+  max-height: 100%;
+}
+
 #explorefont {
   font-size: 500%;
 }

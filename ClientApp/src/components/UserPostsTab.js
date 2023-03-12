@@ -16,7 +16,7 @@ const UserPostsTab = () => {
     const navigate = useNavigate();
     const posts = useSelector(selectPosts);
     const [commentValue, setCommentValue] = useState('');
-    const { postId, mediaLink, postValue, dateCreated } = useSelector(selectSinglePost);
+    const { postId, mediaLink, imageSource, postValue, dateCreated } = useSelector(selectSinglePost);
     const { id } = useParams();
     const [show, setShow] = useState(false);
 
@@ -44,10 +44,10 @@ const UserPostsTab = () => {
 
     return (
         <Row xs={3}>
-        {posts?.length > 0 ? posts?.map(({ postId, mediaLink, postValue, dateCreated }) => (
+        {posts?.length > 0 ? posts?.map(({ postId, mediaLink, postValue, dateCreated, imageSource }) => (
             <Col>
             <Card key={postId} style={{ color: 'white', marginBottom: '1rem', objectFit: 'cover', height: '30rem' }} className="bg-dark">
-                <Card.Img onClick={() => navigate(`/posts/${postId}`)} style={{ cursor: 'pointer', height: '20rem', width: 'auto', objectFit: 'cover' }} src={mediaLink}/>
+                <Card.Img onClick={() => navigate(`/posts/${postId}`)} style={{ cursor: 'pointer', height: '20rem', width: 'auto', objectFit: 'cover' }} src={imageSource}/>
                 <Card.Body>
                     <Card.Title>{postValue}</Card.Title>
                 </Card.Body>
@@ -70,7 +70,7 @@ const UserPostsTab = () => {
                 <Card className="bg-light" key={id}>
                     <div className='card-container'>
                     <Card.Link className='card-info' href={`posts/${id}`}>
-                        {mediaLink && <Card.Img  style={{ objectFit:'cover'}} variant="top" src={mediaLink} />}
+                        {imageSource && <Card.Img  style={{ objectFit:'cover'}} variant="top" src={imageSource} />}
                     </Card.Link>
                     </div>
                     <Card.Body >

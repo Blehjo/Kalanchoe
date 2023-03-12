@@ -28,7 +28,7 @@ export async function addMessagecomment(messagecomment) {
   return await axios({
     method: 'post',
     url: api,
-    data: { messageId: messagecomment.id, messageValue: messagecomment.value },
+    data: messagecomment,
     headers: {
       'Content-Type': 'application/json'
     },

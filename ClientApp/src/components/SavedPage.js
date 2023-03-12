@@ -38,7 +38,7 @@ const Saved = () => {
                 </Col>
             </Row>
             <Row xs={2} key="groups">
-                {saved?.map(({ savedId, mediaLink, title, link }) => (
+                {saved?.map(({ savedId, mediaLink, imageSource, title, link }) => (
                     <Col style={{ marginBottom: '1.5rem' }} key={`col-${title}`}>
                         <Card
                             id={link} 
@@ -47,7 +47,7 @@ const Saved = () => {
                             className="explorepanel bg-dark"
                             key={`card-${savedId}`}
                         >
-                            <Card.Img key={`cardimage-${mediaLink}`} className="explorepanel" style={{ position: 'relative', borderRadius: ".5rem", width: "100%", objectFit: "cover" }} src={mediaLink} alt={mediaLink} />
+                            <Card.Img key={`cardimage-${mediaLink}`} className="explorepanel" style={{ position: 'relative', borderRadius: ".5rem", width: "100%", objectFit: "cover" }} src={imageSource} alt={mediaLink} />
                             <Card.ImgOverlay key={`cardimageoverlay-${title}`}>
                                 <div key={`carddiv-${title}`} style={{ position: 'absolute', left: '50%', top: '50%', borderRadius: '1rem', transform: 'translate(-50%, -50%)' }} className="text-white">
                                     <Card.Title key={title} id='explorefont'>{title}</Card.Title>

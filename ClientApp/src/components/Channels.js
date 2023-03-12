@@ -14,7 +14,6 @@ const Channels = () => {
     const channels = useSelector(selectChannelItems);
     const [show, setShow] = useState(false);
     const { id } = useParams();
-    console.log(id)
 
     const handleClickEvent = (event) => {
         navigate(`/community/${id}/${event.target.id}`);

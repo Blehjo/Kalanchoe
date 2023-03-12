@@ -23,6 +23,7 @@ const Artoo = () => {
   const chatComments = useSelector(selectChatCommentItems);
   const chats = useSelector(selectChatItems);
   const [choice, setChoice] = useState("Artoo");
+  const [loading, setLoading] = useState(false);
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { request } = formFields;
 
@@ -64,9 +65,11 @@ const Artoo = () => {
 
   const sendMessage = async (event) => {
     event.preventDefault();
+    setLoading(true);
     await handleAddChat()
     .then((response) => artooResponse(response.data.chatId));
     resetForm();
+    setLoading(false);
     window.location.reload();
   }
 
@@ -156,7 +159,7 @@ const Artoo = () => {
             </Col>
             <Col xs={2}>
               <Button variant="light" type="submit">
-                Go
+                {!loading ? 'Go' : 'Loading'}
               </Button>
             </Col>
           </Row>

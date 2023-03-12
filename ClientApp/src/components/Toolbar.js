@@ -408,10 +408,10 @@ const Toolbar = () => {
                         <Modal.Title>Posts</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                    {userPosts?.length > 0 ? userPosts?.map(({ postId, mediaLink, postValue, dateCreated }) => (
+                    {userPosts?.length > 0 ? userPosts?.map(({ postId, mediaLink, postValue, imageSource, dateCreated }) => (
                         <Col>
                         <Card onClick={() => navigate(`/posts/${postId}`)} key={postId} style={{ color: 'white', marginBottom: '1rem', objectFit: 'cover', cursor: 'pointer', height: '30rem' }} className="bg-dark">
-                            <Card.Img style={{ height: '20rem', width: 'auto', objectFit: 'cover' }} src={mediaLink}/>
+                            <Card.Img style={{ height: '20rem', width: 'auto', objectFit: 'cover' }} src={imageSource}/>
                             <Card.Body>
                                 <Card.Title>{postValue}</Card.Title>
                             </Card.Body>
@@ -466,11 +466,11 @@ const Toolbar = () => {
                         <Modal.Title>Communities</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                    {userCommunities?.length > 0 ? Array.from(userCommunities)?.map(({ communityId, groupName, description, dateCreated, mediaLink }) => (
+                    {userCommunities?.length > 0 ? Array.from(userCommunities)?.map(({ communityId, groupName, description, dateCreated, imageSource, mediaLink }) => (
                         <Card.Link key={communityId} style={{ textDecoration: 'none', color: 'black', margin: '1rem' }} href={`/community/${communityId}`}>
                             <Row>
                                 <Col key='img' xl={4}>
-                                    <Card.Img height='200' style={{ objectFit:'cover', borderRadius: '.5rem' }} src={mediaLink} />
+                                    <Card.Img height='200' style={{ objectFit:'cover', borderRadius: '.5rem' }} src={imageSource} />
                                 </Col>
                                 <Col xl={8} key={communityId}>
                                     <Card.Header>{groupName}</Card.Header>

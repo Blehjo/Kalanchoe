@@ -11,7 +11,7 @@ const UserInfo = ({ userId }) => {
         username: '', 
         profileImage: ''
     });
-    const { username, profileImage } = user;
+    const { username, profileImage, imageSource } = user;
 
     useEffect(() => {
         getSingleUser(userId)
@@ -21,7 +21,7 @@ const UserInfo = ({ userId }) => {
     return (
         <Row xs={2} style={{ cursor: 'pointer', justifyContent: 'left' }}>
             <Col style={{ height: '.1rem', width: 'auto' }} xs={1}>
-                <img style={{ height: '1rem', width: '1rem', objectFit: 'cover', borderRadius: '.2rem' }} src={profileImage} />
+                <img style={{ height: '1rem', width: '1rem', objectFit: 'cover', borderRadius: '.2rem' }} src={imageSource} />
             </Col>
             <Col xs={11}>
                 <div style={{ textAlign: 'left', marginLeft: '1.5rem' }} onClick={() => navigate(`/profile/${userId}`)}>{username}</div>

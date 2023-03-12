@@ -42,11 +42,11 @@ const CommunityPanel = () => {
     return (
         <div className="panel" style={{ maxHeight: '100%', overflowY: 'auto', backgroundColor: '#d4d4d4', borderRadius: '.2rem', textAlign: 'center' }}>
             <h1>Feed</h1>
-            {posts?.length > 0 && posts?.map(({ postId, postValue, mediaLink }) => (
+            {posts?.length > 0 && posts?.map(({ postId, postValue, mediaLink, imageSource }) => (
                 <div style={{ justifyContent: 'center', cursor: 'pointer', boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)', background: 'white', margin: '.3rem', padding: '.5rem', borderRadius: '.2rem' }} key={postId}>
                     <Row>
                         <Col>
-                            <img id={postId} onClick={goToPost} className="medialinkfeed" src={mediaLink} />
+                            <img id={postId} onClick={goToPost} className="medialinkfeed" src={imageSource} />
                         </Col>
                         <Col>
                             <div id={postId} onClick={goToPost}>

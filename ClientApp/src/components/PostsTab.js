@@ -12,19 +12,53 @@ import { postFetchAllStart, postFetchSingleStart } from "../store/post/post.acti
 import CommentInfo from "./CommentInfo";
 import { PostForm } from "./PostForm";
 
+const defaultFormFields = {
+    commentValue: '',
+    mediaLink: '',
+    imageSource: null,
+    imageFile: null
+}
+
 const PostsTab = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const posts = useSelector(selectPosts);
-    const { postId, mediaLink, postValue, dateCreated } = useSelector(selectSinglePost);
-    const [commentValue, setCommentValue] = useState('');
-    const [postForm, setPostForm] = useState(false);
     const { id } = useParams();
+    const posts = useSelector(selectPosts);
+    const { postId, mediaLink, imageSource, postValue, dateCreated } = useSelector(selectSinglePost);
+    const [postForm, setPostForm] = useState(false);
     const [show, setShow] = useState(false);
+    const [formFields, setFormFields] = useState(defaultFormFields);
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormFields({ ...formFields, [name]: value })
+    }
 
     const handleClose = () => setShow(false);
 
     const handlePostForm = () => setPostForm(!postForm);
+
+    const showPreview = e => {
+        if (e.target.files && e.target.files[0]) {
+            let imageFile = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = x => {
+                setFormFields({
+                    ...formFields,
+                    imageFile,
+                    imageSource: x.target.result
+                })
+            }
+            reader.readAsDataURL(imageFile)
+        }
+        else {
+            setFormFields({
+                ...formFields,
+                imageFile: null,
+                imageSource: null
+            })
+        }
+    }
 
     const handleShow = (event) => {
         getSinglePost(event.target.id)
@@ -32,19 +66,25 @@ const PostsTab = () => {
         setShow(true);
     }
 
-    async function postComment(event) {
-        addComment({ commentValue: commentValue, postId: event.target.id });
-    };
+    const resetFormFields = () =>
+        setFormFields(defaultFormFields);
 
-    function handleTextChange(event) {
+    async function postComment(event) {
         event.preventDefault();
-        setCommentValue(event.target.value);
+        const formData = new FormData();
+        formData.append('postId', event.target.id)
+        formData.append('commentValue', formFields.commentValue);
+        formData.append('mediaLink', formFields.mediaLink);
+        formData.append('imageFile', formFields.imageFile);
+        addComment(formData)
+        .then(() => window.location.reload());
+        resetFormFields();
     };
 
     useEffect(() => {
         getUserPosts(id)
         .then((response) => dispatch(postFetchAllStart(response.data)));
-    }, [postId, show, commentValue]);
+    }, [postId, show]);
 
     return (
         <>
@@ -58,10 +98,10 @@ const PostsTab = () => {
                 </Col>
             </Row>
         <Row xs={3}>
-        {posts?.length > 0 ? posts?.map(({ postId, mediaLink, postValue, dateCreated }) => (
+        {posts?.length > 0 ? posts?.map(({ postId, mediaLink, postValue, dateCreated, imageSource }) => (
             <Col>
             <Card key={postId} style={{ color: 'white', marginBottom: '1rem', objectFit: 'cover', height: '30rem' }} className="bg-dark">
-                <Card.Img onClick={() => navigate(`/posts/${postId}`)} style={{ cursor: 'pointer', height: '20rem', width: 'auto', objectFit: 'cover' }} src={mediaLink}/>
+                <Card.Img onClick={() => navigate(`/posts/${postId}`)} style={{ cursor: 'pointer', height: '20rem', width: 'auto', objectFit: 'cover' }} src={imageSource}/>
                 <Card.Body>
                     <Card.Title>{postValue}</Card.Title>
                 </Card.Body>
@@ -84,7 +124,7 @@ const PostsTab = () => {
                 <Card className="bg-light" key={id}>
                     <div className='card-container'>
                     <Card.Link className='card-info' href={`posts/${id}`}>
-                        {mediaLink && <Card.Img style={{ objectFit:'cover'}} variant="top" src={mediaLink} />}
+                        {imageSource && <Card.Img style={{ objectFit:'cover'}} variant="top" src={imageSource} />}
                     </Card.Link>
                     </div>
                     <Card.Body >
@@ -96,7 +136,20 @@ const PostsTab = () => {
                         <Form id={postId} onSubmit={postComment}>
                         <Row style={{ marginBottom: '3rem', justifyContent: 'center' }} xs={2}>
                             <Col xs={9} >
-                                <Form.Control style={{ height: '.5rem' }} as="textarea" onChange={handleTextChange} placeholder=" Write your comment here" />
+                                <Row style={{ marginBottom: '1rem' }}>
+                                    <Col>
+                                        <Form.Group>
+                                            <Form.Control style={{ height: '.5rem' }} name="commentValue" as="textarea" onChange={handleChange} placeholder=" Write your comment here" />
+                                        </Form.Group>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <Form.Group className="mb-3" controlId="formMedia">
+                                            <Form.Control onChange={showPreview} name="mediaLink" as="input" accept="image/*" type="file" placeholder="Media" />
+                                        </Form.Group>
+                                    </Col>
+                                </Row>
                             </Col>
                             <Col xs={3}>
                                 <Button id={postId} style={{ width: '100%', height: '100%'}} variant="light" type="submit">
