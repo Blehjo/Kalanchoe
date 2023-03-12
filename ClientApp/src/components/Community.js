@@ -78,7 +78,6 @@ const Community = () => {
         .then((response) => dispatch(channelcommentFetchAllStart(response.data)));
     }, [channelId]);
 
-    console.log(channelComments)
     return(
         <Fragment>
             <Row xs={2}>

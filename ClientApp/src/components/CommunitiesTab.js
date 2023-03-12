@@ -72,7 +72,6 @@ const CommunitiesTab = () => {
         getUserCommunities(id)
         .then((response) => dispatch(communityFetchAllStart(response.data)));
     }, []);
-    console.log(mediaLink)
 
     return (
         <Fragment>

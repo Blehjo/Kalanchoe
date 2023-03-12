@@ -32,8 +32,6 @@ const FetchedPosts = () => {
         .then((response) => dispatch(postFetchAllStart(response.data)));
     }, []);
 
-    console.log(posts)
-
     return (
         <Row xs={1} style={{ marginTop: '1rem' }}>
             {

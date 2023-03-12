@@ -18,7 +18,6 @@ const ProfileCard = () => {
         .then((response) => dispatch(userprofileFetchAllStart(response.data)));
     }, [id])
 
-    console.log("User: ", user);
     return (
         <Card style={{ color: 'white' }} className="bg-dark" key={userId}>
             <Card.Img style={{ height: '20rem', width: 'auto', objectFit: 'cover' }} variant="top" src={profileImage ? imageSource : "https://www.cooperhewitt.org/wp-content/uploads/2018/07/20914_472d45b4ae377c5f_b1.jpg"} /> 
