@@ -21,7 +21,7 @@ const UserCommunitiesTab = () => {
     return (
         <Fragment>
             {communities?.length > 0 ? Array.from(communities)?.map(({ communityId, groupName, description, dateCreated, mediaLink, imageSource }) => (
-                <Card.Link key={communityId} style={{ textDecoration: 'none', color: 'black', margin: '1rem' }} href={`/community/${id}`}>
+                <Card.Link key={communityId} style={{ textDecoration: 'none', color: 'black', margin: '1rem' }} href={`/community/${communityId}`}>
                     <Row>
                         <Col key='img' xl={4}>
                             <Card.Img height='200' style={{ objectFit:'cover', borderRadius: '.5rem' }} src={imageSource} />
