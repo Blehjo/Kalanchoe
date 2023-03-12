@@ -9,11 +9,13 @@ import { selectPanelItems } from '../store/panel/panel.selector';
 import { panelFetchAllStart } from '../store/panel/panel.action';
 import { getPanelNotes } from '../utils/api/note';
 import { noteFetchAllStart } from '../store/note/note.action';
+import { useNavigate } from "react-router";
 
 import NoteInfo from './NoteInfo';
 
 const DilemmasTab = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const dilemmas = useSelector(selectPanelItems);
 
     const { id } = useParams();
@@ -35,7 +37,7 @@ const DilemmasTab = () => {
             <Card key={panelId} id={panelId} onClick={handleClickEvent} style={{ cursor: 'pointer', textDecoration: 'none', color: 'white', textAlign: 'center' }} href={`/panel/${id}`} className="bg-dark">
                 <Card.Body id={panelId} onClick={handleClickEvent}>
                     <Row xs={1} lg={2}>
-                        <Col>
+                        <Col onClick={() => navigate(`/dilemmas/${panelId}`)}>
                             {title}
                         </Col>
                         <Col>
@@ -48,9 +50,11 @@ const DilemmasTab = () => {
             </Col>
             
         )) : (
+            <Col xs={12}>
             <Card style={{ color: 'white', textAlign: 'center' }}className="bg-dark">
                 <Card.Title>"Stay tuned. Currently no dilemmas..."</Card.Title>
             </Card>
+            </Col>
         )}
         </Row>
     );

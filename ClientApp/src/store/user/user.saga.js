@@ -54,7 +54,7 @@ export function* isUserAuthenticated() {
    }
 }
 
-export function* signUp({ payload: { username, firstName, lastName, dateOfBirth, emailAddress, password, about, profileImage } }) {
+export function* signUp({ payload: { username, firstName, lastName, dateOfBirth, emailAddress, password, about, profileImage, imageFile } }) {
    try {
         const user = yield call(
            signUpUser,
@@ -65,7 +65,8 @@ export function* signUp({ payload: { username, firstName, lastName, dateOfBirth,
            emailAddress,
            password,
            about,
-           profileImage
+           profileImage,
+           imageFile
         );
         yield put(signUpSuccess(user));
     } catch (error) {

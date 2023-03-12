@@ -29,7 +29,7 @@ export const getUser = async () => {
     return user;
 }
 
-export const signUpUser = async (username, firstName, lastName, dateOfBirth, emailAddress, password, about, profileImage) => {
+export const signUpUser = async (username, firstName, lastName, dateOfBirth, emailAddress, password, about, profileImage, imageFile) => {
     await axios({
         method: 'post',
         url: "https://kalanchoeai-server.azurewebsites.net/api/users/register",
@@ -41,7 +41,8 @@ export const signUpUser = async (username, firstName, lastName, dateOfBirth, ema
             EmailAddress: emailAddress,
             Password: password,
             About: about,
-            ProfileImage: profileImage
+            ProfileImage: profileImage,
+            ImageFile: imageFile
         },
         headers: {
             'Content-Type': 'application/json'
