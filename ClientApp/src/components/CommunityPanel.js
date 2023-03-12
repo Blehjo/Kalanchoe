@@ -40,7 +40,7 @@ const CommunityPanel = () => {
     }, []);
 
     return (
-        <div className="panel" style={{ maxHeight: '100%', overflowY: 'auto', backgroundColor: '#d4d4d4', borderRadius: '.2rem', textAlign: 'center' }}>
+        <div className="panel" style={{ maxHeight: '100%', overflowY: 'auto', backgroundColor: '#d4d4d4', borderRadius: '.2rem' }}>
             <h1>Feed</h1>
             {posts?.length > 0 && posts?.map(({ postId, postValue, mediaLink, imageSource }) => (
                 <div style={{ justifyContent: 'center', cursor: 'pointer', boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)', background: 'white', margin: '.3rem', padding: '.5rem', borderRadius: '.2rem' }} key={postId}>
@@ -57,7 +57,7 @@ const CommunityPanel = () => {
                 </div>
             ))}
             {panels?.length > 0 && panels?.map(({ panelId, title }) => (
-                <div style={{ justifyContent: 'center', cursor: 'pointer', boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)', background: 'white', margin: '.3rem', padding: '.5rem', borderRadius: '.2rem' }} key={panelId}>
+                <div style={{ textAlign: 'center', cursor: 'pointer', boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)', background: 'white', margin: '.3rem', padding: '.5rem', borderRadius: '.2rem' }} key={panelId}>
                     <Row>
                         <Col>
                             <div id={panelId} onClick={goToPanel}>
@@ -68,7 +68,7 @@ const CommunityPanel = () => {
                 </div>
             ))}
             {communities?.length > 0 && communities?.map(({ communityId, groupName, imageSource }) => (
-                <div style={{ cursor: 'pointer', boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)', background: 'white', margin: '.3rem', padding: '.5rem', borderRadius: '.2rem' }} key={communityId}>
+                <div style={{ justifyContent: 'left',cursor: 'pointer', boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)', background: 'white', margin: '.3rem', padding: '.5rem', borderRadius: '.2rem' }} key={communityId}>
                     <Row xs={2}>
                         <Col xs={2}>
                             <img style={{ objectFit: 'cover' }} height="20rem" width="20rem" id={communityId} onClick={goToCommunity} className="medialinkfeed" src={imageSource} />

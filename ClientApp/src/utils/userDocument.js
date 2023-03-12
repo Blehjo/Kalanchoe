@@ -29,28 +29,15 @@ export const getUser = async () => {
     return user;
 }
 
-export const signUpUser = async (username, firstName, lastName, dateOfBirth, emailAddress, password, about, profileImage, imageFile) => {
+export const signUpUser = async (formData) => {
     await axios({
         method: 'post',
         url: "https://kalanchoeai-server.azurewebsites.net/api/users/register",
-        data: {
-            Username: username,
-            FirstName: firstName,
-            LastName: lastName,
-            DateOfBirth: dateOfBirth,
-            EmailAddress: emailAddress,
-            Password: password,
-            About: about,
-            ProfileImage: profileImage,
-            ImageFile: imageFile
-        },
+        data: formData,
         headers: {
             'Content-Type': 'application/json'
         },
         withCredentials: true
-    })
-    .then((response) => {
-        return response.data;
     });
 }
 
@@ -62,8 +49,5 @@ export const signOutUser = async () => {
             'Content-Type': 'application/json'
         },
         withCredentials: true
-    })
-    .then((response) => {
-        return response.data;
     });
 }

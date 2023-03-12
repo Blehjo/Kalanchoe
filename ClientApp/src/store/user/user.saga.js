@@ -54,19 +54,11 @@ export function* isUserAuthenticated() {
    }
 }
 
-export function* signUp({ payload: { username, firstName, lastName, dateOfBirth, emailAddress, password, about, profileImage, imageFile } }) {
+export function* signUp({ payload: formData }) {
    try {
         const user = yield call(
            signUpUser,
-           username,
-           firstName,
-           lastName,
-           dateOfBirth,
-           emailAddress,
-           password,
-           about,
-           profileImage,
-           imageFile
+           formData
         );
         yield put(signUpSuccess(user));
     } catch (error) {

@@ -2,6 +2,7 @@ import { Nav, Row } from "react-bootstrap";
 import { Inbox, Gear, DoorOpen, QuestionCircle, Person } from 'react-bootstrap-icons';
 import { useDispatch } from 'react-redux';
 import { signOutStart } from '../../store/user/user.action';
+import { signOutUser } from "../../utils/userDocument";
 
 import './profileDropdown.scss';
 import { setIsProfileOpen } from "../../store/profile/profile.action";
@@ -9,8 +10,9 @@ import { setIsProfileOpen } from "../../store/profile/profile.action";
 const ProfileDropdown = ({ user }) => {
     const dispatch = useDispatch();
     
-    const signOutUser = () => {
-        dispatch(signOutStart());
+    const signOut = () => {
+        signOutUser();
+        dispatch(signOutStart(signOutUser()));
         dispatch(setIsProfileOpen(false));
     }
 
@@ -41,7 +43,7 @@ const ProfileDropdown = ({ user }) => {
                     </Nav.Item>
                     <Nav.Item className="mb-3 ms-3 d-flex align-items-center ">
                         <DoorOpen className='' color="white" size={20}/>
-                        <Nav.Link href="/authentication" className="ms-4" onClick={signOutUser}>
+                        <Nav.Link href="/authentication" className="ms-4" onClick={signOut}>
                         Sign out
                         </Nav.Link>
                     </Nav.Item>

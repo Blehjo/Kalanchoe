@@ -3,6 +3,7 @@ import { Row, Col, Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { emailSignInStart, signUpStart } from "../store/user/user.action";
+import { signUpUser } from "../utils/userDocument";
 
 const defaultFormFields = {
     username: '',
@@ -21,7 +22,6 @@ const defaultFormFields = {
 const SignUpForm = () => {
     const dispatch = useDispatch();
     const [formFields, setFormFields] = useState(defaultFormFields);
-    const { username, profileImage, about, emailAddress, password, confirmPassword, dateOfBirth, firstName, lastName, imageSource, imageFile } = formFields;
     const navigate = useNavigate();
 
     const resetForm = () => {
@@ -55,9 +55,9 @@ const SignUpForm = () => {
         }
     }
 
-    const handleFormSubmit = e => {
+    const handleFormSubmit = async (e) => {
         e.preventDefault();
-        if (password !== confirmPassword) {
+        if (formFields.password !== formFields.confirmPassword) {
             alert('error message');
             return;
         }
@@ -71,18 +71,8 @@ const SignUpForm = () => {
         formData.append('lastName', formFields.lastName);
         formData.append('about', formFields.about);
         formData.append('imageFile', formFields.imageFile);
+        // await signUpUser(formData);
         dispatch(signUpStart(formData));
-        resetForm();
-        navigate('/profile');
-    }
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        if (password !== confirmPassword) {
-            alert('error message');
-            return;
-        }
-        dispatch(signUpStart(username, emailAddress, password, profileImage, dateOfBirth, firstName, lastName, about));
         resetForm();
         navigate('/profile');
     }
@@ -92,10 +82,10 @@ const SignUpForm = () => {
             <Col>
                 <h2>Don't have an account?</h2>
                 <span>Sign up with your email and password</span>
-                <Form onSubmit={handleFormSubmit}>
+                <Form autoComplete="off" onSubmit={handleFormSubmit}>
                     <Row xs={2}>
 
-                    <Form.Group className="col-6 mb-3" controlId="formUsername">
+                    <Form.Group autoComplete="off" className="col-6 mb-3" controlId="formUsername">
                         <Form.Control onChange={handleChange} name="username" value={formFields.username} as="input" type="input" placeholder="Username" />
                     </Form.Group>
                     <Form.Group className="col-6 mb-3" controlId="formemailAddress">
@@ -120,7 +110,7 @@ const SignUpForm = () => {
                         <Form.Control onChange={handleChange} name="about" value={formFields.about} type="input" placeholder="About" />
                     </Form.Group>
                     <Form.Group className="col-12 mb-3" controlId="formMedia">
-                        <Form.Control onChange={showPreview} name="profileImage" as="input" accept="image/*" type="file" placeholder="Media" />
+                        <Form.Control onChange={showPreview} name="medialink" as="input" accept="image/*" type="file" placeholder="Media" />
                     </Form.Group>
                     <Button className="col-12 mb-3" variant="light" as="input" type="submit" value="Join" />
                     </Row>
