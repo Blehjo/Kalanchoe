@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Card, Row, Col } from "react-bootstrap";
 import { getSingleUser } from "../utils/api/user";
@@ -9,7 +9,7 @@ import { userprofileFetchAllStart } from "../store/userprofiles/userprofile.acti
 
 const UserProfileCard = () => {
     const dispatch = useDispatch();
-    const { userId, about, firstName, profileImage, username } = useSelector(selectUserprofileItems);
+    const { userId, about, firstName, profileImage, username, imageSource } = useSelector(selectUserprofileItems);
     const { id } = useParams();
 
     const followMate = async (event) => {
@@ -29,7 +29,7 @@ const UserProfileCard = () => {
 
     return (
         <Card style={{ color: 'white' }} className="bg-dark" key={userId}>
-            <Card.Img style={{ height: '20rem', width: 'auto', objectFit: 'cover' }} variant="top" src={profileImage ? profileImage : "https://www.cooperhewitt.org/wp-content/uploads/2018/07/20914_472d45b4ae377c5f_b1.jpg"} /> 
+            <Card.Img style={{ height: '20rem', width: 'auto', objectFit: 'cover' }} variant="top" src={profileImage ? imageSource : "https://www.cooperhewitt.org/wp-content/uploads/2018/07/20914_472d45b4ae377c5f_b1.jpg"} /> 
             <Card.Body>
                 <Row xs={2}>
                 <Col xs={9}>
