@@ -29,6 +29,11 @@ code {
   height: 100vh;
 }
 
+.messagemodalform {
+  height: 40vh;
+  position: relative;
+}
+
 .artooform, .messageform, .channelform {
   height: 100vh;
   position: relative;

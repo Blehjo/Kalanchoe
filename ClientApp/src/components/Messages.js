@@ -46,32 +46,30 @@ const Messages = () => {
   const handleClick = (event) => {
     setShowModal(!showModal);
     setImage(event.target.id)
-}
+  }
 
-const showPreview = e => {
+  const showPreview = e => {
     if (e.target.files && e.target.files[0]) {
-        let imageFile = e.target.files[0];
-        const reader = new FileReader();
-        reader.onload = x => {
-            setFormFields({
-                ...formFields,
-                imageFile,
-                imageSource: x.target.result
-            })
-        }
-        reader.readAsDataURL(imageFile)
-    }
-    else {
+      let imageFile = e.target.files[0];
+      const reader = new FileReader();
+      reader.onload = x => {
         setFormFields({
-            ...formFields,
-            imageFile: null,
-            imageSource: null
-        })
+          ...formFields,
+          imageFile,
+          imageSource: x.target.result
+        });
+      }
+      reader.readAsDataURL(imageFile);
+    } else {
+      setFormFields({
+          ...formFields,
+          imageFile: null,
+          imageSource: null
+      })
     }
-}
+  }
   
-  const handleAddMessage = async (event) => {
-    event.preventDefault();
+  const handleAddMessage = async () => {
     const formData = new FormData();
     if (id != null) {
       formData.append('messageId', id);
@@ -79,8 +77,6 @@ const showPreview = e => {
       formData.append('mediaLink', formFields.mediaLink);
       formData.append('imageFile', formFields.imageFile);
       await addMessagecomment(formData);
-      setFormFields(defaultFormFields);
-      window.location.reload();
     }
   }
   
@@ -88,9 +84,11 @@ const showPreview = e => {
     deleteMessage(event.target.id);
   }
   
-  const sendMessage = async () => {
-    handleAddMessage();
+  const sendMessage = async (event) => {
+    event.preventDefault();
+    await handleAddMessage();
     resetForm();
+    window.location.reload();
   }
   
   useEffect(() => {
