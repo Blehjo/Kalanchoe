@@ -132,7 +132,7 @@ const Community = () => {
                     </Form>
                 </Col>
             </Row>
-            <Modal show={showModal} >
+            <Modal show={showModal} onHide={handleClick}>
                 <Modal.Header onClick={handleClick} closeButton/>
                 <ImageModal image={image} />
             </Modal>

@@ -3,8 +3,10 @@ import { Col, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { getSingleUser } from "../utils/api/user";
+import { useParams } from 'react-router';
+import { getSingleChat } from "../utils/api/chat";
 
-const UserInfo = ({ userId }) => {
+const ChatUserInfo = ({ userId }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [user, setUser] = useState({ 
@@ -12,14 +14,21 @@ const UserInfo = ({ userId }) => {
         profileImage: ''
     });
     const { username, profileImage, imageSource } = user;
+    const { id } = useParams();
 
     useEffect(() => {
+        if (id != null) {
+            getSingleChat(id)
+            .then((response) => getSingleUser(response.data.userId))
+            .then((response) => setUser(response.data));
+            return;
+        }
         getSingleUser(userId)
-        .then((response) => setUser(response.data));
+        .then((response) => setUser(response.data))
     }, []);
 
     return (
-        <Row xs={1} style={{ cursor: 'pointer', justifyContent: 'left' }}>
+        <Row xs={2} style={{ cursor: 'pointer', justifyContent: 'left' }}>
             <Col style={{ height: '.1rem', width: 'auto' }} xs={1}>
                 <img style={{ height: '1rem', width: '1rem', objectFit: 'cover', borderRadius: '.2rem' }} src={profileImage && imageSource} />
             </Col>
@@ -30,4 +39,4 @@ const UserInfo = ({ userId }) => {
     );
 }
 
-export default UserInfo;
+export default ChatUserInfo;

@@ -30,10 +30,10 @@ const CommentInfo = ({ postId }) => {
         <div style={{ height: '140px', overflowY: 'auto', borderRadius: '.2rem' }}>
         {comments?.length > 0 && comments?.map(({ commentId, commentValue, dateCreated, userId, mediaLink, imageSource }) => (
             <Row style={{ marginBottom: '1rem', justifyContent: 'right' }} key={commentId} xs={1}>
-                <Col xs={8}>
+                <Col xs={7}>
                     <Card.Text>{commentValue}</Card.Text>
                     <Row xs={2}>
-                        <Col xs={4} md={3}>
+                        <Col xs={5} lg={3}>
                             <Card.Text>{utcConverter(dateCreated)}</Card.Text>
                         </Col>
                         <Col xs={1}>
@@ -41,13 +41,13 @@ const CommentInfo = ({ postId }) => {
                         </Col>
                     </Row>
                 </Col>
-                <Col xs={4}>
+                <Col xs={5} lg={5}>
                     <UserInfo userId={userId}/>
                 </Col>
             </Row>
         ))}
         </div>
-            <Modal show={showModal} >
+            <Modal show={showModal} onHide={handleClick}>
                 <Modal.Header onClick={handleClick} closeButton/>
                 <ImageModal image={imageSource} />
             </Modal>

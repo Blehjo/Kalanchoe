@@ -69,7 +69,7 @@ const UserPostsTab = () => {
             <Modal show={show} onHide={handleClose}>
                 <Card className="bg-light" key={id}>
                     <div className='card-container'>
-                    <Card.Link className='card-info' href={`posts/${id}`}>
+                    <Card.Link className='card-info' href={`posts/${postId}`}>
                         {imageSource && <Card.Img  style={{ objectFit:'cover'}} variant="top" src={imageSource} />}
                     </Card.Link>
                     </div>

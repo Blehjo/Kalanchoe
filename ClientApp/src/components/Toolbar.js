@@ -129,8 +129,9 @@ const Toolbar = () => {
     const artSearch = async (event) => {
         event.preventDefault();
         await axios.get(baseUrl + searchField)
-            .then((response) => setObjects(response.data.objectIDs));
+        .then((response) => setObjects(response.data.objectIDs));
         search();
+        navigate('/news')
     }
     
     useEffect(() => {
@@ -152,8 +153,7 @@ const Toolbar = () => {
     const handlePanelClick = () => setPanel(!panel);
     
     // Function that creates a new note Modal
-    const handleNoteClick = (event) => {
-        event.preventDefault();
+    const handleNoteClick = () => {
         setNote(!note);
     }
 
@@ -282,7 +282,7 @@ const Toolbar = () => {
             </OverlayTrigger>
             {
                 <Modal show={note} onHide={handleNoteClick}>
-                <Form onSubmit={handleSubmit}>
+                    <Form onSubmit={handleSubmit}>
                     <Modal.Header onClick={handleNoteClick} closeButton>
                         <Row xs={2}>
                         <Col>
@@ -324,7 +324,7 @@ const Toolbar = () => {
                 />
             }
             {
-                <Modal show={artoo}>
+                <Modal show={artoo} onHide={handleArtooClick}>
                     <Modal.Header onClick={handleArtooClick} closeButton>Artoo</Modal.Header>
                     <Modal.Body>
                     <Col >
@@ -371,7 +371,7 @@ const Toolbar = () => {
                 </Modal>
             }
             {
-                <Modal show={news}>
+                <Modal show={news} onHide={handleSearchBarClick}>
                     <Modal.Header onClick={handleSearchBarClick} closeButton>
                         <Modal.Title>Search</Modal.Title> 
                     </Modal.Header>
@@ -385,7 +385,7 @@ const Toolbar = () => {
                         <Col >
                             <Form style={{ margin: '.2rem' }} onSubmit={artSearch}> 
                                 <Form.Group>
-                                    <Form.Control style={{ textAlign: 'center' }} onChange={handleSearchFieldChange} value={searchField} as="textarea" placeholder="Search for art" />
+                                    <Form.Control style={{ textAlign: 'center' }} onChange={handleSearchFieldChange} value={searchField} type="input" placeholder="Search for art" />
                                 </Form.Group>
                             </Form>
                         </Col>
@@ -403,7 +403,7 @@ const Toolbar = () => {
                 </Modal>
             }
             {
-                <Modal show={posts}>
+                <Modal show={posts} onHide={showPosts}>
                     <Modal.Header onClick={showPosts} closeButton>
                         <Modal.Title>Posts</Modal.Title>
                     </Modal.Header>
@@ -432,7 +432,7 @@ const Toolbar = () => {
                 </Modal>
             }
             {
-                <Modal show={messages}>
+                <Modal show={messages} onHide={showMessages}>
                     <Modal.Header onClick={showMessages} closeButton>
                         <Modal.Title>Messages</Modal.Title>
                     </Modal.Header>
@@ -461,7 +461,7 @@ const Toolbar = () => {
                 </Modal>
             }
             {
-                <Modal show={communities}>
+                <Modal show={communities} onHide={showCommunities}>
                     <Modal.Header onClick={showCommunities} closeButton>
                         <Modal.Title>Communities</Modal.Title>
                     </Modal.Header>

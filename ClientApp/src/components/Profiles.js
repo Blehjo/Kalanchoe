@@ -91,7 +91,7 @@ export default function Profiles() {
     }, [])
 
     return (
-    <Row xs={1} md={2} lg={3} className="justify-content-center">
+    <Row xs={2} md={2} lg={3} className="justify-content-center">
         {userProfiles?.map(({ userId, profileImage, firstName, about, username, imageSource }) => (
         <Col key={userId} className='mb-5'>
             <Card style={{ color: 'white', objectFit: 'cover', height: '30rem' }} className="bg-dark" key={userId}>
@@ -111,8 +111,8 @@ export default function Profiles() {
             </Card>
         </Col>
         ))}
-        <Modal show={show} >
-            <Modal.Header closeButton>Send a Message</Modal.Header>
+        <Modal show={show} onHide={() => setShow(!show)}>
+            <Modal.Header onClick={() => setShow(!show)} closeButton>Send a Message</Modal.Header>
             <Modal.Body>
             <Form className="messagemodalform" style={{ background: '#d4d4d4', borderRadius: '.2rem' }} onSubmit={handleAddMessage}>
                 <div style={{ position: 'absolute', bottom: '0' }} >

@@ -84,7 +84,7 @@ const SinglePost = () => {
                 </Col>
                 <Col xs={12} md={9} lg={6}>
                     <Row xs={2}>
-                        <Col xs={10}>
+                        <Col xs={9}>
                             <Card.Title style={{ textAlign: 'left', marginBottom: '1rem' }}>{postValue}</Card.Title>
                         </Col>
                         <Col xs={2}>

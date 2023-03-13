@@ -13,6 +13,7 @@ import { selectMessageCommentItems } from "../store/messagecomment/messagecommen
 import Cookies from "js-cookie";
 import { getSingleUser } from "../utils/api/user";
 import ImageModal from "./ImageModal";
+import { Eye } from "react-bootstrap-icons";
 
 const defaultFormFields = {
   messageValue: '',
@@ -131,11 +132,14 @@ const Messages = () => {
           <Row style={{ padding: '2rem' }}>
             <Col>
               <div style={{ height: '80vh', overflowY: 'auto', borderRadius: '.2rem' }}>
-              {messageComments?.length > 0 && messageComments?.map(({ messageCommentId, messageValue }) => (
+              {messageComments?.length > 0 && messageComments?.map(({ messageCommentId, messageValue, mediaLink, imageSource }) => (
                 <div style={{ background: 'white', margin: '1rem', padding: '.5rem', borderRadius: '.2rem' }} key={messageCommentId}>
                       <div key={messageCommentId} style={{ textAlign: message.messageValue != username ? 'right' : 'left' }}>
                       {messageValue}
                       </div>
+                      {/* <Col xs={1}> */}
+                        {mediaLink != null && <Eye id={imageSource} style={{ cursor: 'pointer' }} onClick={handleClick}/>}
+                      {/* </Col> */}
                 </div>
               ))}
               </div>

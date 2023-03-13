@@ -10,6 +10,7 @@ import { getSingleChatcomment } from "../utils/api/chatcomment";
 import { chatcommentFetchAllStart } from "../store/chatcomment/chatcomment.action";
 import { utcConverter } from "../utils/date/Date";
 import UserInfo from "./UserInfo";
+import ChatUserInfo from "./ChatUserInfo";
 
 const SingleChat = () => {
     const dispatch = useDispatch();
@@ -32,7 +33,7 @@ const SingleChat = () => {
 
         getSingleChat(id)
         .then((response) => dispatch(chatFetchAllStart(response.data)));
-    }, []);
+    }, [id]);
 
     return (
         <Row>
@@ -40,7 +41,7 @@ const SingleChat = () => {
             <Card>
                 <Row style={{ marginLeft: '1rem', justifyContent: 'center' }}>
                 <Card.Title style={{ marginTop: '1rem' }} id={chatId}>{title}</Card.Title>
-                <UserInfo userId={userId} />
+                <ChatUserInfo userId={userId != null && userId} />
                 </Row>
                 {comments?.length > 0 && comments?.map(({ chatCommentId, chatValue, dateCreated }) => (
                     <Card key={chatCommentId} style={{ margin: '2rem' }}>
