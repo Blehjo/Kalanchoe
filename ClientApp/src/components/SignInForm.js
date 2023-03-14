@@ -28,7 +28,7 @@ const SignInForm = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        dispatch(emailSignInStart(username, password));
+        dispatch(emailSignInStart(username, password))
         resetFormFields();
         navigate('/profile');
     }
@@ -40,7 +40,7 @@ const SignInForm = () => {
                 <span>Sign in with your email and password</span>
                 <Form onSubmit={handleSubmit} style={{ color: 'black', marginTop: '1rem' }}>
                     <Form.Group className="mb-3" controlId="formBasicUsername">
-                        <Form.Label>Email address</Form.Label>
+                        <Form.Label>Username</Form.Label>
                         <Form.Control
                             type="username"
                             name="username"
@@ -63,7 +63,7 @@ const SignInForm = () => {
                     </Form.Group>
                     <Row xs={1}>
                         <Col>
-                            <Button variant="light" type="submit">Sign in</Button>
+                            <Button className="col-12 mb-3" variant="light" type="submit">Sign in</Button>
                         </Col>
                     </Row>
                 </Form>

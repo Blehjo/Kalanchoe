@@ -137,8 +137,10 @@ const Messages = () => {
                       <div key={messageCommentId} style={{ textAlign: message.messageValue != username ? 'right' : 'left' }}>
                       {messageValue}
                       </div>
-                      {/* <Col xs={1}> */}
+                      <div style={{ textAlign: message.messageValue != username ? 'right' : 'left' }}>
                         {mediaLink != null && <Eye id={imageSource} style={{ cursor: 'pointer' }} onClick={handleClick}/>}
+                      </div> 
+                      {/* <Col xs={1}> */}
                       {/* </Col> */}
                 </div>
               ))}

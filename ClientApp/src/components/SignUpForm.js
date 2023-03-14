@@ -71,7 +71,6 @@ const SignUpForm = () => {
         formData.append('lastName', formFields.lastName);
         formData.append('about', formFields.about);
         formData.append('imageFile', formFields.imageFile);
-        // await signUpUser(formData);
         dispatch(signUpStart(formData));
         resetForm();
         navigate('/profile');
@@ -82,7 +81,7 @@ const SignUpForm = () => {
             <Col>
                 <h2>Don't have an account?</h2>
                 <span>Sign up with your email and password</span>
-                <Form autoComplete="off" onSubmit={handleFormSubmit}>
+                <Form autoComplete="off" onSubmit={handleFormSubmit} style={{ marginTop: '1rem' }}>
                     <Row xs={2}>
 
                     <Form.Group autoComplete="off" className="col-6 mb-3" controlId="formUsername">
@@ -112,7 +111,9 @@ const SignUpForm = () => {
                     <Form.Group className="col-12 mb-3" controlId="formMedia">
                         <Form.Control onChange={showPreview} name="medialink" as="input" accept="image/*" type="file" placeholder="Media" />
                     </Form.Group>
-                    <Button className="col-12 mb-3" variant="light" as="input" type="submit" value="Join" />
+                    <div className="col-12 mb-3" style={{ justifyContent: 'center' }}>
+                        <Button className="col-12 mb-3" variant="light" as="input" type="submit" value="Join" />
+                    </div>
                     </Row>
                 </Form>
             </Col>
