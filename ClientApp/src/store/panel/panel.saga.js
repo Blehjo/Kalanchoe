@@ -18,7 +18,8 @@ import {
     getUserPanels,
     addPanel,
     editPanel,
-    deletePanel
+    deletePanel,
+    getPanels
 } from '../../utils/api/panel';
 
 export function* createPanel({ payload: { userId, title } }) {
@@ -55,7 +56,7 @@ export function* deleteItem(userId, panelId) {
 
 export function* fetchAllPanel() {
     try {
-        const panel = yield call(getUserPanels);
+        const panel = yield call(getPanels);
         if (!panel) return;
         yield call(panelFetchAllSuccess, panel);
     } catch (error) {
