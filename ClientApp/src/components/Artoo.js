@@ -4,7 +4,7 @@ import { XCircle } from 'react-bootstrap-icons';
 import axios from "axios";
 import { useParams, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { addChat, deleteChat, getChats } from "../utils/api/chat";
+import { addChat, deleteChat, getChats, getUserChats, getUsersChats } from "../utils/api/chat";
 import { addChatComment, getSingleChatcomment } from "../utils/api/chatcomment";
 import { toggle } from "../utils/artootoggle";
 import { selectChatItems } from "../store/chat/chat.selector";
@@ -90,7 +90,7 @@ const Artoo = () => {
   }
   
   useEffect(() => {
-    getChats()
+    getUsersChats()
     .then((response) => dispatch(chatFetchAllStart(response.data)));
 
     if (id !== null) {

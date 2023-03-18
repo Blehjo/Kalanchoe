@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const api = "https://kalanchoeai-server.azurewebsites.net/api/chatcomment"
+const api = "https://kalanchoeai-server.azurewebsites.net/api/aicomment"
 
-export async function getSingleChatcomment(chatId) {
+export async function getSingleAiComment(chatId) {
   return await axios({
     method: 'get',
     url: `${api}/user/${chatId}`,
@@ -13,7 +13,7 @@ export async function getSingleChatcomment(chatId) {
   });
 }
 
-export async function getChatcomments() {
+export async function getAiComments() {
   return await axios({
     method: 'get',
     url: api,
@@ -24,13 +24,13 @@ export async function getChatcomments() {
   });
 }
 
-export async function addChatComment(chatComment) {
-  const { chatValue, chatId } = chatComment;
+export async function addAiComment(aiComment) {
+  const { commentValue, chatId } = aiComment;
   return await axios({
     method: 'post',
     url: api,
     data: {
-      chatValue: chatValue,
+      commentValue: commentValue,
       chatId: chatId
     },
     headers: {
@@ -40,11 +40,11 @@ export async function addChatComment(chatComment) {
   });
 }
 
-export async function editChatcomment(chatcomment) {
+export async function editAiComment(aicomment) {
   return await axios({
     method: 'put',
-    url: `${api}/${chatcomment.id}`, 
-    data: chatcomment,
+    url: `${api}/${aicomment.id}`, 
+    data: aicomment,
     headers: {
       'Content-Type': 'application/json'
     },
@@ -52,10 +52,10 @@ export async function editChatcomment(chatcomment) {
   })
 }
 
-export async function deleteChatcomment(chatcommentId) {
+export async function deleteAiComment(aicommentId) {
   return await axios({
     method: 'delete',
-    url: `${api}/${chatcommentId}`,
+    url: `${api}/${aicommentId}`,
     headers: {
       'Content-Type': 'application/json'
     },

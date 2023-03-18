@@ -35,6 +35,17 @@ export async function getUserChats(id) {
   });
 }
 
+export async function getUsersChats() {
+  return await axios({
+    method: 'get',
+    url: `${api}/user/chats`,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    withCredentials: true
+  });
+}
+
 export async function getChats() {
   return await axios({
     method: 'get',
