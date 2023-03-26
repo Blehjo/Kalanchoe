@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Form, Button, Row, Col, Dropdown } from "react-bootstrap";
-import { XCircle } from 'react-bootstrap-icons';
+import { Form, Button, Row, Col, Dropdown, Card } from "react-bootstrap";
+import { Robot, XCircle } from 'react-bootstrap-icons';
 import axios from "axios";
 import { useParams, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
@@ -105,7 +105,7 @@ const Artoo = () => {
       <Col md={3}>
         <div className="artoo" style={{ marginBottom: '1rem', overflowY: 'auto', background: '#d4d4d4', borderRadius: '.2rem', textAlign: 'center' }}>
           <h1>Artoo</h1>
-          {chats?.length > 0 && chats?.map(({ chatId, title }) => (
+          {chats?.length > 0 ? chats?.map(({ chatId, title }) => (
             <div style={{ boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)', cursor: 'pointer', background: 'white', margin: '1rem', padding: '.5rem', borderRadius: '.2rem' }} key={chatId}>
               <Row>
                 <Col xs={9}>
@@ -118,7 +118,13 @@ const Artoo = () => {
                 </Col>
               </Row>
             </div>
-          ))}
+          )) : 
+          <Card style={{ margin: '.5rem'}}>
+            <Card.Body>
+              Create An Account To Start Asking Artoo Anything
+            </Card.Body>
+          </Card>
+          }
         </div>
       </Col>
       <Col md={9}>
@@ -143,13 +149,19 @@ const Artoo = () => {
         </Row>
           <Row style={{ padding: '2rem', height: '80vh', overflowY: 'auto' }}>
             <Col>
-              {chatComments?.length > 0 && chatComments?.map(({ chatCommentId, chatValue }) => (
+              {chatComments?.length > 0 ? chatComments?.map(({ chatCommentId, chatValue }) => (
                 <div style={{ background: 'white', margin: '1rem', padding: '.5rem', borderRadius: '.2rem' }} key={chatCommentId}>
                       <div key={chatValue}>
                       {convertImages(chatValue)}
                       </div>
                 </div>
-              ))}
+              )) :
+              <Card >
+                <Card.Body>
+                  <Robot style={{ margin: 'auto', display: 'flex', justifyContent: 'center', width: '50%' }} color="black" size={300}/>
+                </Card.Body>
+              </Card>
+            }
             </Col>
           <div style={{ position: 'absolute', bottom: '0' }} >
           <Row  xs={2}>

@@ -1,8 +1,8 @@
 ﻿import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { Form, Button, Row, Col, Modal } from "react-bootstrap";
-import { XCircle } from 'react-bootstrap-icons';
+import { Form, Button, Row, Col, Modal, Card } from "react-bootstrap";
+import { Robot, XCircle } from 'react-bootstrap-icons';
 
 import { addMessage, deleteMessage, getAllMessages, getSingleMessage } from "../utils/api/message";
 import { addMessagecomment, getSingleMessagecomment } from "../utils/api/messagecomment";
@@ -111,7 +111,7 @@ const Messages = () => {
       <Col md={3}>
         <div className="messages"style={{ marginBottom: '1rem', overflowY: 'auto', background: '#d4d4d4', borderRadius: '.2rem', textAlign: 'center' }}>
           <h1>Messages</h1>
-          {messages?.length > 0 && messages?.map(({ messageId, messageValue }) => (
+          {messages?.length > 0 ? messages?.map(({ messageId, messageValue }) => (
             <div style={{ cursor: 'pointer', background: 'white', margin: '1rem', padding: '.5rem', borderRadius: '.2rem' }} key={messageId}>
               <Row>
                 <Col xs={9}>
@@ -124,7 +124,13 @@ const Messages = () => {
                 </Col>
               </Row>
             </div>
-          ))}
+          )) :
+          <Card style={{ margin: '.5rem'}}>
+            <Card.Body>
+              Add Some Fellow Artists To Message And Share Ideas
+            </Card.Body>
+          </Card>
+          }
         </div>
       </Col>
       <Col md={9}>
@@ -132,7 +138,7 @@ const Messages = () => {
           <Row style={{ padding: '2rem' }}>
             <Col>
               <div style={{ height: '80vh', overflowY: 'auto', borderRadius: '.2rem' }}>
-              {messageComments?.length > 0 && messageComments?.map(({ messageCommentId, messageValue, mediaLink, imageSource }) => (
+              {messageComments?.length > 0 ? messageComments?.map(({ messageCommentId, messageValue, mediaLink, imageSource }) => (
                 <div style={{ background: 'white', margin: '1rem', padding: '.5rem', borderRadius: '.2rem' }} key={messageCommentId}>
                       <div key={messageCommentId} style={{ textAlign: message.messageValue != username ? 'right' : 'left' }}>
                       {messageValue}
@@ -143,7 +149,13 @@ const Messages = () => {
                       {/* <Col xs={1}> */}
                       {/* </Col> */}
                 </div>
-              ))}
+              )) :
+              <Card >
+                <Card.Body>
+                  <Robot style={{ margin: 'auto', display: 'flex', justifyContent: 'center', width: '50%' }} color="black" size={300}/>
+                </Card.Body>
+              </Card>
+              }
               </div>
             </Col>
           <div style={{ position: 'absolute', bottom: '0' }} >

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Button, Row, Col } from "react-bootstrap";
+import { Button, Row, Col, Card } from "react-bootstrap";
 import { XCircle } from 'react-bootstrap-icons';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
@@ -31,7 +31,7 @@ const MessagePanel = () => {
     return (
         <div className="panel" style={{ maxHeight: '100%', overflowY: 'auto', textAlign: 'center', marginBottom: '1rem', backgroundColor: '#d4d4d4', borderRadius: '.2rem', justifyContent: 'center' }}>
             <h1>Messages</h1>
-            {messages?.length > 0 && messages?.map(({ messageId, messageValue }) => (
+            {messages?.length > 0 ? messages?.map(({ messageId, messageValue }) => (
                 <div style={{ cursor: 'pointer', boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)', background: 'white', margin: '.3rem', padding: '.5rem', borderRadius: '.2rem' }} key={messageId}>
                     <Row xs={2}>
                         <Col xs={9}>
@@ -44,7 +44,13 @@ const MessagePanel = () => {
                         </Col>
                     </Row>
                 </div>
-            ))}
+            )) :
+            <Card style={{ margin: '.5rem'}}>
+                <Card.Body>
+                Add Some Fellow Artists To Message And Share Ideas
+                </Card.Body>
+            </Card>
+            }
         </div>
     );
 }
