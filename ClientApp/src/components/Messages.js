@@ -77,7 +77,7 @@ const Messages = () => {
       formData.append('messageValue', formFields.messageValue);
       formData.append('mediaLink', formFields.mediaLink);
       formData.append('imageFile', formFields.imageFile);
-      await addMessagecomment(formData);
+      await addMessagecomment(formData)
     }
   }
   

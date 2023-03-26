@@ -39,7 +39,8 @@ const Chats = () => {
     if (id == null) {
       addChat({ title: request })
       .then((response) => addChatComment({ chatValue: request, chatId: response.data.chatId }))
-      .then((response) => navigate(`/artoo/${response.data.chatId}`));
+      .then((response) => navigate(`/artoo/${response.data.chatId}`))
+      .catch((error) => error && navigate("/authentication"));
     }
   }
 

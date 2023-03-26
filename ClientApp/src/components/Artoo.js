@@ -39,7 +39,8 @@ const Artoo = () => {
   const handleAddChat = async () => {
     if (id == null) {
       return await addChat({ title: request })
-      .then((response) => addChatComment({ chatValue: request, chatId: response.data.chatId }));
+      .then((response) => addChatComment({ chatValue: request, chatId: response.data.chatId }))
+      .catch((error) => error && navigate("/authentication"));
     }
     return addChatComment({ chatValue: request, chatId: id });
   }

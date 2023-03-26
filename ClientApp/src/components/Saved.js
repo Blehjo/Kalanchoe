@@ -13,22 +13,22 @@ const Saved = () => {
 
     return (
         <Fragment>
-            <Nav.Link href="/profile">
+            <Nav.Link href={userId != null ? "/profile" : "/authentication"}>
                 <Person className='mt-4' color="black" size={40} />
             </Nav.Link>
-            <Nav.Link href={`/page/${userId}`}>
+            <Nav.Link href={userId != null ? `/page/${userId}` : "/authentication"}>
                 <House className='mt-4' color="black" size={40}/>
             </Nav.Link>
             <Nav.Link href="/artoo">
                 <Robot className='mt-4' color="black" size={40} />
             </Nav.Link>
-            <Nav.Link href="/messages">
+            <Nav.Link href={userId != null ? "/messages" : "/authentication"}>
                 <ChatDots className='mt-4' color="black" size={40} />
             </Nav.Link>
             <Nav.Link href="/dashboard">
                 <PersonWorkspace className='mt-4' color="black" size={40} />
             </Nav.Link>
-            <Nav.Link href="/projects">
+            <Nav.Link href={userId != null ? "/projects" : "/authentication"}>
                 <Clipboard className='mt-4' color="black" size={40} />
             </Nav.Link>
             <Nav.Link href="/explore">
@@ -37,7 +37,7 @@ const Saved = () => {
             <Nav.Link href="/communities">
                 <Database className='mt-4' action='true' color="black" size={40} />
             </Nav.Link>
-            <Nav.Link href="/saved">
+            <Nav.Link href={userId != null ? "/saved" : "/authentication"}>
                 <Bookmark className='mt-4' color="black" size={40} />
             </Nav.Link>
             <Nav.Link href="/news">

@@ -37,13 +37,13 @@ const SidebarOverlay = () => {
             >
                 <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
                     <Person className='' color="black" size={20}/>
-                    <Nav.Link href="/profile" className="ms-4">
+                    <Nav.Link href={userId != null ? "/profile" : "/authentication"} className="ms-4">
                         Workspace
                     </Nav.Link>
                 </Nav.Item>
                 <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
                     <House className='' color="black" size={20}/>
-                    <Nav.Link href={`/page/${userId}`} className="ms-4">
+                    <Nav.Link href={userId != null ? `/page/${userId}` : "/authentication"} className="ms-4">
                         Profile
                     </Nav.Link>
                 </Nav.Item>
@@ -55,7 +55,7 @@ const SidebarOverlay = () => {
                 </Nav.Item>
                 <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
                     <ChatDots className='' color="black" size={20} />
-                    <Nav.Link href="/messages" className="ms-4">
+                    <Nav.Link href={userId != null ? "/messages" : "/authentication"} className="ms-4">
                         Messages
                     </Nav.Link>
                 </Nav.Item>
@@ -67,7 +67,7 @@ const SidebarOverlay = () => {
                 </Nav.Item>
                 <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
                     <Clipboard className='' color="black" size={20} />
-                    <Nav.Link href="/projects" className="ms-4">
+                    <Nav.Link href={userId != null ? "/projects" : "/authentication"} className="ms-4">
                         Projects
                     </Nav.Link>
                 </Nav.Item>
@@ -91,7 +91,7 @@ const SidebarOverlay = () => {
                 </Nav.Item>
                 <Nav.Item className="mb-3 ms-3 d-flex align-items-center">
                     <Bookmark className='' color="black" size={20}/>
-                    <Nav.Link href="/saved" className="ms-4">
+                    <Nav.Link href={userId != null ? "/saved" : "/authentication"} className="ms-4">
                         Saves
                     </Nav.Link>
                 </Nav.Item>
