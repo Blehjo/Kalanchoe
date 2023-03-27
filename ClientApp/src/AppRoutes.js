@@ -26,7 +26,7 @@ import Saved from "./components/SavedPage";
 const AppRoutes = [
   {
     index: true,
-    element: <Profile />
+    element: <LandingPage />
   },
   {
     path: '/authentication',
@@ -83,10 +83,6 @@ const AppRoutes = [
   {
     path: '/explore',
     element: <Explore />
-  },
-  {
-    path: '/landingpage',
-    element: <LandingPage />
   },
   {
     path: '/message/:id',
