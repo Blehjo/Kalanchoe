@@ -21,18 +21,17 @@ export const login = async (username: string, password: string) => {
     });
 }
 
-export const getUser = async () => {
-    const user = await axios({
+export const getUser = async (): Promise<User> => {
+    return await axios({
         method: 'get',
         url: `https://kalanchoeai-server.azurewebsites.net/api/users/data`,
         headers: headers,
         withCredentials: true
     });
-    return user;
 }
 
-export const signUpUser = async (formData: FormData) => {
-    await axios({
+export const signUpUser = async (formData: FormData): Promise<User> => {
+    return await axios({
         method: 'post',
         url: "https://kalanchoeai-server.azurewebsites.net/api/users/register",
         data: formData,
@@ -41,8 +40,8 @@ export const signUpUser = async (formData: FormData) => {
     });
 }
 
-export const signOutUser = async () => {
-    await axios({
+export const signOutUser = async (): Promise<User> => {
+    return await axios({
         method: 'post',
         url: "https://kalanchoeai-server.azurewebsites.net/api/users/logout",
         headers: headers,

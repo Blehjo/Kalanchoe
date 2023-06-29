@@ -4,62 +4,96 @@ import { Post } from "../../store/post/post.types";
 const api = "https://kalanchoeai-server.azurewebsites.net/api/post";
 
 const headers = {
-  'Accept': 'application/json',
-  'Content-Type': 'application/json' 
+  'Accept': 'application/x-www-form-urlencoded',
+  'Content-Type': 'application/x-www-form-urlencoded' 
 }
 
 export async function getSinglePost(postId: number): Promise<Post> {
-  return await axios({
+  const response = await axios({
     method: 'get',
     url: `${api}/${postId}`,
     headers: headers,
     withCredentials: true
-  })
+  });
+  const result = await response.data;
+  return result;
 }
 
-export async function getPosts(): Promise<Post[]> {
-  return await axios({
+export async function getAllPosts(): Promise<Post[]> {
+  const response = await axios({
     method: 'get',
     url: api,
     headers: headers,
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
-export async function getUserPosts(userId: number): Promise<Post[]> {
-  return await axios({
+export async function getUserPosts(userId: number | undefined): Promise<Post[]> {
+  const response = await axios({
     method: 'get',
     url: `${api}/user/${userId}`,
     headers: headers,
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
-export async function addPost(post: Post): Promise<Post[]> {
-  return await axios({
+export async function getUsersPosts(): Promise<Post[]> {
+  const response = await axios({
+    method: 'get',
+    url: `${api}/user`,
+    headers: headers,
+    withCredentials: true
+  });
+  const result = await response.data;
+  return result;
+}
+
+export async function getPosts(): Promise<Post[]> {
+  const response = await axios({
+    method: 'get',
+    url: `${api}/user`,
+    headers: headers,
+    withCredentials: true
+  });
+  const result = await response.data;
+  return result;
+}
+
+export async function addPost(formData: FormData): Promise<Post[]> {
+  const response = await axios({
     method: 'post',
     url: api, 
-    data: post,
+    data: formData,
     headers: headers,
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
-export async function editPost(post: Post): Promise<Post[]> {
-  return await axios({
+export async function editPost(postId: number, formData: FormData): Promise<Post> {
+  const response = await axios({
     method: 'put',
-    url:`${api}/${post.postId}`, 
-    data: post,
+    url:`${api}/${postId}`, 
+    data: formData,
     headers: headers,
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
 export async function deletePost(postId: number): Promise<Post[]> {
-  return await axios({
+  const response = await axios({
     method: 'delete',
     url: `${api}/${postId}`,
     headers: headers,
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }

@@ -1,7 +1,4 @@
-import { Channel } from "../channel/channel.types";
-import { User } from "../user/user.types";
-
-export enum CHANNELCOMMENT_ACTION_TYPES {
+export enum CHANNEL_COMMENT_ACTION_TYPES {
     CREATE_START = 'channelcomment/CREATE_START',
     CREATE_SUCCESS = 'channelcomment/CREATE_SUCCESS',
     CREATE_FAILED = 'channelcomment/CREATE_FAILED',
@@ -11,6 +8,12 @@ export enum CHANNELCOMMENT_ACTION_TYPES {
     DELETE_START = 'channelcomment/DELETE_START',
     DELETE_SUCCESS = 'channelcomment/DELETE_SUCCESS',
     DELETE_FAILED = 'channelcomment/DELETE_FAILED',
+    FETCH_SINGLE_START = 'channelcomment/FETCH_SINGLE_START',
+    FETCH_SINGLE_SUCCESS = 'channelcomment/FETCH_SINGLE_SUCCESS',
+    FETCH_SINGLE_FAILED = 'channelcomment/FETCH_SINGLE_FAILED',
+    FETCH_USER_COMMENTS_START = 'channelcomment/FETCH_USER_COMMENTS_START',
+    FETCH_USER_COMMENTS_SUCCESS = 'channelcomment/FETCH_USER_COMMENTS_SUCCESS',
+    FETCH_USER_COMMENTS_FAILED = 'channelcomment/FETCH_USER_COMMENTS_FAILED',
     FETCH_ALL_START = 'channelcomment/FETCH_ALL_START',
     FETCH_ALL_SUCCESS = 'channelcomment/FETCH_ALL_SUCCESS',
     FETCH_ALL_FAILED = 'channelcomment/FETCH_ALL_FAILED',
@@ -18,10 +21,10 @@ export enum CHANNELCOMMENT_ACTION_TYPES {
 
 export type ChannelComment = {
     channelCommentId: number | null;
-    channelCommentValue: string;
-    mediaLink: string;
-    imageFile: File | null;
+    commentValue: string | null;
+    mediaLink: string | null;
+    type: string | null;
     dateCreated: Date;
-    channel: Channel;
-    user: User;
+    channelId: number | null,
+    userId: number | null,
 }

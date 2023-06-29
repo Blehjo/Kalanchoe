@@ -1,5 +1,4 @@
 import { Note } from "../note/note.types";
-import { User } from "../user/user.types";
 
 export enum PANEL_ACTION_TYPES {
     CREATE_START = 'panel/CREATE_START',
@@ -14,7 +13,9 @@ export enum PANEL_ACTION_TYPES {
     FETCH_SINGLE_START = 'panel/FETCH_SINGLE_START',
     FETCH_SINGLE_SUCCESS = 'panel/FETCH_SINGLE_SUCCESS',
     FETCH_SINGLE_FAILED = 'panel/FETCH_SINGLE_FAILED',
-    FETCH_USER_START = 'panel/FETCH_USER_START',
+    FETCH_ALL_USER_START = 'panel/FETCH_ALL_USER_START',
+    FETCH_ALL_USER_SUCCESS = 'panel/FETCH_ALL_USER_SUCCESS',
+    FETCH_ALL_USER_FAILED = 'panel/FETCH_ALL_USER_FAILED',
     FETCH_ALL_START = 'panel/FETCH_ALL_START',
     FETCH_ALL_SUCCESS = 'panel/FETCH_ALL_SUCCESS',
     FETCH_ALL_FAILED = 'panel/FETCH_ALL_FAILED'
@@ -22,9 +23,9 @@ export enum PANEL_ACTION_TYPES {
 
 export type Panel = {
     panelId: number | null;
-    title: string;
+    title: string | null;
+    xCoord: number | null;
+    yCoord: number | null;
     dateCreated: Date;
-    userId: number;
-    user: User;
     notes: Note[];
 }

@@ -1,62 +1,143 @@
-import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'typed-redux-saga';
 
 import { NOTE_ACTION_TYPES } from './note.types';
 
 import {
-  noteCreateFailed,
-  noteCreateSuccess,
-  noteFetchAllFailed,
-  noteFetchAllSuccess,
+    noteCreateFailed,
+    noteCreateSuccess,
+    noteDeleteFailed,
+    noteDeleteSuccess,
+    noteFetchAllFailed,
+    noteFetchAllSuccess,
+    noteFetchSingleFailed,
+    noteFetchSingleSuccess,
+    noteUpdateSuccess,
+    NoteCreateStart,
+    NoteDeleteStart,
+    NoteUpdateStart,
+    NoteFetchSingleStart
 } from './note.action';
 
-import { addNote, getNotes, getSingleNote } from '../../utils/api/note.api';
+import {
+    addNote,
+    deleteNote,
+    editNote,
+    getAllNotes,
+    getSingleNote
+} from '../../utils/api/note.api';
 
-export function* getSnapshotFromNote(note, additionalDetails) {
+export function* createNote({ payload: { noteValue, xCoord, yCoord, imageFile, panelId }}: NoteCreateStart ) {
+    const formData = new FormData();
+    formData.append('noteValue', noteValue);
+    formData.append('imageFile', imageFile);
     try {
-        const noteSnapshot = yield call(
-            getSingleNote,
-            note.noteId,
-            additionalDetails
-        );
-        yield put(noteCreateSuccess({ id: noteSnapshot.noteId, ...noteSnapshot.data }));
-    } catch (error) {
-        yield put(noteCreateFailed(error));
-    }
-}
-
-export function* createNote({ payload: { title } }) {
-    try {
-        const note = yield call(
+        const notes = yield* call(
             addNote,
-            title,
-        );
-        yield call(getSnapshotFromNote, note);
+            panelId,
+            xCoord,
+            yCoord,
+            formData
+        ); 
+        yield* put(noteCreateSuccess(notes));
     } catch (error) {
-        yield put(noteCreateFailed(error));
+        yield* put(noteCreateFailed(error as Error));
     }
 }
 
-export function* getUserNotes() {
+export function* updateNote({ payload: { noteId, xCoord, yCoord, noteValue, imageFile, panelId }}: NoteUpdateStart) {
+    const formData = new FormData();
+    formData.append('noteValue', noteValue);
+    formData.append('imageFile', imageFile);
     try {
-        const note = yield call(getNotes);
-        if (!note) return;
-        yield call(noteFetchAllSuccess, note);
+        const comment = yield* call(
+            editNote,
+            noteId,
+            xCoord, 
+            yCoord,
+            formData,
+            panelId
+        ); 
+        yield* put(noteUpdateSuccess(comment));
     } catch (error) {
-        yield put(noteFetchAllFailed(error));
+        yield* put(noteCreateFailed(error as Error));
     }
 }
 
-export function* onNoteStart() {
-    yield takeLatest(NOTE_ACTION_TYPES.CREATE_START, createNote);
+export function* removeNote({ payload: { noteId }}: NoteDeleteStart) {
+    try {
+        const notes = yield* call(
+            deleteNote,
+            noteId
+        ); 
+        yield* put(noteDeleteSuccess(notes));
+    } catch (error) {
+        yield* put(noteDeleteFailed(error as Error));
+    }
 }
 
+export function* fetchSingleNote({ 
+    payload: { noteId } }: NoteFetchSingleStart) {
+    try {
+        const note = yield* call(
+            getSingleNote,
+            noteId 
+        );
+        yield* put(noteFetchSingleSuccess(note));
+    } catch (error) {
+        yield* put(noteFetchSingleFailed(error as Error));
+    }
+}
+
+export function* fetchAllNotes() {
+    try {
+        const notes = yield* call(getAllNotes);
+        yield* put(noteFetchAllSuccess(notes));
+    } catch (error) {
+        yield* put(noteFetchAllFailed(error as Error));
+    }
+}
+
+export function* onCreateStart() {
+    yield* takeLatest(
+        NOTE_ACTION_TYPES.CREATE_START, 
+        createNote
+    );
+}
+
+export function* onUpdateStart() {
+    yield* takeLatest(
+        NOTE_ACTION_TYPES.UPDATE_START, 
+        updateNote
+    );
+}
+
+export function* onDeleteStart() {
+    yield* takeLatest(
+        NOTE_ACTION_TYPES.DELETE_START, 
+        removeNote
+    );
+}
+
+export function* onFetchSingleStart() {
+    yield* takeLatest(
+        NOTE_ACTION_TYPES.FETCH_SINGLE_START, 
+        fetchSingleNote
+    );
+}
+  
 export function* onFetchStart() {
-    yield takeLatest(NOTE_ACTION_TYPES.FETCH_ALL_START, getUserNotes);
+    yield* takeLatest(
+        NOTE_ACTION_TYPES.FETCH_ALL_START,
+        fetchAllNotes
+    );
 }
 
 export function* noteSagas() {
-    yield all([
-        call(onNoteStart),
+    yield* all([
+        call(onCreateStart),
+        call(onUpdateStart),
+        call(onDeleteStart),
+        call(onFetchSingleStart),
         call(onFetchStart)
     ]);
 }

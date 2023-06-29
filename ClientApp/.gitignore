@@ -22,3 +22,7 @@ yarn-error.log*
 
 .env
 .env.development
+
+aspnetcore-https.js
+aspnetcore-react.js
+package-lock.json

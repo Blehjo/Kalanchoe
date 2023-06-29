@@ -1,3 +1,10 @@
+import { Chat } from "../chat/chat.types";
+import { Community } from "../community/community.types";
+import { Device } from "../device/device.types";
+import { Favorite } from "../favorite/favorite.types";
+import { Follower } from "../follower/follower.types";
+import { Post } from "../post/post.types";
+
 export enum USER_ACTION_TYPES {
     SET_CURRENT_USER = 'user/SET_CURRENT_USER',
     CHECK_USER_SESSION = 'user/CHECK_USER_SESSION',
@@ -14,12 +21,21 @@ export enum USER_ACTION_TYPES {
 };
 
 export type User = {
-    userId: number | null;
-    username: string;
-    firstName: string;
-    lastName: string;
-    dateOfBirth: Date;
-    emailAddress: string;
-    about: string;
-    profileImage: string;
+    userId: number;
+    username: string | null;
+    firstName: string | null;
+    lastName: string | null;
+    dateOfBirth: Date | null;
+    emailAddress: string | null;
+    password: string | null;
+    about: string | null;
+    imageLink: string | null;
+    imageSource: string | null;
+    dateCreated: Date | null;
+    posts: Post[];
+    devices: Device[];
+    chats: Chat[];
+    communities: Community[];
+    followers: Follower[];
+    favorites: Favorite[];
 }

@@ -1,13 +1,31 @@
-import { createSelector } from "reselect";
+import { createSelector } from 'reselect';
 
-export const selectPanelReducer = (state) => state.panel;
+import { RootState } from '../store';
+import { PanelState } from './panel.reducer';
 
-export const selectPanelItems = createSelector(
+export const selectPanelReducer = (state: RootState): PanelState => state.panel;
+
+export const selectIsPanelLoading = createSelector(
     [selectPanelReducer],
-    (panel) => panel.panels
+    (panel) => panel.isLoading
 );
 
-export const selectUserPanelItems = createSelector(
+export const selectPanelId = createSelector(
+    [selectPanelReducer],
+    (panel) => panel.panelId
+);
+
+export const selectSinglePanel = createSelector(
+    [selectPanelReducer],
+    (panel) => panel.singlePanel
+);
+
+export const selectUserPanels = createSelector(
     [selectPanelReducer],
     (panel) => panel.userPanels
+);
+
+export const selectAllPanels = createSelector(
+    [selectPanelReducer],
+    (panel) => panel.panels
 );

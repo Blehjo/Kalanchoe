@@ -1,65 +1,88 @@
 import axios from "axios";
 import { Community } from "../../store/community/community.types";
 
-const api = "https://kalanchoeai-server.azurewebsites.net/api/community";
+const api = "https://planetnineserver.azurewebsites.net/api/community";
 
 const headers = {
-  'Accept': 'application/json',
-  'Content-Type': 'application/json' 
+  'Accept': 'application/x-www-form-urlencoded',
+  'Content-Type': 'application/x-www-form-urlencoded' 
 }
 
 export async function getSingleCommunity(communityId: number): Promise<Community> {
-  return await axios({
+  const response = await axios({
     method: 'get',
     url: `${api}/${communityId}`,
     headers: headers,
     withCredentials: true
-  })
+  });
+  const result = await response.data;
+  return result;
 }
 
-export async function getCommunities(): Promise<Community[]> {
-  return await axios({
+export async function getAllCommunities(): Promise<Community[]> {
+  const response = await axios({
     method: 'get',
-    url: `${api}`,
+    url: api,
     headers: headers,
     withCredentials: true
-  })
+  });
+  const result = await response.data;
+  return result;
 }
 
-export async function getUserCommunities(userId: number): Promise<Community[]> {
-  return await axios({
+export async function getUserCommunities(userId: number | undefined): Promise<Community[]> {
+  const response = await axios({
     method: 'get',
     url: `${api}/user/${userId}`,
     headers: headers,
     withCredentials: true
-  })
+  });
+  const result = await response.data;
+  return result;
 }
 
-export async function addCommunity(community: Community): Promise<Community[]> {
-  return await axios({
+export async function getUsersCommunities(): Promise<Community[]> {
+  const response = await axios({
+    method: 'get',
+    url: `${api}/user`,
+    headers: headers,
+    withCredentials: true
+  });
+  const result = await response.data;
+  return result;
+}
+
+export async function addCommunity(formData: FormData): Promise<Community[]> {
+  const response = await axios({
     method: 'post',
     url: api, 
-    data: community, 
+    data: formData,
     headers: headers,
     withCredentials: true
-  })
+  });
+  const result = await response.data;
+  return result;
 }
 
-export async function editCommunity(community: Community): Promise<Community[]> {
-  return await axios({
+export async function editCommunity(communityId: number, formData: FormData): Promise<Community> {
+  const response = await axios({
     method: 'put',
-    url:`${api}/${community.communityId}`, 
-    data: community, 
+    url:`${api}/${communityId}`, 
+    data: formData,
     headers: headers,
     withCredentials: true
-  })
+  });
+  const result = await response.data;
+  return result;
 }
 
 export async function deleteCommunity(communityId: number): Promise<Community[]> {
-  return await axios({
+  const response = await axios({
     method: 'delete',
     url: `${api}/${communityId}`,
     headers: headers,
     withCredentials: true
-  })
+  });
+  const result = await response.data;
+  return result;
 }

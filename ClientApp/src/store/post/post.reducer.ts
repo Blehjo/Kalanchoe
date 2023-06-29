@@ -1,36 +1,85 @@
-import { POST_ACTION_TYPES } from './post.types';
+import { AnyAction } from 'redux';
 
-const INITIAL_STATE = {
+import { Post } from './post.types';
+
+import {
+    postCreateStart,
+    postCreateSuccess,
+    postCreateFailed,
+    postUpdateStart,
+    postUpdateSuccess,
+    postUpdateFailed,
+    postDeleteStart,
+    postDeleteSuccess,
+    postDeleteFailed,
+    postFetchSingleStart,
+    postFetchSingleSuccess,
+    postFetchSingleFailed,
+    postFetchAllStart,
+    postFetchAllSuccess,
+    postFetchAllFailed,
+    postFetchUserPostsStart,
+    postFetchUserPostsSuccess,
+} from './post.action';
+
+export type PostState = {
+    readonly postId: number | null;
+    readonly singlePost: Post | null;
+    readonly userPosts: Post[];
+    readonly posts: Post[];
+    readonly isLoading: boolean;
+    readonly error: Error | null;
+}
+
+const INITIAL_STATE: PostState = {
+    postId: null,
+    singlePost: null,
+    userPosts: [],
     posts: [],
-    singlePost: {},
     isLoading: false,
     error: null,
 };
 
-export const postReducer = (state = INITIAL_STATE, action = {}) => {
-    const { type, payload } = action;
-
-    switch (type) {
-        case POST_ACTION_TYPES.FETCH_SINGLE_START:
-            return { ...state, singlePost: payload, isLoading: true };
-        case POST_ACTION_TYPES.CREATE_START:
-        case POST_ACTION_TYPES.UPDATE_START:
-        case POST_ACTION_TYPES.DELETE_START:
-        case POST_ACTION_TYPES.FETCH_ALL_START:
-            return { ...state, posts: payload, isLoading: true };
-        case POST_ACTION_TYPES.CREATE_SUCCESS:
-        case POST_ACTION_TYPES.UPDATE_SUCCESS:
-        case POST_ACTION_TYPES.DELETE_SUCCESS:
-        case POST_ACTION_TYPES.FETCH_SINGLE_SUCCESS:
-        case POST_ACTION_TYPES.FETCH_ALL_SUCCESS:
-            return { ...state, isLoading: false };
-        case POST_ACTION_TYPES.CREATE_FAILED:
-        case POST_ACTION_TYPES.UPDATE_FAILED:
-        case POST_ACTION_TYPES.DELETE_FAILED:
-        case POST_ACTION_TYPES.FETCH_SINGLE_FAILED:
-        case POST_ACTION_TYPES.FETCH_ALL_FAILED:
-            return { ...state, error: payload, isLoading: false };
-        default:
-            return state;
+export const postReducer = (
+    state = INITIAL_STATE, action: AnyAction
+): PostState => {
+    if (
+        postFetchAllStart.match(action) || 
+        postFetchUserPostsStart.match(action)
+    ) {
+        return { ...state, isLoading: true }
     }
+    if (
+        postUpdateSuccess.match(action) ||
+        postFetchSingleSuccess.match(action) 
+    ) {
+        return { ...state, isLoading: false, singlePost: action.payload }
+    }
+    if (
+        postFetchUserPostsSuccess.match(action)
+    ) {
+        return { ...state, isLoading: false, userPosts: action.payload }
+    }
+    if (
+        postFetchAllSuccess.match(action) 
+    ) {
+        return { ...state, isLoading: false, posts: action.payload };
+    } 
+    if (
+        postCreateSuccess.match(action) ||
+        postDeleteSuccess.match(action)
+    ) {
+        return { ...state, isLoading: false, userPosts: action.payload };
+    } 
+    if (
+        postCreateFailed.match(action) ||
+        postUpdateFailed.match(action) ||
+        postDeleteFailed.match(action) ||
+        postFetchSingleFailed.match(action) ||
+        postFetchAllFailed.match(action) 
+    ) {
+      return { ...state, isLoading: false, error: action.payload };
+    }
+  
+    return state;
 };

@@ -1,62 +1,122 @@
-import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'typed-redux-saga';
 
-import { CHANNEL_ACTION_TYPES } from './channel.types';
+import { CHANNEL_ACTION_TYPES, Channel } from './channel.types';
 
 import {
-  channelCreateFailed,
-  channelCreateSuccess,
-  channelFetchAllFailed,
-  channelFetchAllSuccess,
-} from './channel.action';
+  addChannel,
+  deleteChannel,
+  editChannel,
+  getChannels,
+  getSingleChannel
+} from '../../utils/api/channel.api';
+import { ChannelCreateStart, ChannelDeleteStart, ChannelFetchAllStart, ChannelFetchSingleStart, ChannelFetchSingleSuccess, ChannelUpdateStart, channelCreateFailed, channelCreateSuccess, channelDeleteFailed, channelDeleteSuccess, channelFetchAllFailed, channelFetchAllStart, channelFetchAllSuccess, channelFetchSingleFailed, channelFetchSingleSuccess, channelUpdateFailed, channelUpdateSuccess } from './channel.action';
 
-import { addChannel, getChannels, getSingleChannel } from '../../utils/api/channel.api';
-
-export function* getSnapshotFromChannel(channel, additionalDetails) {
+export function* createChannel({ payload: { description, communityId }}: ChannelCreateStart ) {
     try {
-        const channelSnapshot = yield call(
-            getSingleChannel,
-            channel.channelId,
-            additionalDetails
-        );
-        yield put(channelCreateSuccess({ id: channelSnapshot.channelId, ...channelSnapshot.data }));
-    } catch (error) {
-        yield put(channelCreateFailed(error));
-    }
-}
-
-export function* createChannel({ payload: { description } }) {
-    try {
-        const channel = yield call(
+        const comments = yield* call(
             addChannel,
             description,
-        );
-        yield call(getSnapshotFromChannel, channel);
+            communityId
+        ); 
+        yield* put(channelCreateSuccess(comments));
     } catch (error) {
-        yield put(channelCreateFailed(error));
+        yield* put(channelCreateFailed(error as Error));
     }
 }
 
-export function* getUserChannels() {
+export function* updateChannel({ payload: { channelId, description, communityId }}: ChannelUpdateStart) {
     try {
-        const channel = yield call(getChannels);
-        if (!channel) return;
-        yield call(channelFetchAllSuccess, channel);
+        const comments = yield* call(
+            editChannel,
+            channelId,
+            description,
+            communityId
+        ); 
+        yield* put(channelUpdateSuccess(comments));
     } catch (error) {
-        yield put(channelFetchAllFailed(error));
+        yield* put(channelUpdateFailed(error as Error));
     }
 }
 
-export function* onChannelStart() {
-    yield takeLatest(CHANNEL_ACTION_TYPES.CREATE_START, createChannel);
+export function* removeChannel({ payload: { channelId }}: ChannelDeleteStart) {
+    try {
+        const comments = yield* call(
+            deleteChannel,
+            channelId
+        ); 
+        yield* put(channelDeleteSuccess(comments));
+    } catch (error) {
+        yield* put(channelDeleteFailed(error as Error));
+    }
 }
 
-export function* onFetchStart() {
-    yield takeLatest(CHANNEL_ACTION_TYPES.FETCH_ALL_START, getUserChannels);
+export function* fetchSingleChannel({ 
+    payload: { channelId } }: ChannelFetchSingleStart) {
+    try {
+        const channel = yield* call(
+            getSingleChannel,
+            channelId 
+        );
+        yield* put(channelFetchSingleSuccess(channel));
+    } catch (error) {
+        yield* put(channelFetchSingleFailed(error as Error));
+    }
+}
+
+export function* fetchAllChannels({ 
+    payload: { communityId }}: ChannelFetchAllStart) {
+    try {
+        const comments = yield* call(
+            getChannels,
+            communityId
+            );
+        yield* put(channelFetchAllSuccess(comments));
+    } catch (error) {
+        yield* put(channelFetchAllFailed(error as Error));
+    }
+}
+
+export function* onCreateStart() {
+    yield* takeLatest(
+        CHANNEL_ACTION_TYPES.CREATE_START, 
+        createChannel
+    );
+}
+
+export function* onUpdateStart() {
+    yield* takeLatest(
+        CHANNEL_ACTION_TYPES.UPDATE_START, 
+        updateChannel
+    );
+}
+
+export function* onDeleteStart() {
+    yield* takeLatest(
+        CHANNEL_ACTION_TYPES.DELETE_START, 
+        removeChannel
+    );
+}
+
+export function* onFetchSingleStart() {
+    yield* takeLatest(
+        CHANNEL_ACTION_TYPES.FETCH_SINGLE_START, 
+        fetchSingleChannel
+    );
+}
+  
+export function* onFetchsStart() {
+    yield* takeLatest(
+        CHANNEL_ACTION_TYPES.FETCH_ALL_START,
+        fetchAllChannels
+    );
 }
 
 export function* channelSagas() {
-    yield all([
-        call(onChannelStart),
-        call(onFetchStart)
+    yield* all([
+        call(onCreateStart),
+        call(onUpdateStart),
+        call(onDeleteStart),
+        call(onFetchSingleStart),
+        call(onFetchsStart)
     ]);
 }

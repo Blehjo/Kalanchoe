@@ -6,7 +6,7 @@ import { useNavigate } from "react-router";
 import { communityFetchAllStart } from "../store/community/community.action";
 import { selectCommunities } from "../store/community/community.selector";
 import { getUserCommunities } from "../utils/api/community.api";
-import { getUser } from "../utils/api/userDocument";
+import { getUser } from "../utils/api/userdocuments";
 
 const SidebarOverlay = () => {
     const navigate = useNavigate();

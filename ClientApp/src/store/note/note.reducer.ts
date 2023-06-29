@@ -1,31 +1,69 @@
-import { NOTE_ACTION_TYPES } from './note.types';
+import { AnyAction } from 'redux';
 
-const INITIAL_STATE = {
+import { Note } from './note.types';
+
+import {
+    noteCreateFailed,
+    noteCreateSuccess,
+    noteDeleteFailed,
+    noteDeleteSuccess,
+    noteFetchAllFailed,
+    noteFetchAllStart,
+    noteFetchAllSuccess,
+    noteFetchSingleFailed,
+    noteFetchSingleSuccess,
+    noteUpdateFailed,
+    noteUpdateSuccess
+} from './note.action';
+
+export type NoteState = {
+    readonly noteId: number | null;
+    readonly singleNote: Note | null;
+    readonly userNotes: Note[];
+    readonly notes: Note[];
+    readonly isLoading: boolean;
+    readonly error: Error | null;
+};
+
+const INITIAL_STATE: NoteState = {
+    noteId: null,
+    singleNote: null,
+    userNotes: [],
     notes: [],
     isLoading: false,
     error: null,
 };
 
-export const noteReducer = (state = INITIAL_STATE, action) => {
-    const { type, payload } = action;
-
-    switch (type) {
-        case NOTE_ACTION_TYPES.CREATE_START:
-        case NOTE_ACTION_TYPES.UPDATE_START:
-        case NOTE_ACTION_TYPES.DELETE_START:
-        case NOTE_ACTION_TYPES.FETCH_ALL_START:
-            return { ...state, notes: payload, isLoading: true };
-        case NOTE_ACTION_TYPES.CREATE_SUCCESS:
-        case NOTE_ACTION_TYPES.UPDATE_SUCCESS:
-        case NOTE_ACTION_TYPES.DELETE_SUCCESS:
-        case NOTE_ACTION_TYPES.FETCH_ALL_SUCCESS:
-            return { ...state, notes: payload, isLoading: false };
-        case NOTE_ACTION_TYPES.CREATE_FAILED:
-        case NOTE_ACTION_TYPES.UPDATE_FAILED:
-        case NOTE_ACTION_TYPES.DELETE_FAILED:
-        case NOTE_ACTION_TYPES.FETCH_ALL_FAILED:
-            return { ...state, error: payload, isLoading: false };
-        default:
-            return state;
+export const noteReducer = (
+    state = INITIAL_STATE, action: AnyAction
+): NoteState => {
+    if (
+        noteFetchAllStart.match(action) 
+    ) {
+        return { ...state, isLoading: true }
     }
+    if (
+        noteFetchSingleSuccess.match(action) 
+    ) {
+        return { ...state, isLoading: false, singleNote: action.payload }
+    }
+    if (
+        noteCreateSuccess.match(action) ||
+        noteUpdateSuccess.match(action) ||
+        noteDeleteSuccess.match(action) ||
+        noteFetchAllSuccess.match(action) 
+    ) {
+        return { ...state, isLoading: false, notes: action.payload };
+    } 
+    if (
+        noteCreateFailed.match(action) ||
+        noteUpdateFailed.match(action) ||
+        noteDeleteFailed.match(action) ||
+        noteFetchSingleFailed.match(action) ||
+        noteFetchAllFailed.match(action) 
+    ) {
+      return { ...state, isLoading: false, error: action.payload };
+    }
+  
+    return state;
 };

@@ -1,53 +1,54 @@
 ﻿import { createSelector } from 'reselect';
+import { RootState } from '../store';
 
-const selectToolboxReducer = (state) => state.toolbox;
+const selectToolboxReducer = (state: RootState) => state.toolbox;
 
 export const selectIsPanelOpen = createSelector(
     [selectToolboxReducer],
-    (toolbox) => toolbox.isToolboxOpen
+    (toolbox) => toolbox.isPanelOpen
 );
 
 export const selectIsNoteOpen = createSelector(
     [selectToolboxReducer],
-    (toolbox) => toolbox.isToolboxOpen
+    (toolbox) => toolbox.isNoteOpen
 );
 
 export const selectIsArtooOpen = createSelector(
     [selectToolboxReducer],
-    (toolbox) => toolbox.isToolboxOpen
+    (toolbox) => toolbox.isArtooOpen
 );
 
 export const selectIsChatbotOpen = createSelector(
     [selectToolboxReducer],
-    (toolbox) => toolbox.isToolboxOpen
+    (toolbox) => toolbox.isChatbotOpen
 );
 
 export const selectIsSearchbarOpen = createSelector(
     [selectToolboxReducer],
-    (toolbox) => toolbox.isToolboxOpen
+    (toolbox) => toolbox.isSearchbarOpen
 );
 
 export const selectIsEditorOpen = createSelector(
     [selectToolboxReducer],
-    (toolbox) => toolbox.isToolboxOpen
+    (toolbox) => toolbox.isEditorOpen
 );
 
 export const selectIsTasksOpen = createSelector(
     [selectToolboxReducer],
-    (toolbox) => toolbox.isToolboxOpen
+    (toolbox) => toolbox.isTasksOpen
 );
 
 export const selectIsResetOpen = createSelector(
     [selectToolboxReducer],
-    (toolbox) => toolbox.isToolboxOpen
+    (toolbox) => toolbox.isResetOpen
 );
 
 export const selectIsMessagesOpen = createSelector(
     [selectToolboxReducer],
-    (toolbox) => toolbox.isToolboxOpen
+    (toolbox) => toolbox.isMessagesOpen
 );
 
 export const selectIsCommunitiesOpen = createSelector(
     [selectToolboxReducer],
-    (toolbox) => toolbox.isToolboxOpen
+    (toolbox) => toolbox.isCommunitiesOpen
 );

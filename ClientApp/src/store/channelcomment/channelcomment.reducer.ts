@@ -1,31 +1,69 @@
-import { CHANNELCOMMENT_ACTION_TYPES } from './channelcomment.types';
+import { AnyAction } from 'redux';
 
-const INITIAL_STATE = {
-    channelcomments: [],
+import { ChannelComment } from './channelcomment.types';
+
+import {
+    channelcommentCreateFailed,
+    channelcommentCreateSuccess,
+    channelcommentDeleteFailed,
+    channelcommentDeleteSuccess,
+    channelcommentFetchAllFailed,
+    channelcommentFetchAllStart,
+    channelcommentFetchAllSuccess,
+    channelcommentFetchSingleFailed,
+    channelcommentFetchSingleSuccess,
+    channelcommentUpdateFailed,
+    channelcommentUpdateSuccess
+} from './channelcomment.action';
+
+export type ChannelCommentState = {
+    readonly channelCommentId: number | null;
+    readonly singleComment: ChannelComment | null;
+    readonly userComments: ChannelComment[];
+    readonly comments: ChannelComment[];
+    readonly isLoading: boolean;
+    readonly error: Error | null;
+};
+
+const INITIAL_STATE: ChannelCommentState = {
+    channelCommentId: null,
+    singleComment: null,
+    userComments: [],
+    comments: [],
     isLoading: false,
     error: null,
 };
 
-export const channelcommentReducer = (state = INITIAL_STATE, action) => {
-    const { type, payload } = action;
-
-    switch (type) {
-        case CHANNELCOMMENT_ACTION_TYPES.CREATE_START:
-        case CHANNELCOMMENT_ACTION_TYPES.UPDATE_START:
-        case CHANNELCOMMENT_ACTION_TYPES.DELETE_START:
-        case CHANNELCOMMENT_ACTION_TYPES.FETCH_ALL_START:
-            return { ...state, channelcomments: payload, isLoading: true };
-        case CHANNELCOMMENT_ACTION_TYPES.CREATE_SUCCESS:
-        case CHANNELCOMMENT_ACTION_TYPES.UPDATE_SUCCESS:
-        case CHANNELCOMMENT_ACTION_TYPES.DELETE_SUCCESS:
-        case CHANNELCOMMENT_ACTION_TYPES.FETCH_ALL_SUCCESS:
-            return { ...state, channelcomments: payload, isLoading: false };
-        case CHANNELCOMMENT_ACTION_TYPES.CREATE_FAILED:
-        case CHANNELCOMMENT_ACTION_TYPES.UPDATE_FAILED:
-        case CHANNELCOMMENT_ACTION_TYPES.DELETE_FAILED:
-        case CHANNELCOMMENT_ACTION_TYPES.FETCH_ALL_FAILED:
-            return { ...state, error: payload, isLoading: false };
-        default:
-            return state;
+export const channelcommentReducer = (
+    state = INITIAL_STATE, action: AnyAction
+): ChannelCommentState => {
+    if (
+        channelcommentFetchAllStart.match(action) 
+    ) {
+        return { ...state, isLoading: true }
     }
+    if (
+        channelcommentFetchSingleSuccess.match(action) 
+    ) {
+        return { ...state, isLoading: false, comments: action.payload }
+    }
+    if (
+        channelcommentCreateSuccess.match(action) ||
+        channelcommentUpdateSuccess.match(action) ||
+        channelcommentDeleteSuccess.match(action) ||
+        channelcommentFetchAllSuccess.match(action) 
+    ) {
+        return { ...state, isLoading: false, comments: action.payload };
+    } 
+    if (
+        channelcommentCreateFailed.match(action) ||
+        channelcommentUpdateFailed.match(action) ||
+        channelcommentDeleteFailed.match(action) ||
+        channelcommentFetchSingleFailed.match(action) ||
+        channelcommentFetchAllFailed.match(action) 
+    ) {
+      return { ...state, isLoading: false, error: action.payload };
+    }
+  
+    return state;
 };

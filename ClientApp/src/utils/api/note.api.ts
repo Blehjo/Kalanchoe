@@ -4,62 +4,63 @@ import { Note } from "../../store/note/note.types";
 const api = "https://kalanchoeai-server.azurewebsites.net/api/note";
 
 const headers = {
-  'Accept': 'application/json',
-  'Content-Type': 'application/json' 
+  'Accept': 'application/x-www-form-urlencoded',
+  'Content-Type': 'application/x-www-form-urlencoded' 
 }
 
-export async function getSingleNote(noteId: number): Promise<Note> {
-  return await axios({
+export async function getSingleNote(memberId: number): Promise<Note> {
+  const response = await axios({
     method: 'get',
-    url: `${api}/${noteId}`,
+    url: `${api}/${memberId}`,
     headers: headers,
     withCredentials: true
-  })
+  });
+  const result = await response.data;
+  return result;
 }
 
-export async function getPanelNotes(panelId: number): Promise<Note[]> {
-  return await axios({
-    method: 'get',
-    url: `${api}/user/${panelId}`,
-    headers: headers,
-    withCredentials: true
-  })
-}
-
-export async function getNotes(): Promise<Note[]> {
-  return await axios({
+export async function getAllNotes(): Promise<Note[]> {
+  const response = await axios({
     method: 'get',
     url: api,
     headers: headers,
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
-export async function addNote(note: Note): Promise<Note[]> {
-  return await axios({
+export async function addNote(panelId: number, xCoord: number, yCoord: number, formData: FormData): Promise<Note[]> {
+  const response = await axios({
     method: 'post',
-    url: api, 
-    data: note,
+    url: `${api}/${panelId}/${xCoord}/${yCoord}`,
+    data: formData,
     headers: headers,
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
-export async function editNote(note: Note): Promise<Note[]> {
-  return await axios({
+export async function editNote(noteId: number, xCoord: number, yCoord: number , formData: FormData, panelId: number): Promise<Note[]> {
+  const response = await axios({
     method: 'put',
-    url: `${api}/${note.noteId}`, 
-    data: note, 
+    url: `${api}/${noteId}/${panelId}/${xCoord}/${yCoord}`, 
+    data: formData,
     headers: headers,
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
-export async function deleteNote(noteId: number): Promise<Note[]> {
-  return await axios({
+export async function deleteNote(memberId: number): Promise<Note[]> {
+  const response = await axios({
     method: 'delete',
-    url: `${api}/${noteId}`,
+    url: `${api}/${memberId}`,
     headers: headers,
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }

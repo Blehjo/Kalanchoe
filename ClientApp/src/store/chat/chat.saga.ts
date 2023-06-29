@@ -1,62 +1,204 @@
-import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { takeLatest, put, all, call } from 'typed-redux-saga';
 
-import { CHAT_ACTION_TYPES } from './chat.types';
+import { Chat, CHAT_ACTION_TYPES } from './chat.types';
 
 import {
-  chatCreateFailed,
-  chatCreateSuccess,
-  chatFetchAllFailed,
-  chatFetchAllSuccess,
+    chatCreateStart,
+    chatCreateSuccess,
+    chatCreateFailed,
+    chatUpdateStart,
+    chatUpdateSuccess,
+    chatUpdateFailed,
+    chatDeleteStart,
+    chatDeleteSuccess,
+    chatDeleteFailed,
+    chatFetchSingleStart,
+    chatFetchSingleSuccess,
+    chatFetchSingleFailed,
+    chatFetchAllStart,
+    chatFetchAllSuccess,
+    chatFetchAllFailed,
+    ChatCreateStart,
+    ChatCreateSuccess,
+    ChatFetchAllStart,
+    ChatFetchSingleStart,
+    ChatFetchUserChatsStart,
+    ChatUpdateStart,
+    ChatDeleteStart,
+    ChatFetchSingleUserChatsStart,
+    chatFetchSingleUserChatsSuccess,
+    chatFetchSingleUserChatsFailed,
+    chatFetchUserChatsSuccess,
+    chatFetchUserChatsFailed,
+    ChatSetID,
+    chatSetId,
+    chatSetIdSuccess
 } from './chat.action';
 
-import { addChat, getChats, getSingleChat } from '../../utils/api/chat.api';
+import { 
+    getSingleChat,
+    getAllChats,
+    getUserChats,
+    getUsersChats,
+    getChats, 
+    addChat, 
+    editChat,
+    deleteChat
+} from '../../utils/api/chat.api';
 
-export function* getSnapshotFromChat(chat, additionalDetails) {
-    try {
-        const chatSnapshot = yield call(
-            getSingleChat,
-            chat.chatId,
-            additionalDetails
-        );
-        yield put(chatCreateSuccess({ id: chatSnapshot.chatId, ...chatSnapshot.data }));
-    } catch (error) {
-        yield put(chatCreateFailed(error));
-    }
+export function* startSetId({ payload: { chatId }}: ChatSetID) {
+    yield* put(chatSetIdSuccess(chatId));
 }
 
-export function* createChat({ payload: { title } }) {
+export function* createChat({ payload: { title, artificialId }}: ChatCreateStart ) {
     try {
-        const chat = yield call(
+        const chat = yield* call(
             addChat,
             title,
-        );
-        yield call(getSnapshotFromChat, chat);
+            artificialId
+        ); 
+        yield* put(chatCreateSuccess(chat));
     } catch (error) {
-        yield put(chatCreateFailed(error));
+        yield* put(chatCreateFailed(error as Error));
     }
 }
 
-export function* getUserChats() {
+export function* updateChat({ payload: { chatId, title, userId }}: ChatUpdateStart) {
     try {
-        const chat = yield call(getChats);
-        if (!chat) return;
-        yield call(chatFetchAllSuccess, chat);
+        const chat = yield* call(
+            editChat,
+            chatId,
+            title,
+            userId
+        ); 
+        yield* put(chatUpdateSuccess(chat));
     } catch (error) {
-        yield put(chatFetchAllFailed(error));
+        yield* put(chatCreateFailed(error as Error));
     }
 }
 
-export function* onChatStart() {
-    yield takeLatest(CHAT_ACTION_TYPES.CREATE_START, createChat);
+export function* removeChat({ payload: { chatId }}: ChatDeleteStart) {
+    try {
+        const chats = yield* call(
+            deleteChat,
+            chatId
+        ); 
+        yield* put(chatDeleteSuccess(chats));
+    } catch (error) {
+        yield* put(chatDeleteFailed(error as Error));
+    }
 }
 
-export function* onFetchStart() {
-    yield takeLatest(CHAT_ACTION_TYPES.FETCH_ALL_START, getUserChats);
+export function* fetchUserChats() {
+    try {
+        const chat = yield* call(getUsersChats);
+        if (!chat) return;
+        yield* put(chatFetchUserChatsSuccess(chat));
+    } catch (error) {
+        yield* put(chatFetchUserChatsFailed(error as Error));
+    }
+}
+
+export function* fetchOtherUsersChats({ payload: { userId } }: ChatFetchSingleUserChatsStart) {
+    try {
+        const chats = yield* call(
+            getUserChats,
+            userId
+        );
+        if (!chats) return;
+        yield* put(chatFetchSingleUserChatsSuccess(chats));
+    } catch (error) {
+        yield* put(chatFetchSingleUserChatsFailed(error as Error));
+    }
+}
+
+export function* fetchSingleChatAsync({ 
+    payload: { chatId } }: ChatFetchSingleStart) {
+    try {
+        const chatSnapshot = yield* call(
+            getSingleChat,
+            chatId 
+        );
+        yield* put(chatFetchSingleSuccess(chatSnapshot as Chat));
+    } catch (error) {
+        yield* put(chatFetchSingleFailed(error as Error));
+    }
+}
+
+export function* fetchAllChatsAsync() {
+    try {
+        const chats = yield* call(getAllChats);
+        yield* put(chatFetchAllSuccess(chats));
+    } catch (error) {
+        yield* put(chatFetchAllFailed(error as Error));
+    }
+}
+
+export function* onSetId() {
+    yield* takeLatest(
+        CHAT_ACTION_TYPES.SET_ID,
+        startSetId
+    );
+}
+
+export function* onCreateStart() {
+    yield* takeLatest(
+        CHAT_ACTION_TYPES.CREATE_START, 
+        createChat
+    );
+}
+
+export function* onUpdateStart() {
+    yield* takeLatest(
+        CHAT_ACTION_TYPES.UPDATE_START, 
+        updateChat
+    );
+}
+
+export function* onDeleteStart() {
+    yield* takeLatest(
+        CHAT_ACTION_TYPES.DELETE_START, 
+        removeChat
+    );
+}
+
+export function* onFetchUserChatsStart() {
+    yield* takeLatest(
+        CHAT_ACTION_TYPES.FETCH_USER_CHATS_START, 
+        fetchUserChats
+    );
+}
+
+export function* onFetchOthersUserChatsStart() {
+    yield* takeLatest(
+        CHAT_ACTION_TYPES.FETCH_SINGLE_USER_CHATS_START, 
+        fetchOtherUsersChats
+    );
+}
+
+export function* onFetchSingleChatStart() {
+    yield* takeLatest(
+        CHAT_ACTION_TYPES.FETCH_SINGLE_START, 
+        fetchSingleChatAsync
+    );
+}
+  
+export function* onFetchChatsStart() {
+    yield* takeLatest(
+        CHAT_ACTION_TYPES.FETCH_ALL_START,
+        fetchAllChatsAsync
+    );
 }
 
 export function* chatSagas() {
-    yield all([
-        call(onChatStart),
-        call(onFetchStart)
+    yield* all([
+        call(onSetId),
+        call(onCreateStart),
+        call(onUpdateStart),
+        call(onDeleteStart),
+        call(onFetchUserChatsStart),
+        call(onFetchOthersUserChatsStart),
+        call(onFetchSingleChatStart),
+        call(onFetchChatsStart)
     ]);
 }

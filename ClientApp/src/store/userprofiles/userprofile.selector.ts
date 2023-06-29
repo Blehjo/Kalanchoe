@@ -1,10 +1,13 @@
-import { createSelector } from "reselect";
+import { createSelector } from 'reselect';
 
-export const selectUserprofileReducer = (state) => state.userprofile;
+import { RootState } from '../store';
+import { UserprofileState } from './userprofile.reducer';
 
-export const selectUserprofileItems = createSelector(
+export const selectUserprofileReducer = (state: RootState): UserprofileState => state.userprofile;
+
+export const selectUserprofile = createSelector(
     [selectUserprofileReducer],
-    (userprofile) => userprofile.userprofiles
+    (userprofile) => userprofile.userprofile
 );
 
 export const selectUserprofileId = createSelector(

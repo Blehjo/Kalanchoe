@@ -1,62 +1,124 @@
-import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'typed-redux-saga';
 
-import { CHANNELCOMMENT_ACTION_TYPES } from './channelcomment.types';
+import { CHANNEL_COMMENT_ACTION_TYPES } from './channelcomment.types';
 
 import {
-  channelcommentCreateFailed,
-  channelcommentCreateSuccess,
-  channelcommentFetchAllFailed,
-  channelcommentFetchAllSuccess,
-} from './channelcomment.action';
+    addComment,
+    deleteComment,
+    editComment,
+    getAllComments,
+    getSingleComment
+} from '../../utils/api/channelcomment.api';
+import { ChannelFetchSingleStart } from '../channel/channel.action';
+import { ChannelCommentCreateStart, ChannelCommentDeleteStart, ChannelCommentFetchSingleStart, ChannelCommentUpdateStart, channelcommentCreateFailed, channelcommentDeleteFailed, channelcommentDeleteSuccess, channelcommentFetchAllFailed, channelcommentFetchSingleFailed, channelcommentFetchSingleSuccess, channelcommentUpdateFailed, channelcommentUpdateSuccess } from './channelcomment.action';
 
-import { addChannelComment, getChannelcomments, getSingleChannelcomment } from '../../utils/api/channelcomment.api';
-
-export function* getSnapshotFromChannelcomment(channelcomment, additionalDetails) {
+export function* createComment({ payload: { channelId, commentValue, imageFile }}: ChannelCommentCreateStart ) {
+    const formData = new FormData();
+    formData.append('commentValue', commentValue);
+    formData.append('imageFile', imageFile);
     try {
-        const channelcommentSnapshot = yield call(
-            getSingleChannelcomment,
-            channelcomment.channelcommentId,
-            additionalDetails
+        const comments = yield* call(
+            addComment,
+            channelId,
+            formData
+        ); 
+        yield* put(channelcommentFetchSingleSuccess(comments));
+    } catch (error) {
+        yield* put(channelcommentCreateFailed(error as Error));
+    }
+}
+
+export function* updateComment({ payload: { channelCommentId, commentValue, imageFile }}: ChannelCommentUpdateStart) {
+    const formData = new FormData();
+    formData.append('commentValue', commentValue);
+    formData.append('imageFile', imageFile);
+    try {
+        const comment = yield* call(
+            editComment,
+            channelCommentId,
+            formData
+        ); 
+        yield* put(channelcommentUpdateSuccess(comment));
+    } catch (error) {
+        yield* put(channelcommentUpdateFailed(error as Error));
+    }
+}
+
+export function* removeComment({ payload: { commentId }}: ChannelCommentDeleteStart) {
+    try {
+        const comments = yield* call(
+            deleteComment,
+            commentId
+        ); 
+        yield* put(channelcommentDeleteSuccess(comments));
+    } catch (error) {
+        yield* put(channelcommentDeleteFailed(error as Error));
+    }
+}
+
+export function* fetchSingleComment({ 
+    payload: { commentId } }: ChannelCommentFetchSingleStart) {
+    try {
+        const comment = yield* call(
+            getSingleComment,
+            commentId 
         );
-        yield put(channelcommentCreateSuccess({ id: channelcommentSnapshot.channelcommentId, ...channelcommentSnapshot.data }));
+        yield* put(channelcommentFetchSingleSuccess(comment));
     } catch (error) {
-        yield put(channelcommentCreateFailed(error));
+        yield* put(channelcommentFetchSingleFailed(error as Error));
     }
 }
 
-export function* createChannelcomment({ payload: { channelCommentValue } }) {
+export function* fetchAllComments({ payload: { channelId } }: ChannelFetchSingleStart) {
     try {
-        const channel = yield call(
-            addChannelComment,
-            channelCommentValue,
-        );
-        yield call(getSnapshotFromChannelcomment, channel);
+        const comments = yield* call(getAllComments, channelId);
+        yield* put(channelcommentFetchSingleSuccess(comments));
     } catch (error) {
-        yield put(channelcommentCreateFailed(error));
+        yield* put(channelcommentFetchAllFailed(error as Error));
     }
 }
 
-export function* getUserChannelcomments() {
-    try {
-        const channelcomment = yield call(getChannelcomments);
-        if (!channelcomment) return;
-        yield call(channelcommentFetchAllSuccess, channelcomment);
-    } catch (error) {
-        yield put(channelcommentFetchAllFailed(error));
-    }
+export function* onCreateStart() {
+    yield* takeLatest(
+        CHANNEL_COMMENT_ACTION_TYPES.CREATE_START, 
+        createComment
+    );
 }
 
-export function* onChannelStart() {
-    yield takeLatest(CHANNELCOMMENT_ACTION_TYPES.CREATE_START, createChannelcomment);
+export function* onUpdateStart() {
+    yield* takeLatest(
+        CHANNEL_COMMENT_ACTION_TYPES.UPDATE_START, 
+        updateComment
+    );
 }
 
+export function* onDeleteStart() {
+    yield* takeLatest(
+        CHANNEL_COMMENT_ACTION_TYPES.DELETE_START, 
+        removeComment
+    );
+}
+
+export function* onFetchSingleStart() {
+    yield* takeLatest(
+        CHANNEL_COMMENT_ACTION_TYPES.FETCH_SINGLE_START, 
+        fetchSingleComment
+    );
+}
+  
 export function* onFetchStart() {
-    yield takeLatest(CHANNELCOMMENT_ACTION_TYPES.FETCH_ALL_START, getUserChannelcomments);
+    yield* takeLatest(
+        CHANNEL_COMMENT_ACTION_TYPES.FETCH_ALL_START,
+        fetchAllComments
+    );
 }
 
 export function* channelcommentSagas() {
-    yield all([
-        call(onChannelStart),
+    yield* all([
+        call(onCreateStart),
+        call(onUpdateStart),
+        call(onDeleteStart),
+        call(onFetchSingleStart),
         call(onFetchStart)
     ]);
 }

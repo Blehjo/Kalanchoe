@@ -1,37 +1,61 @@
-import { USERPROFILE_ACTION_TYPES } from './userprofile.types';
+import { AnyAction } from 'redux';
 
-const INITIAL_STATE = {
-    userprofiles: [],
+import { Userprofile } from './userprofile.types';
+
+import {
+    userprofileCreateFailed,
+    userprofileDeleteFailed,
+    userprofileFetchAllFailed,
+    userprofileFetchAllStart,
+    userprofileFetchAllSuccess,
+    userprofileFetchSingleFailed,
+    userprofileFetchSingleSuccess,
+    userprofileUpdateFailed
+} from './userprofile.action';
+
+export type UserprofileState = {
+    readonly userprofileId: number | null;
+    readonly userprofile: Userprofile | null;
+    readonly userprofiles: Userprofile[];
+    readonly isLoading: boolean;
+    readonly error: Error | null;
+}
+
+const INITIAL_STATE: UserprofileState = {
     userprofileId: null,
+    userprofile: null,
+    userprofiles: [],
     isLoading: false,
     error: null,
 };
 
-export const userprofileReducer = (state = INITIAL_STATE, action) => {
-    const { type, payload } = action;
-
-    switch (type) {
-        case USERPROFILE_ACTION_TYPES.FETCH_ID_START:
-            return { ...state, userprofileId: payload, isLoading: true };
-        case USERPROFILE_ACTION_TYPES.CREATE_START:
-        case USERPROFILE_ACTION_TYPES.UPDATE_START:
-        case USERPROFILE_ACTION_TYPES.DELETE_START:
-        case USERPROFILE_ACTION_TYPES.FETCH_SINGLE_START:
-        case USERPROFILE_ACTION_TYPES.FETCH_ALL_START:
-            return { ...state, userprofiles: payload, isLoading: true };
-        case USERPROFILE_ACTION_TYPES.CREATE_SUCCESS:
-        case USERPROFILE_ACTION_TYPES.UPDATE_SUCCESS:
-        case USERPROFILE_ACTION_TYPES.DELETE_SUCCESS:
-        case USERPROFILE_ACTION_TYPES.FETCH_SINGLE_SUCCESS:
-        case USERPROFILE_ACTION_TYPES.FETCH_ALL_SUCCESS:
-            return { ...state, userprofiles: payload, isLoading: false };
-        case USERPROFILE_ACTION_TYPES.CREATE_FAILED:
-        case USERPROFILE_ACTION_TYPES.UPDATE_FAILED:
-        case USERPROFILE_ACTION_TYPES.DELETE_FAILED:
-        case USERPROFILE_ACTION_TYPES.FETCH_SINGLE_FAILED:
-        case USERPROFILE_ACTION_TYPES.FETCH_ALL_FAILED:
-            return { ...state, error: payload, isLoading: false };
-        default:
-            return state;
+export const userprofileReducer = (
+    state = INITIAL_STATE, action: AnyAction
+): UserprofileState => {
+    if (
+        userprofileFetchAllStart.match(action) 
+    ) {
+        return { ...state, isLoading: true }
     }
+    if (
+        userprofileFetchSingleSuccess.match(action) 
+    ) {
+        return { ...state, isLoading: true, userprofile: action.payload }
+    }
+    if (
+        userprofileFetchAllSuccess.match(action) 
+    ) {
+        return { ...state, isLoading: false, userprofiles: action.payload };
+    } 
+    if (
+        userprofileCreateFailed.match(action) ||
+        userprofileUpdateFailed.match(action) ||
+        userprofileDeleteFailed.match(action) ||
+        userprofileFetchSingleFailed.match(action) ||
+        userprofileFetchAllFailed.match(action) 
+    ) {
+      return { ...state, isLoading: false, error: action.payload };
+    }
+  
+    return state;
 };

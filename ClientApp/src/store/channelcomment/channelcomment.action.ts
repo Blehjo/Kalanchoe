@@ -1,38 +1,158 @@
-import { createAction } from '../../utils/reducer.utils';
-import { CHANNELCOMMENT_ACTION_TYPES } from './channelcomment.types';
+import { CHANNEL_COMMENT_ACTION_TYPES, ChannelComment } from './channelcomment.types';
 
-export const channelcommentCreateStart = (channelId, userId, channelcommentValue) => 
-    createAction(CHANNELCOMMENT_ACTION_TYPES.CREATE_START, { channelId, userId, channelcommentValue });
+import {
+    Action,
+    ActionWithPayload,
+    createAction,
+    withMatcher
+} from '../../utils/reducer.utils';
 
-export const channelcommentCreateSuccess = (channelcomment) => 
-    createAction(CHANNELCOMMENT_ACTION_TYPES.CREATE_SUCCESS, channelcomment);
+export type ChannelCommentCreateStart = ActionWithPayload<
+    CHANNEL_COMMENT_ACTION_TYPES.CREATE_START, { commentValue: string, channelId: number, imageFile: File }
+>;
 
-export const channelcommentCreateFailed = (error) => 
-    createAction(CHANNELCOMMENT_ACTION_TYPES.CREATE_START, error);
-    
-export const channelcommentUpdateStart = (channelcommentId, channelId, userId, channelcommentValue) => 
-    createAction(CHANNELCOMMENT_ACTION_TYPES.UPDATE_START, { channelcommentId, channelId, userId, channelcommentValue });
+export type ChannelCommentCreateSuccess = ActionWithPayload<
+    CHANNEL_COMMENT_ACTION_TYPES.CREATE_SUCCESS, 
+    ChannelComment[]
+>;
 
-export const channelcommentUpdateSuccess = (channelcomment) => 
-    createAction(CHANNELCOMMENT_ACTION_TYPES.UPDATE_SUCCESS, channelcomment);
+export type ChannelCommentCreateFailed = ActionWithPayload<
+    CHANNEL_COMMENT_ACTION_TYPES.CREATE_FAILED,
+    Error
+>;
 
-export const channelcommentUpdateFailed = (error) => 
-    createAction(CHANNELCOMMENT_ACTION_TYPES.UPDATE_START, error);
+export type ChannelCommentUpdateStart = ActionWithPayload<
+    CHANNEL_COMMENT_ACTION_TYPES.UPDATE_START,
+    { channelCommentId: number, commentValue: string, imageFile: File }
+>;
 
-export const channelcommentDeleteStart = (channelcommentId, channelId, userId) => 
-    createAction(CHANNELCOMMENT_ACTION_TYPES.DELETE_START, { channelcommentId, channelId, userId });
+export type ChannelCommentUpdateSuccess = ActionWithPayload<
+    CHANNEL_COMMENT_ACTION_TYPES.UPDATE_SUCCESS, 
+    ChannelComment[]
+>;
 
-export const channelcommentDeleteSuccess = () => 
-    createAction(CHANNELCOMMENT_ACTION_TYPES.DELETE_SUCCESS, 'Channel Comment Deleted');
+export type ChannelCommentUpdateFailed = ActionWithPayload<
+    CHANNEL_COMMENT_ACTION_TYPES.UPDATE_FAILED,
+    Error
+>;
+   
+export type ChannelCommentDeleteStart = ActionWithPayload<
+    CHANNEL_COMMENT_ACTION_TYPES.DELETE_START,
+    { commentId: number }
+>;
 
-export const channelcommentDeleteFailed = (error) => 
-    createAction(CHANNELCOMMENT_ACTION_TYPES.DELETE_START, error);
+export type ChannelCommentDeleteSuccess = ActionWithPayload<
+    CHANNEL_COMMENT_ACTION_TYPES.DELETE_SUCCESS, 
+    ChannelComment[]
+>;
 
-export const channelcommentFetchAllStart = (userId) => 
-    createAction(CHANNELCOMMENT_ACTION_TYPES.FETCH_ALL_START, userId);
+export type ChannelCommentDeleteteFailed = ActionWithPayload<
+    CHANNEL_COMMENT_ACTION_TYPES.DELETE_FAILED,
+    Error
+>;
+   
+export type ChannelCommentFetchSingleStart = ActionWithPayload<
+    CHANNEL_COMMENT_ACTION_TYPES.FETCH_SINGLE_START,
+    { commentId: number }
+>;
 
-export const channelcommentFetchAllSuccess = (channelcomment) => 
-    createAction(CHANNELCOMMENT_ACTION_TYPES.FETCH_ALL_SUCCESS, channelcomment);
+export type ChannelCommentFetchSingleSuccess = ActionWithPayload<
+    CHANNEL_COMMENT_ACTION_TYPES.FETCH_SINGLE_SUCCESS, 
+    ChannelComment[]
+>;
 
-export const channelcommentFetchAllFailed = (error) => 
-    createAction(CHANNELCOMMENT_ACTION_TYPES.FETCH_ALL_START, error);
+export type ChannelCommentFetchSingleFailed = ActionWithPayload<
+    CHANNEL_COMMENT_ACTION_TYPES.FETCH_SINGLE_FAILED,
+    Error
+>;
+
+export type ChannelCommentFetchAllStart = ActionWithPayload<
+    CHANNEL_COMMENT_ACTION_TYPES.FETCH_ALL_START, {
+        channelId: number
+    }
+>;
+
+export type ChannelCommentFetchAllSuccess = ActionWithPayload<
+    CHANNEL_COMMENT_ACTION_TYPES.FETCH_ALL_SUCCESS, 
+    ChannelComment[]
+>;
+
+export type ChannelCommentFetchAllFailed = ActionWithPayload<
+    CHANNEL_COMMENT_ACTION_TYPES.FETCH_ALL_FAILED,
+    Error
+>;
+
+export const channelcommentCreateStart = withMatcher(
+    (commentValue: string, channelId: number, imageFile: File): ChannelCommentCreateStart => 
+    createAction(CHANNEL_COMMENT_ACTION_TYPES.CREATE_START, { commentValue, imageFile, channelId })
+);
+
+export const channelcommentCreateSuccess = withMatcher(
+    (comment: ChannelComment[]): ChannelCommentCreateSuccess => 
+    createAction(CHANNEL_COMMENT_ACTION_TYPES.CREATE_SUCCESS, comment)
+);
+
+export const channelcommentCreateFailed = withMatcher(
+    (error: Error) => 
+    createAction(CHANNEL_COMMENT_ACTION_TYPES.CREATE_START, error)
+);
+ 
+export const channelcommentUpdateStart = withMatcher(
+    (channelCommentId: number, commentValue: string, imageFile: File): ChannelCommentUpdateStart => 
+    createAction(CHANNEL_COMMENT_ACTION_TYPES.UPDATE_START, { channelCommentId, commentValue, imageFile })
+);
+
+export const channelcommentUpdateSuccess = withMatcher(
+    (comment: ChannelComment[]): ChannelCommentUpdateSuccess => 
+    createAction(CHANNEL_COMMENT_ACTION_TYPES.UPDATE_SUCCESS, comment)
+);
+
+export const channelcommentUpdateFailed = withMatcher(
+    (error: Error): ChannelCommentUpdateFailed => 
+    createAction(CHANNEL_COMMENT_ACTION_TYPES.UPDATE_FAILED, error)
+);
+
+export const channelcommentDeleteStart = withMatcher(
+    (commentId: number): ChannelCommentDeleteStart => 
+    createAction(CHANNEL_COMMENT_ACTION_TYPES.DELETE_START, { commentId })
+);
+
+export const channelcommentDeleteSuccess = withMatcher(
+    (comment: ChannelComment[]): ChannelCommentDeleteSuccess => 
+    createAction(CHANNEL_COMMENT_ACTION_TYPES.DELETE_SUCCESS, comment)
+);
+
+export const channelcommentDeleteFailed = withMatcher(
+    (error: Error) => 
+    createAction(CHANNEL_COMMENT_ACTION_TYPES.DELETE_START, error)
+);
+
+export const channelcommentFetchSingleStart = withMatcher(
+    (commentId: number): ChannelCommentFetchSingleStart => 
+    createAction(CHANNEL_COMMENT_ACTION_TYPES.FETCH_SINGLE_START, { commentId })
+);
+
+export const channelcommentFetchSingleSuccess = withMatcher(
+    (comment: ChannelComment[]): ChannelCommentFetchSingleSuccess => 
+    createAction(CHANNEL_COMMENT_ACTION_TYPES.FETCH_SINGLE_SUCCESS, comment)
+);
+
+export const channelcommentFetchSingleFailed = withMatcher(
+    (error: Error): ChannelCommentFetchSingleFailed => 
+    createAction(CHANNEL_COMMENT_ACTION_TYPES.FETCH_SINGLE_FAILED, error)
+);
+
+export const channelcommentFetchAllStart = withMatcher(
+    (channelId: number): ChannelCommentFetchAllStart => 
+    createAction(CHANNEL_COMMENT_ACTION_TYPES.FETCH_ALL_START, { channelId })
+);
+
+export const channelcommentFetchAllSuccess = withMatcher(
+    (comment: ChannelComment[]): ChannelCommentFetchAllSuccess => 
+    createAction(CHANNEL_COMMENT_ACTION_TYPES.FETCH_ALL_SUCCESS, comment)
+);
+
+export const channelcommentFetchAllFailed = withMatcher(
+    (error: Error): ChannelCommentFetchAllFailed => 
+    createAction(CHANNEL_COMMENT_ACTION_TYPES.FETCH_ALL_FAILED, error)
+);

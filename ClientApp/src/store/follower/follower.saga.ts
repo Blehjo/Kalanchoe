@@ -1,127 +1,90 @@
-import { takeLatest, put, all, call } from 'redux-saga/effects';
+import { takeLatest, put, all, call } from 'typed-redux-saga';
 
-import { USER_ACTION_TYPES } from './user.types';
-
-import {
-    signInSuccess,
-    signInFailed,
-    signUpSuccess,
-    signUpFailed,
-    signOutSuccess,
-    signOutFailed,
-} from './user.action';
+import { FOLLOWER_ACTION_TYPES } from './follower.types';
 
 import {
-    getCurrentUser,
-    createUserDocumentFromAuth,
-    signInWithGooglePopup,
-    signInAuthUserWithEmailAndPassword,
-    createAuthUserWithEmailAndPassword,
-    signOutUser,
-} from '../../utils/firebase/firebase.utils';
+    followerCreateStart,
+    followerCreateSuccess,
+    followerCreateFailed,
+    followerUpdateStart,
+    followerUpdateSuccess,
+    followerUpdateFailed,
+    followerDeleteStart,
+    followerDeleteSuccess,
+    followerDeleteFailed,
+    followerFetchSingleStart,
+    followerFetchSingleSuccess,
+    followerFetchSingleFailed,
+    followerFetchAllStart,
+    followerFetchAllSuccess,
+    followerFetchAllFailed,
+    FollowerCreateStart,
+    FollowerDeleteStart,
+    FollowerFetchAllStart,
+} from './follower.action';
 
-export function* getSnapshotFromUserAuth(userAuth, additionalDetails) {
+import { 
+    getSingleFollower,
+    getUserFollowers,
+    getFollowers, 
+    addFollower, 
+    deleteFollower
+} from '../../utils/api/follower.api';
+
+export function* fetchFollowersAsync({ payload: { userId }}: FollowerFetchAllStart) {
     try {
-        const userSnapshot = yield call(
-            createUserDocumentFromAuth,
-            userAuth,
-            additionalDetails
+      const followers = yield* call(
+        getFollowers, 
+        userId
         );
-        yield put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }));
+      yield* put(followerFetchAllSuccess(followers));
     } catch (error) {
-        yield put(signInFailed(error));
+      yield* put(followerFetchAllFailed(error as Error));
     }
 }
 
-export function* signInWithGoogle() {
+export function* createFollower({ payload: { followerUser }}: FollowerCreateStart ) {
     try {
-        const { user } = yield call(signInWithGooglePopup);
-        yield call(getSnapshotFromUserAuth, user);
+        const follower = yield* call(
+            addFollower,
+            followerUser
+        )
+        if (!follower) return;
+        yield* put(followerCreateSuccess(follower));
     } catch (error) {
-        yield put(signInFailed(error));
+        yield* put(followerCreateFailed(error as Error));
     }
 }
 
-export function* signInWithEmail({ payload: { email, password } }) {
+export function* removeFollower({ payload: { followerId }}: FollowerDeleteStart) {
     try {
-        const { user } = yield call(
-            signInAuthUserWithEmailAndPassword,
-            email,
-            password
-        );
-        yield call(getSnapshotFromUserAuth, user);
+        const follower = yield* call(
+            deleteFollower,
+            followerId
+        )
+        if (!follower) return;
+        yield* put(followerDeleteSuccess(follower));
     } catch (error) {
-        yield put(signInFailed(error));
+        yield* put(followerDeleteFailed(error as Error))
     }
 }
 
-export function* isUserAuthenticated() {
-    try {
-        const userAuth = yield call(getCurrentUser);
-        if (!userAuth) return;
-        yield call(getSnapshotFromUserAuth, userAuth);
-    } catch (error) {
-        yield put(signInFailed(error));
-    }
+export function* onStart() {
+    yield takeLatest(FOLLOWER_ACTION_TYPES.CREATE_START, createFollower);
 }
 
-export function* signUp({ payload: { email, password, displayName } }) {
-    try {
-        const { user } = yield call(
-            createAuthUserWithEmailAndPassword,
-            email,
-            password
-        );
-        yield put(signUpSuccess(user, { displayName }));
-    } catch (error) {
-        yield put(signUpFailed(error));
-    }
+export function* onDelete() {
+    yield takeLatest(FOLLOWER_ACTION_TYPES.CREATE_START, removeFollower);
 }
 
-export function* signOut() {
-    try {
-        yield call(signOutUser);
-        yield put(signOutSuccess());
-    } catch (error) {
-        yield put(signOutFailed(error));
-    }
+export function* onFetch() {
+    yield takeLatest(FOLLOWER_ACTION_TYPES.FETCH_ALL_START, fetchFollowersAsync);
 }
 
-export function* signInAfterSignUp({ payload: { user, additionalDetails } }) {
-    yield call(getSnapshotFromUserAuth, user, additionalDetails);
-}
-
-export function* onGoogleSignInStart() {
-    yield takeLatest(USER_ACTION_TYPES.GOOGLE_SIGN_IN_START, signInWithGoogle);
-}
-
-export function* onCheckUserSession() {
-    yield takeLatest(USER_ACTION_TYPES.CHECK_USER_SESSION, isUserAuthenticated);
-}
-
-export function* onEmailSignInStart() {
-    yield takeLatest(USER_ACTION_TYPES.EMAIL_SIGN_IN_START, signInWithEmail);
-}
-
-export function* onSignUpStart() {
-    yield takeLatest(USER_ACTION_TYPES.SIGN_UP_START, signUp);
-}
-
-export function* onSignUpSuccess() {
-    yield takeLatest(USER_ACTION_TYPES.SIGN_UP_SUCCESS, signInAfterSignUp);
-}
-
-export function* onSignOutStart() {
-    yield takeLatest(USER_ACTION_TYPES.SIGN_OUT_START, signOut);
-}
-
-export function* userSagas() {
+export function* followerSagas() {
     yield all([
-        call(onCheckUserSession),
-        call(onGoogleSignInStart),
-        call(onEmailSignInStart),
-        call(onSignUpStart),
-        call(onSignUpSuccess),
-        call(onSignOutStart),
+        call(onStart),
+        call(onDelete),
+        call(onFetch)
     ]);
 }

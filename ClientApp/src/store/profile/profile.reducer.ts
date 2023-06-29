@@ -1,19 +1,25 @@
-import { PROFILE_ACTION_TYPES } from "./profile.types";
+import { AnyAction } from 'redux';
 
-const INITIAL_STATE = {
-    isProfileOpen: false,
+import { setIsProfileOpen } from './profile.action';
+
+export type ProfileState = {
+  readonly isProfileOpen: boolean;
 };
 
-export const profileReducer = (state = INITIAL_STATE, action = {}) => {
-    const { type, payload } = action;
+export const PROFILE_INITIAL_STATE: ProfileState = {
+  isProfileOpen: false
+};
 
-    switch (type) {
-        case PROFILE_ACTION_TYPES.SET_IS_PROFILE_OPEN:
-            return {
-                ...state,
-                isProfileOpen: payload
-            };
-        default:
-            return state;
-    }
+export const profileReducer = (
+  state = PROFILE_INITIAL_STATE,
+  action: AnyAction
+): ProfileState => {
+  if (setIsProfileOpen.match(action)) {
+    return {
+      ...state,
+      isProfileOpen: action.payload,
+    };
+  }
+
+  return state;
 };

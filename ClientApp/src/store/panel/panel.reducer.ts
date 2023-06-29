@@ -1,37 +1,69 @@
-import { PANEL_ACTION_TYPES } from './panel.types';
+import { AnyAction } from 'redux';
 
-const INITIAL_STATE = {
-    panels: [],
+import { Panel } from './panel.types';
+
+import {
+    panelCreateFailed,
+    panelCreateSuccess,
+    panelDeleteFailed,
+    panelDeleteSuccess,
+    panelFetchAllFailed,
+    panelFetchAllStart,
+    panelFetchAllSuccess,
+    panelFetchSingleFailed,
+    panelFetchSingleSuccess,
+    panelUpdateFailed,
+    panelUpdateSuccess
+} from './panel.action';
+
+export type PanelState = {
+    readonly panelId: number | null;
+    readonly singlePanel: Panel | null;
+    readonly userPanels: Panel[];
+    readonly panels: Panel[];
+    readonly isLoading: boolean;
+    readonly error: Error | null;
+};
+
+const INITIAL_STATE: PanelState = {
+    panelId: null,
+    singlePanel: null,
     userPanels: [],
+    panels: [],
     isLoading: false,
     error: null,
 };
 
-export const panelReducer = (state = INITIAL_STATE, action) => {
-    const { type, payload } = action;
-
-    switch (type) {
-        case PANEL_ACTION_TYPES.FETCH_USER_START:
-            return { ...state, userPanels: payload, isLoading: true };
-        case PANEL_ACTION_TYPES.CREATE_START:
-        case PANEL_ACTION_TYPES.UPDATE_START:
-        case PANEL_ACTION_TYPES.DELETE_START:
-        case PANEL_ACTION_TYPES.FETCH_SINGLE_START:
-        case PANEL_ACTION_TYPES.FETCH_ALL_START:
-            return { ...state, panels: payload, isLoading: true };
-        case PANEL_ACTION_TYPES.CREATE_SUCCESS:
-        case PANEL_ACTION_TYPES.UPDATE_SUCCESS:
-        case PANEL_ACTION_TYPES.DELETE_SUCCESS:
-        case PANEL_ACTION_TYPES.FETCH_SINGLE_SUCCESS:
-        case PANEL_ACTION_TYPES.FETCH_ALL_SUCCESS:
-            return { ...state, panels: payload, isLoading: false };
-        case PANEL_ACTION_TYPES.CREATE_FAILED:
-        case PANEL_ACTION_TYPES.UPDATE_FAILED:
-        case PANEL_ACTION_TYPES.DELETE_FAILED:
-        case PANEL_ACTION_TYPES.FETCH_SINGLE_FAILED:
-        case PANEL_ACTION_TYPES.FETCH_ALL_FAILED:
-            return { ...state, error: payload, isLoading: false };
-        default:
-            return state;
+export const panelReducer = (
+    state = INITIAL_STATE, action: AnyAction
+): PanelState => {
+    if (
+        panelFetchAllStart.match(action) 
+    ) {
+        return { ...state, isLoading: true }
     }
+    if (
+        panelFetchSingleSuccess.match(action) 
+    ) {
+        return { ...state, isLoading: false, singlePanel: action.payload }
+    }
+    if (
+        panelCreateSuccess.match(action) ||
+        panelUpdateSuccess.match(action) ||
+        panelDeleteSuccess.match(action) ||
+        panelFetchAllSuccess.match(action) 
+    ) {
+        return { ...state, isLoading: false, panels: action.payload };
+    } 
+    if (
+        panelCreateFailed.match(action) ||
+        panelUpdateFailed.match(action) ||
+        panelDeleteFailed.match(action) ||
+        panelFetchSingleFailed.match(action) ||
+        panelFetchAllFailed.match(action) 
+    ) {
+      return { ...state, isLoading: false, error: action.payload };
+    }
+  
+    return state;
 };

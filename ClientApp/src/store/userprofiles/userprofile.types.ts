@@ -1,3 +1,10 @@
+import { Chat } from "../chat/chat.types";
+import { Community } from "../community/community.types";
+import { Device } from "../device/device.types";
+import { Favorite } from "../favorite/favorite.types";
+import { Follower } from "../follower/follower.types";
+import { Post } from "../post/post.types";
+
 export enum USERPROFILE_ACTION_TYPES {
     CREATE_START = 'userprofile/CREATE_START',
     CREATE_SUCCESS = 'userprofile/CREATE_SUCCESS',
@@ -8,13 +15,33 @@ export enum USERPROFILE_ACTION_TYPES {
     DELETE_START = 'userprofile/DELETE_START',
     DELETE_SUCCESS = 'userprofile/DELETE_SUCCESS',
     DELETE_FAILED = 'userprofile/DELETE_FAILED',
-    FETCH_ID_START = 'userprofile/FETCH_ID_START',
     FETCH_SINGLE_START = 'userprofile/FETCH_SINGLE_START',
-    FETCH_ALL_START = 'userprofile/FETCH_ALL_START',
-    FETCH_ID_SUCCESS = 'userprofile/FETCH_ID_SUCCESS',
     FETCH_SINGLE_SUCCESS = 'userprofile/FETCH_SINGLE_SUCCESS',
     FETCH_SINGLE_FAILED = 'userprofile/FETCH_SINGLE_FAILED',
-    FETCH_ID_FAILED = 'userprofile/FETCH_ID_FAILED',
+    FETCH_USERPROFILE_START = 'userprofile/FETCH_USERPROFILE_START',
+    FETCH_USERPROFILE_SUCCESS = 'userprofile/FETCH_USERPROFILE_SUCCESS',
+    FETCH_USERPROFILE_FAILED = 'userprofile/FETCH_USERPROFILE_FAILED',
+    FETCH_ALL_START = 'userprofile/FETCH_ALL_START',
     FETCH_ALL_SUCCESS = 'userprofile/FETCH_ALL_SUCCESS',
     FETCH_ALL_FAILED = 'userprofile/FETCH_ALL_FAILED',
 };
+
+export type Userprofile = {
+    userId: number | null;
+    username: string | null;
+    firstName: string | null;
+    lastName: string | null;
+    dateOfBirth: Date | null;
+    emailAddress: string | null;
+    password: string | null;
+    about: string | null;
+    imageLink: string | null;
+    imageSource: string | null;
+    dateCreated: Date | null;
+    posts: Post[];
+    devices: Device[];
+    chats: Chat[];
+    communities: Community[];
+    followers: Follower[];
+    favorites: Favorite[];
+}

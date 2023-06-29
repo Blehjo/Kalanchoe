@@ -1,88 +1,158 @@
-import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'typed-redux-saga';
 
 import { PANEL_ACTION_TYPES } from './panel.types';
 
 import {
-  panelCreateFailed,
-  panelCreateSuccess,
-  panelDeleteFailed,
-  panelDeleteSuccess,
-  panelFetchAllFailed,
-  panelFetchAllSuccess,
-  panelUpdateFailed,
-  panelUpdateSuccess,
+    PanelCreateStart,
+    PanelDeleteStart,
+    PanelFetchAllUserStart,
+    PanelFetchSingleStart,
+    PanelUpdateStart,
+    panelCreateFailed,
+    panelCreateSuccess,
+    panelDeleteFailed,
+    panelDeleteSuccess,
+    panelFetchAllFailed,
+    panelFetchAllSuccess,
+    panelFetchAllUserFailed,
+    panelFetchAllUserSuccess,
+    panelFetchSingleFailed,
+    panelFetchSingleSuccess,
+    panelUpdateFailed,
+    panelUpdateSuccess
 } from './panel.action';
 
 import {
-  addPanel,
-  deletePanel,
-  editPanel,
-  getPanels
+    addPanel,
+    deletePanel,
+    editPanel,
+    getAllPanels,
+    getSinglePanel,
+    getUserPanels
 } from '../../utils/api/panel.api';
 
-export function* createPanel({ payload: { userId, title } }) {
+export function* createPanel({ payload: { title, xCoord, yCoord }}: PanelCreateStart ) {
     try {
-        const { panel } = call(addPanel({ userId, title }));
-        yield put(panelCreateSuccess(panel));
-    } catch (error) {
-        yield put(panelCreateFailed(error));
-    }
-}
-
-export function* updatePanel({ payload: { userId, panelId, title }}) {
-    try {
-        const { panel } = yield call(
-            editPanel,
-            userId,
-            panelId,
+        const panels = yield* call(
+            addPanel,
             title,
+            xCoord,
+            yCoord
+        ); 
+        yield* put(panelCreateSuccess(panels));
+    } catch (error) {
+        yield* put(panelCreateFailed(error as Error));
+    }
+}
+
+export function* updatePanel({ payload: { panelId, title, xCoord, yCoord }}: PanelUpdateStart) {
+    try {
+        const panel = yield* call(
+            editPanel,
+            panelId,
+            title, 
+            xCoord,
+            yCoord
+        ); 
+        yield* put(panelUpdateSuccess(panel));
+    } catch (error) {
+        yield* put(panelUpdateFailed(error as Error));
+    }
+}
+
+export function* removePanel({ payload: { panelId }}: PanelDeleteStart) {
+    try {
+        const panels = yield* call(
+            deletePanel,
+            panelId
+        ); 
+        yield* put(panelDeleteSuccess(panels));
+    } catch (error) {
+        yield* put(panelDeleteFailed(error as Error));
+    }
+}
+
+export function* fetchUserPanels({ payload: { userId }}: PanelFetchAllUserStart) {
+    try {
+        const panels  = yield* call(getUserPanels, userId);
+        if (!panels) return;
+        yield* put(panelFetchAllUserSuccess(panels));
+    } catch (error) {
+        yield* put(panelFetchAllUserFailed(error as Error));
+    }
+}
+
+export function* fetchSinglePanel({ 
+    payload: { panelId } }: PanelFetchSingleStart) {
+    try {
+        const panel = yield* call(
+            getSinglePanel,
+            panelId 
         );
-        yield put(panelUpdateSuccess(panel));
+        yield* put(panelFetchSingleSuccess(panel));
     } catch (error) {
-        yield put(panelUpdateFailed(error));
+        yield* put(panelFetchSingleFailed(error as Error));
     }
 }
 
-export function* deleteItem(userId, panelId) {
+export function* fetchAllPanels() {
     try {
-        const { panel } = yield call(deletePanel, userId, panelId);
-        yield put(panelDeleteSuccess(panel));
+        const panels = yield* call(getAllPanels);
+        yield* put(panelFetchAllSuccess(panels));
     } catch (error) {
-        yield put(panelDeleteFailed(error));
+        yield* put(panelFetchAllFailed(error as Error));
     }
 }
 
-export function* fetchAllPanel() {
-    try {
-        const panel = yield call(getPanels);
-        if (!panel) return;
-        yield call(panelFetchAllSuccess, panel);
-    } catch (error) {
-        yield put(panelFetchAllFailed(error));
-    }
+export function* onCreateStart() {
+    yield* takeLatest(
+        PANEL_ACTION_TYPES.CREATE_START, 
+        createPanel
+    );
 }
 
-export function* onpanelCreateStart() {
-    yield takeLatest(PANEL_ACTION_TYPES.CREATE_START, createPanel);
+export function* onUpdateStart() {
+    yield* takeLatest(
+        PANEL_ACTION_TYPES.UPDATE_START, 
+        updatePanel
+    );
 }
 
-export function* onpanelUpdateStart() {
-    yield takeLatest(PANEL_ACTION_TYPES.UPDATE_START, updatePanel);
+export function* onDeleteStart() {
+    yield* takeLatest(
+        PANEL_ACTION_TYPES.DELETE_START, 
+        removePanel
+    );
 }
 
-export function* onpanelDeleteStart() {
-    yield takeLatest(PANEL_ACTION_TYPES.DELETE_START, deleteItem);
+export function* onFetchUserPanelsStart() {
+    yield* takeLatest(
+        PANEL_ACTION_TYPES.FETCH_ALL_USER_START, 
+        fetchUserPanels
+    );
 }
 
-export function* onpanelFetchAllStart() {
-    yield takeLatest(PANEL_ACTION_TYPES.FETCH_ALL_START, fetchAllPanel);
+export function* onFetchSingleStart() {
+    yield* takeLatest(
+        PANEL_ACTION_TYPES.FETCH_SINGLE_START, 
+        fetchSinglePanel
+    );
+}
+  
+export function* onFetchStart() {
+    yield* takeLatest(
+        PANEL_ACTION_TYPES.FETCH_ALL_START,
+        fetchAllPanels
+    );
 }
 
 export function* panelSagas() {
-    yield all([
-        call(onpanelCreateStart),
-        call(onpanelUpdateStart),
-        call(onpanelDeleteStart),
-        call(onpanelFetchAllStart)
+    yield* all([
+        call(onCreateStart),
+        call(onUpdateStart),
+        call(onDeleteStart),
+        call(onFetchUserPanelsStart),
+        call(onFetchSingleStart),
+        call(onFetchStart)
     ]);
 }

@@ -1,47 +1,66 @@
 import axios from "axios";
 import { ChannelComment } from "../../store/channelcomment/channelcomment.types";
 
-const api = "https://kalanchoeai-server.azurewebsites.net/api/channelcomment";
+const api = "https://planetnineserver.azurewebsites.net/api/channelcomment";
 
 const headers = {
-  'Accept': 'application/json',
-  'Content-Type': 'application/json' 
+  'Accept': 'application/x-www-form-urlencoded',
+  'Content-Type': 'application/x-www-form-urlencoded'
 }
 
-export async function getSingleChannelcomment(channelId: number): Promise<ChannelComment[]> {
-  return await axios({
+export async function getSingleComment(channelCommentId: number): Promise<ChannelComment[]> {
+  const response = await axios({
     method: 'get',
-    url: `${api}/${channelId}`,
+    url: `${api}/${channelCommentId}`,
     headers: headers,
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
-export async function addChannelComment(channelComment: ChannelComment): Promise<ChannelComment[]> {
-  return await axios({
+export async function getAllComments(channelId: number): Promise<ChannelComment[]> {
+  const response = await axios({
+    method: 'get',
+    url: `${api}/channel/${channelId}`,
+    headers: headers,
+    withCredentials: true
+  });
+  const result = await response.data;
+  return result;
+}
+
+export async function addComment(channelId: number, formData: FormData): Promise<ChannelComment[]> {
+  const response = await axios({
     method: 'post',
-    url: api,
-    data: channelComment,
+    url: `${api}/${channelId}`,
+    data: formData,
     headers: headers,
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
-export async function editChatcomment(channelcomment: ChannelComment): Promise<ChannelComment[]> {
-  return await axios({
+export async function editComment(channelCommentId: number, formData: FormData): Promise<ChannelComment[]> {
+  const response = await axios({
     method: 'put',
-    url: `${api}/${channelcomment.channelCommentId}`, 
-    data: channelcomment,
+    url: `${api}/${channelCommentId}`, 
+    data: formData,
     headers: headers,
     withCredentials: true
-  })
+  });
+  const result = await response.data;
+  return result;
 }
 
-export async function deleteChatcomment(channelcommentId: number): Promise<ChannelComment[]> {
-  return await axios({
+export async function deleteComment(channelCommentId: number): Promise<ChannelComment[]> {
+  const response = await axios({
     method: 'delete',
-    url: `${api}/${channelcommentId}`,
+    url: `${api}/${channelCommentId}`,
     headers: headers,
     withCredentials: true
-  })
+  });
+  const result = await response.data;
+  return result;
 }

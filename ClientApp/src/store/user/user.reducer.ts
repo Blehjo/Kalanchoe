@@ -1,24 +1,47 @@
-import { USER_ACTION_TYPES } from './user.types';
+import { AnyAction } from 'redux';
 
-const USER_INITIAL_STATE = {
-    currentUser: null,
-    isLoading: false,
-    error: null,
+import { User } from './user.types';
+
+import {
+  signInFailed,
+  signUpFailed,
+  signOutFailed,
+  signOutSuccess,
+  signInSuccess,
+  setCurrentUser,
+} from './user.action';
+
+export type UserState = {
+  readonly currentUser: User | null;
+  readonly isLoading: boolean;
+  readonly error: Error | null;
 };
 
-export const userReducer = (state = USER_INITIAL_STATE, action) => {
-    const { type, payload } = action;
+const INITIAL_STATE: UserState = {
+  currentUser: null,
+  isLoading: false,
+  error: null,
+};
 
-    switch (type) {
-        case USER_ACTION_TYPES.SIGN_IN_SUCCESS:
-            return { ...state, currentUser: payload };
-        case USER_ACTION_TYPES.SIGN_OUT_SUCCESS:
-            return { ...state, currentUser: null };
-        case USER_ACTION_TYPES.SIGN_OUT_FAILED:
-        case USER_ACTION_TYPES.SIGN_IN_FAILED:
-        case USER_ACTION_TYPES.SIGN_UP_FAILED:
-            return { ...state, error: payload };
-        default:
-            return state;
-    }
+export const userReducer = (state = INITIAL_STATE, action: AnyAction) => {
+  if (
+    signInSuccess.match(action) ||
+    setCurrentUser.match(action) 
+  ) {
+    return { ...state, currentUser: action.payload };
+  }
+
+  if (signOutSuccess.match(action)) {
+    return { ...state, currentUser: null };
+  }
+
+  if (
+    signInFailed.match(action) ||
+    signUpFailed.match(action) ||
+    signOutFailed.match(action)
+  ) {
+    return { ...state, error: action.payload };
+  }
+
+  return state;
 };

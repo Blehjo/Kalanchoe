@@ -24,7 +24,7 @@ import { getAllMessages } from '../utils/api/message.api';
 import { addNote } from '../utils/api/note.api';
 import { addPanel, getUserPanels } from '../utils/api/panel.api';
 import { getUserPosts } from '../utils/api/post.api';
-import { getUser } from '../utils/api/userDocument';
+import { getUser } from '../utils/api/userdocuments';
 import { toggle } from "../utils/artootoggle";
 import { utcConverter } from '../utils/date/Date';
 import ModalSubmit from './ModalSubmit';

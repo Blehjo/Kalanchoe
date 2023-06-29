@@ -23,11 +23,11 @@ export function* openItem() {
 }
 
 export function* onPostCloseStart() {
-    yield takeLatest(TOOL_ACTION_TYPES.DELETE_START, closeItem);
+    yield takeLatest(TOOL_ACTION_TYPES.SET_IS_TOOL_OPEN, closeItem);
 }
 
 export function* onPostOpenStart() {
-    yield takeLatest(TOOL_ACTION_TYPES.FETCH_ALL_START, openItem);
+    yield takeLatest(TOOL_ACTION_TYPES.SET_IS_TOOL_OPEN, openItem);
 }
 
 export function* toolSagas() {

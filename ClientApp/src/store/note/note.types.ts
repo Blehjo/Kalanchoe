@@ -1,5 +1,3 @@
-import { Panel } from "../panel/panel.types";
-
 export enum NOTE_ACTION_TYPES {
     CREATE_START = 'note/CREATE_START',
     CREATE_SUCCESS = 'note/CREATE_SUCCESS',
@@ -10,6 +8,9 @@ export enum NOTE_ACTION_TYPES {
     DELETE_START = 'note/DELETE_START',
     DELETE_SUCCESS = 'note/DELETE_SUCCESS',
     DELETE_FAILED = 'note/DELETE_FAILED',
+    FETCH_SINGLE_START = 'note/FETCH_SINGLE_START',
+    FETCH_SINGLE_SUCCESS = 'note/FETCH_SINGLE_SUCCESS',
+    FETCH_SINGLE_FAILED = 'note/FETCH_SINGLE_FAILED',
     FETCH_ALL_START = 'note/FETCH_ALL_START',
     FETCH_ALL_SUCCESS = 'note/FETCH_ALL_SUCCESS',
     FETCH_ALL_FAILED = 'note/FETCH_ALL_FAILED'
@@ -17,8 +18,9 @@ export enum NOTE_ACTION_TYPES {
 
 export type Note = {
     noteId: number | null;
-    noteValue: string;
+    noteValue: string | null;
+    xCoord: number | null;
+    yCoord: number | null;
     dateCreated: Date;
-    panelId: number;
-    panel: Panel;
+    panelId: number | null;
 }

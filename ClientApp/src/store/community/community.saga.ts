@@ -1,106 +1,179 @@
-import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'typed-redux-saga';
 
-import { COMMUNITY_ACTION_TYPES } from './community.types';
+import { COMMUNITY_ACTION_TYPES, Community } from './community.types';
 
 import {
-  communityCreateFailed,
-  communityCreateSuccess,
-  communityDeleteFailed,
-  communityDeleteSuccess,
-  communityFetchAllFailed,
-  communityFetchAllSuccess,
-  communityFetchSingleFailed,
-  communityFetchSingleSuccess,
-  communityUpdateFailed,
-  communityUpdateSuccess,
+    CommunityCreateStart, CommunityDeleteStart, CommunityFetchOtherUsercommunitiesStart, CommunityFetchSingleStart, CommunityUpdateStart, communityCreateFailed, communityCreateSuccess, communityDeleteFailed, communityDeleteSuccess, communityFetchAllFailed, communityFetchAllSuccess, communityFetchOtherUsercommunitiesFailed, communityFetchOtherUsercommunitiesSuccess, communityFetchSingleFailed, communityFetchSingleSuccess, communityFetchUsercommunitiesFailed, communityFetchUsercommunitiesSuccess, communityUpdateSuccess,
 } from './community.action';
 
 import {
-  addCommunity,
-  deleteCommunity,
-  editCommunity,
-  getCommunities,
-  getSingleCommunity
+    getSingleCommunity,
+    getAllCommunities,
+    getUserCommunities,
+    getUsersCommunities,
+    addCommunity,
+    editCommunity,
+    deleteCommunity
 } from '../../utils/api/community.api';
+import { commentCreateFailed, commentCreateSuccess } from '../comment/comment.action';
 
-export function* createCommunity({ userId, communityValue, mediaLink }) {
+export function* createCommunity({ payload: { 
+    communityName,
+    description,
+    imageFile
+}}: CommunityCreateStart) {
+    const formData = new FormData();
+    formData.append("communityName", communityName);
+    formData.append("description", description);
+    formData.append("imageFile", imageFile);
     try {
-        const community = call(addCommunity({ userId, communityValue, mediaLink }));
-        yield put(communityCreateSuccess(community));
+        const communities = yield* call(
+            addCommunity,
+            formData
+        ); 
+        yield* put(communityCreateSuccess(communities));
     } catch (error) {
-        yield put(communityCreateFailed(error));
+        yield* put(communityCreateFailed(error as Error));
     }
 }
 
-export function* updateCommunity({ payload: { userId, communityId, communityValue, mediaLink }}) {
+export function* updateCommunity({ payload: { 
+    communityId,
+    communityName,
+    description,
+    imageFile,
+}}: CommunityUpdateStart) {
+    const formData = new FormData();
+    formData.append("communityName", communityName);
+    formData.append("description", description);
+    formData.append("imageFile", imageFile);
     try {
-        const { community } = yield call(
+        const community = yield* call(
             editCommunity,
-            userId,
             communityId,
-            communityValue,
-            mediaLink
+            formData
+        ); 
+        yield* put(communityUpdateSuccess(community));
+    } catch (error) {
+        yield* put(communityCreateFailed(error as Error));
+    }
+}
+
+
+export function* removeCommunity({ payload: { communityId }}: CommunityDeleteStart) {
+    try {
+        const communities = yield* call(
+            deleteCommunity,
+            communityId
+        ); 
+        yield* put(communityDeleteSuccess(communities));
+    } catch (error) {
+        yield* put(communityDeleteFailed(error as Error));
+    }
+}
+
+export function* fetchUserCommunities() {
+    try {
+        const planets = yield* call(getUsersCommunities);
+        if (!planets) return;
+        yield* put(communityFetchUsercommunitiesSuccess(planets));
+    } catch (error) {
+        yield* put(communityFetchUsercommunitiesFailed(error as Error));
+    }
+}
+
+export function* fetchOtherUsersCommunities({ payload: { userId } }: CommunityFetchOtherUsercommunitiesStart) {
+    try {
+        const communities = yield* call(
+            getUserCommunities,
+            userId
         );
-        yield put(communityUpdateSuccess(community));
+        if (!communities) return;
+        yield* put(communityFetchOtherUsercommunitiesSuccess(communities));
     } catch (error) {
-        yield put(communityUpdateFailed(error));
+        yield* put(communityFetchOtherUsercommunitiesFailed(error as Error));
     }
 }
 
-export function* deleteItem(userId, communityId) {
+export function* fetchSingleCommunity({ 
+    payload: { communityId } }: CommunityFetchSingleStart) {
     try {
-        const { community } = yield call(deleteCommunity, userId, communityId);
-        yield put(communityDeleteSuccess(community));
+        const planetSnapshot = yield* call(
+            getSingleCommunity,
+            communityId 
+        );
+        yield* put(communityFetchSingleSuccess(planetSnapshot as Community));
     } catch (error) {
-        yield put(communityDeleteFailed(error));
+        yield* put(communityFetchSingleFailed(error as Error));
     }
 }
 
-export function* fetchSingleCommunity(userId, communityId) {
+export function* fetchAllCommunities() {
     try {
-        const { community } = yield call(getSingleCommunity, userId, communityId);
-        yield put(communityFetchSingleSuccess(community));
+        const planets = yield* call(getAllCommunities);
+        yield* put(communityFetchAllSuccess(planets));
     } catch (error) {
-        yield put(communityFetchSingleFailed(error));
+        yield* put(communityFetchAllFailed(error as Error));
     }
 }
 
-export function* fetchAllCommunity(userId) {
-    try {
-        const { community } = yield call(getCommunities, userId);
-        if (!community) return;
-        yield put(communityFetchAllSuccess(community));
-    } catch (error) {
-        yield put(communityFetchAllFailed(error));
-    }
+export function* onCreateStart() {
+    yield* takeLatest(
+        COMMUNITY_ACTION_TYPES.CREATE_START, 
+        createCommunity
+    );
 }
 
-export function* onCommunityCreateStart() {
-    yield takeLatest(COMMUNITY_ACTION_TYPES.CREATE_START, createCommunity);
+export function* onUpdateStart() {
+    yield* takeLatest(
+        COMMUNITY_ACTION_TYPES.UPDATE_START, 
+        updateCommunity
+    );
 }
 
-export function* onCommunityUpdateStart() {
-    yield takeLatest(COMMUNITY_ACTION_TYPES.UPDATE_START, updateCommunity);
+export function* onDeleteStart() {
+    yield* takeLatest(
+        COMMUNITY_ACTION_TYPES.DELETE_START, 
+        removeCommunity
+    );
 }
 
-export function* onCommunityDeleteStart() {
-    yield takeLatest(COMMUNITY_ACTION_TYPES.DELETE_START, deleteItem);
+export function* onFetchUserCommunitiesStart() {
+    yield* takeLatest(
+        COMMUNITY_ACTION_TYPES.FETCH_USER_COMMUNITIES_START, 
+        fetchUserCommunities
+    );
 }
 
-export function* onCommunityFetchSingleStart() {
-    yield takeLatest(COMMUNITY_ACTION_TYPES.FETCH_SINGLE_START, fetchSingleCommunity); 
+export function* onFetchOtherUserCommunitiesStart() {
+    yield* takeLatest(
+        COMMUNITY_ACTION_TYPES.FETCH_OTHER_USER_COMMUNITIES_START, 
+        fetchOtherUsersCommunities
+    );
 }
 
-export function* onCommunityFetchAllStart() {
-    yield takeLatest(COMMUNITY_ACTION_TYPES.FETCH_ALL_START, fetchAllCommunity);
+export function* onFetchSingleCommunityStart() {
+    yield* takeLatest(
+        COMMUNITY_ACTION_TYPES.FETCH_SINGLE_START, 
+        fetchSingleCommunity
+    );
+}
+  
+export function* onFetchCommunitiesStart() {
+    yield* takeLatest(
+        COMMUNITY_ACTION_TYPES.FETCH_ALL_START,
+        fetchAllCommunities
+    );
 }
 
 export function* communitySagas() {
-    yield all([
-        call(onCommunityCreateStart),
-        call(onCommunityUpdateStart),
-        call(onCommunityDeleteStart),
-        call(onCommunityFetchAllStart),
-        call(onCommunityFetchSingleStart)
+    yield* all([
+        call(onCreateStart),
+        call(onUpdateStart),
+        call(onDeleteStart),
+        call(onFetchUserCommunitiesStart),
+        call(onFetchOtherUserCommunitiesStart),
+        call(onFetchSingleCommunityStart),
+        call(onFetchCommunitiesStart)
     ]);
 }

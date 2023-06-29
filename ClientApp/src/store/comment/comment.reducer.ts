@@ -1,31 +1,74 @@
-import { COMMENT_ACTION_TYPES } from './comment.types';
+import { AnyAction } from 'redux';
 
-const INITIAL_STATE = {
+import { Comment } from './comment.types';
+
+import {
+    commentCreateStart,
+    commentCreateSuccess,
+    commentCreateFailed,
+    commentUpdateStart,
+    commentUpdateSuccess,
+    commentUpdateFailed,
+    commentDeleteStart,
+    commentDeleteSuccess,
+    commentDeleteFailed,
+    commentFetchSingleStart,
+    commentFetchSingleSuccess,
+    commentFetchSingleFailed,
+    commentFetchAllStart,
+    commentFetchAllSuccess,
+    commentFetchAllFailed,
+} from './comment.action';
+
+export type CommentState = {
+    readonly commentId: number | null;
+    readonly singleComment: Comment | null;
+    readonly userComments: Comment[] | null;
+    readonly comments: Comment[] | null;
+    readonly isLoading: boolean;
+    readonly error: Error | null;
+};
+
+const INITIAL_STATE: CommentState = {
+    commentId: null,
+    singleComment: null,
+    userComments: [],
     comments: [],
     isLoading: false,
     error: null,
 };
 
-export const commentReducer = (state = INITIAL_STATE, action) => {
-    const { type, payload } = action;
-
-    switch (type) {
-        case COMMENT_ACTION_TYPES.CREATE_START:
-        case COMMENT_ACTION_TYPES.UPDATE_START:
-        case COMMENT_ACTION_TYPES.DELETE_START:
-        case COMMENT_ACTION_TYPES.FETCH_ALL_START:
-            return { ...state, comments: payload, isLoading: true };
-        case COMMENT_ACTION_TYPES.CREATE_SUCCESS:
-        case COMMENT_ACTION_TYPES.UPDATE_SUCCESS:
-        case COMMENT_ACTION_TYPES.DELETE_SUCCESS:
-        case COMMENT_ACTION_TYPES.FETCH_ALL_SUCCESS:
-            return { ...state, comments: payload, isLoading: false };
-        case COMMENT_ACTION_TYPES.CREATE_FAILED:
-        case COMMENT_ACTION_TYPES.UPDATE_FAILED:
-        case COMMENT_ACTION_TYPES.DELETE_FAILED:
-        case COMMENT_ACTION_TYPES.FETCH_ALL_FAILED:
-            return { ...state, error: payload, isLoading: false };
-        default:
-            return state;
+export const commentReducer = (
+    state = INITIAL_STATE, action: AnyAction
+): CommentState => {
+    if (
+        commentCreateStart.match(action) ||
+        commentFetchAllStart.match(action) 
+    ) {
+        return { ...state, isLoading: true }
     }
+    if (
+        commentFetchSingleSuccess.match(action) 
+    ) {
+        return { ...state, isLoading: false, comments: action.payload }
+    }
+    if (
+        commentCreateSuccess.match(action) ||
+        commentUpdateSuccess.match(action) ||
+        commentDeleteSuccess.match(action) ||
+        commentFetchAllSuccess.match(action) 
+    ) {
+        return { ...state, isLoading: false, comments: action.payload };
+    } 
+    if (
+        commentCreateFailed.match(action) ||
+        commentUpdateFailed.match(action) ||
+        commentDeleteFailed.match(action) ||
+        commentFetchSingleFailed.match(action) ||
+        commentFetchAllFailed.match(action) 
+    ) {
+      return { ...state, isLoading: false, error: action.payload };
+    }
+  
+    return state;
 };

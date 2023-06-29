@@ -1,56 +1,108 @@
 import axios from "axios";
 import { MessageComment } from "../../store/messagecomment/messagecomment.types";
 
-const api = "https://kalanchoeai-server.azurewebsites.net/api/messagecomment";
+const api = "https://planetnineserver.azurewebsites.net/api/messagecomment";
 
 const headers = {
-  'Accept': 'application/json',
-  'Content-Type': 'application/json' 
+  'Accept': 'application/x-www-form-urlencoded',
+  'Content-Type': 'application/x-www-form-urlencoded'
 }
 
-export async function getSingleMessagecomment(messageId: number): Promise<MessageComment> {
-  return await axios({
+export async function getSingleMessageComment(messageId: number): Promise<MessageComment[]> {
+  const response = await axios({
     method: 'get',
     url: `${api}/${messageId}`,
     headers: headers,
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
-export async function getMessagecomments(): Promise<MessageComment[]> {
-  return await axios({
+export async function getAllMessageComments(): Promise<MessageComment[]> {
+  const response = await axios({
     method: 'get',
     url: api,
     headers: headers,
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
-export async function addMessagecomment(messagecomment: MessageComment): Promise<MessageComment[]> {
-  return await axios({
+export async function getUserMessageComments(userId: number): Promise<MessageComment[]> {
+  const response = await axios({
+    method: 'get',
+    url: `${api}/user/${userId}`,
+    headers: headers,
+    withCredentials: true
+  });
+  const result = await response.data;
+  return result;
+}
+
+export async function getUsersMessageComments(): Promise<MessageComment[]> {
+  const response = await axios({
+    method: 'get',
+    url: `${api}/user/messages`,
+    headers: headers,
+    withCredentials: true
+  });
+  const result = await response.data;
+  return result;
+}
+
+export async function getMessageComments(): Promise<MessageComment[]> {
+  const response = await axios({
+    method: 'get',
+    url: `${api}/user`,
+    headers: headers,
+    withCredentials: true
+  });
+  const result = await response.data;
+  return result;
+}
+
+export async function addMessageComment(messageId: number, messageValue: string, imageFile: File): Promise<MessageComment[]> {
+  const formData = new FormData();
+  formData.append('messageValue', messageValue);
+  formData.append('imageFile', imageFile);
+  const response = await axios({
     method: 'post',
-    url: api,
-    data: messagecomment,
+    url: `${api}/${messageId}`,
+    data: formData,
     headers: headers,
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
-export async function editMessagecomment(messagecomment: MessageComment): Promise<MessageComment[]> {
-  return await axios({
+export async function editMessageComment(messageCommentId: number, messageCommentValue: string, mediaLink: string): Promise<MessageComment[]> {
+  const response = await axios({
     method: 'put',
-    url: `${api}/${messagecomment.messageCommentId}`, 
-    data: messagecomment,
+    url: `${api}/${messageCommentId}`, 
+    data: {
+      messageCommentId,
+      messageCommentValue,
+      mediaLink
+    },
     headers: headers,
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }
 
-export async function deleteMessagecomment(messagecommentId: number): Promise<MessageComment[]> {
-  return await axios({ 
+export async function deleteMessageComment(messagecommentId: number): Promise<MessageComment[]> {
+  const response = await axios({ 
     method: 'delete',
     url: `${api}/${messagecommentId}`,
-    headers: headers,
+    headers: {
+        'Content-Type': 'application/json'
+    },
     withCredentials: true
   });
+  const result = await response.data;
+  return result;
 }

@@ -1,31 +1,73 @@
-import { CHATCOMMENT_ACTION_TYPES } from './chatcomment.types';
+import { AnyAction } from 'redux';
 
-const INITIAL_STATE = {
+import { ChatComment } from './chatcomment.types';
+
+import {
+    chatcommentCreateStart,
+    chatcommentCreateSuccess,
+    chatcommentCreateFailed,
+    chatcommentUpdateStart,
+    chatcommentUpdateSuccess,
+    chatcommentUpdateFailed,
+    chatcommentDeleteStart,
+    chatcommentDeleteSuccess,
+    chatcommentDeleteFailed,
+    chatcommentFetchSingleStart,
+    chatcommentFetchSingleSuccess,
+    chatcommentFetchSingleFailed,
+    chatcommentFetchAllStart,
+    chatcommentFetchAllSuccess,
+    chatcommentFetchAllFailed,
+} from './chatcomment.action';
+
+export type ChatCommentState = {
+    readonly chatcommentId: number | null;
+    readonly singleChatcomment: ChatComment | null;
+    readonly userChatcomments: ChatComment[];
+    readonly chatcomments: ChatComment[] | null;
+    readonly isLoading: boolean;
+    readonly error: Error | null;
+};
+
+const INITIAL_STATE: ChatCommentState = {
+    chatcommentId: null,
+    singleChatcomment: null,
+    userChatcomments: [],
     chatcomments: [],
     isLoading: false,
     error: null,
 };
 
-export const chatcommentReducer = (state = INITIAL_STATE, action) => {
-    const { type, payload } = action;
-
-    switch (type) {
-        case CHATCOMMENT_ACTION_TYPES.CREATE_START:
-        case CHATCOMMENT_ACTION_TYPES.UPDATE_START:
-        case CHATCOMMENT_ACTION_TYPES.DELETE_START:
-        case CHATCOMMENT_ACTION_TYPES.FETCH_ALL_START:
-            return { ...state, chatcomments: payload, isLoading: true };
-        case CHATCOMMENT_ACTION_TYPES.CREATE_SUCCESS:
-        case CHATCOMMENT_ACTION_TYPES.UPDATE_SUCCESS:
-        case CHATCOMMENT_ACTION_TYPES.DELETE_SUCCESS:
-        case CHATCOMMENT_ACTION_TYPES.FETCH_ALL_SUCCESS:
-            return { ...state, chatcomments: payload, isLoading: false };
-        case CHATCOMMENT_ACTION_TYPES.CREATE_FAILED:
-        case CHATCOMMENT_ACTION_TYPES.UPDATE_FAILED:
-        case CHATCOMMENT_ACTION_TYPES.DELETE_FAILED:
-        case CHATCOMMENT_ACTION_TYPES.FETCH_ALL_FAILED:
-            return { ...state, error: payload, isLoading: false };
-        default:
-            return state;
+export const chatcommentReducer = (
+    state = INITIAL_STATE, action: AnyAction
+): ChatCommentState => {
+    if (
+        chatcommentFetchAllStart.match(action) 
+    ) {
+        return { ...state, isLoading: true }
     }
+    if (
+        chatcommentFetchSingleSuccess.match(action) 
+    ) {
+        return { ...state, isLoading: false, userChatcomments: action.payload }
+    }
+    if (
+        chatcommentCreateSuccess.match(action) ||
+        chatcommentUpdateSuccess.match(action) ||
+        chatcommentDeleteSuccess.match(action) ||
+        chatcommentFetchAllSuccess.match(action) 
+    ) {
+        return { ...state, isLoading: false, chatcomments: action.payload };
+    } 
+    if (
+        chatcommentCreateFailed.match(action) ||
+        chatcommentUpdateFailed.match(action) ||
+        chatcommentDeleteFailed.match(action) ||
+        chatcommentFetchSingleFailed.match(action) ||
+        chatcommentFetchAllFailed.match(action) 
+    ) {
+      return { ...state, isLoading: false, error: action.payload };
+    }
+  
+    return state;
 };

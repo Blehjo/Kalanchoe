@@ -1,31 +1,71 @@
-import { MEMBER_ACTION_TYPES } from './member.types';
+import { AnyAction } from 'redux';
 
-const INITIAL_STATE = {
-    members: [],
-    isLoading: false,
-    error: null,
+import { Member } from './member.types';
+
+import {
+    memberCreateFailed,
+    memberCreateSuccess,
+    memberDeleteFailed,
+    memberDeleteSuccess,
+    memberFetchAllFailed,
+    memberFetchAllStart,
+    memberFetchAllSuccess,
+    memberFetchSingleFailed,
+    memberFetchSingleStart,
+    memberFetchSingleSuccess,
+} from './member.action';
+
+export type MemberState = {
+    readonly memberId: number | null;
+    readonly singleMember: Member | null;
+    readonly userMembers: Member[] | null;
+    readonly members: Member[] | null;
+    readonly isLoading: boolean;
+    readonly error: Error | null;
 };
 
-export const memberReducer = (state = INITIAL_STATE, action) => {
-    const { type, payload } = action;
+const INITIAL_STATE: MemberState = {
+    memberId: null,
+    singleMember: null,
+    userMembers: [],
+    members: [],
+    isLoading: false,
+    error: null
+};
 
-    switch (type) {
-        case MEMBER_ACTION_TYPES.CREATE_START:
-        case MEMBER_ACTION_TYPES.UPDATE_START:
-        case MEMBER_ACTION_TYPES.DELETE_START:
-        case MEMBER_ACTION_TYPES.FETCH_ALL_START:
-            return { ...state, isLoading: true };
-        case MEMBER_ACTION_TYPES.CREATE_SUCCESS:
-        case MEMBER_ACTION_TYPES.UPDATE_SUCCESS:
-        case MEMBER_ACTION_TYPES.DELETE_SUCCESS:
-        case MEMBER_ACTION_TYPES.FETCH_ALL_SUCCESS:
-            return { ...state, members: payload, isLoading: false };
-        case MEMBER_ACTION_TYPES.CREATE_FAILED:
-        case MEMBER_ACTION_TYPES.UPDATE_FAILED:
-        case MEMBER_ACTION_TYPES.DELETE_FAILED:
-        case MEMBER_ACTION_TYPES.FETCH_ALL_FAILED:
-            return { ...state, error: payload, isLoading: false };
-        default:
-            return state;
+export const memberReducer = (
+    state = INITIAL_STATE, action: AnyAction
+): MemberState => {
+    if (
+        memberFetchAllStart.match(action) ||
+        memberFetchSingleStart.match(action) 
+    ) {
+        return { ...state, isLoading: true }
     }
+    if (
+        memberFetchSingleSuccess.match(action)
+    ) {
+        return { ...state, isLoading: false, singleMember: action.payload };
+    }
+    if (
+        memberCreateSuccess.match(action) ||
+        memberFetchAllSuccess.match(action) 
+    ) {
+        return { ...state, isLoading: false, members: action.payload };
+    } 
+    if (
+        memberDeleteSuccess.match(action) 
+    ) {
+        return { ...state, isLoading: false, userMembers: action.payload };
+    } 
+    if (
+        memberCreateFailed.match(action) ||
+        memberDeleteFailed.match(action) ||
+        memberFetchSingleFailed.match(action) ||
+        memberFetchAllFailed.match(action) 
+    ) {
+      return { ...state, isLoading: false, error: action.payload };
+    }
+  
+    return state;
 };

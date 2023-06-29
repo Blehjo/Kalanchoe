@@ -37,6 +37,18 @@ export type ChannelDeleteFailed = ActionWithPayload<
     CHANNEL_ACTION_TYPES.DELETE_FAILED, Error
 >;
 
+export type ChannelFetchSingleStart = ActionWithPayload<
+    CHANNEL_ACTION_TYPES.FETCH_SINGLE_START, { channelId: number }
+>;
+
+export type ChannelFetchSingleSuccess = ActionWithPayload<
+    CHANNEL_ACTION_TYPES.FETCH_SINGLE_SUCCESS, Channel
+>;
+
+export type ChannelFetchSingleFailed = ActionWithPayload<
+    CHANNEL_ACTION_TYPES.FETCH_SINGLE_FAILED, Error
+>;
+
 export type ChannelFetchAllStart = ActionWithPayload<
     CHANNEL_ACTION_TYPES.FETCH_ALL_START, { communityId: number }
 >;
@@ -92,6 +104,21 @@ export const channelDeleteSuccess = withMatcher(
 export const channelDeleteFailed = withMatcher(
     (error: Error): ChannelDeleteFailed => 
     createAction(CHANNEL_ACTION_TYPES.DELETE_FAILED, error)
+);
+
+export const channelFetchSingleStart = withMatcher(
+    (channelId: number): ChannelFetchSingleStart => 
+    createAction(CHANNEL_ACTION_TYPES.FETCH_SINGLE_START, { channelId })
+);
+
+export const channelFetchSingleSuccess = withMatcher(
+    (channel: Channel): ChannelFetchSingleSuccess => 
+    createAction(CHANNEL_ACTION_TYPES.FETCH_SINGLE_SUCCESS, channel)
+);
+
+export const channelFetchSingleFailed = withMatcher(
+    (error: Error): ChannelFetchSingleFailed => 
+    createAction(CHANNEL_ACTION_TYPES.FETCH_SINGLE_FAILED, error)
 );
 
 export const channelFetchAllStart = withMatcher(

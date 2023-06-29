@@ -2,7 +2,7 @@ import { Nav, Row } from "react-bootstrap";
 import { DoorOpen, Gear, Inbox, Person, QuestionCircle } from 'react-bootstrap-icons';
 import { useDispatch } from 'react-redux';
 import { signOutStart } from '../../store/user/user.action';
-import { signOutUser } from "../../utils/api/userDocument";
+import { signOutUser } from "../../utils/api/userdocuments";
 
 import { setIsProfileOpen } from "../../store/profile/profile.action";
 import { User } from "../../store/user/user.types";

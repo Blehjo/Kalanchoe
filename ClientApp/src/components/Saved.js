@@ -1,7 +1,7 @@
 ﻿import { Fragment, useEffect, useState } from 'react';
 import { Nav } from 'react-bootstrap';
 import { Bookmark, ChatDots, Clipboard, Collection, Database, Eye, House, Newspaper, Person, PersonWorkspace, Robot } from 'react-bootstrap-icons';
-import { getUser } from '../utils/api/userDocument';
+import { getUser } from '../utils/api/userdocuments';
 
 const Saved = () => {
     const [userId, setUserId] = useState(null);

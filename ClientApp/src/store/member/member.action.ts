@@ -1,38 +1,134 @@
-import { createAction } from '../../utils/reducer.utils';
-import { MEMBER_ACTION_TYPES } from './member.types';
+import { MEMBER_ACTION_TYPES, Member } from './member.types';
 
-export const memberCreateStart = (communityId, userId, memberValue) => 
-    createAction(MEMBER_ACTION_TYPES.CREATE_START, { communityId, userId, memberValue });
+import {
+    Action,
+    ActionWithPayload,
+    createAction,
+    withMatcher
+} from '../../utils/reducer.utils';
 
-export const memberCreateSuccess = (member) => 
-    createAction(MEMBER_ACTION_TYPES.CREATE_SUCCESS, member);
+export type MemberCreateStart = ActionWithPayload<
+    MEMBER_ACTION_TYPES.CREATE_START, { 
+        communityId: number,
+        userId: number
+    }
+>;
 
-export const memberCreateFailed = (error) => 
-    createAction(MEMBER_ACTION_TYPES.CREATE_START, error);
-    
-export const memberUpdateStart = (memberId, communityId, userId, memberValue) => 
-    createAction(MEMBER_ACTION_TYPES.UPDATE_START, { memberId, communityId, userId, memberValue });
+export type MemberCreateSuccess = ActionWithPayload<
+    MEMBER_ACTION_TYPES.CREATE_SUCCESS, 
+    Member[]
+>;
 
-export const memberUpdateSuccess = (member) => 
-    createAction(MEMBER_ACTION_TYPES.UPDATE_SUCCESS, member);
+export type MemberCreateFailed = ActionWithPayload<
+    MEMBER_ACTION_TYPES.CREATE_FAILED,
+    Error
+>;
+   
+export type MemberDeleteStart = ActionWithPayload<
+    MEMBER_ACTION_TYPES.DELETE_START,
+    { memberId: number }
+>;
 
-export const memberUpdateFailed = (error) => 
-    createAction(MEMBER_ACTION_TYPES.UPDATE_START, error);
+export type MemberDeleteSuccess = ActionWithPayload<
+    MEMBER_ACTION_TYPES.DELETE_SUCCESS, 
+    Member[]
+>;
 
-export const memberDeleteStart = (memberId, communityId, userId) => 
-    createAction(MEMBER_ACTION_TYPES.DELETE_START, { memberId, communityId, userId });
+export type MemberDeleteteFailed = ActionWithPayload<
+    MEMBER_ACTION_TYPES.DELETE_FAILED,
+    Error
+>;
+   
+export type MemberFetchSingleStart = ActionWithPayload<
+    MEMBER_ACTION_TYPES.FETCH_SINGLE_START,
+    { memberId: number }
+>;
 
-export const memberDeleteSuccess = () => 
-    createAction(MEMBER_ACTION_TYPES.DELETE_SUCCESS, 'Member Deleted');
+export type MemberFetchSingleSuccess = ActionWithPayload<
+    MEMBER_ACTION_TYPES.FETCH_SINGLE_SUCCESS, 
+    Member
+>;
 
-export const memberDeleteFailed = (error) => 
-    createAction(MEMBER_ACTION_TYPES.DELETE_START, error);
+export type MemberFetchSingleFailed = ActionWithPayload<
+    MEMBER_ACTION_TYPES.FETCH_SINGLE_FAILED,
+    Error
+>;
 
-export const memberFetchAllStart = (userId) => 
-    createAction(MEMBER_ACTION_TYPES.FETCH_ALL_START, { userId });
+export type MemberFetchAllStart = Action<
+    MEMBER_ACTION_TYPES.FETCH_ALL_START
+>;
 
-export const memberFetchAllSuccess = (member) => 
-    createAction(MEMBER_ACTION_TYPES.FETCH_ALL_SUCCESS, member);
+export type MemberFetchAllSuccess = ActionWithPayload<
+    MEMBER_ACTION_TYPES.FETCH_ALL_SUCCESS, 
+    Member[]
+>;
 
-export const memberFetchAllFailed = (error) => 
-    createAction(MEMBER_ACTION_TYPES.FETCH_ALL_START, error);
+export type MemberFetchAllFailed = ActionWithPayload<
+    MEMBER_ACTION_TYPES.FETCH_ALL_FAILED,
+    Error
+>;
+
+export const memberCreateStart = withMatcher(
+    (   communityId: number,
+        userId: number,
+): MemberCreateStart => 
+    createAction(MEMBER_ACTION_TYPES.CREATE_START, {
+        communityId,
+        userId
+    })
+);
+
+export const memberCreateSuccess = withMatcher(
+    (members: Member[]): MemberCreateSuccess => 
+    createAction(MEMBER_ACTION_TYPES.CREATE_SUCCESS, members)
+);
+
+export const memberCreateFailed = withMatcher(
+    (error: Error) => 
+    createAction(MEMBER_ACTION_TYPES.CREATE_START, error)
+);
+
+export const memberDeleteStart = withMatcher(
+    (memberId: number): MemberDeleteStart => 
+    createAction(MEMBER_ACTION_TYPES.DELETE_START, { memberId })
+);
+
+export const memberDeleteSuccess = withMatcher(
+    (member: Member[]): MemberDeleteSuccess => 
+    createAction(MEMBER_ACTION_TYPES.DELETE_SUCCESS, member)
+);
+
+export const memberDeleteFailed = withMatcher(
+    (error: Error): MemberDeleteteFailed => 
+    createAction(MEMBER_ACTION_TYPES.DELETE_FAILED, error)
+);
+
+export const memberFetchSingleStart = withMatcher(
+    (memberId: number): MemberFetchSingleStart => 
+    createAction(MEMBER_ACTION_TYPES.FETCH_SINGLE_START, { memberId })
+);
+
+export const memberFetchSingleSuccess = withMatcher(
+    (member: Member): MemberFetchSingleSuccess => 
+    createAction(MEMBER_ACTION_TYPES.FETCH_SINGLE_SUCCESS, member)
+);
+
+export const memberFetchSingleFailed = withMatcher(
+    (error: Error): MemberFetchSingleFailed => 
+    createAction(MEMBER_ACTION_TYPES.FETCH_SINGLE_FAILED, error)
+);
+
+export const memberFetchAllStart = withMatcher(
+    (): MemberFetchAllStart => 
+    createAction(MEMBER_ACTION_TYPES.FETCH_ALL_START)
+);
+
+export const memberFetchAllSuccess = withMatcher(
+    (member: Member[]): MemberFetchAllSuccess => 
+    createAction(MEMBER_ACTION_TYPES.FETCH_ALL_SUCCESS, member)
+);
+
+export const memberFetchAllFailed = withMatcher(
+    (error: Error): MemberFetchAllFailed => 
+    createAction(MEMBER_ACTION_TYPES.FETCH_ALL_FAILED, error)
+);
