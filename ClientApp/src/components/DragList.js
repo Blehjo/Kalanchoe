@@ -1,12 +1,12 @@
 ﻿import { useEffect } from "react";
-import styled from "styled-components";
 import { DragDropContext } from "react-beautiful-dnd";
-import { useDispatch, useSelector } from "react-redux";
-import DraggableElement from "./DraggableElement";
-import { getUserPanels } from "../utils/api/panel";
-import { selectPanelItems } from "../store/panel/panel.selector";
-import { panelFetchAllStart } from "../store/panel/panel.action";
 import { Col, Row } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
+import { panelFetchAllStart } from "../store/panel/panel.action";
+import { selectPanelItems } from "../store/panel/panel.selector";
+import { getUserPanels } from "../utils/api/panel.api";
+import DraggableElement from "./DraggableElement";
 
 const DragDropContextContainer = styled.div`
   padding: 20px;

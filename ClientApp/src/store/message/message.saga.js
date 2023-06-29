@@ -1,15 +1,15 @@
-import { takeLatest, put, all, call } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 
 import { MESSAGE_ACTION_TYPES } from './message.types';
 
 import {
-    messageCreateSuccess,
-    messageCreateFailed,
-    messageFetchAllFailed,
-    messageFetchAllSuccess,
+  messageCreateFailed,
+  messageCreateSuccess,
+  messageFetchAllFailed,
+  messageFetchAllSuccess,
 } from './message.action';
 
-import { addMessage, getAllMessages, getSingleMessage } from '../../utils/api/message';
+import { addMessage, getAllMessages, getSingleMessage } from '../../utils/api/message.api';
 
 export function* getSnapshotFromMessage(message, additionalDetails) {
     try {

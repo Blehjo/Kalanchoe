@@ -1,5 +1,5 @@
+import { createAction } from '../../utils/reducer.utils';
 import { CHANNELCOMMENT_ACTION_TYPES } from './channelcomment.types';
-import { createAction } from '../../utils/reducer';
 
 export const channelcommentCreateStart = (channelId, userId, channelcommentValue) => 
     createAction(CHANNELCOMMENT_ACTION_TYPES.CREATE_START, { channelId, userId, channelcommentValue });

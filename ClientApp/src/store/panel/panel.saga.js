@@ -1,26 +1,24 @@
-import { takeLatest, put, all, call } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 
 import { PANEL_ACTION_TYPES } from './panel.types';
 
 import {
-    panelCreateSuccess,
-    panelCreateFailed,
-    panelUpdateSuccess,
-    panelUpdateFailed,
-    panelDeleteSuccess,
-    panelDeleteFailed,
-    panelFetchAllSuccess,
-    panelFetchAllFailed,
+  panelCreateFailed,
+  panelCreateSuccess,
+  panelDeleteFailed,
+  panelDeleteSuccess,
+  panelFetchAllFailed,
+  panelFetchAllSuccess,
+  panelUpdateFailed,
+  panelUpdateSuccess,
 } from './panel.action';
 
-import { 
-    getSinglePanel,
-    getUserPanels,
-    addPanel,
-    editPanel,
-    deletePanel,
-    getPanels
-} from '../../utils/api/panel';
+import {
+  addPanel,
+  deletePanel,
+  editPanel,
+  getPanels
+} from '../../utils/api/panel.api';
 
 export function* createPanel({ payload: { userId, title } }) {
     try {

@@ -1,14 +1,14 @@
 ﻿import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Card, Button, Form, Row, Col } from "react-bootstrap";
-import { useParams } from "react-router";
-import { getSinglePost } from "../utils/api/post";
+import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { selectSinglePost } from "../store/post/post.selector";
+import { useParams } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { postFetchSingleStart } from "../store/post/post.action";
+import { selectSinglePost } from "../store/post/post.selector";
+import { addComment } from "../utils/api/comment.api";
+import { getSinglePost } from "../utils/api/post.api";
 import { utcConverter } from "../utils/date/Date";
 import CommentInfo from "./CommentInfo";
-import { addComment } from "../utils/api/comment";
 
 const defaultFormFields = {
     commentValue: '',

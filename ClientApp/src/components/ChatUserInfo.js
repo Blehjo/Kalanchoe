@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router";
-import { getSingleUser } from "../utils/api/user";
-import { useParams } from 'react-router';
-import { getSingleChat } from "../utils/api/chat";
+import { useNavigate, useParams } from "react-router";
+import { getSingleChat } from "../utils/api/chat.api";
+import { getSingleUser } from "../utils/api/user.api";
 
 const ChatUserInfo = ({ userId }) => {
     const dispatch = useDispatch();

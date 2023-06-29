@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, Col, Form, Modal } from "react-bootstrap";
-import { addSaved } from "../utils/api/saved";
+import { addSaved } from "../utils/api/saved.api";
 
 const defaultFormFields = {
     title: '',

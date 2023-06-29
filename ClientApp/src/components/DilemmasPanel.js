@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { XCircle } from "react-bootstrap-icons";
-import { getUserPanels, deletePanel } from "../utils/api/panel";
 import { useNavigate } from "react-router";
+import { deletePanel, getUserPanels } from "../utils/api/panel.api";
 import NoteInfo from "./NoteInfo";
 
 const DilemmasPanel = () => {

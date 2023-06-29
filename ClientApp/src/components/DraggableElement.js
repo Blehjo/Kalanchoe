@@ -1,14 +1,14 @@
-﻿import { Droppable } from "react-beautiful-dnd";
-import { useEffect, useState } from "react";
-import ListItem from "./ListItem";
-import styled from "styled-components";
-import { addNote, getNotes } from "../utils/api/note";
-import ModalSubmit from "./ModalSubmit";
+﻿import { useEffect, useState } from "react";
+import { Droppable } from "react-beautiful-dnd";
 import { Button, Col, Row } from "react-bootstrap";
 import { Plus } from 'react-bootstrap-icons';
 import { useDispatch, useSelector } from "react-redux";
-import { selectNoteItems } from "../store/note/note.selector";
+import styled from "styled-components";
 import { noteFetchAllStart } from "../store/note/note.action";
+import { selectNoteItems } from "../store/note/note.selector";
+import { addNote, getNotes } from "../utils/api/note.api";
+import ListItem from "./ListItem";
+import ModalSubmit from "./ModalSubmit";
 
 const ColumnHeader = styled.div`
   text-transform: uppercase;

@@ -1,15 +1,15 @@
-import { takeLatest, put, all, call } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 
 import { CHATCOMMENT_ACTION_TYPES } from './chatcomment.types';
 
 import {
-    chatcommentCreateSuccess,
-    chatcommentCreateFailed,
-    chatcommentFetchAllFailed,
-    chatcommentFetchAllSuccess,
+  chatcommentCreateFailed,
+  chatcommentCreateSuccess,
+  chatcommentFetchAllFailed,
+  chatcommentFetchAllSuccess,
 } from './chatcomment.action';
 
-import { addChatComment, getSingleChatcomment, getChatcomments } from '../../utils/api/chatcomment';
+import { addChatComment, getChatcomments, getSingleChatcomment } from '../../utils/api/chatcomment.api';
 
 export function* getSnapshotFromChatComment(chatcomment, additionalDetails) {
     try {

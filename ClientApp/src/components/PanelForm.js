@@ -1,9 +1,9 @@
 import { useState } from "react";
 
+import { Button, Col, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from '../store/user/user.selector';
-import { Button, Col, Form } from "react-bootstrap";
-import { addPanel } from "../utils/api/panel";
+import { addPanel } from "../utils/api/panel.api";
 
 export const PostForm = () => {
     const dispatch = useDispatch();

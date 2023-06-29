@@ -1,6 +1,6 @@
 ﻿import { useState } from "react";
-import { Button, Col, Form, Modal, Row } from "react-bootstrap";
-import { addPost } from "../utils/api/post";
+import { Button, Col, Form, Row } from "react-bootstrap";
+import { addPost } from "../utils/api/post.api";
 
 const defaultFormFields = {
     postValue: '',

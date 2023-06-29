@@ -1,10 +1,10 @@
-﻿import { Draggable } from "react-beautiful-dnd";
-import styled, { css } from "styled-components";
+﻿import { useState } from "react";
+import { Draggable } from "react-beautiful-dnd";
 import { Button, Col, Row } from "react-bootstrap";
 import { XCircle } from 'react-bootstrap-icons';
+import styled from "styled-components";
+import { deleteNote } from "../utils/api/note.api";
 import ModalDelete from "./ModalDelete";
-import { deleteNote } from "../utils/api/note";
-import { useState } from "react";
 
 const CardHeader = styled.div`
   font-weight: 500;

@@ -1,15 +1,15 @@
 ﻿import { Fragment, useEffect, useState } from "react";
-import { Col, Row, Form, Button, Card, Modal } from 'react-bootstrap';
+import { Button, Card, Col, Form, Modal, Row } from 'react-bootstrap';
+import { Eye } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { channelcommentFetchAllStart } from "../store/channelcomment/channelcomment.action";
 import { selectChannelcommentItems } from "../store/channelcomment/channelcomment.selector";
 import { communityFetchSingleStart } from "../store/community/community.action";
 import { selectCommunities } from "../store/community/community.selector";
-import { addChannelComment, getSingleChannelcomment } from "../utils/api/channelcomment";
-import { getSingleCommunity } from "../utils/api/community";
+import { addChannelComment, getSingleChannelcomment } from "../utils/api/channelcomment.api";
+import { getSingleCommunity } from "../utils/api/community.api";
 import Channels from "./Channels";
-import { Eye } from "react-bootstrap-icons";
 import ImageModal from "./ImageModal";
 
 const defaultFormFields = {

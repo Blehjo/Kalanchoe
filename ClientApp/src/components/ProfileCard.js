@@ -1,11 +1,10 @@
-import { Fragment, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { Card, Row, Col } from "react-bootstrap";
-import { getSingleUser } from "../utils/api/user";
+import { useEffect } from "react";
+import { Card, Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUserprofileItems } from "../store/userprofiles/userprofile.selector";
-import { addFollower, deleteFollower } from "../utils/api/follower";
+import { useParams } from "react-router-dom";
 import { userprofileFetchAllStart } from "../store/userprofiles/userprofile.action";
+import { selectUserprofileItems } from "../store/userprofiles/userprofile.selector";
+import { getSingleUser } from "../utils/api/user.api";
 
 const ProfileCard = () => {
     const dispatch = useDispatch();

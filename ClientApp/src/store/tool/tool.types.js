@@ -1,3 +1,0 @@
-﻿export const TOOL_ACTION_TYPES = {
-    SET_IS_TOOL_OPEN: 'SET_IS_TOOL_OPEN'
-}

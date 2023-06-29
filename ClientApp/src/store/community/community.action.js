@@ -1,5 +1,5 @@
+import { createAction } from '../../utils/reducer.utils';
 import { COMMUNITY_ACTION_TYPES } from './community.types';
-import { createAction } from '../../utils/reducer';
 
 export const communityCreateStart = (userId, groupName, description) => 
     createAction(COMMUNITY_ACTION_TYPES.CREATE_START, { userId, groupName, description });

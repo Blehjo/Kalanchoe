@@ -1,4 +1,4 @@
-﻿import { createAction } from "../../utils/reducer";
+﻿import { createAction } from "../../utils/reducer.utils";
 import { TOOLBOX_ACTION_TYPES } from "./toolbox.types";
 
 export const setIsPanelOpen = (boolean) =>

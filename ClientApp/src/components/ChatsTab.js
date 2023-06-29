@@ -1,11 +1,10 @@
-import { Fragment, useState, useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 import { Card } from 'react-bootstrap';
-import axios from 'axios';
-import { useParams, useNavigate } from 'react-router';
-import { getUserChats } from '../utils/api/chat';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectChatItems } from '../store/chat/chat.selector';
+import { useNavigate, useParams } from 'react-router';
 import { chatFetchAllStart } from '../store/chat/chat.action';
+import { selectChatItems } from '../store/chat/chat.selector';
+import { getUserChats } from '../utils/api/chat.api';
 
 const ChatsTab = () => {
     const dispatch = useDispatch();

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { getSingleUser } from "../utils/api/user";
+import { getSingleUser } from "../utils/api/user.api";
 
 const UserInfo = ({ userId }) => {
     const dispatch = useDispatch();

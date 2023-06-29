@@ -1,10 +1,10 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { deletePost, editPost, getPosts } from "../utils/api/post";
-import { Button, Row, Col, Card } from "react-bootstrap";
+import { Button, Card, Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { selectPosts } from "../store/post/post.selector";
+import { useNavigate } from "react-router-dom";
 import { postFetchAllStart } from "../store/post/post.action";
+import { selectPosts } from "../store/post/post.selector";
+import { deletePost, editPost, getPosts } from "../utils/api/post.api";
 import UserInfo from "./UserInfo";
 
 const FetchedPosts = () => {

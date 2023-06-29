@@ -1,15 +1,15 @@
-import { takeLatest, put, all, call } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 
 import { CHANNELCOMMENT_ACTION_TYPES } from './channelcomment.types';
 
 import {
-    channelcommentCreateSuccess,
-    channelcommentCreateFailed,
-    channelcommentFetchAllFailed,
-    channelcommentFetchAllSuccess,
+  channelcommentCreateFailed,
+  channelcommentCreateSuccess,
+  channelcommentFetchAllFailed,
+  channelcommentFetchAllSuccess,
 } from './channelcomment.action';
 
-import { addChannelComment, getChannelcomments, getSingleChannelcomment } from '../../utils/api/channelcomment';
+import { addChannelComment, getChannelcomments, getSingleChannelcomment } from '../../utils/api/channelcomment.api';
 
 export function* getSnapshotFromChannelcomment(channelcomment, additionalDetails) {
     try {

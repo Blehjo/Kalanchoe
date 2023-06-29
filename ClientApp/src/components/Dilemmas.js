@@ -1,7 +1,7 @@
 ﻿import { Fragment, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { Plus } from 'react-bootstrap-icons';
-import { addPanel } from "../utils/api/panel";
+import { addPanel } from "../utils/api/panel.api";
 
 import DragList from "./DragList";
 import ModalSubmit from "./ModalSubmit";

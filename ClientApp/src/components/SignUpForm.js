@@ -1,9 +1,7 @@
 ﻿import { useState } from "react";
-import { Row, Col, Form, Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { emailSignInStart, signUpStart } from "../store/user/user.action";
-import { signUpUser } from "../utils/userDocument";
+import { signUpStart } from "../store/user/user.action";
 
 const defaultFormFields = {
     username: '',
@@ -22,7 +20,7 @@ const defaultFormFields = {
 const SignUpForm = () => {
     const dispatch = useDispatch();
     const [formFields, setFormFields] = useState(defaultFormFields);
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const resetForm = () => {
        setFormFields(defaultFormFields);
@@ -73,7 +71,7 @@ const SignUpForm = () => {
         formData.append('imageFile', formFields.imageFile);
         dispatch(signUpStart(formData));
         resetForm();
-        navigate('/profile');
+        // navigate('/profile');
     }
 
     return (

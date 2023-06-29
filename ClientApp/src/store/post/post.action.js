@@ -1,5 +1,5 @@
+import { createAction } from '../../utils/reducer.utils';
 import { POST_ACTION_TYPES } from './post.types';
-import { createAction } from '../../utils/reducer';
 
 export const postCreateStart = (userId, postValue, mediaLink) => 
     createAction(POST_ACTION_TYPES.CREATE_START, { userId, postValue, mediaLink });

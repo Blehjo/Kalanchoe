@@ -1,4 +1,4 @@
-﻿import { createAction } from "../../utils/reducer";
+﻿import { createAction } from "../../utils/reducer.utils";
 import { LIST_ACTION_TYPES } from './list.types';
 
 export const setIsListOpen = (boolean) =>

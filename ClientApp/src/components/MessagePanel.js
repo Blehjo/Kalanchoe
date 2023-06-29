@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import { Button, Row, Col, Card } from "react-bootstrap";
+import { Button, Card, Col, Row } from "react-bootstrap";
 import { XCircle } from 'react-bootstrap-icons';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { messageFetchAllStart } from "../store/message/message.action";
 import { selectMessageItems } from "../store/message/message.selector";
-import { deleteMessage, getAllMessages } from "../utils/api/message";
+import { deleteMessage, getAllMessages } from "../utils/api/message.api";
 
 const MessagePanel = () => {
     const dispatch = useDispatch();

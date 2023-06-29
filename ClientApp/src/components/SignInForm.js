@@ -8,7 +8,7 @@ const SignInForm = () => {
     const dispatch = useDispatch();
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const resetFormFields = () => {
         setUsername('');
@@ -30,7 +30,7 @@ const SignInForm = () => {
 
         dispatch(emailSignInStart(username, password))
         resetFormFields();
-        navigate('/profile');
+        // navigate('/profile');
     }
 
     return (

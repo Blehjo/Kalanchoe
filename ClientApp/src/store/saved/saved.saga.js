@@ -1,27 +1,27 @@
-import { takeLatest, put, all, call } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 
 import { SAVED_ACTION_TYPES } from './saved.types';
 
 import {
-    savedCreateSuccess,
-    savedCreateFailed,
-    savedUpdateSuccess,
-    savedUpdateFailed,
-    savedDeleteSuccess,
-    savedDeleteFailed,
-    savedFetchSingleSuccess,
-    savedFetchSingleFailed,
-    savedFetchAllSuccess,
-    savedFetchAllFailed,
+  savedCreateFailed,
+  savedCreateSuccess,
+  savedDeleteFailed,
+  savedDeleteSuccess,
+  savedFetchAllFailed,
+  savedFetchAllSuccess,
+  savedFetchSingleFailed,
+  savedFetchSingleSuccess,
+  savedUpdateFailed,
+  savedUpdateSuccess,
 } from './saved.action';
 
-import { 
-    getSingleSaved,
-    getSaved,
-    addSaved,
-    editSaved,
-    deleteSaved
-} from '../../utils/api/saved';
+import {
+  addSaved,
+  deleteSaved,
+  editSaved,
+  getSaved,
+  getSingleSaved
+} from '../../utils/api/saved.api';
 
 export function* createSaved({ userId, title, link }) {
     try {

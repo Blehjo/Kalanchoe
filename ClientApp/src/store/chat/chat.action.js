@@ -1,5 +1,5 @@
+import { createAction } from '../../utils/reducer.utils';
 import { CHAT_ACTION_TYPES } from './chat.types';
-import { createAction } from '../../utils/reducer';
 
 export const chatCreateStart = (title) => 
     createAction(CHAT_ACTION_TYPES.CREATE_START, { title });

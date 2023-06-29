@@ -1,5 +1,5 @@
+import { createAction } from '../../utils/reducer.utils';
 import { SAVED_ACTION_TYPES } from './saved.types';
-import { createAction } from '../../utils/reducer';
 
 export const savedCreateStart = (userId, title, link) => 
     createAction(SAVED_ACTION_TYPES.CREATE_START, { userId, title, link });

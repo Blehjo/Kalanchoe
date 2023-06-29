@@ -1,13 +1,12 @@
 ﻿import { useEffect, useState } from 'react';
-import { Row, Col, Card, Modal, Form, Button } from 'react-bootstrap';
-import { getUsers } from '../utils/api/user';
+import { Button, Card, Col, Form, Modal, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectUserprofileId, selectUserprofileItems } from '../store/userprofiles/userprofile.selector';
 import { userprofileFetchAllStart, userprofileFetchSingleId } from '../store/userprofiles/userprofile.action';
-import { addFollower, deleteFollower } from '../utils/api/follower';
-import { addMessage } from '../utils/api/message';
-import Cookies from 'js-cookie';
-import { addMessagecomment } from '../utils/api/messagecomment';
+import { selectUserprofileId, selectUserprofileItems } from '../store/userprofiles/userprofile.selector';
+import { addFollower, deleteFollower } from '../utils/api/follower.api';
+import { addMessage } from '../utils/api/message.api';
+import { addMessagecomment } from '../utils/api/messagecomment.api';
+import { getUsers } from '../utils/api/user.api';
 
 const defaultFormFields = {
     messageValue: '',

@@ -1,5 +1,5 @@
+import { createAction } from '../../utils/reducer.utils';
 import { MESSAGE_ACTION_TYPES } from './message.types';
-import { createAction } from '../../utils/reducer';
 
 export const messageCreateStart = (userId, messageValue) => 
     createAction(MESSAGE_ACTION_TYPES.CREATE_START, { userId, messageValue });

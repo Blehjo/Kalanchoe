@@ -1,28 +1,27 @@
-import { takeLatest, put, all, call } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 
 import { COMMUNITY_ACTION_TYPES } from './community.types';
 
 import {
-    communityCreateSuccess,
-    communityCreateFailed,
-    communityUpdateSuccess,
-    communityUpdateFailed,
-    communityDeleteSuccess,
-    communityDeleteFailed,
-    communityFetchSingleSuccess,
-    communityFetchSingleFailed,
-    communityFetchAllSuccess,
-    communityFetchAllFailed,
+  communityCreateFailed,
+  communityCreateSuccess,
+  communityDeleteFailed,
+  communityDeleteSuccess,
+  communityFetchAllFailed,
+  communityFetchAllSuccess,
+  communityFetchSingleFailed,
+  communityFetchSingleSuccess,
+  communityUpdateFailed,
+  communityUpdateSuccess,
 } from './community.action';
 
-import { 
-    getSingleCommunity,
-    getUserCommunities,
-    addCommunity,
-    editCommunity,
-    deleteCommunity,
-    getCommunities
-} from '../../utils/api/community';
+import {
+  addCommunity,
+  deleteCommunity,
+  editCommunity,
+  getCommunities,
+  getSingleCommunity
+} from '../../utils/api/community.api';
 
 export function* createCommunity({ userId, communityValue, mediaLink }) {
     try {

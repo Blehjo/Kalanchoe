@@ -1,27 +1,27 @@
-import { takeLatest, put, all, call } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 
 import { POST_ACTION_TYPES } from './post.types';
 
 import {
-    postCreateSuccess,
-    postCreateFailed,
-    postUpdateSuccess,
-    postUpdateFailed,
-    postDeleteSuccess,
-    postDeleteFailed,
-    postFetchSingleSuccess,
-    postFetchSingleFailed,
-    postFetchAllSuccess,
-    postFetchAllFailed,
+  postCreateFailed,
+  postCreateSuccess,
+  postDeleteFailed,
+  postDeleteSuccess,
+  postFetchAllFailed,
+  postFetchAllSuccess,
+  postFetchSingleFailed,
+  postFetchSingleSuccess,
+  postUpdateFailed,
+  postUpdateSuccess,
 } from './post.action';
 
-import { 
-    getSinglePost,
-    getPosts,
-    addPost,
-    editPost,
-    deletePost
-} from '../../utils/api/post';
+import {
+  addPost,
+  deletePost,
+  editPost,
+  getPosts,
+  getSinglePost
+} from '../../utils/api/post.api';
 
 export function* createPost({ userId, postValue, mediaLink }) {
     try {

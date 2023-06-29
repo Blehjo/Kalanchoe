@@ -1,5 +1,5 @@
+import { createAction } from '../../utils/reducer.utils';
 import { COMMENT_ACTION_TYPES } from './comment.types';
-import { createAction } from '../../utils/reducer';
 
 export const commentCreateStart = (userId, postId, commentValue) => 
     createAction(COMMENT_ACTION_TYPES.CREATE_START, { userId, postId, commentValue });

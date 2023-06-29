@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
-import { Card, Modal, Row, Col, Form, Button } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Button, Card, Col, Form, Modal, Row } from "react-bootstrap";
 import { useNavigate } from "react-router";
 
-import { utcConverter } from "../utils/date/Date";
-import { useParams } from "react-router";
-import { addComment } from "../utils/api/comment";
-import { getUserPosts, getSinglePost } from "../utils/api/post";
 import { useDispatch, useSelector } from "react-redux";
-import { selectPosts, selectSinglePost } from "../store/post/post.selector";
+import { useParams } from "react-router";
 import { postFetchAllStart, postFetchSingleStart } from "../store/post/post.action";
+import { selectPosts, selectSinglePost } from "../store/post/post.selector";
+import { addComment } from "../utils/api/comment.api";
+import { getSinglePost, getUserPosts } from "../utils/api/post.api";
+import { utcConverter } from "../utils/date/Date";
 import CommentInfo from "./CommentInfo";
 
 const UserPostsTab = () => {

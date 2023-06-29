@@ -1,4 +1,4 @@
-import { createAction } from "../../utils/reducer";
+import { createAction } from "../../utils/reducer.utils";
 import { PROFILE_ACTION_TYPES } from "./profile.types";
 
 export const setIsProfileOpen = (boolean) =>

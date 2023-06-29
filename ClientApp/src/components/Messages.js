@@ -1,19 +1,19 @@
 ﻿import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
-import { Form, Button, Row, Col, Modal, Card } from "react-bootstrap";
+import { Button, Card, Col, Form, Modal, Row } from "react-bootstrap";
 import { Robot, XCircle } from 'react-bootstrap-icons';
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router";
 
-import { addMessage, deleteMessage, getAllMessages, getSingleMessage } from "../utils/api/message";
-import { addMessagecomment, getSingleMessagecomment } from "../utils/api/messagecomment";
-import { selectMessageItems } from "../store/message/message.selector";
+import Cookies from "js-cookie";
+import { Eye } from "react-bootstrap-icons";
 import { messageFetchAllStart } from "../store/message/message.action";
+import { selectMessageItems } from "../store/message/message.selector";
 import { messagecommentFetchAllStart } from "../store/messagecomment/messagecomment.action";
 import { selectMessageCommentItems } from "../store/messagecomment/messagecomment.selector";
-import Cookies from "js-cookie";
-import { getSingleUser } from "../utils/api/user";
+import { deleteMessage, getAllMessages, getSingleMessage } from "../utils/api/message.api";
+import { addMessagecomment, getSingleMessagecomment } from "../utils/api/messagecomment.api";
+import { getSingleUser } from "../utils/api/user.api";
 import ImageModal from "./ImageModal";
-import { Eye } from "react-bootstrap-icons";
 
 const defaultFormFields = {
   messageValue: '',

@@ -1,15 +1,14 @@
 import { useEffect } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux';
-import { selectChatItems } from "../store/chat/chat.selector";
-import { getSingleChat } from "../utils/api/chat";
 import { useParams } from 'react-router';
 import { chatFetchAllStart } from "../store/chat/chat.action";
-import { selectChatCommentItems } from "../store/chatcomment/chatcomment.selector";
-import { getSingleChatcomment } from "../utils/api/chatcomment";
+import { selectChatItems } from "../store/chat/chat.selector";
 import { chatcommentFetchAllStart } from "../store/chatcomment/chatcomment.action";
+import { selectChatCommentItems } from "../store/chatcomment/chatcomment.selector";
+import { getSingleChat } from "../utils/api/chat.api";
+import { getSingleChatcomment } from "../utils/api/chatcomment.api";
 import { utcConverter } from "../utils/date/Date";
-import UserInfo from "./UserInfo";
 import ChatUserInfo from "./ChatUserInfo";
 
 const SingleChat = () => {

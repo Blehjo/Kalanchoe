@@ -1,11 +1,11 @@
 ﻿import { Fragment, useEffect } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from 'react-router';
 import { chatFetchAllStart } from "../store/chat/chat.action";
 import { selectChatItems } from "../store/chat/chat.selector";
-import { getAllChats, getChats } from "../utils/api/chat";
+import { getAllChats } from "../utils/api/chat.api";
 import { utcConverter } from "../utils/date/Date";
-import { useNavigate } from 'react-router';
 import UserInfo from "./UserInfo";
 
 const ChatPage = () => {

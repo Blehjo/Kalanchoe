@@ -1,12 +1,12 @@
 import { Fragment, useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
-import { XCircle, Plus, ArrowRight } from 'react-bootstrap-icons';
-import ModalSubmit from "./ModalSubmit";
-import { useParams, useNavigate } from "react-router";
-import { getChannels, addChannel, getCommunityChannels } from "../utils/api/channel";
+import { Plus } from 'react-bootstrap-icons';
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router";
 import { channelFetchAllStart } from "../store/channel/channel.action";
 import { selectChannelItems } from "../store/channel/channel.selector";
+import { addChannel, getCommunityChannels } from "../utils/api/channel.api";
+import ModalSubmit from "./ModalSubmit";
 
 const Channels = () => {
     const dispatch = useDispatch();

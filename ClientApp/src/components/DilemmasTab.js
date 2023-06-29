@@ -2,14 +2,14 @@ import { useEffect } from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
 import { useParams } from 'react-router';
 
-import { utcConverter } from '../utils/date/Date';
-import { getUserPanelsProfile } from '../utils/api/panel';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectPanelItems } from '../store/panel/panel.selector';
-import { panelFetchAllStart } from '../store/panel/panel.action';
-import { getPanelNotes } from '../utils/api/note';
-import { noteFetchAllStart } from '../store/note/note.action';
 import { useNavigate } from "react-router";
+import { noteFetchAllStart } from '../store/note/note.action';
+import { panelFetchAllStart } from '../store/panel/panel.action';
+import { selectPanelItems } from '../store/panel/panel.selector';
+import { getPanelNotes } from '../utils/api/note.api';
+import { getUserPanelsProfile } from '../utils/api/panel.api';
+import { utcConverter } from '../utils/date/Date';
 
 import NoteInfo from './NoteInfo';
 

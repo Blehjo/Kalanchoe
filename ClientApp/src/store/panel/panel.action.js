@@ -1,5 +1,5 @@
+import { createAction } from '../../utils/reducer.utils';
 import { PANEL_ACTION_TYPES } from './panel.types';
-import { createAction } from '../../utils/reducer';
 
 export const panelCreateStart = (userId, title) => 
     createAction(PANEL_ACTION_TYPES.CREATE_START, { userId, title });

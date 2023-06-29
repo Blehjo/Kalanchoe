@@ -1,5 +1,5 @@
+import { createAction } from '../../utils/reducer.utils';
 import { CHATCOMMENT_ACTION_TYPES } from './chatcomment.types';
-import { createAction } from '../../utils/reducer';
 
 export const chatcommentCreateStart = (chatId, chatValue) => 
     createAction(CHATCOMMENT_ACTION_TYPES.CREATE_START, { chatId, chatValue });

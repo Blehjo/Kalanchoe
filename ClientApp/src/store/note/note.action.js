@@ -1,5 +1,5 @@
+import { createAction } from '../../utils/reducer.utils';
 import { NOTE_ACTION_TYPES } from './note.types';
-import { createAction } from '../../utils/reducer';
 
 export const noteCreateStart = (noteId, title) => 
     createAction(NOTE_ACTION_TYPES.CREATE_START, { noteId, title });

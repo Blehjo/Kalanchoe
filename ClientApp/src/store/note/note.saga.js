@@ -1,15 +1,15 @@
-import { takeLatest, put, all, call } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 
 import { NOTE_ACTION_TYPES } from './note.types';
 
 import {
-    noteCreateSuccess,
-    noteCreateFailed,
-    noteFetchAllFailed,
-    noteFetchAllSuccess,
+  noteCreateFailed,
+  noteCreateSuccess,
+  noteFetchAllFailed,
+  noteFetchAllSuccess,
 } from './note.action';
 
-import { addNote, getNotes, getSingleNote } from '../../utils/api/note';
+import { addNote, getNotes, getSingleNote } from '../../utils/api/note.api';
 
 export function* getSnapshotFromNote(note, additionalDetails) {
     try {

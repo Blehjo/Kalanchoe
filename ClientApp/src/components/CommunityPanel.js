@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { Row, Col } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router";
-import { getCommunities } from "../utils/api/community";
-import { getPanels } from "../utils/api/panel";
-import { getPosts } from "../utils/api/post";
+import { getCommunities } from "../utils/api/community.api";
+import { getPanels } from "../utils/api/panel.api";
+import { getPosts } from "../utils/api/post.api";
 
 const CommunityPanel = () => {
     const navigate = useNavigate();

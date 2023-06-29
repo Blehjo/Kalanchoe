@@ -1,12 +1,12 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Button, Row, Col, Card } from "react-bootstrap";
+import { Button, Card, Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { selectPanelItems } from "../store/panel/panel.selector";
+import { useNavigate } from "react-router-dom";
 import { panelFetchAllStart } from "../store/panel/panel.action";
-import { getPanels } from "../utils/api/panel";
-import UserInfo from "./UserInfo";
+import { selectPanelItems } from "../store/panel/panel.selector";
+import { getPanels } from "../utils/api/panel.api";
 import NoteInfo from "./NoteInfo";
+import UserInfo from "./UserInfo";
 
 const DilemmasPage = () => {
     const dispatch = useDispatch();

@@ -1,12 +1,12 @@
 import { Fragment, useEffect } from 'react';
-import { Card, Row, Col } from 'react-bootstrap';
+import { Card, Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { utcConverter } from '../utils/date/Date';
 import { useParams } from 'react-router';
-import { getUserCommunities } from '../utils/api/community';
-import { selectCommunities } from '../store/community/community.selector';
 import { communityFetchAllStart } from '../store/community/community.action';
+import { selectCommunities } from '../store/community/community.selector';
+import { getUserCommunities } from '../utils/api/community.api';
+import { utcConverter } from '../utils/date/Date';
 
 const UserCommunitiesTab = () => {
     const dispatch = useDispatch();

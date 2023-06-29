@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { Button, Row, Col } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import { XCircle } from 'react-bootstrap-icons';
-import { useParams, useNavigate } from "react-router";
-import { deleteChat, getChats } from "../utils/api/chat";
+import { useNavigate, useParams } from "react-router";
+import { deleteChat, getChats } from "../utils/api/chat.api";
 
 const ChatPanel = () => {
     const navigate = useNavigate();

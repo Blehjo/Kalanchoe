@@ -1,15 +1,15 @@
-import { takeLatest, put, all, call } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 
 import { COMMENT_ACTION_TYPES } from './comment.types';
 
 import {
-    commentCreateSuccess,
-    commentCreateFailed,
-    commentFetchAllFailed,
-    commentFetchAllSuccess,
+  commentCreateFailed,
+  commentCreateSuccess,
+  commentFetchAllFailed,
+  commentFetchAllSuccess,
 } from './comment.action';
 
-import { addComment, getSingleComment, getComments } from '../../utils/api/comment';
+import { addComment, getComments, getSingleComment } from '../../utils/api/comment.api';
 
 export function* getSnapshotFromComment(comment, additionalDetails) {
     try {

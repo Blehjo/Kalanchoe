@@ -1,12 +1,12 @@
 ﻿import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
 import { Col, Nav, Row } from "react-bootstrap";
-import { Collection, House, Database, Eye, Clipboard, Bookmark, ChatDots, Person, PersonWorkspace, Newspaper, Robot } from 'react-bootstrap-icons';
+import { Bookmark, ChatDots, Clipboard, Collection, Database, Eye, House, Newspaper, Person, PersonWorkspace, Robot } from 'react-bootstrap-icons';
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 import { communityFetchAllStart } from "../store/community/community.action";
 import { selectCommunities } from "../store/community/community.selector";
-import { getUserCommunities } from "../utils/api/community";
-import { getUser } from "../utils/userDocument";
+import { getUserCommunities } from "../utils/api/community.api";
+import { getUser } from "../utils/api/userDocument";
 
 const SidebarOverlay = () => {
     const navigate = useNavigate();

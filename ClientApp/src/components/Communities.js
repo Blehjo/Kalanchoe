@@ -1,10 +1,10 @@
 ﻿import { Fragment, useEffect, useState } from "react";
+import { Button, Card, Col, Form, Modal, Row } from 'react-bootstrap';
+import { Plus } from 'react-bootstrap-icons';
 import { useNavigate } from "react-router-dom";
-import { XCircle, Plus, ArrowRight } from 'react-bootstrap-icons';
-import { Modal, Form, Button, Col, Row, Card } from 'react-bootstrap';
-import { addCommunity, getCommunities, deleteCommunity } from "../utils/api/community";
+import { addCommunity, deleteCommunity, getCommunities } from "../utils/api/community.api";
+import { addMember } from "../utils/api/member.api";
 import ModalDelete from "./ModalDelete";
-import { addMember } from "../utils/api/member";
 
 const defaultFormFields = {
     groupName: '',

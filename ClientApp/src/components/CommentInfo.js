@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { Card, Col, Modal, Row } from "react-bootstrap";
+import { Eye } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { commentFetchAllStart } from "../store/comment/comment.action";
 import { selectComments } from "../store/comment/comment.selector";
-import { getSingleComment } from "../utils/api/comment";
+import { getSingleComment } from "../utils/api/comment.api";
 import { utcConverter } from "../utils/date/Date";
 import ImageModal from "./ImageModal";
 import UserInfo from "./UserInfo";
-import { Eye } from "react-bootstrap-icons";
 
 const CommentInfo = ({ postId }) => {
     const dispatch = useDispatch();

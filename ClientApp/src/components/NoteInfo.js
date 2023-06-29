@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getPanelNotes } from "../utils/api/note";
+import { getPanelNotes } from "../utils/api/note.api";
 
 const NoteInfo = ({ panelId }) => {
     const [notes, setNotes] = useState([]);

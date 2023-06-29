@@ -1,16 +1,15 @@
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
+import { DragDropContext } from "react-beautiful-dnd";
 import { Button, Col, Row } from "react-bootstrap";
 import { Plus } from 'react-bootstrap-icons';
-import styled from "styled-components";
-import { DragDropContext } from "react-beautiful-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from 'react-router';
+import styled from "styled-components";
 
-import DraggableElement from "./DraggableElement";
-import { getSinglePanel } from "../utils/api/panel";
-import { selectPanelItems } from "../store/panel/panel.selector";
 import { panelFetchAllStart } from "../store/panel/panel.action";
-import { addPanel } from "../utils/api/panel";
+import { selectPanelItems } from "../store/panel/panel.selector";
+import { addPanel, getSinglePanel } from "../utils/api/panel.api";
+import DraggableElement from "./DraggableElement";
 import ModalSubmit from "./ModalSubmit";
 
 const DragDropContextContainer = styled.div`

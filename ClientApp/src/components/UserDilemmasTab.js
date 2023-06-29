@@ -1,16 +1,15 @@
-import { Fragment, useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
-import axios from 'axios';
 
-import { utcConverter } from '../utils/date/Date';
-import { useParams } from 'react-router';
-import { getUserPanelsProfile } from '../utils/api/panel';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectPanelItems } from '../store/panel/panel.selector';
-import { panelFetchAllStart } from '../store/panel/panel.action';
-import { getPanelNotes } from '../utils/api/note';
+import { useParams } from 'react-router';
 import { noteFetchAllStart } from '../store/note/note.action';
 import { selectNoteItems } from '../store/note/note.selector';
+import { panelFetchAllStart } from '../store/panel/panel.action';
+import { selectPanelItems } from '../store/panel/panel.selector';
+import { getPanelNotes } from '../utils/api/note.api';
+import { getUserPanelsProfile } from '../utils/api/panel.api';
+import { utcConverter } from '../utils/date/Date';
 
 import NoteInfo from './NoteInfo';
 
