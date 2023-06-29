@@ -231,3 +231,7 @@ _Pvt_Extensions
 # FAKE - F# Make
 .fake/
 
+
+appsettings.Development.json
+appsettings.json
+package-lock.json

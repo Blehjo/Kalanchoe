@@ -26,3 +26,10 @@ yarn-error.log*
 aspnetcore-https.js
 aspnetcore-react.js
 package-lock.json
+serviceWorkerRegistration.js
+service-worker.js
+reportWebVitals.js
+setupProxy.js
+
+appsettings.Development.json
+appsettings.json
